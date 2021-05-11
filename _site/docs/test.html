@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DunkPay.com</title>
+
+  	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<script type="text/javascript" src="/dunkpay.js"></script>
+
+	<script type="text/javascript">
+		
+		function sell(mode) {
+			var dunkpay = new Dunkpay(mode)
+			dunkpay.type = "BTC"
+
+			dunkpay.address = "1Lc1jhXdsB7t1XpTdNbrchnxKQide9tMia"
+			
+			if(mode == "testnet")
+				dunkpay.address = "mgwh94NEpdU97zQRGBrui7qRcgocBWheri"
+
+			dunkpay.amount = 0.001 
+
+			dunkpay.shot(function(err,result){
+				 if(err)
+				 {
+				  alert("Something is wrong." + err)
+				  return
+				 }
+				 else{ 
+				 alert("Payment is success." + result.transactionId)	
+				 }			
+			})
+		}
+
+
+		function sellInDollars(mode) {
+			var dunkpay = new Dunkpay(mode)
+			dunkpay.type = "BCH"
+			dunkpay.address = "19zgnCTYzq1eww1JpGCi5ZSvFPiCC7fVHa"
+
+			if(mode == "testnet")
+				dunkpay.address = "qra0g6nweexh46xkt5hjvnur26u2mq9zxy855q48vj"
+
+			dunkpay.itemName = "Bascketball🏀"
+			dunkpay.currency = "USD" 
+			dunkpay.amount = 2 // 2dollars
+			dunkpay.invoiceMail = "dunkpay.com@gmail.com"
+
+			dunkpay.shot(function(err,result){
+				 if(err)
+				 {
+				  alert("Something is wrong." + err)
+				  return
+				 } 
+				 else{ 
+				 alert("Payment is success." + result.transactionId)	
+				 }						
+			})
+		}
+
+		function sellWithEscrow(mode) {
+			var dunkpay = new Dunkpay(mode)
+			dunkpay.type = "ETH"
+			dunkpay.address = "0xeB97444a0f0781890b8e7e317FCB0853a46880E6"
+			dunkpay.itemName = "겔럭시9"
+			dunkpay.amount = 0.1 // 0.1 ETH  
+			dunkpay.customLogo = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" 
+			dunkpay.customColor = "ffa54f"
+			dunkpay.customUrl = "https://google.com"
+
+			dunkpay.shot(function(err,result){
+			 if(err)
+			 {
+			  alert("Something is wrong." + err)
+			 } 
+			 else{ 
+			 alert("Payment is success." + result.transactionId)	
+			 }				
+			})
+		}
+
+		function sellWithXRP(mode) {
+			var dunkpay = new Dunkpay(mode)
+			dunkpay.type = "XRP"
+			dunkpay.itemName = "RIP"
+			dunkpay.address = "rp2diYfVtpbgEMyaoWnuaWgFCAkqCAEg28"
+			dunkpay.destinationTag = "1017911454"
+			dunkpay.selfClose = true
+			dunkpay.amount = 0.01 // 0.01 XRP  
+
+			dunkpay.shot(function(err,result){
+			 if(err)
+			 {
+			  alert("Something is wrong." + err)
+			 } 
+			 else{ 
+			 alert("Payment is success." + result.transactionId)	
+			 }				
+			})
+		}
+
+		function sellWithDNK(mode) {
+			var dunkpay = new Dunkpay(mode)
+			dunkpay.type = "DNK"
+			dunkpay.itemName = "🏀🏀🏀🏀🏀"
+			dunkpay.address = "0xeB97444a0f0781890b8e7e317FCB0853a46880E6"
+			dunkpay.amount = 0.01 // 0.01 DNK
+
+			var link = dunkpay.getLink()
+			alert(link)
+			
+			dunkpay.shot(function(err,result){
+			 if(err)
+			 {
+			  alert("Something is wrong." + err)
+			 } 
+			 else{ 
+			 alert("Payment is success." + result.transactionId)	
+			 }				
+			})
+		}
+
+	</script>
+</head>
+
+<style type="text/css">
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin : 5px;
+    width : 300px;
+}	
+.button1 {background-color: #4CAF50;} /* Green */
+.button2 {background-color: #008CBA;} /* Blue */
+.button3 {background-color: #f44336;} /* Red */ 
+</style>
+
+<body>
+	<br>
+	<h3>DunkPay.com - Click the button for testing.</h3>
+
+	<br>
+
+	<h3>For Testnet</h3>
+	<br> Basic selling : <br>
+	<button class="button button1" onclick="sell('testnet')">Bitcoin</button>
+	<br> Selling with Dollars : <br>
+	<button class="button button2" onclick="sellInDollars('testnet')">Bitcoin cash</button>
+	<br> For sell with customize option : <br>
+	<button class="button button3" onclick="sellWithEscrow('testnet')">Ethereum</button>
+	<br> For sell with destination tag : <br>
+	<button class="button button1" onclick="sellWithXRP('testnet')">Ripple</button>
+	<br> Get shortcut link for sell : <br>
+	<button class="button button2" onclick="sellWithDNK('testnet')">DunkPay</button>
+
+	<br>
+	<br>
+
+	<h3>For Livenet</h3>
+	<br> Basic selling : <br>
+	<button class="button button1" onclick="sell()">Bitcoin</button>
+	<br> Selling with Dollars : <br> 
+	<button class="button button2" onclick="sellInDollars()">Bitcoin cash</button>
+	<br> For sell with customize options : <br>
+	<button class="button button3" onclick="sellWithEscrow()">Ethereum</button>
+	<br> For sell with destination tag : <br>
+	<button class="button button1" onclick="sellWithXRP()">Ripple</button>
+	<br> Get shortcut link for sell : <br>
+	<button class="button button2" onclick="sellWithDNK()">DunkPay</button>
+
+</body>
+
+</html>
