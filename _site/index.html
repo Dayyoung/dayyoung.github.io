@@ -29,13 +29,13 @@
       <h1 class="project-name">DogeBell.com</h1>
       <h2 class="project-tagline">Javascript library for cryptocurrency payment.</h2>
       <!--  -->
-        <!-- <a href="https://github.com/Dayyoung/dunkpay" class="btn">View on GitHub</a> -->
+        <!-- <a href="https://github.com/Dayyoung/dogebell" class="btn">View on GitHub</a> -->
       
       
-        <!-- <a href="https://github.com/Dayyoung/dunkpay" class="btn">View on GitHub</a> -->
-        <a href="https://www.dunkpay.com/token" class="btn">DunkPay Token (ERC20)</a>
-        <!--  <a href="https://github.com/Dayyoung/dunkpay/zipball/gh-pages" class="btn">WHITE PAPER</a> -->
-        <!-- <a href="https://github.com/Dayyoung/dunkpay/tarball/gh-pages" class="btn">Download .tar.gz</a> -->
+        <!-- <a href="https://github.com/Dayyoung/dogebell" class="btn">View on GitHub</a> -->
+        <a href="https://www.dogebell.com/token" class="btn">DunkPay Token (ERC20)</a>
+        <!--  <a href="https://github.com/Dayyoung/dogebell/zipball/gh-pages" class="btn">WHITE PAPER</a> -->
+        <!-- <a href="https://github.com/Dayyoung/dogebell/tarball/gh-pages" class="btn">Download .tar.gz</a> -->
       
     </section>
 
@@ -52,34 +52,34 @@ Transactions are guaranteed by blockchain method.</p>
 <h1 id="installation">INSTALLATION</h1>
 <p>Include script on your site.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript" src="https://www.dunkpay.com/dunkpay.js"&gt;&lt;/script&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript" src="https://www.dogebell.com/dogebell.js"&gt;&lt;/script&gt;
 </code></pre></div></div>
 
 <h1 id="usage">USAGE</h1>
 
 <p>For sell ​​with bitcoin (BTC)</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "BTC"
-dunkpay.address = "1Lc1jhXdsB7t1XpTdNbrchnxKQide9tMia"
-dunkpay.amount = 0.001 // 0.001 BTC
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dogebell = new DogeBell()
+dogebell.type = "BTC"
+dogebell.address = "1Lc1jhXdsB7t1XpTdNbrchnxKQide9tMia"
+dogebell.amount = 0.001 // 0.001 BTC
 
-dunkpay.shot()
+dogebell.shot()
 </code></pre></div></div>
 
 <h1 id="advance-usage">ADVANCE USAGE</h1>
 
 <p>For sell ​​in dollars (BCH)</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "BCH"
-dunkpay.address = "19zgnCTYzq1eww1JpGCi5ZSvFPiCC7fVHa"
-dunkpay.itemName = "Bascketball🏀"
-dunkpay.currency = "USD" 
-dunkpay.amount = 2 // 2dollars
-dunkpay.invoiceMail = "dunkpay.com@gmail.com"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dogebell = new DogeBell()
+dogebell.type = "BCH"
+dogebell.address = "19zgnCTYzq1eww1JpGCi5ZSvFPiCC7fVHa"
+dogebell.itemName = "Bascketball🏀"
+dogebell.currency = "USD" 
+dogebell.amount = 2 // 2dollars
+dogebell.invoiceMail = "dogebell.com@gmail.com"
 
-dunkpay.shot(function(err,result){
+dogebell.shot(function(err,result){
  if(err)
  {
   alert("Something is wrong." + err)
@@ -90,16 +90,16 @@ dunkpay.shot(function(err,result){
 
 <p>For sell with customize options (ETH)</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "ETH"
-dunkpay.address = "0xeB97444a0f0781890b8e7e317FCB0853a46880E6"
-dunkpay.itemName = "겔럭시9"
-dunkpay.amount = 0.1 // 0.1 ETH  
-dunkpay.customLogo = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" 
-dunkpay.customColor="FF0000" // RED
-dunkpay.customUrl = "https://google.com"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dogebell = new DogeBell()
+dogebell.type = "ETH"
+dogebell.address = "0xeB97444a0f0781890b8e7e317FCB0853a46880E6"
+dogebell.itemName = "겔럭시9"
+dogebell.amount = 0.1 // 0.1 ETH  
+dogebell.customLogo = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" 
+dogebell.customColor="FF0000" // RED
+dogebell.customUrl = "https://google.com"
 
-dunkpay.shot(function(err,result){
+dogebell.shot(function(err,result){
  if(err)
  {
   alert("Something is wrong." + err)
@@ -110,15 +110,15 @@ dunkpay.shot(function(err,result){
 
 <p>For sell with destination Tag (XRP)</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "XRP"
-dunkpay.itemName = "R.I.P"
-dunkpay.address = "rp2diYfVtpbgEMyaoWnuaWgFCAkqCAEg28"
-dunkpay.amount = 0.01 // 0.01 XRP  
-dunkpay.destinationTag = "1017911454"
-dunkpay.selfClose = true
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dogebell = new DogeBell()
+dogebell.type = "XRP"
+dogebell.itemName = "R.I.P"
+dogebell.address = "rp2diYfVtpbgEMyaoWnuaWgFCAkqCAEg28"
+dogebell.amount = 0.01 // 0.01 XRP  
+dogebell.destinationTag = "1017911454"
+dogebell.selfClose = true
 
-dunkpay.shot(function(err,result){
+dogebell.shot(function(err,result){
  if(err)
  {
   alert("Something is wrong." + err)
@@ -129,13 +129,13 @@ dunkpay.shot(function(err,result){
 
 <p>Get shortcut link for sell (DNK)</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "DNK"
-dunkpay.itemName = "🧚🧚🧚🧚🧚"
-dunkpay.address = "0xeB97444a0f0781890b8e7e317FCB0853a46880E6"
-dunkpay.amount = 0.01 // 0.01 XRP  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dogebell = new DogeBell()
+dogebell.type = "DNK"
+dogebell.itemName = "🧚🧚🧚🧚🧚"
+dogebell.address = "0xeB97444a0f0781890b8e7e317FCB0853a46880E6"
+dogebell.amount = 0.01 // 0.01 XRP  
 
-var link = dunkpay.getLink()
+var link = dogebell.getLink()
 alert(link)
 </code></pre></div></div>
 
@@ -212,7 +212,7 @@ alert(link)
 </ul>
 
 <h1 id="testnet">TESTNET</h1>
-<p>Initialize <code class="language-plaintext highlighter-rouge">new dunkpay('testnet')</code> for testing.</p>
+<p>Initialize <code class="language-plaintext highlighter-rouge">new dogebell('testnet')</code> for testing.</p>
 
 <table>
   <thead>
@@ -256,9 +256,9 @@ alert(link)
 
       <footer class="site-footer">
         
-          <span class="site-footer-owner"><a href="https://github.com/Dayyoung/dunkpay">dunkpay</a> is maintained by <a href="https://github.com/Dayyoung">Greg You</a>.</span>
+          <span class="site-footer-owner"><a href="https://github.com/Dayyoung/dogebell">dogebell</a> is maintained by <a href="https://github.com/Dayyoung">Greg You</a>.</span>
         
-        <span class="site-footer-credits">© 2021 <a href="https://www.dunkpay.com">DogeBell.com</a> ALL RIGHTS RESERVED.</span>
+        <span class="site-footer-credits">© 2021 <a href="https://www.dogebell.com">DogeBell.com</a> ALL RIGHTS RESERVED.</span>
       </footer>
     </section>
 
