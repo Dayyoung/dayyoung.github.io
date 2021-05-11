@@ -1,6 +1,6 @@
-# DunkPay.com
+# DogeBell.com
 
-DunkPay.com is the service for users who want to pay with cryptocurrency.
+DogeBell.com is the service for users who want to pay with cryptocurrency.
 Create a link, copy it and sell what you want.
 As soon as transaction is completed, confirmation process starts immediately
 Transactions are guaranteed by blockchain method.

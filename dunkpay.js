@@ -1,10 +1,10 @@
  /* 
  DunkPay JavaScript Library 
- https://www.DunkPay.com
+ https://www.DogeBell.com
  
  Copyright 2018, Greg You
  Dual licensed under the MIT or GPL Version 2 licenses.
- Visit https://www.DunkPay.com/license 
+ Visit https://www.DogeBell.com/license 
  */
 
 var PREFIX = "https://www.dunkpay.com/"
@@ -28,7 +28,7 @@ Dunkpay.prototype.shot = function(callback)
 
   var PREFIX = "https://www.dunkpay.com/"
 
-  var popup = window.open(PREFIX+this.type+jsonToQueryString(this), "DunkPay.com", "width=500, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );    
+  var popup = window.open(PREFIX+this.type+jsonToQueryString(this), "DogeBell.com", "width=500, height=700, toolbar=no, menubar=no, scrollbars=no, resizable=yes" );    
 
   popup.focus()
 }
