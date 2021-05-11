@@ -1,8 +1,8 @@
 title: DogeBell.com
-description: Javascript library for cryptocurrency payment.
+description: Doge Everywhere.
 google_analytics: 
 theme: jekyll-theme-cayman
-repository: 'Dayyoung/dunkpay'
-github:
-repository_url: https://github.com/Dayyoung/dunkpay
+repository: 'Dayyoung/dogebell'
+github: https://github.com/Dayyoung/dogebell
+repository_url: https://github.com/Dayyoung/dogebell
 show_downloads: true
