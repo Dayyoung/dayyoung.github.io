@@ -13,8 +13,8 @@ var dojichart = new DojiChart.core.Chart(document.getElementById("my-dojichart")
 
 // Candlestick layer
 var candle_layer = new DojiChart.layer.CandleLayer({
-  bearBodyColor: "red",
-  bullBodyColor: "blue",
+  bearBodyColor: "blue",
+  bullBodyColor: "red",
 });
 
 // Price chart panel
@@ -74,7 +74,7 @@ var data_arr = [
   {"t":"06:35","o":1.06629,"h":1.06641,"l":1.06622,"c":1.06632,"v":91},
   {"t":"06:40","o":1.06634,"h":1.06641,"l":1.06621,"c":1.06621,"v":147},
   {"t":"06:45","o":1.0662,"h":1.06643,"l":1.0662,"c":1.0664,"v":94},
-  {"t":"06:50","o":1.06642,"h":1.06673,"l":1.06638,"c":1.0667,"v":124}
+  {"t":"06:50","o":1.0662,"h":1.06673,"l":1.06638,"c":1.0667,"v":124}
 ];
 
 function shuffle(array) {
@@ -103,10 +103,10 @@ setInterval(function() {
 
   //data_arr = shuffle(data_arr);
 
-const rand1 = 1.066 + Math.random() * 0.0005;
-const rand2 = 1.066 + Math.random() * 0.0005;
-const rand3 = 1.066 + Math.random() * 0.0005;
-const rand4 = 1.066 + Math.random() * 0.0005;
+const rand1 = 1.0664 + Math.random() * 0.0001;
+const rand2 = 1.0664 + Math.random() * 0.0001;
+const rand3 = 1.0664 - Math.random() * 0.0001;
+const rand4 = 1.0664 - Math.random() * 0.0001;
 
 console.log(rand1)
 console.log(rand2)

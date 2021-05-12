@@ -17,6 +17,10 @@
   <script src="/assets/js/scripts.js"></script>
   <script type="text/javascript">
 
+    $.get( "https://min-api.cryptocompare.com/data/price?fsym=DOGE&tsyms=USD", function( data ) {
+      $( "#dogePrice" ).html( data.USD );
+    });
+
   </script>
 
   <link rel="stylesheet" href="/assets/css/dojichart.css"/>
@@ -69,8 +73,9 @@
      <br>
      <img src="/assets/img/dogebell-title.png" width="50%" height="50%" style="max-width: 500px;">
      <br>
-<!--      <h3>- To the moon. -</h3> -->
-      
+
+<h3>Doge Price :  $ <span id="dogePrice"></span> </h3> 
+
 <input class="moonButton" value="To The Moon!" aria-label="To The Moon!" name="btnK" type="button">
 
 
@@ -88,10 +93,19 @@
     <script type="text/javascript" src="/assets/js/helloworld.js"></script>
 
 
-<footer class="site-footer" style="margin-left: 20px;">
+<footer class="site-footer" style="margin: 20px;">
+
+<center>
   <span class="site-footer-credits">© 2021 <a href="https://dogebell.com">DogeBell.com</a> ALL RIGHTS RESERVED.</span>
-  <br>
-  <br>
+
+<div>
+  <span style="">Donation : </span>
+  <a href="https://dogechain.info/address/DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A">
+  <img style="vertical-align:middle" src="/assets/img/dogeaccept.png" width="20%" height="20%" style="max-width: 200px;">
+  </a>
+</div>
+</center>
+
 </footer>
 
 
