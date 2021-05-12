@@ -108,10 +108,10 @@ const rand2 = 1.0664 + Math.random() * 0.0001;
 const rand3 = 1.0664 - Math.random() * 0.0001;
 const rand4 = 1.0664 - Math.random() * 0.0001;
 
-console.log(rand1)
-console.log(rand2)
-console.log(rand3)
-console.log(rand4)
+// console.log(rand1)
+// console.log(rand2)
+// console.log(rand3)
+// console.log(rand4)
 
   data_arr.pop()
   

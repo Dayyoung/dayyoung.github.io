@@ -13,19 +13,27 @@
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   <link rel="apple-touch-icon-precomposed" href="152.png">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="/assets/js/particles.js"></script>
-  <script src="/assets/js/scripts.js"></script>
   <script type="text/javascript">
-    
+
+    var dogePrice = 0.5
+
     $.get( "https://min-api.cryptocompare.com/data/price?fsym=DOGE&tsyms=USD", function( data ) {
-      $( "#dogePrice" ).html( data.USD );
+      dogePrice = data.USD
+      $( "#dogePrice" ).html(dogePrice.toFixed(4));
     });
 
     setInterval(function() {
+        var randomValue = Math.random() * 0.0005
+        //console.log(randomValue)
+        dogeRandomPrice = dogePrice + randomValue
+        $( "#dogePrice" ).html(dogeRandomPrice.toFixed(4));
+    }, 300);
+
+    setInterval(function() {
       $.get( "https://min-api.cryptocompare.com/data/price?fsym=DOGE&tsyms=USD", function( data ) {
-        $( "#dogePrice" ).html( data.USD );
+        dogePrice = data.USD
       });
-    }, 3000);
+    }, 30000);
 
   </script>
 
