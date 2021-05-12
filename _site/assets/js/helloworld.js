@@ -8,22 +8,13 @@ var dojichart = new DojiChart.core.Chart(document.getElementById("my-dojichart")
     high: "h",
     low: "l",
     close: "c",
-  },
-  crosshair: true
+  }
 });
-
-// Create a chart panel in the region named 'price'
-// var price_chart_panel = new DojiChart.panel.TimeValuePanel({
-//   primaryLayer: new DojiChart.layer.CandleLayer(),
-//   height: 200,
-//   grid: true
-// });
-
 
 // Candlestick layer
 var candle_layer = new DojiChart.layer.CandleLayer({
   bearBodyColor: "red",
-  bullBodyColor: "blue"
+  bullBodyColor: "blue",
 });
 
 // Price chart panel
@@ -34,9 +25,6 @@ var price_chart_panel = new DojiChart.panel.TimeValuePanel({
 });
 
 dojichart.addComponent("price", price_chart_panel);
-
-
-//dojichart.addComponent("price", price_chart_panel);
 
 // Dummy data
 var data_arr = [
@@ -115,19 +103,19 @@ setInterval(function() {
 
   //data_arr = shuffle(data_arr);
 
-const rand1 = 1.0663;
-const rand2 = rand1 + Math.random() * 0.00008;
-const rand3 = rand1 - Math.random() * 0.00008;
-const rand4 = rand1 + Math.random() * 0.00008;
+const rand1 = 1.066 + Math.random() * 0.0005;
+const rand2 = 1.066 + Math.random() * 0.0005;
+const rand3 = 1.066 + Math.random() * 0.0005;
+const rand4 = 1.066 + Math.random() * 0.0005;
 
-console.log(rand1.toFixed(5))
-console.log(rand2.toFixed(5))
-console.log(rand3.toFixed(5))
-console.log(rand4.toFixed(5))
+console.log(rand1)
+console.log(rand2)
+console.log(rand3)
+console.log(rand4)
 
   data_arr.pop()
   
-  var data = {"t":"06:50","o":rand1.toFixed(5),"h":rand2.toFixed(5),"l":rand3.toFixed(5),"c":rand4.toFixed(5),"v":124}
+  var data = {"t":"06:50","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":124}
   data_arr.push(data)
   
   dojichart.loadData(data_arr, "EURUSD", "M5");

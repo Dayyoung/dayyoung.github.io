@@ -11,10 +11,17 @@ var dojichart = new DojiChart.core.Chart(document.getElementById("my-dojichart")
   }
 });
 
-// Create a chart panel in the region named 'price'
+// Candlestick layer
+var candle_layer = new DojiChart.layer.CandleLayer({
+  bearBodyColor: "red",
+  bullBodyColor: "blue",
+});
+
+// Price chart panel
 var price_chart_panel = new DojiChart.panel.TimeValuePanel({
-  primaryLayer: new DojiChart.layer.CandleLayer(),
-  height: 200
+  primaryLayer: candle_layer,
+  height: 250,
+  grid: true
 });
 
 dojichart.addComponent("price", price_chart_panel);
@@ -96,10 +103,10 @@ setInterval(function() {
 
   //data_arr = shuffle(data_arr);
 
-const rand1 = 1 + Math.random() * 0.01;
-const rand2 = 1 + Math.random() * 0.01;
-const rand3 = 1 + Math.random() * 0.01;
-const rand4 = 1 + Math.random() * 0.01;
+const rand1 = 1.066 + Math.random() * 0.0005;
+const rand2 = 1.066 + Math.random() * 0.0005;
+const rand3 = 1.066 + Math.random() * 0.0005;
+const rand4 = 1.066 + Math.random() * 0.0005;
 
 console.log(rand1)
 console.log(rand2)
