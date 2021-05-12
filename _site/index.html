@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
+<head>
 
-    <title>DogeBell</title>
-    <meta charset="UTF-8">
+  <title>DogeBell</title>
+  <meta charset="UTF-8">
 
-<!-- Begin Jekyll SEO tag v2.7.1 -->
+  <!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>DogeBell.com | dogebell</title>
 <meta name="generator" content="Jekyll v3.9.0" />
 <meta property="og:title" content="DogeBell.com" />
@@ -19,263 +19,93 @@
 {"url":"http://localhost:4000/","name":"dogebell","headline":"DogeBell.com","@type":"WebSite","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#1e130c">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="/assets/css/style.css?v=">
 
-    <link rel="apple-touch-icon-precomposed" href="152.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1e130c">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/assets/css/style.css?v=">
+  <link rel="apple-touch-icon-precomposed" href="152.png">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/assets/js/particles.js"></script>
+  <script src="/assets/js/scripts.js"></script>
+  <script type="text/javascript">
 
+  </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="/assets/js/particles.js"></script>
-    <script src="/assets/js/scripts.js"></script>
+  <link rel="stylesheet" href="/assets/css/dojichart.css"/>
+  <style>
+    .box {
+      width: 360px;
+      border: 6px solid #ddd;
+      border-radius: 6px;
+    }
 
-    <script type="text/javascript">
+    .moonButton {
+    background-color: #f8f9fa;
+    border: 1px solid #f8f9fa;
+    border-radius: 4px;
+    color: #3c4043;
+    font-family: 'Apple SD Gothic Neo',arial,sans-serif;
+    font-size: 14px;
+    margin: 11px 4px;
+    padding: 0 16px;
+    line-height: 27px;
+    height: 36px;
+    min-width: 54px;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    }
+
+#particles-js {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  background-image: url("");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+  z-index: -1000
+}
+
+  </style>
+  <script type="text/javascript" src="/assets/js/dojichart.js"></script>
+
+</head>
+<body style="min-width: 500px;">
+
+    <center>
+
+     <br>
+     <img src="/assets/img/dogebell-title.png" width="50%" height="50%" style="max-width: 500px;">
+     <br>
+<!--      <h3>- To the moon. -</h3> -->
       
-    </script>
+     <input class="moonButton" value="To The Moon!" aria-label="To The Moon!" name="btnK" type="button">
 
 
-  </head>
-  <body>
+      <br>
+      <div class="box">
 
-<!-- <div id="particles"><canvas class="particles-js-canvas-el" width="100%" height="400" style="width: 100%; height: 100%;"></canvas>
+        <div class="dojichart" id="my-dojichart">
+          <div class="region" data-name="price"></div>
+        </div>
 
-</div> -->
+      </div>
 
-    <section class="page-header">
-      <h1 class="project-name">dogebell</h1>
-      <h2 class="project-tagline"></h2>
-      <!-- 
-      
-        <!-- <a href="https://github.com/Dayyoung/dunkpay" class="btn">View on GitHub</a> -->
-        <a href="https://www.dunkpay.com/token" class="btn">DunkPay Token (ERC20)</a>
-        <!--  <a href="" class="btn">WHITE PAPER</a> -->
-        <!-- <a href="" class="btn">Download .tar.gz</a> -->
-      
-    </section>
+    </center>
 
-    <section class="main-content">
-      <h1 id="dogebellcom">DogeBell.com</h1>
-
-<p>DogeBell.com is the service for users who want to pay with cryptocurrency.
-Create a link, copy it and sell what you want.
-As soon as transaction is completed, confirmation process starts immediately
-Transactions are guaranteed by blockchain method.</p>
-
-<p>“Play ball. Make your dream.”</p>
-
-<h1 id="installation">INSTALLATION</h1>
-<p>Include script on your site.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;script type="text/javascript" src="https://www.dunkpay.com/dunkpay.js"&gt;&lt;/script&gt;
-</code></pre></div></div>
-
-<h1 id="usage">USAGE</h1>
-
-<p>For sell ​​with bitcoin (BTC)</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "BTC"
-dunkpay.address = "1Lc1jhXdsB7t1XpTdNbrchnxKQide9tMia"
-dunkpay.amount = 0.001 // 0.001 BTC
-
-dunkpay.shot()
-</code></pre></div></div>
-
-<h1 id="advance-usage">ADVANCE USAGE</h1>
-
-<p>For sell ​​in dollars (BCH)</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "BCH"
-dunkpay.address = "19zgnCTYzq1eww1JpGCi5ZSvFPiCC7fVHa"
-dunkpay.itemName = "Bascketball🏀"
-dunkpay.currency = "USD" 
-dunkpay.amount = 2 // 2dollars
-dunkpay.invoiceMail = "dunkpay.com@gmail.com"
-
-dunkpay.shot(function(err,result){
- if(err)
- {
-  alert("Something is wrong." + err)
- } 
- alert("Payment is success." + result)		
-})
-</code></pre></div></div>
-
-<p>For sell with customize options (ETH)</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "ETH"
-dunkpay.address = "0xeB97444a0f0781890b8e7e317FCB0853a46880E6"
-dunkpay.itemName = "겔럭시9"
-dunkpay.amount = 0.1 // 0.1 ETH  
-dunkpay.customLogo = "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" 
-dunkpay.customColor="FF0000" // RED
-dunkpay.customUrl = "https://google.com"
-
-dunkpay.shot(function(err,result){
- if(err)
- {
-  alert("Something is wrong." + err)
- } 
- alert("Payment is success." + result)			
-})
-</code></pre></div></div>
-
-<p>For sell with destination Tag (XRP)</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "XRP"
-dunkpay.itemName = "R.I.P"
-dunkpay.address = "rp2diYfVtpbgEMyaoWnuaWgFCAkqCAEg28"
-dunkpay.amount = 0.01 // 0.01 XRP  
-dunkpay.destinationTag = "1017911454"
-dunkpay.selfClose = true
-
-dunkpay.shot(function(err,result){
- if(err)
- {
-  alert("Something is wrong." + err)
- } 
- alert("Payment is success." + result)			
-})
-</code></pre></div></div>
-
-<p>Get shortcut link for sell (DNK)</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var dunkpay = new Dunkpay()
-dunkpay.type = "DNK"
-dunkpay.itemName = "🧚🧚🧚🧚🧚"
-dunkpay.address = "0xeB97444a0f0781890b8e7e317FCB0853a46880E6"
-dunkpay.amount = 0.01 // 0.01 XRP  
-
-var link = dunkpay.getLink()
-alert(link)
-</code></pre></div></div>
-
-<h1 id="option">OPTION</h1>
-
-<p><strong>type (Required*)</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">type</code> - The type of cryptocurrency. We support BTC/BCH/ETH/XRP/DNK.</li>
-</ul>
-
-<p><strong>address (Required*)</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">address</code> - Owned by you. When the coin is deposited, it will be sent to this address.</li>
-</ul>
-
-<p><strong>amount (Required*)</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">amount</code> - Price that you want to get. The default unit of amount is BTC/BCH/ETH/XRP/DNK.</li>
-</ul>
-
-<p><strong>currency</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">currency</code> - The unit of currency that you want to sell price. <a href="https://blockchain.info/api/exchange_rates_api">For support currency see.</a></li>
-</ul>
-
-<p><strong>itemName</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">itemName</code> - It will be described on your product. It supports UTF-8 encoded character.</li>
-</ul>
-
-<p><strong>invoiceMail</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">invoiceMail</code> - InvoiceMail will send it to you when your transaction is completed. If you cannot receive any mail , please check you spam mailbox.</li>
-</ul>
-
-<p><strong>redirectUrl</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">redirectUrl</code> - It is url destination to move page when your transaction is completed.</li>
-</ul>
-
-<p><strong>notificationUrl</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">notificationUrl</code> - It is place where your server can receive request when your transaction is completed. Whole query string will be return.</li>
-</ul>
-
-<p><strong>customLogo</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">customLogo</code> - It is a customized logo. Allow external image URL.</li>
-</ul>
-
-<p><strong>customColor</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">customColor</code> - It is a customized color for invoice design. Allow Hex color code.</li>
-</ul>
-
-<p><strong>customUrl</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">customUrl</code> - It is the URL that will be moved when the logo is clicked.</li>
-</ul>
-
-<p><strong>getLink()</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">getLink()</code> - Create a shortcut link for selling.</li>
-</ul>
-
-<p><strong>destinationTag</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">destinationTag</code> - It is the field for destination tag. (Ripple only)</li>
-</ul>
-
-<p><strong>selfClose</strong></p>
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">selfClose</code> - After the transaction is completed, the pop-up closes itself.</li>
-</ul>
-
-<h1 id="testnet">TESTNET</h1>
-<p>Initialize <code class="language-plaintext highlighter-rouge">new dunkpay('testnet')</code> for testing.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Cryptocurrency</th>
-      <th>Support</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>BTC</td>
-      <td>TESTNET <a href="https://test-insight.bitpay.com">(https://test-insight.bitpay.com)</a></td>
-    </tr>
-    <tr>
-      <td>BCH</td>
-      <td>TESTNET <a href="https://test-bch-insight.bitpay.com">(https://test-bch-insight.bitpay.com)</a></td>
-    </tr>
-    <tr>
-      <td>ETH</td>
-      <td>ROPSTEN <a href="https://ropsten.etherscan.io">(https://ropsten.etherscan.io)</a></td>
-    </tr>
-    <tr>
-      <td>XRP</td>
-      <td>TESTNET <a href="https://ripple.com/build/xrp-test-net">(https://ripple.com/build/xrp-test-net)</a></td>
-    </tr>
-    <tr>
-      <td>DNK</td>
-      <td>ROPSTEN <a href="https://ropsten.etherscan.io">(https://ropsten.etherscan.io)</a></td>
-    </tr>
-  </tbody>
-</table>
-
-<h1 id="testing">TESTING</h1>
-<p><a href="/docs/test.html">Click here for testing : /docs/test.html</a></p>
-
-<p><a href="mailto:dryudryu@gmail.com">Click here for contacting : dryudryu@gmail.com</a></p>
-
-<h1 id="license">LICENSE</h1>
-<p><a href="https://www.mozilla.org/MPL/2.0/">MPL-2.0</a></p>
+    <script type="text/javascript" src="/assets/js/helloworld.js"></script>
 
 
-      <footer class="site-footer">
-        
-        <span class="site-footer-credits">© 2018 <a href="https://www.dunkpay.com">DogeBell.com</a> ALL RIGHTS RESERVED.</span>
-      </footer>
-    </section>
+<footer class="site-footer" style="margin-left: 20px;">
+  <span class="site-footer-credits">© 2021 <a href="https://dogebell.com">DogeBell.com</a> ALL RIGHTS RESERVED.</span>
+  <br>
+  <br>
+</footer>
 
-    
-  </body>
+
+
+</body>
 </html>
