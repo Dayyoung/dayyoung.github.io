@@ -15,25 +15,81 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script type="text/javascript">
 
-    var dogePrice = 0.5
+    var TOTALDOGE = 1
+    var CURRENCY = "USD";
+    var UNIT = "$";
+    var dogePrice = 0.0
 
-    $.get( "https://min-api.cryptocompare.com/data/price?fsym=DOGE&tsyms=USD", function( data ) {
-      dogePrice = data.USD
-      $( "#dogePrice" ).html(dogePrice.toFixed(4));
+    $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies="+CURRENCY, function( data ) {
+        
+        var firstItem = data[Object.keys(data)[0]];
+        firstItem = firstItem[Object.keys(firstItem)[0]]
+        //alert(firstItem)
+        dogePrice = firstItem
+
+      $( "#dogeCount" ).html(TOTALDOGE);
+      $( "#unit" ).html(UNIT);
+      $( "#dogePrice" ).html((TOTALDOGE * dogePrice).toFixed(4));
     });
 
     setInterval(function() {
-        var randomValue = Math.random() * 0.0005
+      var randomValue = Math.random() * 0.0005
         //console.log(randomValue)
         dogeRandomPrice = dogePrice + randomValue
-        $( "#dogePrice" ).html(dogeRandomPrice.toFixed(4));
-    }, 300);
+      $( "#dogeCount" ).html(TOTALDOGE);
+      $( "#unit" ).html(UNIT);
+      $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(4));
+      }, 300);
 
     setInterval(function() {
-      $.get( "https://min-api.cryptocompare.com/data/price?fsym=DOGE&tsyms=USD", function( data ) {
-        dogePrice = data.USD
+      $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies="+CURRENCY, function( data ) {
+
+        var firstItem = data[Object.keys(data)[0]];
+        firstItem = firstItem[Object.keys(firstItem)[0]]
+        //alert(firstItem)
+        dogePrice = firstItem
       });
     }, 30000);
+
+
+    $(document).ready(function(){
+
+     var currencies = ["USD","EUR","KRW"]
+
+     $.get( "https://api.coingecko.com/api/v3/simple/supported_vs_currencies", function( data ) {
+      $(currencies).each(function(i,item){
+        $("#selectList").append(new Option(currencies[i], currencies[i]));
+      });
+    });
+
+
+    $("#selectList").change( function() {
+      var alert = prompt("How much doge?", "1");
+
+      if (alert == null || alert == "") {
+        txt = "User cancelled the prompt.";
+      } else {
+        TOTALDOGE = parseInt(alert);
+        var currencies = ["$","€","₩"]
+        UNIT = currencies[$("#selectList").prop('selectedIndex')]
+        CURRENCY = $("#selectList").val()
+
+
+        $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies="+CURRENCY, function( data ) {
+            
+            var firstItem = data[Object.keys(data)[0]];
+            firstItem = firstItem[Object.keys(firstItem)[0]]
+            //alert(firstItem)
+            dogePrice = firstItem
+
+          $( "#dogeCount" ).html(TOTALDOGE);
+          $( "#unit" ).html(UNIT);
+          $( "#dogePrice" ).html((TOTALDOGE * dogePrice).toFixed(4));
+        });
+
+      }
+    });
+   });
 
   </script>
 
@@ -79,28 +135,34 @@
 
 </head>
 <body>
-
-  <div id="particles-js"></div>
-
   <center>
 
-   <br>
-   <img src="/assets/img/dogebell-title.png" width="50%" height="50%" style="max-width: 500px;">
-   <br>
+    <div style="line-height:80%;">
+     <br>
+     <img src="/assets/img/dogebell-title.png" width="50%" height="50%" style="max-width: 500px;">
+     <br>
+     <h3><span id="dogeCount">1</span> Dogecoin = <span id="unit">$</span> <span id="dogePrice"></span> </h3> 
+     <br>
+     <!--surround the select box with a "custom-select" DIV element. Remember to set the width:-->
+     <div class="custom-select">
+       <select id="selectList">
+       </select>
+     </div>
 
-   <h3>Doge Price :  $ <span id="dogePrice"></span> </h3> 
+     <br>
 
-   <input class="moonButton" value="To The Moon!" aria-label="To The Moon!" name="btnK" type="button">
+   </div>
 
 
-   <br>
+
    <div class="box">
-
     <div class="dojichart" id="my-dojichart">
       <div class="region" data-name="price"></div>
     </div>
-
   </div>
+
+  <input class="moonButton" value="To The Moon!" aria-label="To The Moon!" name="btnK" type="button">
+
 
 </center>
 
@@ -113,11 +175,19 @@
     <span class="site-footer-credits">© 2021 <a href="https://dogebell.com">DogeBell.com</a> ALL RIGHTS RESERVED.</span>
 
     <div>
-      <span style="">Donation : </span>
-      <a href="https://dogechain.info/address/DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A">
-        <img style="vertical-align:middle" src="/assets/img/dogeaccept.png" width="20%" height="20%" style="max-width: 200px;">
+      <span style="">Donate Doge : </span>
+      <a href="https://dogechain.info/address/DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A" >
+        <img style="vertical-align:middle" src="/assets/img/dogeaccept.png" width="80px" height="auto">
       </a>
     </div>
+
+<!--     <div>
+      <span style="">Buy Doge : </span>
+      <a href="https://www.paypal.me/dogebell">
+        <img style="vertical-align:middle" src="/assets/img/paypal.png" width="20%" height="20%" style="max-width: 200px; height: auto;">
+      </a>
+    </div> -->
+
   </center>
 
 </footer>
