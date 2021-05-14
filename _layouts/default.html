@@ -207,14 +207,16 @@ body {margin:0;padding:0;}
     /* where margin-left = {img width}/2, and margin-top= {img height}/2 */
 .bigdiv {
    width:100%;
-   height:100%;
+   height:auto;
    position:absolute;
    z-index: 99999;
+   //max-width: 500px;
 }
 .bigdiv img {
-  position:absolute;
+  //position:absolute;
   width: 100%;
   height: auto;
+  max-width: 500px;
   z-index: 99999;
 }
 
@@ -223,11 +225,16 @@ body {margin:0;padding:0;}
 
 </head>
 <body>
+    <div id="moonPic" class="bigdiv" style="display: none">
+  <center>
+    <br><br><br><br>
 
-
-<div id="moonPic" class="bigdiv" style="display: none"><img src="/assets/img/tothemoon.png" /></div>
+    <img src="/assets/img/tothemoon.png" />
+  </center>
+</div>
 
   <center>
+
 
     <div style="line-height:100%;">
      <br>
