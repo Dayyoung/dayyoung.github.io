@@ -89,7 +89,7 @@ function radomUpdateDogePrice() {
 
   setInterval(function() {
 
-      console.log(MOONCOST + 1);
+      //console.log(MOONCOST + 1);
 
       if(CURRENCY == "KRW"){
         var randomValue = Math.random() * 10
@@ -164,6 +164,10 @@ function getParameterByName(name, url = window.location.href) {
 
   <link rel="stylesheet" href="/assets/css/dojichart.css"/>
   <style>
+
+
+
+
     .box {
       width: 360px;
       border: 6px solid #ddd;
@@ -199,11 +203,30 @@ function getParameterByName(name, url = window.location.href) {
       z-index: -1000
     }
 
+body {margin:0;padding:0;}
+    /* where margin-left = {img width}/2, and margin-top= {img height}/2 */
+.bigdiv {
+   width:100%;
+   height:100%;
+   position:absolute;
+   z-index: 99999;
+}
+.bigdiv img {
+  position:absolute;
+  width: 100%;
+  height: auto;
+  z-index: 99999;
+}
+
   </style>
   <script type="text/javascript" src="/assets/js/dojichart.js"></script>
 
 </head>
 <body>
+
+
+<div id="moonPic" class="bigdiv" style="display: none"><img src="/assets/img/tothemoon.png" /></div>
+
   <center>
 
     <div style="line-height:100%;">
@@ -276,5 +299,7 @@ function getParameterByName(name, url = window.location.href) {
   ga('send', 'pageview');
 </script>
 {% endif %}
+
+
 </body>
 </html>

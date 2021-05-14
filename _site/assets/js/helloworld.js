@@ -220,8 +220,12 @@ setInterval(function() {
 var MOONCOST = 0;
 
 function toTheMoon(){
+
+  $("#moonPic").fadeIn();
+
   MOONCOST = 0.4  * 1.1;
   setTimeout(function(){
+    $("#moonPic").fadeOut()
     MOONCOST = 0;
     updateDogePrice();
   },5000);
