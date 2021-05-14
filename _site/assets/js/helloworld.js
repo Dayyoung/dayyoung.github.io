@@ -21,14 +21,15 @@ var candle_layer = new DojiChart.layer.CandleLayer({
 var price_chart_panel = new DojiChart.panel.TimeValuePanel({
   primaryLayer: candle_layer,
   height: 250,
-  grid: true
+  grid: true,
+  //paddingTop : 100
 });
 
 dojichart.addComponent("price", price_chart_panel);
 
 // Dummy data
-var data_arr = [
-  {"t":"03:00","o":1.0664,"h":1.06646,"l":1.06625,"c":1.06646,"v":67},
+var data_arr2 = [
+  {"t":"03:00","o":2.0664,"h":2.06646,"l":2.06625,"c":2.06646,"v":10000},
   {"t":"03:05","o":1.06645,"h":1.06661,"l":1.06637,"c":1.06658,"v":86},
   {"t":"03:10","o":1.06661,"h":1.06663,"l":1.06647,"c":1.06651,"v":79},
   {"t":"03:15","o":1.0665,"h":1.0665,"l":1.06639,"c":1.06641,"v":30},
@@ -96,31 +97,135 @@ function shuffle(array) {
   return array;
 }
 
-// Load data
-dojichart.loadData(data_arr, "EURUSD", "M5");
+var dateList = [
+// '1-4-2021',
+// '2-4-2021',
+// '3-4-2021',
+// '4-4-2021',
+// '5-4-2021',
+// '6-4-2021',
+// '7-4-2021',
+// '8-4-2021',
+// '9-4-2021',
+// '10-4-2021',
+// '11-4-2021',
+// '12-4-2021',
+// '13-4-2021',
+// '14-4-2021',
+// '15-4-2021',
+// '15-4-2021',
+// '16-4-2021',
+// '17-4-2021',
+// '18-4-2021',
+// '19-4-2021',
+// '20-4-2021',
+// '21-4-2021',
+// '22-4-2021',
+// '23-4-2021',
+// '24-4-2021',
+// '25-4-2021',
+// '26-4-2021',
+// '27-4-2021',
+// '28-4-2021',
+// '29-4-2021',
+// '30-4-2021',
+'1-5-2021',
+'2-5-2021',
+'3-5-2021',
+'4-5-2021',
+'5-5-2021',
+'6-5-2021',
+'7-5-2021',
+'8-5-2021',
+'9-5-2021',
+'10-5-2021',
+'11-5-2021',
+'12-5-2021',
+'13-5-2021',
+]
+
+ var data_arr = []
+
+$(document).ready(function(){
+
+
+  // var i = 0;
+
+  // setInterval(function() {
+  //   //$(dateList).each(function(i,item){
+      
+  //     if (i > dateList.length){
+  //       return;
+  //     }
+  //     var item = dateList[i];
+      
+  //     $.get( "https://api.coingecko.com/api/v3/coins/dogecoin/history?date="+item, function( data ) {
+  //         var openPrice = data.market_data.current_price.usd 
+  //         var highPrice = openPrice + (openPrice * 0.2)
+  //         var lowPrice = openPrice - (openPrice * 0.2)
+  //         var closePrice = openPrice + (openPrice * 0.1)
+  //         // console.log(openPrice)
+  //         // console.log(highPrice)
+  //         // console.log(lowPrice)
+  //         // console.log(closePrice)
+  //         var appendItem = {"t":item,"o":openPrice,"h": highPrice ,"l":lowPrice,"c":closePrice,"v":100};
+  //         data_arr.push(appendItem)
+
+  //         dojichart.loadData(data_arr, "DOGE", "M5");
+  //         console.log(data_arr);
+  //     });
+  //   //});
+  //   i ++;
+
+  // }, 1000);
+
+  dojichart.loadData(dogeData, "EURUSD", "M5");
+});
+
+// var data_arr = [
+//   {"t":"1-4-2021","o":10,"h":30,"l":5,"c":15,"v":10},
+//   {"t":"1-4-2021","o":10,"h":30,"l":5,"c":5,"v":10},
+//   {"t":"1-4-2021","o":10,"h":30,"l":5,"c":15,"v":10},
+// ]
+
+// // Load data
+ //dojichart.loadData(data_arr, "EURUSD", "M5");
 
 setInterval(function() {
 
   //data_arr = shuffle(data_arr);
 
-const rand1 = 1.0664 + Math.random() * 0.0001;
-const rand2 = 1.0664 + Math.random() * 0.0001;
-const rand3 = 1.0664 - Math.random() * 0.0001;
-const rand4 = 1.0664 - Math.random() * 0.0001;
+  const rand1 = 0.4 
+  const rand2 = 0.45
+  const rand3 = 0.41;
+  var rand4 = rand1 + Math.random() * 0.1;
 
-// console.log(rand1)
-// console.log(rand2)
-// console.log(rand3)
-// console.log(rand4)
+  if (MOONCOST > 0){
+    MOONCOST = MOONCOST * 1.1;
+    if(MOONCOST > 1){
+      MOONCOST = 1
+    }
+    rand4 = MOONCOST;
+  }
 
-  data_arr.pop()
+  dogeData.pop()
   
-  var data = {"t":"06:50","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":124}
-  data_arr.push(data)
+  var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
   
-  dojichart.loadData(data_arr, "EURUSD", "M5");
+  dogeData.push(data)
+  
+  dojichart.loadData(dogeData, "EURUSD", "M5");
 }, 300);
 
+var MOONCOST = 0;
+
+function toTheMoon(){
+  MOONCOST = 0.4  * 1.1;
+  setTimeout(function(){
+    MOONCOST = 0;
+    updateDogePrice();
+  },5000);
+}
 
 
 

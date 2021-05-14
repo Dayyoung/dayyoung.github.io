@@ -18,78 +18,147 @@
     var TOTALDOGE = 1
     var CURRENCY = "USD";
     var UNIT = "$";
-    var dogePrice = 0.0
+    var DOGEPRICE = 0.0
+    var CURRENTLIST = ["USD","EUR","GBP","KRW","CNY","JPY"]
+    var CURRENCYUNIT = ["$","€","£","₩","¥","¥"]
+    //https://api.coingecko.com/api/v3/simple/supported_vs_currencies
+
+    setInterval(function() {
+      updateDogePrice();
+    }, 30000);
+
+    $(document).ready(function(){
+     
+    $(CURRENTLIST).each(function(i,item){
+      $("#selectList").append(new Option(CURRENTLIST[i], CURRENTLIST[i]));
+    });
+    
+    if(getParameterByName("TOTALDOGE")){
+      TOTALDOGE = getParameterByName("TOTALDOGE")
+    }
+
+    if(getParameterByName("CURRENCY")){
+      CURRENCY = getParameterByName("CURRENCY")
+    }
+    $("#selectList").val(CURRENCY)
+
+    UNIT = CURRENCYUNIT[$("#selectList").prop('selectedIndex')]
+    
+    updateDogePrice();
+    radomUpdateDogePrice();
+
+
+    $("#selectList").change( function() {
+      var promptForDoge = prompt("How much Dogecoin?", "1");
+
+      if ( promptForDoge == null ||  promptForDoge == "") {
+        txt = "User cancelled the prompt.";
+      } else {
+        TOTALDOGE = parseInt(promptForDoge);
+        CURRENCY = $("#selectList").val()
+        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY
+      }
+    });
+   });
+
+function updateDogePrice(){
 
     $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies="+CURRENCY, function( data ) {
         
         var firstItem = data[Object.keys(data)[0]];
         firstItem = firstItem[Object.keys(firstItem)[0]]
-        //alert(firstItem)
-        dogePrice = firstItem
+        //(firstItem)
+        DOGEPRICE = firstItem
 
       $( "#dogeCount" ).html(TOTALDOGE);
       $( "#unit" ).html(UNIT);
-      $( "#dogePrice" ).html((TOTALDOGE * dogePrice).toFixed(4));
-    });
 
-    setInterval(function() {
-      var randomValue = Math.random() * 0.0005
-        //console.log(randomValue)
-        dogeRandomPrice = dogePrice + randomValue
-      $( "#dogeCount" ).html(TOTALDOGE);
-      $( "#unit" ).html(UNIT);
-      $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(4));
-      }, 300);
-
-    setInterval(function() {
-      $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies="+CURRENCY, function( data ) {
-
-        var firstItem = data[Object.keys(data)[0]];
-        firstItem = firstItem[Object.keys(firstItem)[0]]
-        //alert(firstItem)
-        dogePrice = firstItem
-      });
-    }, 30000);
-
-
-    $(document).ready(function(){
-
-     var currencies = ["USD","EUR","KRW"]
-
-     $.get( "https://api.coingecko.com/api/v3/simple/supported_vs_currencies", function( data ) {
-      $(currencies).each(function(i,item){
-        $("#selectList").append(new Option(currencies[i], currencies[i]));
-      });
-    });
-
-
-    $("#selectList").change( function() {
-      var alert = prompt("How much Dogecoin?", "1");
-
-      if (alert == null || alert == "") {
-        txt = "User cancelled the prompt.";
-      } else {
-        TOTALDOGE = parseInt(alert);
-        var currencies = ["$","€","₩"]
-        UNIT = currencies[$("#selectList").prop('selectedIndex')]
-        CURRENCY = $("#selectList").val()
-
-
-        $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies="+CURRENCY, function( data ) {
-            
-            var firstItem = data[Object.keys(data)[0]];
-            firstItem = firstItem[Object.keys(firstItem)[0]]
-            //alert(firstItem)
-            dogePrice = firstItem
-
-          $( "#dogeCount" ).html(TOTALDOGE);
-          $( "#unit" ).html(UNIT);
-          $( "#dogePrice" ).html((TOTALDOGE * dogePrice).toFixed(4));
-        });
-
+      if(CURRENCY == "KRW" || CURRENCY == "JPY"){
+        $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(0));
+      }
+      else if(CURRENCY == "CNY"){
+        $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(2));
+      }else{
+        $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(4));
       }
     });
-   });
+
+}
+
+function radomUpdateDogePrice() {
+
+  setInterval(function() {
+
+      console.log(MOONCOST + 1);
+
+      if(CURRENCY == "KRW"){
+        var randomValue = Math.random() * 10
+          //console.log(randomValue)
+
+          if(MOONCOST > 0){
+            DOGEPRICE = DOGEPRICE + (DOGEPRICE  *  MOONCOST)
+          }
+
+          dogeRandomPrice = DOGEPRICE + randomValue
+
+        $( "#dogeCount" ).html(TOTALDOGE);
+        $( "#unit" ).html(UNIT);
+
+        $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(0));
+
+      }
+      else if(CURRENCY == "JPY"){
+        var randomValue = Math.random() * 1
+          //console.log(randomValue)
+
+          if(MOONCOST > 0){
+            DOGEPRICE = DOGEPRICE + (DOGEPRICE  *  MOONCOST)
+          }
+
+          dogeRandomPrice = DOGEPRICE + randomValue
+        $( "#dogeCount" ).html(TOTALDOGE);
+        $( "#unit" ).html(UNIT);
+
+        $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(0));
+      }
+      else if(CURRENCY == "CNY"){
+      var randomValue = Math.random() * 0.1
+        //console.log(randomValue)
+
+        if(MOONCOST > 0){
+            DOGEPRICE = DOGEPRICE + (DOGEPRICE  *  MOONCOST)
+        }
+
+
+        dogeRandomPrice = DOGEPRICE + randomValue
+      $( "#dogeCount" ).html(TOTALDOGE);
+      $( "#unit" ).html(UNIT);
+
+      $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(2));
+      }else{
+      var randomValue = Math.random() * 0.001
+
+          if(MOONCOST > 0){
+            DOGEPRICE = DOGEPRICE + (DOGEPRICE  *  MOONCOST)
+          }
+        //console.log(randomValue)
+        dogeRandomPrice = DOGEPRICE + randomValue
+      $( "#dogeCount" ).html(TOTALDOGE);
+      $( "#unit" ).html(UNIT);
+
+      $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(4));
+      }
+    }, 300);
+}
+
+function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
 
   </script>
 
@@ -139,11 +208,13 @@
 
     <div style="line-height:100%;">
      <br>
+      <a href="/" >
      <img src="/assets/img/dogebell-title.png" width="70%" height="50%" style="max-width: 500px;">
+      </a>
      <br>
      <h3><span id="dogeCount">1</span> Dogecoin = <span id="unit">$</span> <span id="dogePrice"></span> </h3> 
      <br>
-     <!--surround the select box with a "custom-select" DIV element. Remember to set the width:-->
+    
      <div class="custom-select">
        <select id="selectList">
        </select>
@@ -161,11 +232,13 @@
     </div>
   </div>
 
-  <input class="moonButton" value="To The Moon!" aria-label="To The Moon!" name="btnK" type="button">
+     <br>
+  <input onClick="toTheMoon()" value="To The Moon!" aria-label="To The Moon!" name="btnK" type="button">
 
 
 </center>
 
+<script type="text/javascript" src="/assets/js/dogedata.js"></script>
 <script type="text/javascript" src="/assets/js/helloworld.js"></script>
 
 
@@ -184,7 +257,7 @@
 <!--     <div>
       <span style="">Buy Doge : </span>
       <a href="https://www.paypal.me/dogebell">
-        <img style="vertical-align:middle" src="/assets/img/paypal.png" width="20%" height="20%" style="max-width: 200px; height: auto;">
+        <img style="vertical-align:middle" src="/assets/img/paypal.png" width="80px" height="auto">
       </a>
     </div> -->
 
