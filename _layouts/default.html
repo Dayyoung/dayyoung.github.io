@@ -63,7 +63,9 @@
       var promptForDoge = prompt("How much Dogecoin?", TOTALDOGE);
 
       if ( promptForDoge == null ||  promptForDoge == "") {
-        txt = "User cancelled the prompt.";
+        //TOTALDOGE = parseInt(promptForDoge);
+        CURRENCY = $("#selectList").val()
+        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY
       } else {
         TOTALDOGE = parseInt(promptForDoge);
         CURRENCY = $("#selectList").val()
