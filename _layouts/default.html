@@ -29,7 +29,7 @@
     var TOTALDOGE = 1
     var CURRENCY = "USD";
     var UNIT = "$";
-    var DOGEPRICE = 0.0
+    var DOGEPRICE = 0
     var CURRENTLIST = ["USD","EUR","GBP","KRW","CNY","JPY"]
     var CURRENCYUNIT = ["$","€","£","₩","¥","¥"]
     //https://api.coingecko.com/api/v3/simple/supported_vs_currencies
@@ -60,7 +60,7 @@
 
 
     $("#selectList").change( function() {
-      var promptForDoge = prompt("How much Dogecoin?", "1");
+      var promptForDoge = prompt("How much Dogecoin?", TOTALDOGE);
 
       if ( promptForDoge == null ||  promptForDoge == "") {
         txt = "User cancelled the prompt.";
@@ -252,7 +252,7 @@ body {margin:0;padding:0;}
       <a href="/" >
      <img src="/assets/img/dogebell-title.png" width="70%" height="50%" style="max-width: 500px;">
       </a>
-     <br>
+
      <h3><span id="dogeCount">1</span> Dogecoin = <span id="unit">$</span> <span id="dogePrice"></span> </h3> 
      <br>
     
@@ -264,8 +264,6 @@ body {margin:0;padding:0;}
      <br>
 
    </div>
-
-
 
    <div class="box">
     <div class="dojichart" id="my-dojichart">
@@ -290,17 +288,13 @@ body {margin:0;padding:0;}
 
     <div>
       <span style="">Donate Doge : </span>
-      <a href="https://dogechain.info/address/DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A" >
+      <a href="https://dogechain.info/address/DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A" target='_blank' >
         <img style="vertical-align:middle" src="/assets/img/dogeaccept.png" width="80px" height="auto">
       </a>
-    </div>
-
-<!--     <div>
-      <span style="">Buy Doge : </span>
-      <a href="https://www.paypal.me/dogebell">
-        <img style="vertical-align:middle" src="/assets/img/paypal.png" width="80px" height="auto">
+      <a href="https://www.paypal.me/dogebell" target='_blank'>
+        <img style="vertical-align:middle" src="/assets/img/paypal.png" width="70px" height="auto">
       </a>
-    </div> -->
+    </div>
 
   </center>
 
