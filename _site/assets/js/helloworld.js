@@ -195,18 +195,25 @@ setInterval(function() {
 
   //data_arr = shuffle(data_arr);
 
-  const rand1 = 0.4 
-  const rand2 = 0.45
-  const rand3 = 0.41;
+  const rand1 = DOGEPRICEFORUSD
+  const rand2 = rand1 + 0.03
+  const rand3 = rand1 - 0.03;
   var rand4 = rand1 + Math.random() * 0.1;
 
   if (MOONCOST > 0){
     MOONCOST = MOONCOST * 1.1;
+    
+    //var maxCost = (DOGEPRICE / DOGEPRICEFORUSD)
+
+    //console.log(maxCost);
+
     if(MOONCOST > 1){
       MOONCOST = 1
     }
     rand4 = MOONCOST;
   }
+
+  //console.log(rand4 + "!!")
 
   dogeData.pop()
   
@@ -214,23 +221,7 @@ setInterval(function() {
   
   dogeData.push(data)
   
-  dojichart.loadData(dogeData, "EURUSD", "M5");
+  dojichart.loadData(dogeData, "DOGE", "M5");
 }, 300);
-
-var MOONCOST = 0;
-
-function toTheMoon(){
-
-  $("#moonPic").fadeIn();
-
-  MOONCOST = 0.4  * 1.1;
-  setTimeout(function(){
-    $("#moonPic").fadeOut()
-    MOONCOST = 0;
-    updateDogePrice();
-  },5000);
-}
-
-
 
 /* end of file */
