@@ -193,6 +193,11 @@ $(document).ready(function(){
 
 setInterval(function() {
 
+
+  if (DOGEPRICEFORUSD == 0){
+    return
+  }
+  
   //data_arr = shuffle(data_arr);
 
   const rand1 = DOGEPRICEFORUSD

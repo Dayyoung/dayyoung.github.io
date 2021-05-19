@@ -10,13 +10,13 @@
 <meta name="generator" content="Jekyll v3.9.0" />
 <meta property="og:title" content="DogeBell.com" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://localhost:4000/" />
-<meta property="og:url" content="http://localhost:4000/" />
+<link rel="canonical" href="http://0.0.0.0:4000/" />
+<meta property="og:url" content="http://0.0.0.0:4000/" />
 <meta property="og:site_name" content="dogebell" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="DogeBell.com" />
 <script type="application/ld+json">
-{"url":"http://localhost:4000/","name":"dogebell","headline":"DogeBell.com","@type":"WebSite","@context":"https://schema.org"}</script>
+{"url":"http://0.0.0.0:4000/","name":"dogebell","headline":"DogeBell.com","@type":"WebSite","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -46,6 +46,9 @@
     var DOGEPRICEFORUSD = 0
     var CURRENTLIST = ["USD","EUR","GBP","KRW","CNY","JPY"]
     var CURRENCYUNIT = ["$","€","£","₩","¥","¥"]
+    var MARGINLIST = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10]
+    var MARGIN = 0;
+
     //https://api.coingecko.com/api/v3/simple/supported_vs_currencies
 
     setInterval(function() {
@@ -58,14 +61,25 @@
         $("#selectList").append(new Option(CURRENTLIST[i], CURRENTLIST[i]));
       });
 
+      $(MARGINLIST).each(function(i,item){
+        $("#fiatSelect").append(new Option(MARGINLIST[i]+"%", MARGINLIST[i]));
+      });
+
+      $("#fiatSelect").val(0);
+
       if(getParameterByName("TOTALDOGE")){
         TOTALDOGE = getParameterByName("TOTALDOGE")
       }
 
+      if(getParameterByName("MARGIN")){
+        MARGIN = getParameterByName("MARGIN")
+        $("#fiatSelect").val(MARGIN)
+      }
+      
       if(getParameterByName("CURRENCY")){
         CURRENCY = getParameterByName("CURRENCY")
+        $("#selectList").val(CURRENCY)
       }
-      $("#selectList").val(CURRENCY)
 
       UNIT = CURRENCYUNIT[$("#selectList").prop('selectedIndex')]
       
@@ -76,8 +90,13 @@
       $("#selectList").change( function() {
         changeDoge();
       });
-    });
 
+      $("#fiatSelect").change( function() {
+        MARGIN = $("#fiatSelect").val()
+        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+      });
+
+    });
 
     function changeDoge(){
 
@@ -86,14 +105,18 @@
       if ( promptForDoge == null ||  promptForDoge == "") {
         //TOTALDOGE = parseInt(promptForDoge);
         CURRENCY = $("#selectList").val()
-        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY
+        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
       } else {
         TOTALDOGE = parseInt(promptForDoge);
         CURRENCY = $("#selectList").val()
-        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY
+        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
       }
     }
     
+    function changeFiat(){
+      $("#fiatSelect").focus();
+    }
+
     function getDogePrice(){
 
       $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=USD", function( data ) {
@@ -103,6 +126,10 @@
         //alert(firstItem)
         DOGEPRICEFORUSD = firstItem
       });
+
+      if (MARGIN != 0) {
+        DOGEPRICEFORUSD = DOGEPRICEFORUSD + (DOGEPRICEFORUSD * (MARGIN / 100))
+      }
 
     }
 
@@ -114,6 +141,11 @@
         firstItem = firstItem[Object.keys(firstItem)[0]]
         //(firstItem)
         DOGEPRICE = firstItem
+
+        if (MARGIN != 0) {
+          DOGEPRICE = DOGEPRICE + (DOGEPRICE * (MARGIN / 100))
+        }
+
 
         $( "#dogeCount" ).html(TOTALDOGE);
         $( "#unit" ).html(UNIT);
@@ -134,10 +166,15 @@
 
       setInterval(function() {
 
+
+        if (DOGEPRICEFORUSD == 0){
+          return
+        }
+
       //console.log(MOONCOST);
 
       if(CURRENCY == "KRW"){
-        var randomValue = Math.random() * 10
+        var randomValue = Math.random() * 1
           //console.log(randomValue)
 
           dogeRandomPrice = DOGEPRICE + randomValue
@@ -219,6 +256,7 @@
       setTimeout(function(){
         $("#moonPic").fadeOut()
         MOONCOST = 0;
+        getDogePrice();
         updateDogePrice();
       },5000);
     }
@@ -227,9 +265,6 @@
 
   <link rel="stylesheet" href="/assets/css/dojichart.css"/>
   <style>
-
-
-
 
     .box {
       width: 360px;
@@ -305,11 +340,14 @@
        <img src="/assets/img/dogebell-title.png" width="70%" height="50%" style="max-width: 500px;">
      </a>
 
-     <h3><a href="#" onclick="changeDoge(); return false;"> <span id="dogeCount">1</span> Dogecoin </a> = <span id="unit">$</span> <span id="dogePrice"></span></h3> 
+     <h3><a href="#" onclick="changeDoge(); return false;"> <span id="dogeCount">1</span> Dogecoin </a> = <a href="#" onclick="changeFiat(); return false;"><span id="unit">$</span> <span id="dogePrice"></span></a> </h3> 
      <br>
 
      <div class="custom-select">
-       <select id="selectList">
+       Currency : <select id="selectList">
+       </select>
+       &nbsp;&nbsp; Margin :
+       <select id="fiatSelect">
        </select>
      </div>
 
