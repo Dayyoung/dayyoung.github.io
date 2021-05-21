@@ -26,6 +26,9 @@
   <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script src="https://www.google.com/recaptcha/api.js?render=6Lez1d8aAAAAAKJ7FAhqHk-SkiR2MIrzh0f4Mngv"></script>
+  
   <script type="text/javascript">
 
     var TOTALDOGE = 1
@@ -423,7 +426,6 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     <ons-tab page="mine.html" label="Mining" icon="fa-mountain">
     </ons-tab>
     
-    
   </ons-tabbar>
 <!-- 
     <center>
@@ -550,7 +552,26 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
   <ons-page id="mine">
     <p style="text-align: center;">
       This is the mine page.
+
+
+<form>
+  <div><input type="submit" value="Mining"></div>
+  <input type="hidden" id="g-recaptcha" name="g-recaptcha">
+</form>
+
     </p>
+
+<script type="text/javascript">
+grecaptcha.ready(function() {
+  grecaptcha.execute('6Lez1d8aAAAAAKJ7FAhqHk-SkiR2MIrzh0f4Mngv', {action: 'mining'}).then(function(token) {
+    // 토큰을 받아다가 g-recaptcha 에다가 값을 넣어줍니다.
+    document.getElementById('g-recaptcha').value = token;
+  });
+});
+</script>
+
+
+
   </ons-page>
 </template>
 <!-- <ons-page>
