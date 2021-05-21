@@ -27,7 +27,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-  <script src="https://www.google.com/recaptcha/api.js?render=6Lez1d8aAAAAAKJ7FAhqHk-SkiR2MIrzh0f4Mngv"></script>
+  <script src='https://www.google.com/recaptcha/api.js' async defer></script>
   
   <script type="text/javascript">
 
@@ -553,23 +553,18 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     <p style="text-align: center;">
       This is the mine page.
 
-
-<form>
-  <div><input type="submit" value="Mining"></div>
-  <input type="hidden" id="g-recaptcha" name="g-recaptcha">
-</form>
-
+<center>
+  <div class="g-recaptcha" data-sitekey="6LeR7t8aAAAAAIQjiP3mx6ZlTKqLoE5H0Hzb5bPN"  data-callback="recaptchaCallback"></div>
+</center>
     </p>
 
 <script type="text/javascript">
-grecaptcha.ready(function() {
-  grecaptcha.execute('6Lez1d8aAAAAAKJ7FAhqHk-SkiR2MIrzh0f4Mngv', {action: 'mining'}).then(function(token) {
-    // 토큰을 받아다가 g-recaptcha 에다가 값을 넣어줍니다.
-    document.getElementById('g-recaptcha').value = token;
-  });
-});
-</script>
+  
+function recaptchaCallback(){
+  showToast("Found a block!")
+}
 
+</script>
 
 
   </ons-page>
