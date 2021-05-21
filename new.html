@@ -553,21 +553,21 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     <p style="text-align: center;">
       This is the mine page.
 
-
-<form>
-  <div><input type="submit" value="Mining"></div>
-  <input type="hidden" id="g-recaptcha" name="g-recaptcha">
-</form>
-
+      <input
+       type="button" onclick="mining()" value="mining">
+    
     </p>
 
 <script type="text/javascript">
-grecaptcha.ready(function() {
-  grecaptcha.execute('6Lez1d8aAAAAAKJ7FAhqHk-SkiR2MIrzh0f4Mngv', {action: 'mining'}).then(function(token) {
-    // 토큰을 받아다가 g-recaptcha 에다가 값을 넣어줍니다.
-    document.getElementById('g-recaptcha').value = token;
-  });
-});
+function mining() {
+  //grecaptcha.ready(function() {
+    grecaptcha.execute('6Lez1d8aAAAAAKJ7FAhqHk-SkiR2MIrzh0f4Mngv', {action: 'mining'}).then(function(token) {
+      // 토큰을 받아다가 g-recaptcha 에다가 값을 넣어줍니다.
+      //document.getElementById('g-recaptcha').value = token;
+      alert(token)
+    });
+  //});
+}
 </script>
 
 
