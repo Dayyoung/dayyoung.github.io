@@ -254,6 +254,8 @@
     }
 
 
+ons.disableAutoStyling()
+ons.platform.select('ios')
 
 //page init
 document.addEventListener('init', function(event) {
@@ -390,6 +392,49 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
   padding-top: :10px;
   padding-bottom: 10px;
 }
+
+
+@media only screen and (max-width : 480px) {
+    #recaptcha_challenge_image{
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    }
+    #recaptcha_response_field
+    {
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    }
+    .recaptchatable #recaptcha_image {
+    margin: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    }
+    .recaptchatable .recaptcha_r1_c1, 
+    .recaptchatable .recaptcha_r3_c1, 
+    .recaptchatable .recaptcha_r3_c2, 
+    .recaptchatable .recaptcha_r7_c1, 
+    .recaptchatable .recaptcha_r8_c1, 
+    .recaptchatable .recaptcha_r3_c3, 
+    .recaptchatable .recaptcha_r2_c1, 
+    .recaptchatable .recaptcha_r4_c1, 
+    .recaptchatable .recaptcha_r4_c2, 
+    .recaptchatable .recaptcha_r4_c4, 
+    .recaptchatable .recaptcha_image_cell {
+
+    margin: 0 !important;
+    width: 100% !important;
+    background: none !important;
+    height: auto !important;
+    }
+
+}
+
+/* Captcha mobile version */
+/*.fieldset-recaptcha > div {
+    min-width: 280px;
+}*/
 
 </style>
 
@@ -553,15 +598,15 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     <p style="text-align: center;">
       This is the mine page.
 
-<center>
-  <div class="g-recaptcha" data-sitekey="6LeR7t8aAAAAAIQjiP3mx6ZlTKqLoE5H0Hzb5bPN"  data-callback="recaptchaCallback"></div>
-</center>
+  <div style="margin-left: -50px;" class="g-recaptcha" data-sitekey="6LeR7t8aAAAAAIQjiP3mx6ZlTKqLoE5H0Hzb5bPN"  data-callback="recaptchaCallback"></div>
+
     </p>
 
 <script type="text/javascript">
   
 function recaptchaCallback(){
   showToast("Found a block!")
+  grecaptcha.reset();
 }
 
 </script>
