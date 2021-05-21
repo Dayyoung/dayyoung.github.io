@@ -31,9 +31,9 @@
     var UNIT = "$";
     var DOGEPRICE = 0
     var DOGEPRICEFORUSD = 0
-    var CURRENTLIST = ["USD","EUR","GBP","KRW","CNY","JPY"]
-    var CURRENCYUNIT = ["$","€","£","₩","¥","¥"]
-    var MARGINLIST = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10]
+    var CURRENTLIST = ["USD","CAD","AUD","EUR","GBP","KRW","CNY","JPY","HKD"]
+    var CURRENCYUNIT = ["$","$","$","€","£","₩","¥","¥","$"]
+    var MARGINLIST = [-20,-18,-16,-14,-12,-10,-8,-6,-4,-2,0,2,4,6,8,10,12,14,16,18,20]
     var MARGIN = 0;
 
     //https://api.coingecko.com/api/v3/simple/supported_vs_currencies
@@ -140,7 +140,7 @@
         if(CURRENCY == "KRW" || CURRENCY == "JPY"){
           $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(0));
         }
-        else if(CURRENCY == "CNY"){
+        else if(CURRENCY == "CNY" || CURRENCY == "HKD"){
           $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(2));
         }else{
           $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(4));
@@ -190,7 +190,7 @@
 
           $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(0));
         }
-        else if(CURRENCY == "CNY"){
+        else if(CURRENCY == "CNY" || CURRENCY == "HKD"){
           var randomValue = Math.random() * 0.1
         //console.log(randomValue)
         dogeRandomPrice = DOGEPRICE + randomValue
