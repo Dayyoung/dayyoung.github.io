@@ -5,6 +5,10 @@
   <title>DogeBell</title>
   <meta charset="UTF-8">
 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="mobile-web-app-capable" content="yes">
+  
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1e130c">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
@@ -297,6 +301,16 @@ function createTransaction(item) {
 
 ons.disableAutoStyling()
 ons.platform.select('ios')
+
+if (ons.platform.isIPhoneX()) { // Utility function
+  // Add empty attribute to the <html> element
+  document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+}
+
+if (ons.platform.isIPhoneX()) { // Utility function
+  // Add empty attribute to the <html> element
+  document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+}
 
 //page init
 document.addEventListener('init', function(event) {
@@ -770,8 +784,13 @@ h1{
   <h1>Click the bell to mine.</h1>
 </div>
 
-      <div class="g-recaptcha" data-sitekey="6LemRuAaAAAAAAuEPyk-tawGf88woUwwTkbVDb0f" data-callback='recaptchaCallback' 
+<!--       <div class="g-recaptcha" data-sitekey="6LemRuAaAAAAAAuEPyk-tawGf88woUwwTkbVDb0f" data-callback='recaptchaCallback' 
       data-size="invisible" data-expired-callback='recaptchaCallback' data-error-callback='recaptchaCallback'></div>
+ -->
+
+      <div class="g-recaptcha" data-sitekey="6LemRuAaAAAAAAuEPyk-tawGf88woUwwTkbVDb0f" data-callback='recaptchaCallback' 
+      data-size="invisible"></div>
+
 
 <script type="text/javascript">
   
@@ -784,7 +803,7 @@ function mining() {
 function recaptchaCallback(){
   var result = grecaptcha.getResponse()
 
-  alert(result)
+  //alert(result)
 
   showToast("Found a block!")
   grecaptcha.reset();
