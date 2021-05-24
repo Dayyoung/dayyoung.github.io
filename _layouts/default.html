@@ -84,7 +84,8 @@
 
       $("#fiatSelect").change( function() {
         MARGIN = $("#fiatSelect").val()
-        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        //location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        movePageWithParam()
       });
 
     });
@@ -96,14 +97,43 @@
       if ( promptForDoge == null ||  promptForDoge == "") {
         //TOTALDOGE = parseInt(promptForDoge);
         CURRENCY = $("#selectList").val()
-        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        //location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        movePageWithParam()
       } else {
         TOTALDOGE = parseInt(promptForDoge);
         CURRENCY = $("#selectList").val()
-        location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        //location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        movePageWithParam()
       }
     }
+
+    function movePageWithParam() {
+
+      var baseUrl = window.location.href.split('?')[0]
+
+      if(TOTALDOGE){
+        baseUrl = updateQueryStringParameter(baseUrl,"TOTALDOGE",TOTALDOGE)
+      }
+      if(CURRENCY){
+        baseUrl = updateQueryStringParameter(baseUrl,"CURRENCY",CURRENCY)
+      }
+      if(MARGIN){
+        baseUrl = updateQueryStringParameter(baseUrl,"MARGIN",MARGIN)
+      }
+      location.href = baseUrl
+    }
     
+    function updateQueryStringParameter(uri, key, value) {
+      var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+      var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+      if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+      }
+      else {
+        return uri + separator + key + "=" + value;
+      }
+    }
+
     function changeFiat(){
       $("#fiatSelect").focus();
     }
@@ -121,7 +151,6 @@
       if (MARGIN != 0) {
         DOGEPRICEFORUSD = DOGEPRICEFORUSD + (DOGEPRICEFORUSD * (MARGIN / 100))
       }
-
     }
 
     function updateDogePrice(){
