@@ -206,7 +206,7 @@ setInterval(function() {
   var rand4 = rand1 + Math.random() * 0.1;
 
   if (MOONCOST > 0){
-    MOONCOST = MOONCOST * 1.1;
+    MOONCOST = MOONCOST * 1.2;
     
     //var maxCost = (DOGEPRICE / DOGEPRICEFORUSD)
 
@@ -221,9 +221,12 @@ setInterval(function() {
   //console.log(rand4 + "!!")
 
   dogeData.pop()
+  dogeData.pop()
   
   var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
+  dogeData.push(data)
   
+  var data = {"t":"14-5-2021","o":1,"h":1,"l":1,"c":1,"v":100}
   dogeData.push(data)
   
   dojichart.loadData(dogeData, "DOGE", "M5");
