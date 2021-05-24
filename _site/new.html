@@ -374,6 +374,10 @@ if (ons.platform.isIPhoneX()) { // Utility function
 
 MENU = getParameterByName("MENU")
 
+if(!MENU){
+  MENU = "Home"
+}
+
 if(MENU == "Home"){
   document.querySelector('ons-tabbar').setActiveTab(0)
   drawChart()
@@ -391,11 +395,8 @@ if(MENU == "BlockChain"){
 });
 //page change
 document.addEventListener('postchange', function(event) {
-
-  // page = event.tabItem.getAttribute('label');
-
  var selectedIndex = document.querySelector('ons-tabbar').getActiveTabIndex()
-  console.log(selectedIndex)
+ console.log(selectedIndex)
 });
 
 function goHome(){
@@ -414,10 +415,8 @@ function goMining(){
 }
 function goBlockChain(){
   MENU = "BlockChain"
-  movePageWithParam()
-  
+  movePageWithParam() 
 }
-
 
 function showToast(message){
     ons.notification.toast(message, { timeout: 1000, animation: 'fall' })
