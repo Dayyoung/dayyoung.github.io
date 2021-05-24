@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,8 +14,12 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   <link rel="apple-touch-icon-precomposed" href="152.png">
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  
+  <link rel="apple-touch-startup-image" href="152.png">
+  <!-- Global site tag (gtag.js) - Google Analytics -->  
+
+  <!-- Chrome, Firefox OS, Opera -->
+  <meta name="theme-color" content="#4285f4">
+
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPMKD94RX9"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -301,20 +305,32 @@ function createTransaction(item) {
 
 ons.disableAutoStyling()
 ons.platform.select('ios')
+// conosole.log(navigator.userAgent)
 
-if (ons.platform.isIPhoneX()) { // Utility function
-  // Add empty attribute to the <html> element
-  document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
-}
+// if (ons.platform.isIPhoneX()) { // Utility function
+//   // Add empty attribute to the <html> element
+//   document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
+// }
 
-if (ons.platform.isIPhoneX()) { // Utility function
-  // Add empty attribute to the <html> element
-  document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
-}
+// document.documentElement.removeAttribute('onsflag-iphonex-portrait');
+
+// if (ons.platform.isIPhoneX()) { // Utility function
+//   // Add empty attribute to the <html> element
+//   document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
+// }
 
 //page init
 document.addEventListener('init', function(event) {
  console.log('This is a lifecycle event!', event.target);
+
+
+
+if (ons.platform.isIPhoneX()) { // Utility function
+  // Add empty attribute to the <html> element
+//  alert("iPhoneX")
+  $(".tabbar").height("70px")
+}
+
 
 var page = event.target.id
 if(page == "home"){
@@ -419,7 +435,7 @@ function showToast(message){
 <style>
 
 body {
-  background-color: #A9A9A9;
+  background-color: #696969;
 }  
 .page {
 max-width: 500px;
@@ -655,9 +671,9 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 </template>
 
 <style type="text/css">
-  body {
-  background: #1b1b1b;
-}
+//  body {
+//  background: #1b1b1b;
+//}
 
 h1{
   font-family: tahoma;
