@@ -85,10 +85,11 @@ function createTransaction(item) {
     var UNIT = "$";
     var DOGEPRICE = 0
     var DOGEPRICEFORUSD = 0
-    var CURRENTLIST = ["USD","EUR","GBP","KRW","CNY","JPY"]
-    var CURRENCYUNIT = ["$","€","£","₩","¥","¥"]
-    var MARGINLIST = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10]
+    var CURRENTLIST = ["USD","CAD","AUD","EUR","GBP","KRW","CNY","JPY","HKD"]
+    var CURRENCYUNIT = ["$","$","$","€","£","₩","¥","¥","$"]
+    var MARGINLIST = [-20,-18,-16,-14,-12,-10,-8,-6,-4,-2,0,2,4,6,8,10,12,14,16,18,20]
     var MARGIN = 0;
+    var MENU = "Home"
 
     //https://api.coingecko.com/api/v3/simple/supported_vs_currencies
 
@@ -132,7 +133,7 @@ function createTransaction(item) {
         changeDoge();
       });
 
-      $("#fiatSelect").change( function() {
+       $("#fiatSelect").change( function() {
         MARGIN = $("#fiatSelect").val()
         //location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
         movePageWithParam()
@@ -170,6 +171,11 @@ function createTransaction(item) {
       if(MARGIN){
         baseUrl = updateQueryStringParameter(baseUrl,"MARGIN",MARGIN)
       }
+      if(MENU){
+        baseUrl = updateQueryStringParameter(baseUrl,"MENU",MENU)
+      }
+
+      //alert(baseUrl)
       location.href = baseUrl
     }
     
@@ -224,7 +230,7 @@ function createTransaction(item) {
         if(CURRENCY == "KRW" || CURRENCY == "JPY"){
           $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(0));
         }
-        else if(CURRENCY == "CNY"){
+        else if(CURRENCY == "CNY" || CURRENCY == "HKD"){
           $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(2));
         }else{
           $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(4));
@@ -274,7 +280,7 @@ function createTransaction(item) {
 
           $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(0));
         }
-        else if(CURRENCY == "CNY"){
+        else if(CURRENCY == "CNY" || CURRENCY == "HKD"){
           var randomValue = Math.random() * 0.1
         //console.log(randomValue)
         dogeRandomPrice = DOGEPRICE + randomValue
@@ -354,48 +360,63 @@ document.addEventListener('init', function(event) {
  console.log('This is a lifecycle event!', event.target);
 
 
-
 if (ons.platform.isIPhoneX()) { // Utility function
   // Add empty attribute to the <html> element
 //  alert("iPhoneX")
   $(".tabbar").height("70px")
 }
 
+  // var page = event.target.id
+  // if(page == "home"){
+  //   drawChart()
+  // }
+//showToast(page)
 
-var page = event.target.id
-if(page == "home"){
-  //showToast(page)
+MENU = getParameterByName("MENU")
 
+if(MENU == "Home"){
+  document.querySelector('ons-tabbar').setActiveTab(0)
   drawChart()
 }
-if(page == "chain"){
-  //showToast(page)
-  var infiniteList = document.getElementById('infinite-list');
-
-  infiniteList.delegate = {
-    createItemContent: function(i) {
-      return ons.createElement('<ons-list-item>Block ' + i + '</ons-list-item>');
-    },
-    countItems: function() {
-      return 10000;
-    }
-  };
-
-  infiniteList.refresh();
+if(MENU == "Wallet"){
+  document.querySelector('ons-tabbar').setActiveTab(1)
 }
-
-
-
+if(MENU == "Mining"){
+  document.querySelector('ons-tabbar').setActiveTab(2)
+}
+if(MENU == "BlockChain"){
+  document.querySelector('ons-tabbar').setActiveTab(3)
+}
 
 });
 //page change
-document.addEventListener('prechange', function(event) {
+document.addEventListener('postchange', function(event) {
 
+  // page = event.tabItem.getAttribute('label');
 
-  page = event.tabItem.getAttribute('label');
-  //showToast(page)
-
+ var selectedIndex = document.querySelector('ons-tabbar').getActiveTabIndex()
+  console.log(selectedIndex)
 });
+
+function goHome(){
+  MENU = "Home"
+  movePageWithParam()
+}
+function goWallet(){
+  MENU = "Wallet"
+  movePageWithParam()
+  
+}
+function goMining(){
+  MENU = "Mining"
+  movePageWithParam()
+  
+}
+function goBlockChain(){
+  MENU = "BlockChain"
+  movePageWithParam()
+  
+}
 
 
 function showToast(message){
@@ -526,58 +547,22 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 </head>
 <body>
 
+
 <ons-page>  
 
-
-<!-- 
-<ons-speed-dial position="bottom right" direction="up" cancelable>
-    <ons-fab>
-      <ons-icon icon="md-menu"></ons-icon>
-    </ons-fab>
-    <ons-speed-dial-item>
-      <ons-icon icon="fa-balance-scale"></ons-icon>
-    </ons-speed-dial-item>
-    <ons-speed-dial-item>
-      <ons-icon icon="fa-wallet"></ons-icon>
-    </ons-speed-dial-item>
-  </ons-speed-dial> -->
-
-  <ons-tabbar swipeable position="auto">
-    <ons-tab page="home.html" label="Home" icon="fa-home" active>
+  <ons-tabbar position="auto" animation="none">
+    <ons-tab onClick="goHome()" label="Home" icon="fa-home" page="home.html">
     </ons-tab>
-    <ons-tab page="wallet.html" label="Wallet" icon="fa-wallet">
+    <ons-tab onClick="goWallet()" label="Wallet" icon="fa-wallet" page="wallet.html">
     </ons-tab>
-    <ons-tab page="mine.html" label="Mining" icon="fa-mountain">
+    <ons-tab onClick="goMining()" label="Mining" icon="fa-mountain" page="mine.html">
     </ons-tab>
 <!--     <ons-tab page="trade.html" label="Trade" icon="fa-balance-scale">
     </ons-tab> -->
-    <ons-tab page="chain.html" label="BlockChain" icon="fa-dice-d20">
+    <ons-tab onClick="goBlockChain()" label="BlockChain" icon="fa-dice-d20" page="chain.html">
     </ons-tab>
     
   </ons-tabbar>
-<!-- 
-    <center>
-    <div class="footer">
-      <center>
-    <div class="footer_div">
-    <span class="site-footer-credits">© 2021 <a href="https://dogebell.com">DogeBell.com</a> ALL RIGHTS RESERVED.</span>
-
-    <div>
-      <span style="">Buy & Sell : </span>
-      <a href="https://dogechain.info/address/DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A" target='_blank' >
-        <img style="vertical-align:middle" src="/assets/img/dogeaccept.png" width="80px" height="auto">
-      </a>
-      <a href="https://www.paypal.me/dogebell" target='_blank'>
-        <img style="vertical-align:middle" src="/assets/img/paypal.png" width="70px" height="auto">
-      </a>
-    </div>
-
-    </div>
-    </center>
-    </div>
-
-  </center>
- -->
 </ons-page>
 
 <template id="home.html">
@@ -1108,7 +1093,7 @@ setInterval(function() {
   var rand4 = rand1 + Math.random() * 0.1;
 
   if (MOONCOST > 0){
-    MOONCOST = MOONCOST * 1.1;
+    MOONCOST = MOONCOST * 1.2;
     
     //var maxCost = (DOGEPRICE / DOGEPRICEFORUSD)
 
@@ -1121,6 +1106,7 @@ setInterval(function() {
   }
 
   //console.log(rand4 + "!!")
+
 
   dogeData.pop()
   dogeData.pop()
