@@ -64,13 +64,13 @@ function insertWallet(item) {
   db.collection("wallet").add(item)
   .then((docRef) => {
       hideModal()
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
       WALLET = docRef.id
       movePageWithParam()
   })
   .catch((error) => {
       hideModal()
-      console.error("Error adding document: ", error);
+      //console.error("Error adding document: ", error);
   });
 }
 
@@ -84,10 +84,10 @@ function createTransaction(item) {
   db.collection("block").add(item)
   .then((docRef) => {
       //hideModal()
-      console.log("Document written with ID: ", docRef.id);
+      //console.log("Document written with ID: ", docRef.id);
   })
   .catch((error) => {
-      console.error("Error adding document: ", error);
+      //console.error("Error adding document: ", error);
   });
 
 }
@@ -447,8 +447,7 @@ ons.platform.select('ios')
 
 //page init
 document.addEventListener('init', function(event) {
- console.log('This is a lifecycle event!', event.target.id);
-
+ //console.log('This is a lifecycle event!', event.target.id);
 
 if (ons.platform.isIPhoneX()) { // Utility function
   // Add empty attribute to the <html> element
@@ -457,10 +456,6 @@ if (ons.platform.isIPhoneX()) { // Utility function
 }
 
 var page = event.target.id
-  // if(page == "home"){
-  //   drawChart()
-  // }
-//showToast(page)
 
 MENU = getParameterByName("MENU")
 
@@ -468,20 +463,21 @@ if(!MENU){
   MENU = "Home"
 }
 
-if(MENU == "Home"){
+if(MENU == "Home" && page == "home"){
   document.querySelector('ons-tabbar').setActiveTab(0)
-  $("#homeLayout").show()
   drawChart()
 }
 if(MENU == "Wallet" && page == "wallet"){
   document.querySelector('ons-tabbar').setActiveTab(1)
   drawWallet()
 }
-if(MENU == "Mining"){
+if(MENU == "Mining" && page == "mine"){
   document.querySelector('ons-tabbar').setActiveTab(2)
+  drawMine()
 }
-if(MENU == "BlockChain"){
+if(MENU == "BlockChain" && page == "chain"){
   document.querySelector('ons-tabbar').setActiveTab(3)
+  drawChain()
 }
 
 });
@@ -498,6 +494,7 @@ document.addEventListener('postchange', function(event) {
 
 });
 
+
 function drawWallet(){
 
 WALLET = getParameterByName("WALLET")
@@ -508,13 +505,27 @@ if(WALLET){
   $("#address").html(WALLET)
   var addressQRURL = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=" + WALLET
   $("#addressQR").attr("src",addressQRURL)
- // $("#walletLayout").show() 
-  $("#walletLayout").css("display","block")
+  $("#walletLayout").show() 
+  //$("#walletLayout").css("display","block")
 }else{
-  $("#walletLayout").css("display","none")
+  $("#walletLayout").hide()
+  //$("#walletLayout").css("display","none")
   showWalletAlert()
 }
 
+}
+
+function drawMine(){
+  $("#mineLayout").show() 
+
+  $("#address").html(WALLET)
+  var addressQRURL = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=" + WALLET
+  $("#addressQR").attr("src",addressQRURL)
+  $("#walletLayout").show() 
+}
+
+function drawChain(){
+  $("#chainLayout").show() 
 }
 
 function createWallet(){
@@ -819,12 +830,14 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
 <template id="wallet.html">
   <ons-page id="wallet">
+
+<div style="margin-top: 44px; display: none" id="walletLayout">
+
   <ons-toolbar>
     <div class="center">Wallet</div>
   </ons-toolbar>
 
-<div style="display: block" id="walletLayout">
-  <ons-card style="margin: 0px;" id="walletCard">
+  <ons-card style="margin: 20px;" id="walletCard">
     <center>
     <img id="addressQR" src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=NULL" alt="Onsen UI" style="width: 50%">
 <br>
@@ -871,23 +884,20 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
 <template id="chain.html">
   <ons-page id="chain">
+
+<div style="margin-top: 44px; display: none" id="chainLayout">
   <ons-toolbar>
     <div class="center">BlockChain</div>
   </ons-toolbar>
-  
-<!--   <p style="text-align: center; margin-top: 10px;">
-    <ons-search-input
-      placeholder="Search"
-      onchange="ons.notification.alert('Searched for: ' + this.value)"
-    ></ons-search-input>
-  </p> -->
-
-  <ons-pull-hook id="pull-hook">
-    Pull to refresh
-  </ons-pull-hook>
 
   <ons-list>
-    <ons-list-item>Item 1</ons-list-item>
+      <ons-list-item class="input-items">
+        <label class="center">
+        <ons-search-input id="search-input" maxlength="20" placeholder="Search" onchange="ons.notification.alert('Searched for: ' + this.value)" style="width: 100%;"></ons-search-input>
+      </label>
+      </ons-list-item>
+
+    <ons-list-item>Item 0</ons-list-item>
     <ons-list-item>Item 2</ons-list-item>
     <ons-list-item>Item 3</ons-list-item>
     <ons-list-item>Item 4</ons-list-item>
@@ -895,6 +905,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     <ons-list-item>Item 6</ons-list-item>
   </ons-list>
 
+</div>
 <!--   <ons-list style="width : 100%;height: 100%;">
     <ons-lazy-repeat id="infinite-list" style="width : 100%;height: 100%;"></ons-lazy-repeat>
   </ons-list> -->
@@ -1018,6 +1029,8 @@ h1{
 <template id="mine.html">
   <ons-page id="mine">
 
+
+<div style="margin-top: 44px; display: none" id="mineLayout">
   <ons-toolbar>
     <div class="center">Mining</div>
   </ons-toolbar>
@@ -1068,39 +1081,16 @@ function recaptchaCallback(){
 
 </script>
 
+</div>
 
   </ons-page>
 </template>
-<!-- <ons-page>
-  <ons-toolbar>
-    <div class="center">Card</div>
-  </ons-toolbar>
-
-  <ons-card>
-    <img src="https://monaca.io/img/logos/download_image_onsenui_01.png" alt="Onsen UI" style="width: 100%">
-    <div class="title">
-      Awesome framework
-    </div>
-    <div class="content">
-      <div>
-        <ons-button><ons-icon icon="ion-ios-thumbs-up"></ons-icon></ons-button>
-        <ons-button><ons-icon icon="ion-ios-share"></ons-icon></ons-button>
-      </div>
-      <ons-list>
-        <ons-list-header>Bindings</ons-list-header>
-        <ons-list-item>Vue</ons-list-item>
-        <ons-list-item>Angular</ons-list-item>
-        <ons-list-item>React</ons-list-item>
-      </ons-list>
-    </div>
-  </ons-card>
-</ons-page> -->
-
 
 <script type="text/javascript" src="/assets/js/dogedata.js"></script>
 <script>
-  function drawChart() {
+function drawChart() {
 
+  $("#homeLayout").show()
 /*
   Hello World
 */
