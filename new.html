@@ -527,22 +527,50 @@ function drawMine(){
   $("#mineLayout").show() 
 
   setInterval(function() {
-  $("#bell").addClass("bell-on")
-  $("#bell").removeClass("bell-off")
   
   MININGBELL = MININGBELL + 1;
   $("#miningBell").html(MININGBELL + " BELL")
   $("#bellEffect").html("+ 1").show()
+  $("#bell").addClass("bell-off")
+  $("#bell").removeClass("bell-on")
+    
+  if(MININGBELL > 9){
+    mineBell()
+  }
 
     setTimeout(function() {
-    $("#bell").addClass("bell-off")
-    $("#bell").removeClass("bell-on")
+
+    $("#bell").addClass("bell-on")
+    $("#bell").removeClass("bell-off")
     $("#bellEffect").html("+ 1").hide()
     },4000);
 
   },5000);
+}
+function mineBell(){
+  showModal()
+  var insertData = {}
+  insertData.from = WALLET
+  insertData.to = "ORIGIN"
+  insertData.amount = MININGBELL
 
+  MININGBELL = 0
 
+  var db = firebase.firestore();
+
+  db.collection("transaction").add(insertData)
+  .then((docRef) => {
+      hideModal()
+      showToast("Mining is success.")
+      document.getElementById('sendDialog').hide()
+      //console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+      //console.error("Error adding document: ", error);
+      hideModal()
+      showToast("Something is wrong.")
+      document.getElementById('sendDialog').hide()
+  });
 }
 
 function drawChain(){
@@ -1207,7 +1235,7 @@ h1{
 
 <div onClick="mining()">
   <h1 id="miningBell">0 BELL</h1>
-  <span class="bell-off fa fa-bell" id="bell"></span>
+  <span class="bell-on fa fa-bell" id="bell"></span>
   <h1 id="bellEffect"></h1>
 </div>
 
