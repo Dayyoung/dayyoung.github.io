@@ -265,7 +265,7 @@ function hideModal() {
         baseUrl = updateQueryStringParameter(baseUrl,"MNEMONIC",MNEMONIC)
       }
 
-      alert(baseUrl)
+      //alert(baseUrl)
       location.href = baseUrl
     }
 
@@ -507,6 +507,12 @@ if(WALLET){
   $("#addressQR").attr("src",addressQRURL)
   $("#walletLayout").show() 
   //$("#walletLayout").css("display","block")
+
+  QR = getParameterByName("QR")
+  if(QR) {
+    showSendDogeBell()
+  }
+
 }else{
   $("#walletLayout").hide()
   //$("#walletLayout").css("display","none")
@@ -557,7 +563,9 @@ function createWalletWithMnemonic(){
   showModal()
 
   var db = firebase.firestore();
-  db.collection('wallet').doc(address).get().then((doc) => {
+  db.collection('wallet').doc(address).get()
+
+  .then((doc) => {
       hideModal()
       if (doc.exists) {
           console.log("Document data:", doc.data());
@@ -586,6 +594,123 @@ function createWalletWithMnemonic(){
       return;
   });
 }
+
+function sendDogeBell(){
+
+  var address = $("#sendWalletInput").val()
+  var amount = $("#sendInput").val().trim()
+
+  if(address == "" || amount == "" ){
+    showToast("Please fill in all fields")
+    return
+  }
+
+  if(isNaN(amount)){
+    showToast("Amount must be a number.")
+    return
+  }
+
+  showModal()
+  var insertData = {}
+  insertData.from = WALLET
+  insertData.to = address
+  insertData.amount = amount
+
+  var db = firebase.firestore();
+
+  db.collection("transaction").add(insertData)
+  .then((docRef) => {
+      hideModal()
+      showToast("Sending is success.")
+      document.getElementById('sendDialog').hide()
+      //console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+      //console.error("Error adding document: ", error);
+      hideModal()
+      showToast("Something is wrong.")
+      document.getElementById('sendDialog').hide()
+  });
+}
+
+
+// Loads chat messages history and listens for upcoming ones.
+function loadBalance() {
+  // Create the query to load the last 12 messages and listen for new ones.
+  var query = firebase.firestore()
+                  .collection('transaction')
+                  //orderBy('timestamp', 'desc')
+                  //.limit(120);
+  
+  // Start listening to the query.
+  query.onSnapshot(function(snapshot) {
+    snapshot.docChanges().forEach(function(change) {
+      // if (change.type === 'removed') {
+      //   deleteMessage(change.doc.id);
+      // } else {
+      //   var message = change.doc.data();
+      //   displayMessage(change.doc.id, message.timestamp, message.name,
+      //                  message.text, message.profilePicUrl, message.imageUrl);
+      // }
+
+      console.log("CHANGED.")
+
+          var db = firebase.firestore();
+
+          WALLET = getParameterByName("WALLET")
+
+          var transaction = db.collection("transaction");
+
+          //alert(WALLET)
+
+          db.collection("transaction").where("to", "==", WALLET)
+          .get()
+          .then((querySnapshot) => {
+
+              var totalAmount = 0;
+              var totalTransaction = 0;
+
+              querySnapshot.forEach((doc) => {
+                  // doc.data() is never undefined for query doc snapshots
+                  console.log(doc.id, " => ", doc.data());
+
+                  totalAmount += parseInt(doc.data().amount)
+                  totalTransaction += 1
+              });
+
+              //alert(totalAmount)
+
+              $("#dogebellAmount").html(totalAmount)
+              $("#bellTransaction").html(totalTransaction)
+          })
+          .catch((error) => {
+              console.log("Error getting documents: ", error);
+              $("#dogebellAmount").html("0")
+              $("#bellTransaction").html("0")
+          });
+
+
+        //   transaction.where("to","==",WALLET).get()
+        //   .then((doc) => {
+        //     if (doc.exists) {
+        //         console.log("Document data:", doc.data());
+        //         $("#dogebellAmount").val("1")
+        //     } else {
+        //         $("#dogebellAmount").val("0")
+        //         console.log("No data.");
+        //         return;
+        //     }
+        // })
+        // .catch((error) => {
+        //     $("#dogebellAmount").val("0")
+        //     console.error("Error adding document: ", error);
+        // });
+
+    });
+  });
+}
+
+loadBalance()
 
 function goQR(){
   var encodedUrl = encodeURIComponent(window.location.href);
@@ -857,7 +982,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     </div>
 <br>
       <div>
-        <ons-button><ons-icon icon="fa-paper-plane"></ons-icon>&#x20;Send</ons-button>&#x20;
+        <ons-button  onClick="showSendDogeBell()"><ons-icon icon="fa-paper-plane"></ons-icon>&#x20;Send</ons-button>&#x20;
         <ons-button><ons-icon icon="fa-copy"></ons-icon>&#x20;Copy</ons-button>&#x20;
         <ons-button><ons-icon icon="file-export"></ons-icon>&#x20;Backup</ons-button>&#x20;
       </div>
@@ -866,8 +991,8 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     <div class="content">
       <ons-list>
         <ons-list-header>Information</ons-list-header>
-        <ons-list-item>Value : 20 DogeBell</ons-list-item>
-        <ons-list-item>Transaction : 0</ons-list-item>
+        <ons-list-item>Amount &nbsp;:&nbsp; <span id="dogebellAmount"></span>&nbsp;BELL</ons-list-item>
+        <ons-list-item>Transaction &nbsp;:&nbsp; <span id="bellTransaction"></span></ons-list-item>
       </ons-list>
     </div>
   </ons-card>
@@ -1221,6 +1346,23 @@ var showMnemonicDialog = function() {
   }
 };
 
+var showSendDogeBell = function() {
+  var dialog = document.getElementById('sendDialog');
+
+  if (dialog) {
+    dialog.show();
+  } else {
+    ons.createElement('sendDialog.html', { append: true })
+      .then(function(dialog) {
+        dialog.show();
+
+          QR = getParameterByName("QR")
+          if(QR) {
+            $("#sendWalletInput").val(QR)
+          }
+      });
+  }
+};
 </script>
 
 <ons-modal direction="up">
@@ -1248,8 +1390,8 @@ var showMnemonicDialog = function() {
 
 
 <template id="mnemonicDialog.html">
-  <ons-dialog id="mnemonicDialog">
-  <div style="text-align: center; margin : 30px; " cancelable>
+  <ons-dialog id="mnemonicDialog" cancelable>
+  <div style="text-align: center; margin : 30px;">
 
       <p>
       <label>Import Wallet : </label>
@@ -1281,6 +1423,33 @@ var showMnemonicDialog = function() {
   </ons-dialog>
 </template>
 
+<template id="sendDialog.html">
+  <ons-dialog id="sendDialog" cancelable>
+  <div style="text-align: center; margin : 30px;">
+
+      <p>
+      <label>Send DogeBell : </label>
+      </p>
+      <p>
+      <ons-input modifier="underbar" placeholder="Wallet Address" id="sendWalletInput"></ons-input>
+      </p>
+      
+      <p>
+      <ons-button onClick="goQR()"><ons-icon icon="fa-qrcode"></ons-icon>&#x20;Scan</ons-button>
+      </p>
+
+      <p>
+      <label>Send Amount : </label>
+      </p>
+      <p>
+        <ons-input modifier="underbar" placeholder="1234" id="sendInput"></ons-input>
+      </p>
+    <p style="margin-top: 30px;">
+      <ons-button onclick="sendDogeBell()"><ons-icon icon="fa-paper-plane"></ons-icon>&#x20;Send</ons-button>
+    </p>
+  </div>
+  </ons-dialog>
+</template>
 
 </body>
 </html>
