@@ -213,7 +213,7 @@ function hideModal() {
       }
     }
 
-    function movePageWithParam() {
+    function movePageWithParamNEW() {
 
       var baseUrl = window.location.href.split('?')[0]
       var url = new URL(baseUrl);
@@ -242,7 +242,7 @@ function hideModal() {
     }
     
 
-    function movePageWithParamOLD() {
+    function movePageWithParam() {
 
       var baseUrl = window.location.href.split('?')[0]
 
@@ -545,6 +545,14 @@ function importWallet(){
 function createWalletWithMnemonic(){
 
   var address = $("#walletInput").val()
+  var word1 = $("#word1").val().trim()
+  var word2 = $("#word2").val().trim()
+  var word3 = $("#word3").val().trim()
+
+  if(address == "" || word1 == "" || word2 == "" || word3 == ""){
+    showToast("Please fill in all fields")
+    return
+  }
 
   showModal()
 
@@ -554,9 +562,6 @@ function createWalletWithMnemonic(){
       if (doc.exists) {
           console.log("Document data:", doc.data());
           var mnemonic = doc.data().Mnemonic
-          var word1 = $("#word1").val().trim()
-          var word2 = $("#word2").val().trim()
-          var word3 = $("#word3").val().trim()
 
           if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
             WALLET = address
@@ -580,6 +585,12 @@ function createWalletWithMnemonic(){
       showToast("Something is wrong.")
       return;
   });
+}
+
+function goQR(){
+  var encodedUrl = encodeURIComponent(window.location.href);
+  var QRURL = "./qr" + "?RETURNURL=" + encodedUrl
+  location.href = QRURL
 }
 
 function goHome(){
@@ -1176,6 +1187,12 @@ var showWalletAlert = function() {
         dialog.show();
       });
   }
+
+  QR = getParameterByName("QR")
+  if(QR) {
+    importWallet()
+  }
+
 };
 
 var hideDialog = function(id) {
@@ -1194,6 +1211,12 @@ var showMnemonicDialog = function() {
     ons.createElement('mnemonicDialog.html', { append: true })
       .then(function(dialog) {
         dialog.show();
+
+          QR = getParameterByName("QR")
+          if(QR) {
+            $("#walletInput").val(QR)
+          }
+
       });
   }
 };
@@ -1236,6 +1259,10 @@ var showMnemonicDialog = function() {
       </p>
       
       <p>
+      <ons-button onClick="goQR()"><ons-icon icon="fa-qrcode"></ons-icon>&#x20;Scan</ons-button>
+      </p>
+
+      <p>
       <label>Mnemonic Words : </label>
       </p>
       <p>
@@ -1248,7 +1275,7 @@ var showMnemonicDialog = function() {
         <ons-input id="word3" modifier="underbar" placeholder="Word3"></ons-input>
       </p>
     <p style="margin-top: 30px;">
-      <ons-button onclick="createWalletWithMnemonic()">Import</ons-button>
+      <ons-button onclick="createWalletWithMnemonic()"><ons-icon icon="fa-file-import"></ons-icon>&#x20;Import</ons-button>
     </p>
   </div>
   </ons-dialog>
