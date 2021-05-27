@@ -527,22 +527,50 @@ function drawMine(){
   $("#mineLayout").show() 
 
   setInterval(function() {
-  $("#bell").addClass("bell-on")
-  $("#bell").removeClass("bell-off")
   
   MININGBELL = MININGBELL + 1;
   $("#miningBell").html(MININGBELL + " BELL")
   $("#bellEffect").html("+ 1").show()
+  $("#bell").addClass("bell-off")
+  $("#bell").removeClass("bell-on")
+    
+  if(MININGBELL > 1){
+    mineBell()
+  }
 
     setTimeout(function() {
-    $("#bell").addClass("bell-off")
-    $("#bell").removeClass("bell-on")
-    $("#bellEffect").html("+ 1").hide()
-    },4000);
+
+    $("#bell").addClass("bell-on")
+    $("#bell").removeClass("bell-off")
+    $("#bellEffect").hide()
+    },5000);
 
   },5000);
+}
+function mineBell(){
+  //howModal()
+  var insertData = {}
+  insertData.from = "ORIGIN"
+  insertData.to = WALLET
+  insertData.amount = MININGBELL
 
+  MININGBELL = 0
 
+  var db = firebase.firestore();
+
+  db.collection("transaction").add(insertData)
+  .then((docRef) => {
+      //hideModal()
+      showToast("Mining is success.")
+      //document.getElementById('sendDialog').hide()
+      //console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+      console.error("Error adding document: ", error);
+      //hideModal()
+      showToast("Something is wrong.")
+      //document.getElementById('sendDialog').hide()
+  });
 }
 
 function drawChain(){
@@ -668,11 +696,17 @@ function loadBalance() {
       //                  message.text, message.profilePicUrl, message.imageUrl);
       // }
 
-      console.log("CHANGED.")
+         console.log("CHANGED.")
 
           var db = firebase.firestore();
 
           WALLET = getParameterByName("WALLET")
+
+          var changeData = change.doc.data();
+          //console.log(change.doc.id, " => ", changeData);
+
+          if (changeData.to == WALLET) {
+          
 
           var transaction = db.collection("transaction");
 
@@ -687,7 +721,6 @@ function loadBalance() {
 
               querySnapshot.forEach((doc) => {
                   // doc.data() is never undefined for query doc snapshots
-                  console.log(doc.id, " => ", doc.data());
 
                   totalAmount += parseInt(doc.data().amount)
                   totalTransaction += 1
@@ -697,30 +730,15 @@ function loadBalance() {
 
               $("#dogebellAmount").html(totalAmount)
               $("#bellTransaction").html(totalTransaction)
+
+              return; //For Loop.
           })
           .catch((error) => {
               console.log("Error getting documents: ", error);
               $("#dogebellAmount").html("0")
               $("#bellTransaction").html("0")
           });
-
-
-        //   transaction.where("to","==",WALLET).get()
-        //   .then((doc) => {
-        //     if (doc.exists) {
-        //         console.log("Document data:", doc.data());
-        //         $("#dogebellAmount").val("1")
-        //     } else {
-        //         $("#dogebellAmount").val("0")
-        //         console.log("No data.");
-        //         return;
-        //     }
-        // })
-        // .catch((error) => {
-        //     $("#dogebellAmount").val("0")
-        //     console.error("Error adding document: ", error);
-        // });
-
+          }
     });
   });
 }
@@ -1084,11 +1102,11 @@ h1{
   font-size: 140px;
   margin:50px auto 0;
   color: #9e9e9e;
-  //-webkit-animation: ring 4s .7s ease-in-out infinite;
+  //-webkit-animation: ring 5s .7s ease-in-out infinite;
   -webkit-transform-origin: 50% 4px;
-  //-moz-animation: ring 4s .7s ease-in-out infinite;
+  //-moz-animation: ring 5s .7s ease-in-out infinite;
   -moz-transform-origin: 50% 4px;
-  //animation: ring 4s .7s ease-in-out infinite;
+  //animation: ring 5s .7s ease-in-out infinite;
   transform-origin: 50% 4px;
 }
 
@@ -1099,11 +1117,11 @@ h1{
   font-size: 140px;
   margin:50px auto 0;
   color: #9e9e9e;
-  -webkit-animation: ring 4s .7s ease-in-out infinite;
+  -webkit-animation: ring 5s .7s ease-in-out infinite;
   -webkit-transform-origin: 50% 4px;
-  -moz-animation: ring 4s .7s ease-in-out infinite;
+  -moz-animation: ring 5s .7s ease-in-out infinite;
   -moz-transform-origin: 50% 4px;
-  animation: ring 4s .7s ease-in-out infinite;
+  animation: ring 5s .7s ease-in-out infinite;
   transform-origin: 50% 4px;
 }
 
@@ -1207,7 +1225,7 @@ h1{
 
 <div onClick="mining()">
   <h1 id="miningBell">0 BELL</h1>
-  <span class="bell-off fa fa-bell" id="bell"></span>
+  <span class="bell-on fa fa-bell" id="bell"></span>
   <h1 id="bellEffect"></h1>
 </div>
 
