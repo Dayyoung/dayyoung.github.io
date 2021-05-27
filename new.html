@@ -480,7 +480,7 @@ if(MENU == "Wallet" && page == "wallet"){
 if(MENU == "Mining" && page == "mine"){
   document.querySelector('ons-tabbar').setActiveTab(2)
 }
-if(MENU == "BlockChain" && page == "chain"){
+if(MENU == "Trade" && page == "trade"){
   document.querySelector('ons-tabbar').setActiveTab(3)
 }
 
@@ -489,7 +489,7 @@ if(MENU == "BlockChain" && page == "chain"){
 document.addEventListener('postchange', function(event) {
  var selectedIndex = document.querySelector('ons-tabbar').getActiveTabIndex()
  
-console.log(selectedIndex)
+//console.log(selectedIndex)
 // console.log(history.state)
 CURRENTPAGE = selectedIndex
 
@@ -504,7 +504,7 @@ if (selectedIndex == 2) {
   drawMine()
 } 
 if (selectedIndex == 3) {
-  drawChain()
+  drawTrade()
 } 
 
 });
@@ -769,7 +769,7 @@ function mineBell(){
 function refreshScreen(){
   if (CURRENTPAGE == 0) {
     //alert("HOME")
-    drawChart()
+    //drawChart()
   } 
   if (CURRENTPAGE == 1) {
     drawWallet()
@@ -778,7 +778,7 @@ function refreshScreen(){
     drawMine()
   } 
   if (CURRENTPAGE == 3) {
-    drawChain()
+    //drawTrade()
   } 
 }
 
@@ -806,6 +806,11 @@ function goBlockChain(){
   MENU = "BlockChain"
   movePageWithParam() 
 }
+
+function goTrade(){
+  MENU = "Trade"
+  movePageWithParam()
+} 
 
 function showToast(message){
     ons.notification.toast(message, { timeout: 1000, animation: 'fall' })
@@ -945,7 +950,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     </ons-tab>
     <ons-tab onClick="goMining()" label="Mining" icon="fa-mountain" page="mine.html">
     </ons-tab>
-    <ons-tab page="trade.html" label="Trade" icon="fa-balance-scale">
+    <ons-tab onClick="goTrade()" label="Trade" icon="fa-balance-scale" page="trade.html" >
     </ons-tab>
 <!--     <ons-tab onClick="goBlockChain()" label="BlockChain" icon="fa-dice-d20" page="chain.html">
     </ons-tab>
@@ -1079,9 +1084,49 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
 <template id="trade.html">
   <ons-page id="trade">
-    <p style="text-align: center;">
-      This is the trade page.
-    </p>
+
+  <div id="tradeLayout" style="display: none">
+
+  <div id="moonPic" class="bigdiv" style="display: none">
+    <center>
+      <br><br><br><br>
+
+      <img src="/assets/img/tothemoon.png" />
+    </center>
+  </div>
+
+  <center>
+
+  <ons-toolbar>
+    <div class="center">Trade</div>
+  </ons-toolbar>
+
+<br>
+<br>
+<br>
+
+    <div style="line-height:100%;">
+     <h3> DogeBell </a> = <span id="bellPrice"> $ 1 </span></a> </h3> 
+     <br>
+   </div>
+
+   <div class="box">
+    <div class="dojichart" id="tradeChart">
+      <div class="region" data-name="price"></div>
+    </div>
+  </div>
+
+      <p>
+      <ons-button onClick="goQR()"><ons-icon icon="fa-hand-pointer"></ons-icon>&#x20;Sell</ons-button>
+     
+      <ons-button onClick="goQR()"><ons-icon icon="fa-hand-pointer"></ons-icon>&#x20;Buy</ons-button>
+      </p>
+
+  </center>
+  </center>
+
+  </div>
+
   </ons-page>
 </template>
 
@@ -1347,6 +1392,83 @@ setInterval(function() {
 
 }
 
+function drawTrade() {
+
+  $("#tradeLayout").show()
+/*
+  Hello World
+*/
+var dojichart = new DojiChart.core.Chart(document.getElementById("tradeChart"), {
+  fieldMap: {
+    time: "t",
+    open: "o",
+    high: "h",
+    low: "l",
+    close: "c",
+  }
+});
+
+// Candlestick layer
+var candle_layer = new DojiChart.layer.CandleLayer({
+  bearBodyColor: "blue",
+  bullBodyColor: "red",
+});
+
+// Price chart panel
+var price_chart_panel = new DojiChart.panel.TimeValuePanel({
+  primaryLayer: candle_layer,
+  height: 250,
+  grid: true,
+  //paddingTop : 100
+});
+
+dojichart.addComponent("price", price_chart_panel);
+
+setInterval(function() {
+
+  if (DOGEPRICEFORUSD == 0){
+    return
+  }
+  
+  //data_arr = shuffle(data_arr);
+
+  const rand1 = DOGEPRICEFORUSD
+  const rand2 = rand1 + 0.03
+  const rand3 = rand1 - 0.03;
+  var rand4 = rand1 + Math.random() * 0.1;
+
+  if (MOONCOST > 0){
+    MOONCOST = MOONCOST * 1.2;
+    
+    //var maxCost = (DOGEPRICE / DOGEPRICEFORUSD)
+
+    //console.log(maxCost);
+
+    if(MOONCOST > 1){
+      MOONCOST = 1
+    }
+    rand4 = MOONCOST;
+  }
+
+  //console.log(rand4 + "!!")
+
+
+  dogeData.pop()
+  dogeData.pop()
+  
+  var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
+  dogeData.push(data)
+  
+  var data = {"t":"14-5-2021","o":1,"h":1,"l":1,"c":1,"v":100}
+  dogeData.push(data)
+  
+  dojichart.loadData(dogeData, "DOGE", "M5");
+}, 300);
+
+/* end of file */
+
+}
+
 var showWalletAlert = function() {
 
   var isDialog = $(".dialog-mask").is(':visible');
@@ -1355,7 +1477,7 @@ var showWalletAlert = function() {
     //console.log("DIALOG.")
     return
   }
-  
+
   var dialog = document.getElementById('my-dialog');
 
   if (dialog) {
