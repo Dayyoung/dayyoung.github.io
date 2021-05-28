@@ -1564,7 +1564,11 @@ var price_chart_panel = new DojiChart.panel.TimeValuePanel({
 
 dojichart.addComponent("price", price_chart_panel);
 
-setInterval(function() {
+if(CHARTTIMER){
+    clearInterval(CHARTTIMER);
+}
+
+CHARTTIMER = setInterval(function() {
 
   if (DOGEPRICEFORUSD == 0){
     return
@@ -1613,6 +1617,9 @@ var BELLPRICE;
 var BELLPRICEFORUSD;
 var TOTALMONEY;
 
+var TRADETIMER;
+var CHARTTIMER;
+
 function drawTrade() {
 
   $("#tradeLayout").show()
@@ -1645,7 +1652,11 @@ var price_chart_panel = new DojiChart.panel.TimeValuePanel({
 
 dojichart.addComponent("price", price_chart_panel);
 
-setInterval(function() {
+if(TRADETIMER){
+  clearInterval(TRADETIMER)
+}
+
+TRADETIMER = setInterval(function() {
 
   if (DOGEPRICEFORUSD == 0){
     return
