@@ -518,7 +518,8 @@ function copyToClipboard(val) {
   document.body.removeChild(t);
 }
 function copyAddress() {
-  copyToClipboard('Hello World');
+  var address = $("#address").val()
+  copyToClipboard(address);
   showToast("Address is copied.")
 }
 
@@ -663,6 +664,17 @@ function sendDogeBell(){
     return
   }
 
+  if(amount <= 0){
+    showToast("Amount must be a positive number.")
+    return
+  }
+
+
+  if(amount > (TOTALAMOUNT + MININGBELL)){
+    showToast("You hane no DogeBell to send.")
+    return
+  }
+
   showModal()
   var insertData = {}
   insertData.from = WALLET
@@ -688,11 +700,18 @@ function sendDogeBell(){
 
 var TOTALAMOUNT = 0;
 var TOTALTRANSACTION = 0;
+var TOTALSUPPLY = 0;
 
 // Loads chat messages history and listens for upcoming ones.
 function loadBalance() {
 
     //console.log("CHANGED.")
+
+    if(!WALLET) {
+      $("#dogebellAmount").html("0")
+      $("#bellTransaction").html("0")
+      return;
+    }
 
     var db = firebase.firestore();
 
@@ -713,13 +732,38 @@ function loadBalance() {
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
 
+            console.log(doc.data())
             TOTALAMOUNT += parseInt(doc.data().amount)
             TOTALTRANSACTION += 1
         });
 
-        //alerr TOTALAMOUNT)
+        db.collection("transaction").where("from", "==", WALLET)
+        .get()
+        .then((querySnapshot) => {
 
-        refreshScreen();
+
+            querySnapshot.forEach((doc) => {
+                // doc.data() is never undefined for query doc snapshots
+                console.log(doc.data())
+                TOTALAMOUNT -= parseInt(doc.data().amount)
+                TOTALTRANSACTION += 1
+            });
+            //alerr TOTALAMOUNT)
+            if (TOTALAMOUNT < 0){
+              TOTALAMOUNT = 0
+            }
+
+
+            refreshScreen();
+            return; //For Loop.
+        })
+        .catch((error) => {
+            console.log("Error getting documents: ", error);
+            $("#dogebellAmount").html("0")
+            $("#bellTransaction").html("0")
+        });        
+        //alerr TOTALAMOUNT)
+        //refreshScreen();
         return; //For Loop.
     })
     .catch((error) => {
@@ -740,6 +784,12 @@ setInterval(function() {
 }, 10000) ;
 
 function mineBell(){
+
+  if(!WALLET) {
+    showToast("Create a wallet to mine.")
+    return
+  }
+
   //howModal()
   var insertData = {}
   insertData.from = "ORIGIN"
@@ -980,7 +1030,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
        <img src="/assets/img/dogebell-title.png" width="70%" height="50%" style="max-width: 500px;">
      </a>
 
-     <h3><a href="#" onclick="changeDoge(); return false;"> <span id="dogeCount">1</span> Dogecoin </a> = <a href="#" onclick="changeFiat(); return false;"><span id="unit">$</span> <span id="dogePrice"></span></a> </h3> 
+     <h3><a href="#" onClick="changeDoge(); return false;"> <span id="dogeCount">1</span> Dogecoin </a> = <a href="#" onClick="changeFiat(); return false;"><span id="unit">$</span> <span id="dogePrice"></span></a> </h3> 
      <br>
 
      <div class="custom-select">
@@ -1075,9 +1125,9 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
   <center>
   <ons-action-sheet id="sheet" cancelable title="You do not have a wallet.">
-    <ons-action-sheet-button icon="md-square-o" onclick="app.hideFromTemplate()">Create Wallet.</ons-action-sheet-button>
-    <ons-action-sheet-button icon="md-square-o" onclick="app.hideFromTemplate()">Import Wallet.</ons-action-sheet-button>
-    <ons-action-sheet-button icon="md-close" onclick="app.hideFromTemplate()" modifier="destructive">Cancel</ons-action-sheet-button>
+    <ons-action-sheet-button icon="md-square-o" onClick="app.hideFromTemplate()">Create Wallet.</ons-action-sheet-button>
+    <ons-action-sheet-button icon="md-square-o" onClick="app.hideFromTemplate()">Import Wallet.</ons-action-sheet-button>
+    <ons-action-sheet-button icon="md-close" onClick="app.hideFromTemplate()" modifier="destructive">Cancel</ons-action-sheet-button>
   </ons-action-sheet>
   </center>
 </template>
@@ -1539,6 +1589,9 @@ var showMnemonicBackupDialog = function() {
     ons.createElement('mnemonicBackupDialog.html', { append: true })
       .then(function(dialog) {
         dialog.show();
+
+        MNEMONIC = getParameterByName("MNEMONIC")
+        //alert(MNEMONIC)
         var words = MNEMONIC.split(",")
         $("#walletLabel").val(WALLET)
         $("#word1Label").val(words[0])
@@ -1591,8 +1644,8 @@ var showSendDogeBell = function() {
       </p>
 
       <p >
-        <ons-button style="margin: 5px" onclick="createWallet()">Create Wallet.</ons-button> 
-        <ons-button style="margin: 5px" onclick="importWallet()">Import Wallet.</ons-button>
+        <ons-button style="margin: 5px" onClick="createWallet()">Create Wallet.</ons-button> 
+        <ons-button style="margin: 5px" onClick="importWallet()">Import Wallet.</ons-button>
       </p>
     </div>
   </ons-dialog>
@@ -1627,7 +1680,7 @@ var showSendDogeBell = function() {
         <ons-input id="word3" modifier="underbar" placeholder="Word3"></ons-input>
       </p>
     <p style="margin-top: 30px;">
-      <ons-button onclick="createWalletWithMnemonic()"><ons-icon icon="fa-file-import"></ons-icon>&#x20;Import</ons-button>
+      <ons-button onClick="createWalletWithMnemonic()"><ons-icon icon="fa-file-import"></ons-icon>&#x20;Import</ons-button>
     </p>
   </div>
   </ons-dialog>
@@ -1661,7 +1714,7 @@ var showSendDogeBell = function() {
         <ons-input id="word3Label" modifier="underbar" placeholder="Word3" readonly></ons-input>
       </p>
     <p style="margin-top: 30px;">
-      <ons-button onclick="createWalletWithMnemonic()"><ons-icon icon="fa-file-import"></ons-icon>&#x20;Import</ons-button>
+      <ons-button onClick="hideDialog('mnemonicBackupDialog')"><ons-icon icon="fa-file-export"></ons-icon>&#x20;OK</ons-button>
     </p>
   </div>
   </ons-dialog>
@@ -1686,10 +1739,10 @@ var showSendDogeBell = function() {
       <label>Send Amount : </label>
       </p>
       <p>
-        <ons-input modifier="underbar" placeholder="1234" id="sendInput"></ons-input>
+        <ons-input modifier="underbar" placeholder="How much Bell?" id="sendInput"></ons-input>
       </p>
     <p style="margin-top: 30px;">
-      <ons-button onclick="sendDogeBell()"><ons-icon icon="fa-paper-plane"></ons-icon>&#x20;Send</ons-button>
+      <ons-button onClick="sendDogeBell()"><ons-icon icon="fa-paper-plane"></ons-icon>&#x20;Send</ons-button>
     </p>
   </div>
   </ons-dialog>
