@@ -78,6 +78,44 @@ function insertWallet(item) {
   });
 }
 
+var LOGIN;
+
+function getWallet(){
+  WALLET = getParameterByName("WALLET")
+  MNEMONIC = getParameterByName("MNEMONIC")
+
+  if(!MNEMONIC){
+    return
+  }
+
+  var words = MNEMONIC.split(",")
+  var word1 = words[0]
+  var word2 = words[1]
+  var word3 = words[2]
+  //alert(word3)
+
+  if(WALLET == "" || word1 == "" || word2 == "" || word3 == ""){
+    showToast("Please fill in all fields")
+    return
+  }
+
+  var db = firebase.firestore();
+  db.collection('wallet').doc(WALLET).get()
+  .then((doc) => {
+      if (doc.exists) {
+      //console.log("Document data:", doc.data());
+      
+      var mnemonic = doc.data().Mnemonic
+
+        if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
+        LOGIN = true  
+        $("#sendButton").show()
+        $("#backupButton").show()
+        } 
+      }
+    });
+}
+
 
 function createTransaction(item) {
 
@@ -498,12 +536,15 @@ if (selectedIndex == 0) {
   drawChart()
 } 
 if (selectedIndex == 1) {
+  loadBalance();
   drawWallet()
 } 
 if (selectedIndex == 2) {
+  loadBalance();
   drawMine()
 } 
 if (selectedIndex == 3) {
+  loadBalance();
   drawTrade()
 } 
 
@@ -528,6 +569,8 @@ function drawWallet(){
 WALLET = getParameterByName("WALLET")
 
 if(WALLET){
+
+  getWallet();
 
   //alert(WALLET)
   $("#address").val(WALLET)
@@ -622,7 +665,7 @@ function createWalletWithMnemonic(){
   .then((doc) => {
       hideModal()
       if (doc.exists) {
-          console.log("Document data:", doc.data());
+          //console.log("Document data:", doc.data());
           var mnemonic = doc.data().Mnemonic
 
           if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
@@ -698,13 +741,105 @@ function sendDogeBell(){
   });
 }
 
+var isBuying = false
+
+function buy(){
+
+  if(0 >= TOTALMONEY){
+    showToast("You hane no money to buy.")
+    return
+  }
+
+  isBuying = true
+  
+  var insertData = {}
+  insertData.from = "TRADE"
+  insertData.to = WALLET
+  insertData.money = TOTALMONEY.toFixed(4)
+  insertData.amount = (TOTALMONEY / BELLPRICEFORUSD).toFixed(0)
+
+  TOTALMONEY = 0
+  TOTALAMOUNT = (TOTALMONEY / BELLPRICEFORUSD).toFixed(0)
+  
+  showModal()
+  var db = firebase.firestore();
+
+  db.collection("transaction").add(insertData)
+  .then((docRef) => {
+      hideModal()
+      showToast("(BUY PRICE : $"+ BELLPRICEFORUSD +")")
+      isBuying = false
+      //console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+      hideModal()
+      //console.error("Error adding document: ", error);
+      showToast("Something is wrong.")
+      isBuying = false
+      
+  });
+}
+
+var isSelling = false
+
+function sell(){
+
+  if(0 >= (TOTALAMOUNT + MININGBELL)){
+    showToast("You hane no DogeBell to sell.")
+    return
+  }
+
+  isSelling = true
+
+  var insertData = {}
+  insertData.from = WALLET
+  insertData.to = "TRADE"
+  insertData.money = (BELLPRICEFORUSD * (TOTALAMOUNT + MININGBELL)).toFixed(4)
+  insertData.amount = TOTALAMOUNT + MININGBELL
+
+  TOTALMONEY  = BELLPRICEFORUSD * (TOTALAMOUNT + MININGBELL)
+  TOTALAMOUNT = 0
+  MININGBELL = 0
+
+  var db = firebase.firestore();
+
+  showModal()
+  db.collection("transaction").add(insertData)
+  .then((docRef) => {
+      hideModal()
+      showToast("(SELL PRICE : $"+ BELLPRICEFORUSD +")")
+      isSelling = false
+      //console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+      hideModal()
+      //console.error("Error adding document: ", error);
+      isSelling = false
+      showToast("Something is wrong.")
+      
+  });
+}
+
+// isInteger는 es6 임. ie 11 에서는 안되므로 함수 만듬.
+Number.isInteger = Number.isInteger || function(value) {
+    return typeof value === "number" && 
+        isFinite(value) && 
+        Math.floor(value) === value;
+};
+
 var TOTALAMOUNT = 0;
 var TOTALTRANSACTION = 0;
 var TOTALSUPPLY = 0;
 
+var isUpdate = false
 // Loads chat messages history and listens for upcoming ones.
 function loadBalance() {
 
+    if(isBuying || isSelling){
+      return
+    }
+
+    //alert("loadBalance")
     //console.log("CHANGED.")
 
     if(!WALLET) {
@@ -721,8 +856,11 @@ function loadBalance() {
 
     TOTALAMOUNT = 0;
     TOTALTRANSACTION = 0;
+    TOTALMONEY = 0;
     //$("#dogebellAmount").html("0")
     //$("#bellTransaction").html("0")
+
+    isUpdate = true
 
     db.collection("transaction").where("to", "==", WALLET)
     .get()
@@ -731,10 +869,16 @@ function loadBalance() {
 
         querySnapshot.forEach((doc) => {
             // doc.data() is never undefined for query doc snapshots
-
-            console.log(doc.data())
+            //console.log(doc.data())
             TOTALAMOUNT += parseInt(doc.data().amount)
             TOTALTRANSACTION += 1
+
+            var sendMoney = doc.data().money
+
+            if(isNaN(sendMoney) == false){
+              TOTALMONEY -= parseFloat(sendMoney)
+              //console.log("SELL >>" + parseFloat(sendMoney))
+            }
         });
 
         db.collection("transaction").where("from", "==", WALLET)
@@ -744,15 +888,27 @@ function loadBalance() {
 
             querySnapshot.forEach((doc) => {
                 // doc.data() is never undefined for query doc snapshots
-                console.log(doc.data())
+                //console.log(doc.data())
                 TOTALAMOUNT -= parseInt(doc.data().amount)
                 TOTALTRANSACTION += 1
+
+                var buyMoney = doc.data().money
+
+                if(isNaN(buyMoney) == false){
+                  //console.log("BUY >>" + parseFloat(buyMoney))
+                  TOTALMONEY += parseFloat(buyMoney)
+                }
+
             });
+            isUpdate = false
             //alerr TOTALAMOUNT)
             if (TOTALAMOUNT < 0){
               TOTALAMOUNT = 0
             }
 
+            if (TOTALMONEY < 0){
+              TOTALMONEY = 0
+            }
 
             refreshScreen();
             return; //For Loop.
@@ -761,6 +917,7 @@ function loadBalance() {
             console.log("Error getting documents: ", error);
             $("#dogebellAmount").html("0")
             $("#bellTransaction").html("0")
+            isUpdate = false
         });        
         //alerr TOTALAMOUNT)
         //refreshScreen();
@@ -770,10 +927,9 @@ function loadBalance() {
         console.log("Error getting documents: ", error);
         $("#dogebellAmount").html("0")
         $("#bellTransaction").html("0")
+        isUpdate = false
     });
 }
-
-loadBalance();
 
 setInterval(function() {
   loadBalance()
@@ -1104,9 +1260,9 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
 <br>
       <div>
-        <ons-button onClick="showSendDogeBell()"><ons-icon icon="fa-paper-plane"></ons-icon>&#x20;Send</ons-button>&#x20;
+        <ons-button id="sendButton" style="display: none" onClick="showSendDogeBell()"><ons-icon icon="fa-paper-plane"></ons-icon>&#x20;Send</ons-button>&#x20;
         <ons-button onClick="copyAddress()" id="copyButton" data-clipboard-text="AAAA"><ons-icon icon="fa-copy"></ons-icon>&#x20;Copy</ons-button>&#x20;
-        <ons-button onClick="showMnemonicBackupDialog()"><ons-icon icon="file-export"></ons-icon>&#x20;Backup</ons-button>&#x20;
+        <ons-button id="backupButton" style="display: none"  onClick="showMnemonicBackupDialog()"><ons-icon icon="file-export"></ons-icon>&#x20;Backup</ons-button>&#x20;
       </div>
 <br>      
     </center>
@@ -1137,7 +1293,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
   <div id="tradeLayout" style="display: none">
 
-  <div id="moonPic" class="bigdiv" style="display: none">
+  <div id="effectPic" class="bigdiv" style="display: none">
     <center>
       <br><br><br><br>
 
@@ -1156,7 +1312,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 <br>
 
     <div style="line-height:100%;">
-     <h3> DogeBell </a> = <span id="bellPrice"> $ 1 </span></a> </h3> 
+     <h3> 1 DogeBell </a> =  $<span id="bellPrice"></span></a> </h3> 
      <br>
    </div>
 
@@ -1166,11 +1322,22 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     </div>
   </div>
 
-      <p>
-      <ons-button onClick="goQR()"><ons-icon icon="fa-hand-pointer"></ons-icon>&#x20;Sell</ons-button>
-     
-      <ons-button onClick="goQR()"><ons-icon icon="fa-hand-pointer"></ons-icon>&#x20;Buy</ons-button>
-      </p>
+  <br>
+
+    <div class="content" style="margin: 10px;">
+      <ons-list>
+        <ons-list-header>Information</ons-list-header>
+        <ons-list-item>My BELL &nbsp;:&nbsp; <span id="dogeBellForTrade"></span>&nbsp;BELL ($<span id="calculateForTrade"></span>)</ons-list-item>
+        <ons-list-item>My MONEY &nbsp;:&nbsp; $&nbsp; <span id="moneyForTrade"></span>&nbsp;</ons-list-item>
+      </ons-list>
+    </div>
+ 
+ <br>
+
+      <div>
+      <ons-button onClick="buy()" style="background-color: red; color: white; width: 150px;margin: : 20px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Buy BELL&nbsp;&nbsp;</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; width: 150px;margin: 20px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Sell BELL&nbsp;&nbsp;</ons-button>
+      </div>
 
   </center>
   </center>
@@ -1442,6 +1609,10 @@ setInterval(function() {
 
 }
 
+var BELLPRICE;
+var BELLPRICEFORUSD;
+var TOTALMONEY;
+
 function drawTrade() {
 
   $("#tradeLayout").show()
@@ -1485,23 +1656,38 @@ setInterval(function() {
   const rand1 = DOGEPRICEFORUSD
   const rand2 = rand1 + 0.03
   const rand3 = rand1 - 0.03;
-  var rand4 = rand1 + Math.random() * 0.1;
+  var rand4 = rand1 + Math.random() * 1
 
-  if (MOONCOST > 0){
-    MOONCOST = MOONCOST * 1.2;
-    
-    //var maxCost = (DOGEPRICE / DOGEPRICEFORUSD)
-
-    //console.log(maxCost);
-
-    if(MOONCOST > 1){
-      MOONCOST = 1
-    }
-    rand4 = MOONCOST;
+  if(rand4 > 1){
+    rand4 = 1
   }
 
-  //console.log(rand4 + "!!")
+  if(isUpdate == false) {
+    $("#bellPrice").html(rand4.toFixed(4))
+    //console.log(rand4 + "!!")
+    BELLPRICE = rand4.toFixed(4)
 
+    if(!TOTALAMOUNT){
+      TOTALAMOUNT = 0
+    }
+
+    //console.log(rand4.toFixed(4))
+    BELLPRICEFORUSD = rand4.toFixed(4) 
+
+    var totalBell = parseInt(TOTALAMOUNT) + parseInt(MININGBELL)
+    var calculatePrice = BELLPRICEFORUSD * (parseInt(TOTALAMOUNT) + parseInt(MININGBELL))
+
+    $("#dogeBellForTrade").html(totalBell)
+    $("#calculateForTrade").html(calculatePrice.toFixed(4))
+
+    if(!TOTALMONEY){
+      TOTALMONEY = 0
+    }
+
+    //console.log(TOTALMONEY)
+
+    $("#moneyForTrade").html(TOTALMONEY)
+  }
 
   dogeData.pop()
   dogeData.pop()
