@@ -988,6 +988,11 @@ function refreshScreen(){
   } 
 }
 
+function goTelegram(){
+  location.href = "https://t.me/dogebellcom"
+}
+
+
 function goQR(){
   var encodedUrl = encodeURIComponent(window.location.href);
   var QRURL = "./qr" + "?RETURNURL=" + encodedUrl
@@ -1116,9 +1121,9 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
 }
 
-.speed-dial.fab--bottom__right, button.fab--bottom__right, ons-fab.fab--bottom__right {
+/*.speed-dial.fab--bottom__right, button.fab--bottom__right, ons-fab.fab--bottom__right {
   bottom: 60px;
-}
+}*/
 
 </style>
 <style>
@@ -1212,6 +1217,23 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
 
   </center>
+
+  <ons-speed-dial position="bottom right" direction="up">
+    <ons-fab>
+      <ons-icon onClick="goTelegram()" icon="fa-telegram-plane"></ons-icon>
+    </ons-fab>
+<!--     <ons-speed-dial-item>
+      <ons-icon icon="md-twitter"></ons-icon>
+    </ons-speed-dial-item>
+    <ons-speed-dial-item>
+      <ons-icon icon="md-facebook"></ons-icon>
+    </ons-speed-dial-item>
+    <ons-speed-dial-item>
+      <ons-icon icon="md-google-plus"></ons-icon>
+    </ons-speed-dial-item> -->
+  </ons-speed-dial>
+
+
 
 <footer class="site-footer" style="margin: 20px;">
 
@@ -1944,5 +1966,39 @@ var showSendDogeBell = function() {
   </div>
   </ons-dialog>
 </template>
+
+
+<script>
+ 
+function setCookie(cookieName, cookieValue, cookieExpire, cookiePath, cookieDomain, cookieSecure){
+    var cookieText=escape(cookieName)+'='+escape(cookieValue);
+    cookieText+=(cookieExpire ? '; EXPIRES='+cookieExpire.toGMTString() : '');
+    cookieText+=(cookiePath ? '; PATH='+cookiePath : '');
+    cookieText+=(cookieDomain ? '; DOMAIN='+cookieDomain : '');
+    cookieText+=(cookieSecure ? '; SECURE' : '');
+    document.cookie=cookieText;
+}
+ 
+function getCookie(cookieName){
+    var cookieValue=null;
+    if(document.cookie){
+        var array=document.cookie.split((escape(cookieName)+'='));
+        if(array.length >= 2){
+            var arraySub=array[1].split(';');
+            cookieValue=unescape(arraySub[0]);
+        }
+    }
+    return cookieValue;
+}
+ 
+function deleteCookie(cookieName){
+    var temp=getCookie(cookieName);
+    if(temp){
+        setCookie(cookieName,temp,(new Date(1)));
+    }
+}
+ 
+</script>
+
 </body>
 </html>
