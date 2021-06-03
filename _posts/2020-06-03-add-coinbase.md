@@ -1,5 +1,6 @@
 ---
 title:  "DogeBell added Coinbase counter."
+author: DogeBell.com
 
 categories:
   - News
