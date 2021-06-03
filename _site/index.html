@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}">
+<html>
 <head>
 
   <title>DogeBell</title>
@@ -391,14 +391,16 @@
 
 <script>
 
+var NOW;
 
 $.get( "https://worldtimeapi.org/api/timezone/Pacific/Easter", function( data ) {
-  if(data.unixtime){
-    startCountDown(data.unixtime * 1000)
+  NOW = data.unixtime
+  if(NOW){
+    startCountDown()
   }
 });
 
-function startCountDown(now)
+function startCountDown()
 {
   var countDownDate = new Date('3 June 2021 16:00:00 GMT').getTime()
   // Update the count down every 1 second
@@ -409,7 +411,7 @@ function startCountDown(now)
     //console.log(now)
     
     // Find the distance between now and the count down date
-    var distance = countDownDate - now;
+    var distance = countDownDate - NOW * 1000;
 
     // Time calculations for days, hours, minutes and seconds
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -426,6 +428,7 @@ function startCountDown(now)
       clearInterval(x);
       document.getElementById("demo").innerHTML = "EXPIRED";
     }
+    NOW -= 1
   }, 1000);
 
 }
