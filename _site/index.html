@@ -1,29 +1,13 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="{{ site.lang | default: "en-US" }}">
 <head>
 
   <title>DogeBell</title>
   <meta charset="UTF-8">
-
-  <!-- Begin Jekyll SEO tag v2.7.1 -->
-<title>DogeBell.com | dogebell</title>
-<meta name="generator" content="Jekyll v3.9.0" />
-<meta property="og:title" content="DogeBell.com" />
-<meta property="og:locale" content="en_US" />
-<link rel="canonical" href="http://0.0.0.0/" />
-<meta property="og:url" content="http://0.0.0.0/" />
-<meta property="og:site_name" content="dogebell" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="DogeBell.com" />
-<script type="application/ld+json">
-{"url":"http://0.0.0.0/","name":"dogebell","headline":"DogeBell.com","@type":"WebSite","@context":"https://schema.org"}</script>
-<!-- End Jekyll SEO tag -->
-
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#1e130c">
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-  <link rel="stylesheet" href="/assets/css/style.css?v=">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
   <link rel="apple-touch-icon-precomposed" href="152.png">
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <meta name="apple-mobile-web-app-capable" content="yes">
