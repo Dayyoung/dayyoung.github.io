@@ -356,11 +356,11 @@
        <img src="/assets/img/dogebell-title.png" width="70%" height="50%" style="max-width: 500px;">
      </a>
 
-<br>
+<!-- <br>
 <br>
 <div><strong>LISTING COINBASE PRO : </strong></div>
 <br>
-<div id="countdownTime">Calculating ...</div>
+<div id="countdownTime">Calculating ...</div> -->
 
 
      <h3><a href="#" onclick="changeDoge(); return false;"> <span id="dogeCount">1</span> Dogecoin </a> = <a href="#" onclick="changeFiat(); return false;"><span id="unit">$</span> <span id="dogePrice"></span></a> </h3> 
@@ -391,12 +391,12 @@
 
 var NOW;
 
-$.get( "https://worldtimeapi.org/api/timezone/Pacific/Easter", function( data ) {
-  NOW = data.unixtime
-  if(NOW){
-    startCountDown()
-  }
-});
+// $.get( "https://worldtimeapi.org/api/timezone/Pacific/Easter", function( data ) {
+//   NOW = data.unixtime
+//   if(NOW){
+//     startCountDown()
+//   }
+// });
 
 function startCountDown()
 {
@@ -408,8 +408,12 @@ function startCountDown()
     //var now = new Date().getTime();
     //console.log(now)
     
+    var nowDate = NOW * 1000
+
     // Find the distance between now and the count down date
-    var distance = countDownDate - NOW * 1000;
+    var distance = countDownDate - nowDate;
+
+    //alert(distance)
 
     // Time calculations for days, hours, minutes and seconds
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -424,7 +428,7 @@ function startCountDown()
     // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
-      document.getElementById("demo").innerHTML = "EXPIRED";
+      document.getElementById("countdownTime").innerHTML = "EXPIRED";
     }
     NOW += 1
   }, 1000);
