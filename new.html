@@ -472,19 +472,6 @@ function hideModal() {
 
 ons.disableAutoStyling()
 ons.platform.select('ios')
-// conosole.log(navigator.userAgent)
-
-// if (ons.platform.isIPhoneX()) { // Utility function
-//   // Add empty attribute to the <html> element
-//   document.documentElement.setAttribute('onsflag-iphonex-portrait', '');
-// }
-
-// document.documentElement.removeAttribute('onsflag-iphonex-portrait');
-
-// if (ons.platform.isIPhoneX()) { // Utility function
-//   // Add empty attribute to the <html> element
-//   document.documentElement.setAttribute('onsflag-iphonex-landscape', '');
-// }
 
 var CURRENTPAGE = 0
 
@@ -578,7 +565,7 @@ if(WALLET){
   $("#addressQR").attr("src",addressQRURL)
   $("#walletLayout").show() 
   //$("#walletLayout").css("display","block")
-  $("#dogebellAmount").html(TOTALAMOUNT + MININGBELL)
+  $("#dogebellAmount").html(TOTALAMOUNT)
   $("#bellTransaction").html(TOTALTRANSACTION)
 
   QR = getParameterByName("QR")
@@ -596,12 +583,12 @@ if(WALLET){
 
 function drawMine(){
   $("#mineLayout").show() 
-  $("#miningBell").html(TOTALAMOUNT + MININGBELL + " BELL")
+  $("#miningBell").html(TOTALAMOUNT + " BELL")
 }
 
-var MININGBELL = 0;
+function addBell(){
 
-setInterval(function() {
+//setInterval(function() {
 
 if(CURRENTPAGE!=2){
   //console.log("NOT MINE.")
@@ -615,17 +602,15 @@ $("#bellEffect").hide()
 setTimeout(function() {
   $("#bell").addClass("bell-off")
   $("#bell").removeClass("bell-on")
-  MININGBELL =  MININGBELL + 1;
-  $("#miningBell").html(TOTALAMOUNT + MININGBELL + " BELL")
+  $("#miningBell").html(TOTALAMOUNT + 1 + " BELL")
   $("#bellEffect").show()
   
-  // if(MININGBELL > 9){
-  //   mineBell()
-  // }
+  mineBell()
 
-  },3000);
+  },500);
 
-},5000);
+//},5000);
+}
 
 function drawChain(){
   $("#chainLayout").show() 
@@ -697,65 +682,36 @@ function sendDogeBell(){
   var address = $("#sendWalletInput").val()
   var amount = $("#sendInput").val().trim()
 
-  // if(address == "" || amount == "" ){
-  //   showToast("Please fill in all fields")
-  //   return
-  // }
+  if(address == "" || amount == "" ){
+    showToast("Please fill in all fields")
+    return
+  }
 
-  // if(isNaN(amount)){
-  //   showToast("Amount must be a number.")
-  //   return
-  // }
+  if(isNaN(amount)){
+    showToast("Amount must be a number.")
+    return
+  }
 
-  // if(amount <= 0){
-  //   showToast("Amount must be a positive number.")
-  //   return
-  // }
-
-
-  // if(amount > (TOTALAMOUNT + MININGBELL)){
-  //   showToast("You hane no DogeBell to send.")
-  //   return
-  // }
-
-  //showModal()
-  
-  var insertData = {}
-  insertData.from = WALLET
-  insertData.to = address
-  insertData.amount = amount
-
-  var transactionList = getCookie("transactionList")
-  
-  if(transactionList){
-    transactionList = JSON.parse(transactionList)
-  }else{
-    transactionList = []
+  if(amount <= 0){
+    showToast("Amount must be a positive number.")
+    return
   }
 
 
-  transactionList.push(insertData)
-  transactionList = JSON.stringify(transactionList)
-  setCookie("transactionList",transactionList)
+  if(amount > (TOTALAMOUNT + MININGBELL)){
+    showToast("You hane no DogeBell to send.")
+    return
+  }
+
+  var transaction = {}
+  transaction.wallet = WALLET
+  transaction.amount = parseInt(TOTALAMOUNT) - amount
+  transaction.money = TOTALMONEY
+  setCookie("transaction",JSON.stringify(transaction))
 
   showToast("Sending is success.")
   document.getElementById('sendDialog').hide()
 
-  // var db = firebase.firestore();
-
-  // db.collection("transaction").add(insertData)
-  // .then((docRef) => {
-  //     hideModal()
-  //     showToast("Sending is success.")
-  //     document.getElementById('sendDialog').hide()
-  //     //console.log("Document written with ID: ", docRef.id);
-  // })
-  // .catch((error) => {
-  //     //console.error("Error adding document: ", error);
-  //     hideModal()
-  //     showToast("Something is wrong.")
-  //     document.getElementById('sendDialog').hide()
-  // });
 }
 
 var isBuying = false
@@ -768,104 +724,38 @@ function buy(){
   }
 
   isBuying = true
-  
-  var insertData = {}
-  insertData.from = "TRADE"
-  insertData.to = WALLET
-  insertData.money = TOTALMONEY.toFixed(4)
-  insertData.amount = (TOTALMONEY / BELLPRICEFORUSD).toFixed(0)
 
-  TOTALMONEY = 0
-  TOTALAMOUNT = (TOTALMONEY / BELLPRICEFORUSD).toFixed(0)
-  
-  var transactionList = getCookie("transactionList")
-  
-  if(transactionList){
-    transactionList = JSON.parse(transactionList)
-  }else{
-    transactionList = []
-  }
-
-  transactionList.push(insertData)
-  transactionList = JSON.stringify(transactionList)
-  setCookie("transactionList",transactionList)
+  var transaction = {}
+  transaction.wallet = WALLET
+  transaction.amount =  TOTALAMOUNT + parseInt((TOTALMONEY / BELLPRICEFORUSD).toFixed(0))
+  transaction.money = 0
+  setCookie("transaction",JSON.stringify(transaction))
 
   showToast("(BUY PRICE : $"+ BELLPRICEFORUSD +")")
   isBuying = false
-
-  // showModal()
-  // var db = firebase.firestore();
-
-  // db.collection("transaction").add(insertData)
-  // .then((docRef) => {
-  //     hideModal()
-  //     showToast("(BUY PRICE : $"+ BELLPRICEFORUSD +")")
-  //     isBuying = false
-  //     //console.log("Document written with ID: ", docRef.id);
-  // })
-  // .catch((error) => {
-  //     hideModal()
-  //     //console.error("Error adding document: ", error);
-  //     showToast("Something is wrong.")
-  //     isBuying = false
-      
-  // });
 }
 
 var isSelling = false
 
 function sell(){
 
-  if(0 >= (TOTALAMOUNT + MININGBELL)){
+  if(0 >= (TOTALAMOUNT)){
     showToast("You hane no DogeBell to sell.")
     return
   }
 
   isSelling = true
 
-  var insertData = {}
-  insertData.from = WALLET
-  insertData.to = "TRADE"
-  insertData.money = (BELLPRICEFORUSD * (TOTALAMOUNT + MININGBELL)).toFixed(4)
-  insertData.amount = TOTALAMOUNT + MININGBELL
+  var transaction = {}
+  transaction.wallet = WALLET
+  transaction.amount = 0
+  transaction.money = TOTALMONEY + parseFloat((BELLPRICEFORUSD * TOTALAMOUNT).toFixed(4))
+  setCookie("transaction",JSON.stringify(transaction))
 
-  TOTALMONEY  = BELLPRICEFORUSD * (TOTALAMOUNT + MININGBELL)
-  TOTALAMOUNT = 0
-  MININGBELL = 0
-
-
-  var transactionList = getCookie("transactionList")
-  
-  if(transactionList){
-    transactionList = JSON.parse(transactionList)
-  }else{
-    transactionList = []
-  }
-
-  transactionList.push(insertData)
-  transactionList = JSON.stringify(transactionList)
-  setCookie("transactionList",transactionList)
 
   showToast("(SELL PRICE : $"+ BELLPRICEFORUSD +")")
   isSelling = false
 
-  // var db = firebase.firestore();
-
-  // showModal()
-  // db.collection("transaction").add(insertData)
-  // .then((docRef) => {
-  //     hideModal()
-  //     showToast("(SELL PRICE : $"+ BELLPRICEFORUSD +")")
-  //     isSelling = false
-  //     //console.log("Document written with ID: ", docRef.id);
-  // })
-  // .catch((error) => {
-  //     hideModal()
-  //     //console.error("Error adding document: ", error);
-  //     isSelling = false
-  //     showToast("Something is wrong.")
-      
-  // });
 }
 
 // isInteger는 es6 임. ie 11 에서는 안되므로 함수 만듬.
@@ -911,44 +801,21 @@ function loadBalance() {
     isUpdate = true
 
 
-    var transactionList = getCookie("transactionList")
+
+  var transactionString = getCookie("transaction")
+
+  //console.log(transactionString)
+
+  if(!transactionString){
+    return
+  }
+
+  var transaction = JSON.parse(transactionString)
+  //transaction.wallet = WALLET
+  TOTALAMOUNT = transaction.amount 
+  TOTALMONEY = transaction.money 
+
     
-    if(transactionList){
-      transactionList = JSON.parse(transactionList)
-    }else{
-      transactionList = []
-    }
-
-    for(i in transactionList) {
-      var transaction = transactionList[i]
-
-      if(transaction.to == WALLET) {
-
-            TOTALAMOUNT += parseInt(transaction.amount)
-            TOTALTRANSACTION += 1
-
-            var sendMoney = transaction.money
-
-            if(isNaN(sendMoney) == false){
-              TOTALMONEY -= parseFloat(sendMoney)
-              //console.log("SELL >>" + parseFloat(sendMoney))
-            }
-      }
-
-      if(transaction.from == WALLET) {
-
-            TOTALAMOUNT -= parseInt(transaction.amount)
-            TOTALTRANSACTION += 1
-
-            var buyMoney = transaction.money
-
-            if(isNaN(buyMoney) == false){
-              TOTALMONEY += parseFloat(buyMoney)
-              //console.log("SELL >>" + parseFloat(sendMoney))
-            }
-      }
-    }
-
     isUpdate = false
     //alerr TOTALAMOUNT)
     if (TOTALAMOUNT < 0){
@@ -965,41 +832,27 @@ function loadBalance() {
 
 setInterval(function() {
   loadBalance()
-
-  if(MININGBELL > 0){
-    mineBell()
-  }
-}, 1000) ;
+  // if(MININGBELL > 0){
+  //   mineBell()
+  // }
+}, 100) ;
 
 function mineBell(){
+
+  // console.log("WHY")
 
   if(!WALLET) {
     showToast("Create a wallet to mine.")
     return
   }
 
-  //howModal()
-  var insertData = {}
-  insertData.from = "ORIGIN"
-  insertData.to = WALLET
-  insertData.amount = MININGBELL
 
-  MININGBELL = 0
+  var transaction = {}
+  transaction.wallet = WALLET
+  transaction.amount = parseInt(TOTALAMOUNT) + 1
+  transaction.money = TOTALMONEY
+  setCookie("transaction",JSON.stringify(transaction))
 
-  var db = firebase.firestore();
-
-  var transactionList = getCookie("transactionList")
-  
-  if(transactionList){
-    transactionList = JSON.parse(transactionList)
-  }else{
-    transactionList = []
-  }
-
-
-  transactionList.push(insertData)
-  transactionList = JSON.stringify(transactionList)
-  setCookie("transactionList",transactionList)
 }
 
 
@@ -1467,11 +1320,11 @@ h1{
   font-size: 140px;
   margin:50px auto 50px auto ;
   color: #9e9e9e;
-  -webkit-animation: ring 5s .7s ease-in-out infinite;
+  -webkit-animation: ring 2s .0s ease-in-out infinite;
   -webkit-transform-origin: 50% 4px;
-  -moz-animation: ring 5s .7s ease-in-out infinite;
+  -moz-animation: ring 2s .0s ease-in-out infinite;
   -moz-transform-origin: 50% 4px;
-  animation: ring 5s .7s ease-in-out infinite;
+  animation: ring 2s .0s ease-in-out infinite;
   transform-origin: 50% 4px;
 }
 
@@ -1574,7 +1427,7 @@ h1{
 
 <div>
   <h1 id="miningBell" >0 BELL</h1>
-  <span class="bell-off fa fa-bell" id="bell"></span>
+  <span class="bell-off fa fa-bell" id="bell" onclick="addBell()"></span>
   <h1 id="bellEffect" style="display: none"> + 1</h1>
 </div>
 
@@ -1673,6 +1526,27 @@ var TOTALMONEY;
 var TRADETIMER;
 var CHARTTIMER;
 
+var LASTCLOSE = 0.4
+var ATH = false
+var ATL = false
+
+
+let timerId = setTimeout(function tick() {
+
+  if (Math.random() >= 0.5) {
+    ATH = true
+    ATL = false
+  }else{
+    ATH = false
+    ATL = true
+  }
+
+  var nextTime = Math.floor(Math.random() * 3);  // 0~2
+  timerId = setTimeout(tick, nextTime* 1000); // (*)
+}, 30000);
+
+var tradeData = cloneObject(dogeData)
+
 function drawTrade() {
 
   $("#tradeLayout").show()
@@ -1714,17 +1588,39 @@ TRADETIMER = setInterval(function() {
   if (DOGEPRICEFORUSD == 0){
     return
   }
-  
-  //data_arr = shuffle(data_arr);
 
-  const rand1 = DOGEPRICEFORUSD
-  const rand2 = rand1 + 0.03
-  const rand3 = rand1 - 0.03;
-  var rand4 = rand1 + Math.random() * 0.1
+  const rand1 = LASTCLOSE 
+  const rand2 = rand1 + 0.01
+  const rand3 = rand1 - 0.01;
 
-  if(rand4 > 1){
-    rand4 = 1
+  var rand4 = 0
+
+  if (Math.random() >= 0.5 ) {
+    rand4 = LASTCLOSE +  0.05
   }
+  else{
+    rand4 = LASTCLOSE -  0.05
+  }
+ 
+  //console.log(ATH)
+
+  if(ATH == true){
+    rand4  +=  0.1
+  }
+
+  //console.log(ATL)
+
+  if(ATL == true){
+    rand4  -=  0.1
+  }
+
+  // console.log(ATL)
+
+  if(rand4 <= 0.1){
+    rand4 = 0.1
+  }
+
+  LASTCLOSE = rand4
 
   if(isUpdate == false) {
     $("#bellPrice").html(rand4.toFixed(4))
@@ -1738,8 +1634,9 @@ TRADETIMER = setInterval(function() {
     //console.log(rand4.toFixed(4))
     BELLPRICEFORUSD = rand4.toFixed(4) 
 
-    var totalBell = parseInt(TOTALAMOUNT) + parseInt(MININGBELL)
-    var calculatePrice = BELLPRICEFORUSD * (parseInt(TOTALAMOUNT) + parseInt(MININGBELL))
+
+    var totalBell = parseInt(TOTALAMOUNT) 
+    var calculatePrice = BELLPRICEFORUSD * (parseInt(TOTALAMOUNT))
 
     $("#dogeBellForTrade").html(totalBell)
     $("#calculateForTrade").html(calculatePrice.toFixed(4))
@@ -1750,23 +1647,27 @@ TRADETIMER = setInterval(function() {
 
     //console.log(TOTALMONEY)
 
-    $("#moneyForTrade").html(TOTALMONEY.toFixed(4))
+    $("#moneyForTrade").html(parseFloat(TOTALMONEY).toFixed(4))
   }
 
-
-  dogeData.shift();
-  dogeData.pop()
+  tradeData.shift();
+  tradeData.pop()
   
   var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
-  dogeData.push(data)
+  tradeData.push(data)
 
   var data = {"t":"14-5-2021","o":1,"h":1,"l":1,"c":1,"v":100}
-  dogeData.push(data)
-  dojichart.loadData(dogeData, "DOGE", "M5");
+  tradeData.push(data)
+
+  dojichart.loadData(tradeData, "DOGE", "M5");
 }, 300);
 
 /* end of file */
 
+}
+
+function cloneObject(obj) {
+  return JSON.parse(JSON.stringify(obj));
 }
 
 var showWalletAlert = function() {
