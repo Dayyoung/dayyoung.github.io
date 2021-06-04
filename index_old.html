@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>DogeBell</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1e130c">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="apple-touch-icon-precomposed" href="152.png">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="mobile-web-app-capable" content="yes">
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPMKD94RX9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CPMKD94RX9');
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script type="text/javascript">
+
+    var TOTALDOGE = 1
+    var CURRENCY = "USD";
+    var UNIT = "$";
+    var DOGEPRICE = 0
+    var DOGEPRICEFORUSD = 0
+    var CURRENTLIST = ["USD","CAD","AUD","EUR","GBP","KRW","CNY","JPY","HKD"]
+    var CURRENCYUNIT = ["$","$","$","€","£","₩","¥","¥","$"]
+    var MARGINLIST = [-20,-18,-16,-14,-12,-10,-8,-6,-4,-2,0,2,4,6,8,10,12,14,16,18,20]
+    var MARGIN = 0;
+
+    //https://api.coingecko.com/api/v3/simple/supported_vs_currencies
+
+    setInterval(function() {
+      updateDogePrice();
+    }, 30000);
+
+    $(document).ready(function(){
+
+      $(CURRENTLIST).each(function(i,item){
+        $("#selectList").append(new Option(CURRENTLIST[i], CURRENTLIST[i]));
+      });
+
+      $(MARGINLIST).each(function(i,item){
+        $("#fiatSelect").append(new Option(MARGINLIST[i]+"%", MARGINLIST[i]));
+      });
+
+      $("#fiatSelect").val(0);
+
+      if(getParameterByName("TOTALDOGE")){
+        TOTALDOGE = getParameterByName("TOTALDOGE")
+      }
+
+      if(getParameterByName("MARGIN")){
+        MARGIN = getParameterByName("MARGIN")
+        $("#fiatSelect").val(MARGIN)
+      }
+      
+      if(getParameterByName("CURRENCY")){
+        CURRENCY = getParameterByName("CURRENCY")
+        $("#selectList").val(CURRENCY)
+      }
+
+      UNIT = CURRENCYUNIT[$("#selectList").prop('selectedIndex')]
+      
+      getDogePrice();
+      updateDogePrice();
+      radomUpdateDogePrice();
+
+      $("#selectList").change( function() {
+        changeDoge();
+      });
+
+      $("#fiatSelect").change( function() {
+        MARGIN = $("#fiatSelect").val()
+        //location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        movePageWithParam()
+      });
+
+    });
+
+    function changeDoge(){
+
+      var promptForDoge = prompt("How much Dogecoin?", TOTALDOGE);
+
+      if ( promptForDoge == null ||  promptForDoge == "") {
+        //TOTALDOGE = parseInt(promptForDoge);
+        CURRENCY = $("#selectList").val()
+        //location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        movePageWithParam()
+      } else {
+        TOTALDOGE = parseInt(promptForDoge);
+        CURRENCY = $("#selectList").val()
+        //location.href = window.location.href.split('?')[0] + "?TOTALDOGE="+TOTALDOGE +"&CURRENCY=" + CURRENCY +"&MARGIN=" + MARGIN
+        movePageWithParam()
+      }
+    }
+
+    function movePageWithParam() {
+
+      var baseUrl = window.location.href.split('?')[0]
+
+      if(TOTALDOGE){
+        baseUrl = updateQueryStringParameter(baseUrl,"TOTALDOGE",TOTALDOGE)
+      }
+      if(CURRENCY){
+        baseUrl = updateQueryStringParameter(baseUrl,"CURRENCY",CURRENCY)
+      }
+      if(MARGIN){
+        baseUrl = updateQueryStringParameter(baseUrl,"MARGIN",MARGIN)
+      }
+      location.href = baseUrl
+    }
+    
+    function updateQueryStringParameter(uri, key, value) {
+      var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+      var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+      if (uri.match(re)) {
+        return uri.replace(re, '$1' + key + "=" + value + '$2');
+      }
+      else {
+        return uri + separator + key + "=" + value;
+      }
+    }
+
+    function changeFiat(){
+      $("#fiatSelect").focus();
+    }
+
+    function getDogePrice(){
+
+      $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies=USD", function( data ) {
+      
+        var firstItem = data[Object.keys(data)[0]];
+        firstItem = firstItem[Object.keys(firstItem)[0]]
+        //alert(firstItem)
+        DOGEPRICEFORUSD = firstItem
+      });
+
+      if (MARGIN != 0) {
+        DOGEPRICEFORUSD = DOGEPRICEFORUSD + (DOGEPRICEFORUSD * (MARGIN / 100))
+      }
+    }
+
+    function updateDogePrice(){
+
+      $.get( "https://api.coingecko.com/api/v3/simple/price?ids=dogecoin&vs_currencies="+CURRENCY, function( data ) {
+
+        var firstItem = data[Object.keys(data)[0]];
+        firstItem = firstItem[Object.keys(firstItem)[0]]
+        //(firstItem)
+        DOGEPRICE = firstItem
+
+        if (MARGIN != 0) {
+          DOGEPRICE = DOGEPRICE + (DOGEPRICE * (MARGIN / 100))
+        }
+
+
+        $( "#dogeCount" ).html(TOTALDOGE);
+        $( "#unit" ).html(UNIT);
+
+        if(CURRENCY == "KRW" || CURRENCY == "JPY"){
+          $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(0));
+        }
+        else if(CURRENCY == "CNY" || CURRENCY == "HKD"){
+          $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(2));
+        }else{
+          $( "#dogePrice" ).html((TOTALDOGE * DOGEPRICE).toFixed(4));
+        }
+      });
+
+    }
+
+    function radomUpdateDogePrice() {
+
+      setInterval(function() {
+
+
+        if (DOGEPRICEFORUSD == 0){
+          return
+        }
+
+      //console.log(MOONCOST);
+
+      if(CURRENCY == "KRW"){
+        var randomValue = Math.random() * 1
+          //console.log(randomValue)
+
+          dogeRandomPrice = DOGEPRICE + randomValue
+
+          if(MOONCOST > 0){
+            dogeRandomPrice = (DOGEPRICE * MOONCOST) / DOGEPRICEFORUSD
+          }
+
+          $( "#dogeCount" ).html(TOTALDOGE);
+          $( "#unit" ).html(UNIT);
+
+          $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(0));
+
+        }
+        else if(CURRENCY == "JPY"){
+          var randomValue = Math.random() * 1
+          //console.log(randomValue)
+
+          dogeRandomPrice = DOGEPRICE + randomValue
+
+          if(MOONCOST > 0){
+            dogeRandomPrice = (DOGEPRICE * MOONCOST) / DOGEPRICEFORUSD
+          }
+          $( "#dogeCount" ).html(TOTALDOGE);
+          $( "#unit" ).html(UNIT);
+
+          $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(0));
+        }
+        else if(CURRENCY == "CNY" || CURRENCY == "HKD"){
+          var randomValue = Math.random() * 0.1
+        //console.log(randomValue)
+        dogeRandomPrice = DOGEPRICE + randomValue
+
+        if(MOONCOST > 0){
+            dogeRandomPrice = (DOGEPRICE * MOONCOST) / DOGEPRICEFORUSD
+        }
+        $( "#dogeCount" ).html(TOTALDOGE);
+        $( "#unit" ).html(UNIT);
+
+        $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(2));
+      }else{
+        var randomValue = Math.random() * 0.001
+
+        dogeRandomPrice = DOGEPRICE + randomValue
+
+        if(MOONCOST > 0){
+            dogeRandomPrice = (DOGEPRICE * MOONCOST) / DOGEPRICEFORUSD
+        }
+
+        $( "#dogeCount" ).html(TOTALDOGE);
+        $( "#unit" ).html(UNIT);
+
+        $( "#dogePrice" ).html((TOTALDOGE * dogeRandomPrice).toFixed(4));
+      }
+    }, 300);
+    }
+
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+
+    var MOONCOST = 0;
+
+    function toTheMoon(){
+
+      $("#moonPic").fadeIn();
+
+      MOONCOST = DOGEPRICEFORUSD + (MOONCOST  * 0.1);
+
+      if (MOONCOST >1){
+        MOONCOST = 1
+      }
+
+      setTimeout(function(){
+        $("#moonPic").fadeOut()
+        MOONCOST = 0;
+        getDogePrice();
+        updateDogePrice();
+      },5000);
+    }
+
+  </script>
+
+  <link rel="stylesheet" href="/assets/css/dojichart.css"/>
+  <style>
+
+    .box {
+      width: 360px;
+      border: 6px solid #ddd;
+      border-radius: 6px;
+    }
+
+    .moonButton {
+      background-color: #f8f9fa;
+      border: 1px solid #f8f9fa;
+      border-radius: 4px;
+      color: #3c4043;
+      font-family: 'Apple SD Gothic Neo',arial,sans-serif;
+      font-size: 14px;
+      margin: 11px 4px;
+      padding: 0 16px;
+      line-height: 27px;
+      height: 36px;
+      min-width: 54px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    #particles-js {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #ffffff;
+      background-image: url("");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 50%;
+      z-index: -1000
+    }
+
+    body {margin:0;padding:0;}
+    /* where margin-left = {img width}/2, and margin-top= {img height}/2 */
+    .bigdiv {
+     width:100%;
+     height:auto;
+     position:absolute;
+     z-index: 99999;
+     //max-width: 500px;
+   }
+   .bigdiv img {
+    //position:absolute;
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    z-index: 99999;
+  }
+
+</style>
+<script type="text/javascript" src="/assets/js/dojichart.js"></script>
+
+</head>
+<body>
+  <div id="moonPic" class="bigdiv" style="display: none">
+    <center>
+      <br><br><br><br><br><br>
+
+
+      <img src="/assets/img/tothemoon.png" />
+    </center>
+  </div>
+
+  <center>
+
+
+    <div style="line-height:100%;">
+     <br>
+     <a href="/">
+       <img src="/assets/img/dogebell-title.png" width="70%" height="50%" style="max-width: 500px;">
+     </a>
+
+<!-- <br>
+<br>
+<div><strong>LISTING COINBASE PRO : </strong></div>
+<br>
+<div id="countdownTime">Calculating ...</div> -->
+
+
+     <h3><a href="#" onclick="changeDoge(); return false;"> <span id="dogeCount">1</span> Dogecoin </a> = <a href="#" onclick="changeFiat(); return false;"><span id="unit">$</span> <span id="dogePrice"></span></a> </h3> 
+     <br>
+
+     <div class="custom-select">
+       Currency : <select id="selectList">
+       </select>
+       &nbsp;&nbsp; Margin :
+       <select id="fiatSelect">
+       </select>
+     </div>
+
+     <br>
+
+   </div>
+
+   <div class="box">
+    <div class="dojichart" id="my-dojichart">
+      <div class="region" data-name="price"></div>
+    </div>
+  </div>
+
+  <br>
+  <input onClick="toTheMoon()" value="To The Moon!" aria-label="To The Moon!" name="btnK" type="button">
+
+<script>
+
+var NOW;
+
+// $.get( "https://worldtimeapi.org/api/timezone/Pacific/Easter", function( data ) {
+//   NOW = data.unixtime
+//   if(NOW){
+//     startCountDown()
+//   }
+// });
+
+function startCountDown()
+{
+  var countDownDate = new Date('3 June 2021 16:00:00 GMT').getTime()
+  // Update the count down every 1 second
+  var x = setInterval(function() {
+
+    // Get today's date and time
+    //var now = new Date().getTime();
+    //console.log(now)
+    
+    var nowDate = NOW * 1000
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - nowDate;
+
+    //alert(distance)
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Display the result in the element with id="demo"
+    document.getElementById("countdownTime").innerHTML = days + "d " + hours + "h "
+    + minutes + "m " + seconds + "s ";
+
+    // If the count down is finished, write some text
+    if (distance < 0) {
+      clearInterval(x);
+      document.getElementById("countdownTime").innerHTML = "EXPIRED";
+    }
+    NOW += 1
+  }, 1000);
+
+}
+</script>
+
+
+</center>
+
+<script type="text/javascript" src="/assets/js/dogedata.js"></script>
+<script type="text/javascript" src="/assets/js/helloworld.js"></script>
+
+
+<footer class="site-footer" style="margin: 20px;">
+
+  <center>
+    <span class="site-footer-credits">© 2021 <a href="https://dogebell.com">DogeBell.com</a> ALL RIGHTS RESERVED.</span>
+
+    <div>
+      <span style="">Donation : </span>
+      <a href="https://dogechain.info/address/DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A" target='_blank' >
+        <img style="vertical-align:middle" src="/assets/img/dogeaccept.png" width="80px" height="auto">
+      </a>
+      <a href="https://www.paypal.me/dogebell" target='_blank'>
+        <img style="vertical-align:middle" src="/assets/img/paypal.png" width="70px" height="auto">
+      </a>
+
+    </div>
+
+  </center>
+
+</footer>
+
+</body>
+</html>

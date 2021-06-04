@@ -37,6 +37,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+<script type="text/javascript" src="https://qrturn.com/qrturn.js"></script>
 
 <script>
 
@@ -57,6 +58,96 @@
   firebase.analytics();
 
 
+function backupWallet() {
+
+  hideDialog('mnemonicBackupDialog')
+
+  showModal()
+
+  var db = firebase.firestore();
+  // Add a new document in collection "cities"
+  db.collection("wallet").doc(WALLET).set({
+      bell: TOTALAMOUNT,
+      money: TOTALMONEY
+  }, { merge: true })
+  .then(() => {
+      hideModal()
+      //console.log("Document successfully written!");
+  })
+  .catch((error) => {
+      hideModal()
+      //console.error("Error writing document: ", error);
+  });
+
+}
+
+function importWallet(){
+  showMnemonicDialog();
+}
+
+function createWalletWithMnemonic(){
+
+  var address = $("#walletInput").val()
+  var word1 = $("#word1").val().trim()
+  var word2 = $("#word2").val().trim()
+  var word3 = $("#word3").val().trim()
+
+  if(address == "" || word1 == "" || word2 == "" || word3 == ""){
+    showToast("Please fill in all fields")
+    return
+  }
+
+  showModal()
+
+  alert(address)
+
+  var db = firebase.firestore();
+  db.collection('wallet').doc(address).get()
+
+  .then((doc) => {
+      hideModal()
+      if (doc.exists) {
+          ////console.log("Document data:", doc.data());
+          var mnemonic = doc.data().Mnemonic
+
+          if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
+            WALLET = address
+            MNEMONIC = word1+","+word2+","+word3
+            movePageWithParam()
+
+            document.getElementById('mnemonicDialog').hide()
+            //recovery
+            var bell = doc.data().bell
+            var money = doc.data().money
+
+            if(bell && money){
+              var transaction = {}
+              transaction.wallet = WALLET
+              transaction.amount = bell
+              transaction.money = money
+               setCookie("transaction",JSON.stringify(transaction))
+            }
+
+          }else{
+            document.getElementById('mnemonicDialog').hide()
+            showToast("Mnemonic is wrong.")
+          }
+      } else {
+          // doc.data() will be undefined in this case
+          //console.log("No such document!");
+          document.getElementById('mnemonicDialog').hide()
+          showToast("Wallet address is wrong.")
+          return;
+      }
+  }).catch((error) => {
+      hideModal()
+      document.getElementById('mnemonicDialog').hide()
+      //console.log("Error getting document:", error);
+      showToast("Something is wrong.")
+      return;
+  });
+}
+
 function insertWallet(item) {
   
   showModal()
@@ -65,7 +156,7 @@ function insertWallet(item) {
   db.collection("wallet").add(item)
   .then((docRef) => {
       hideModal()
-      //console.log("Document written with ID: ", docRef.id);
+      ////console.log("Document written with ID: ", docRef.id);
       WALLET = docRef.id
       movePageWithParam()
       hideDialog("my-dialog")
@@ -74,7 +165,7 @@ function insertWallet(item) {
   })
   .catch((error) => {
       hideModal()
-      //console.error("Error adding document: ", error);
+      ////console.error("Error adding document: ", error);
   });
 }
 
@@ -103,15 +194,37 @@ function getWallet(){
   db.collection('wallet').doc(WALLET).get()
   .then((doc) => {
       if (doc.exists) {
-      //console.log("Document data:", doc.data());
-      
-      var mnemonic = doc.data().Mnemonic
+      ////console.log("Document data:", doc.data());
+        
+        var mnemonic = doc.data().Mnemonic
+        if(!mnemonic){
+          return
+        }
 
         if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
         LOGIN = true  
         $("#sendButton").show()
         $("#backupButton").show()
         } 
+
+         //recovery
+        var bell = doc.data().bell
+        var money = doc.data().money
+
+        if(bell){
+          var transaction = {}
+          transaction.wallet = WALLET
+          transaction.amount = bell
+
+          TOTALAMOUNT = bell
+
+          if(!money){
+            money = 0
+          }
+
+          transaction.money = money
+           setCookie("transaction",JSON.stringify(transaction))
+        }
       }
     });
 }
@@ -126,10 +239,10 @@ function createTransaction(item) {
   db.collection("block").add(item)
   .then((docRef) => {
       //hideModal()
-      //console.log("Document written with ID: ", docRef.id);
+      ////console.log("Document written with ID: ", docRef.id);
   })
   .catch((error) => {
-      //console.error("Error adding document: ", error);
+      ////console.error("Error adding document: ", error);
   });
 
 }
@@ -379,11 +492,11 @@ function hideModal() {
           return
         }
 
-      //console.log(MOONCOST);
+      ////console.log(MOONCOST);
 
       if(CURRENCY == "KRW"){
         var randomValue = Math.random() * 1
-          //console.log(randomValue)
+          ////console.log(randomValue)
 
           dogeRandomPrice = DOGEPRICE + randomValue
 
@@ -399,7 +512,7 @@ function hideModal() {
         }
         else if(CURRENCY == "JPY"){
           var randomValue = Math.random() * 1
-          //console.log(randomValue)
+          ////console.log(randomValue)
 
           dogeRandomPrice = DOGEPRICE + randomValue
 
@@ -413,7 +526,7 @@ function hideModal() {
         }
         else if(CURRENCY == "CNY" || CURRENCY == "HKD"){
           var randomValue = Math.random() * 0.1
-        //console.log(randomValue)
+        ////console.log(randomValue)
         dogeRandomPrice = DOGEPRICE + randomValue
 
         if(MOONCOST > 0){
@@ -477,7 +590,7 @@ var CURRENTPAGE = 0
 
 //page init
 document.addEventListener('init', function(event) {
- //console.log('This is a lifecycle event!', event.target.id);
+ ////console.log('This is a lifecycle event!', event.target.id);
 
 if (ons.platform.isIPhoneX()) { // Utility function
   // Add empty attribute to the <html> element
@@ -514,8 +627,8 @@ if(MENU == "Trade" && page == "trade"){
 document.addEventListener('postchange', function(event) {
  var selectedIndex = document.querySelector('ons-tabbar').getActiveTabIndex()
  
-//console.log(selectedIndex)
-// console.log(history.state)
+////console.log(selectedIndex)
+// //console.log(history.state)
 CURRENTPAGE = selectedIndex
 
 if (selectedIndex == 0) {
@@ -561,14 +674,19 @@ if(WALLET){
 
   //alert(WALLET)
   $("#address").val(WALLET)
-  var addressQRURL = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=" + WALLET
+  //var addressQRURL = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=" + WALLET
+
+
+  var options = {ecclevel: "M"};
+  var addressQRURL = QRCode.generatePNG(WALLET, options);
+
   $("#addressQR").attr("src",addressQRURL)
   $("#walletLayout").show() 
   //$("#walletLayout").css("display","block")
   $("#dogebellAmount").html(TOTALAMOUNT)
   $("#bellTransaction").html(TOTALTRANSACTION)
 
-  QR = getParameterByName("QR")
+  QR = getParameterByName("data")
   if(QR) {
     showSendDogeBell()
   }
@@ -591,7 +709,7 @@ function addBell(){
 //setInterval(function() {
 
 if(CURRENTPAGE!=2){
-  //console.log("NOT MINE.")
+  ////console.log("NOT MINE.")
   return
 }
 
@@ -626,58 +744,9 @@ function createWallet(){
 
 }
 
-function importWallet(){
-  showMnemonicDialog();
-}
-
-function createWalletWithMnemonic(){
-
-  var address = $("#walletInput").val()
-  var word1 = $("#word1").val().trim()
-  var word2 = $("#word2").val().trim()
-  var word3 = $("#word3").val().trim()
-
-  if(address == "" || word1 == "" || word2 == "" || word3 == ""){
-    showToast("Please fill in all fields")
-    return
-  }
-
-  showModal()
-
-  var db = firebase.firestore();
-  db.collection('wallet').doc(address).get()
-
-  .then((doc) => {
-      hideModal()
-      if (doc.exists) {
-          //console.log("Document data:", doc.data());
-          var mnemonic = doc.data().Mnemonic
-
-          if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
-            WALLET = address
-            MNEMONIC = word1+","+word2+","+word3
-            movePageWithParam()
-          }else{
-            document.getElementById('mnemonicDialog').hide()
-            showToast("Mnemonic is wrong.")
-          }
-      } else {
-          // doc.data() will be undefined in this case
-          console.log("No such document!");
-          document.getElementById('mnemonicDialog').hide()
-          showToast("Wallet address is wrong.")
-          return;
-      }
-  }).catch((error) => {
-      hideModal()
-      document.getElementById('mnemonicDialog').hide()
-      console.log("Error getting document:", error);
-      showToast("Something is wrong.")
-      return;
-  });
-}
-
 function sendDogeBell(){
+
+  //console.log(TOTALAMOUNT)
 
   var address = $("#sendWalletInput").val()
   var amount = $("#sendInput").val().trim()
@@ -698,19 +767,75 @@ function sendDogeBell(){
   }
 
 
-  if(amount > (TOTALAMOUNT + MININGBELL)){
+  if(amount > TOTALAMOUNT){
     showToast("You hane no DogeBell to send.")
     return
   }
 
-  var transaction = {}
-  transaction.wallet = WALLET
-  transaction.amount = parseInt(TOTALAMOUNT) - amount
-  transaction.money = TOTALMONEY
-  setCookie("transaction",JSON.stringify(transaction))
+  showModal()
 
-  showToast("Sending is success.")
-  document.getElementById('sendDialog').hide()
+  var db = firebase.firestore();
+
+  db.collection('wallet').doc(address).get()
+  .then((doc) => {
+
+      if (doc.exists) {
+      ////console.log("Document data:", doc.data());
+        
+        var previosBell = 0;
+
+        var bell = doc.data().bell
+        if(bell){
+          previosBell = parseInt(bell)
+        }
+
+        // Add a new document in collection "cities"
+        db.collection("wallet").doc(address).set({
+            bell: parseInt(previosBell) + parseInt(amount)
+        }, { merge: true })
+        .then(() => {
+
+            var minuseAmount = parseInt(TOTALAMOUNT) - amount
+
+            db.collection("wallet").doc(WALLET).set({
+                bell: minuseAmount
+            }, { merge: true })
+            .then(() => {
+                hideModal()
+                //console.log("Document successfully written!");
+
+                var transaction = {}
+                transaction.wallet = WALLET
+                transaction.amount = minuseAmount
+                transaction.money = TOTALMONEY
+                setCookie("transaction",JSON.stringify(transaction))
+
+                showToast("Sending is success.")
+                document.getElementById('sendDialog').hide()
+
+            })
+            .catch((error) => {
+                hideModal()
+                //console.error("Error writing document: ", error);
+                showToast("Sending is fail.")
+                document.getElementById('sendDialog').hide()
+            });
+        })
+        .catch((error) => {
+            hideModal()
+            //console.error("Error writing document: ", error);
+            showToast("Sending is fail.")
+            document.getElementById('sendDialog').hide()
+        });
+
+      }else{
+        hideModal()
+        showToast("address is wrong.")
+       document.getElementById('sendDialog').hide()
+        return
+      }
+  });
+
 
 }
 
@@ -778,7 +903,7 @@ function loadBalance() {
     }
 
     //alert("loadBalance")
-    //console.log("CHANGED.")
+    ////console.log("CHANGED.")
 
     if(!WALLET) {
       $("#dogebellAmount").html("0")
@@ -804,7 +929,7 @@ function loadBalance() {
 
   var transactionString = getCookie("transaction")
 
-  //console.log(transactionString)
+  ////console.log(transactionString)
 
   if(!transactionString){
     return
@@ -812,8 +937,11 @@ function loadBalance() {
 
   var transaction = JSON.parse(transactionString)
   //transaction.wallet = WALLET
-  TOTALAMOUNT = transaction.amount 
-  TOTALMONEY = transaction.money 
+
+    if(WALLET == transaction.wallet) {
+      TOTALAMOUNT = transaction.amount 
+      TOTALMONEY = transaction.money 
+    }
 
     
     isUpdate = false
@@ -826,20 +954,17 @@ function loadBalance() {
       TOTALMONEY = 0
     }
 
-    refreshScreen();
+    //refreshScreen();
     return; //For Loop.
 }
 
 setInterval(function() {
   loadBalance()
-  // if(MININGBELL > 0){
-  //   mineBell()
-  // }
 }, 100) ;
 
 function mineBell(){
 
-  // console.log("WHY")
+  // //console.log("WHY")
 
   if(!WALLET) {
     showToast("Create a wallet to mine.")
@@ -879,7 +1004,7 @@ function goTelegram(){
 
 function goQR(){
   var encodedUrl = encodeURIComponent(window.location.href);
-  var QRURL = "./qr" + "?RETURNURL=" + encodedUrl
+  var QRURL = "https://qrturn.com/scan?returnUrl=" + encodedUrl
   location.href = QRURL
 }
 
@@ -1414,7 +1539,7 @@ h1{
 </style>
 
 <template id="mine.html">
-  <ons-page id="mine">
+  <ons-page id="mine"  onClick="addBell()">
 
 <div style="margin-top: 44px; display: none" id="mineLayout">
   <ons-toolbar>
@@ -1492,7 +1617,7 @@ CHARTTIMER = setInterval(function() {
     
     //var maxCost = (DOGEPRICE / DOGEPRICEFORUSD)
 
-    //console.log(maxCost);
+    ////console.log(maxCost);
 
     if(MOONCOST > 1){
       MOONCOST = 1
@@ -1500,7 +1625,7 @@ CHARTTIMER = setInterval(function() {
     rand4 = MOONCOST;
   }
 
-  //console.log(rand4 + "!!")
+  ////console.log(rand4 + "!!")
 
 
   dogeData.pop()
@@ -1602,19 +1727,19 @@ TRADETIMER = setInterval(function() {
     rand4 = LASTCLOSE -  0.05
   }
  
-  //console.log(ATH)
+  ////console.log(ATH)
 
   if(ATH == true){
     rand4  +=  0.1
   }
 
-  //console.log(ATL)
+  ////console.log(ATL)
 
   if(ATL == true){
     rand4  -=  0.1
   }
 
-  // console.log(ATL)
+  // //console.log(ATL)
 
   if(rand4 <= 0.1){
     rand4 = 0.1
@@ -1624,14 +1749,14 @@ TRADETIMER = setInterval(function() {
 
   if(isUpdate == false) {
     $("#bellPrice").html(rand4.toFixed(4))
-    //console.log(rand4 + "!!")
+    ////console.log(rand4 + "!!")
     BELLPRICE = rand4.toFixed(4)
 
     if(!TOTALAMOUNT){
       TOTALAMOUNT = 0
     }
 
-    //console.log(rand4.toFixed(4))
+    ////console.log(rand4.toFixed(4))
     BELLPRICEFORUSD = rand4.toFixed(4) 
 
 
@@ -1645,7 +1770,7 @@ TRADETIMER = setInterval(function() {
       TOTALMONEY = 0
     }
 
-    //console.log(TOTALMONEY)
+    ////console.log(TOTALMONEY)
 
     $("#moneyForTrade").html(parseFloat(TOTALMONEY).toFixed(4))
   }
@@ -1675,7 +1800,7 @@ var showWalletAlert = function() {
   var isDialog = $(".dialog-mask").is(':visible');
 
   if(isDialog){
-    //console.log("DIALOG.")
+    ////console.log("DIALOG.")
     return
   }
 
@@ -1690,7 +1815,7 @@ var showWalletAlert = function() {
       });
   }
 
-  QR = getParameterByName("QR")
+  QR = getParameterByName("data")
   if(QR) {
     importWallet()
   }
@@ -1709,7 +1834,7 @@ var showMnemonicDialog = function() {
   // var isDialog = $(".dialog-mask").is(':visible');
 
   // if(isDialog){
-  //   //console.log("DIALOG.")
+  //   ////console.log("DIALOG.")
   //   return
   // }
 
@@ -1722,7 +1847,7 @@ var showMnemonicDialog = function() {
       .then(function(dialog) {
         dialog.show();
 
-          QR = getParameterByName("QR")
+          QR = getParameterByName("data")
           if(QR) {
             $("#walletInput").val(QR)
           }
@@ -1757,7 +1882,7 @@ var showSendDogeBell = function() {
   var isDialog = $(".dialog-mask").is(':visible');
 
   if(isDialog){
-    //console.log("DIALOG.")
+    ////console.log("DIALOG.")
     return
   }
 
@@ -1770,7 +1895,7 @@ var showSendDogeBell = function() {
       .then(function(dialog) {
         dialog.show();
 
-          QR = getParameterByName("QR")
+          QR = getParameterByName("data")
           if(QR) {
             $("#sendWalletInput").val(QR)
           }
@@ -1865,7 +1990,7 @@ var showSendDogeBell = function() {
         <ons-input id="word3Label" modifier="underbar" placeholder="Word3" readonly></ons-input>
       </p>
     <p style="margin-top: 30px;">
-      <ons-button onClick="hideDialog('mnemonicBackupDialog')"><ons-icon icon="fa-file-export"></ons-icon>&#x20;OK</ons-button>
+      <ons-button onClick="backupWallet()"><ons-icon icon="fa-file-export"></ons-icon>&#x20;OK</ons-button>
     </p>
   </div>
   </ons-dialog>
