@@ -810,8 +810,12 @@ function sendDogeBell(){
                 transaction.money = TOTALMONEY
                 setCookie("transaction",JSON.stringify(transaction))
 
+
                 showToast("Sending is success.")
                 document.getElementById('sendDialog').hide()
+
+
+                drawWallet() //For refresh.
 
             })
             .catch((error) => {
@@ -1745,6 +1749,8 @@ TRADETIMER = setInterval(function() {
 
   if(rand4 <= 0.1){
     rand4 = 0.1
+    ATH = true
+    ATL = false
   }
 
   LASTCLOSE = rand4
