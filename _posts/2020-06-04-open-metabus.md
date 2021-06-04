@@ -25,4 +25,4 @@ Stress out! You are in a parallel world.
 
 [https://DogeBell.com](https://dogebell.com)
 
-[Give me some Dogecoin!] (https://qrturn.com/gen?COMMENT=GiveMeShomeDoge!&data=dogecoin:DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A)
+[Give me some Dogecoin!](https://qrturn.com/gen?COMMENT=GiveMeShomeDoge!&data=dogecoin:DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A)
