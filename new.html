@@ -697,48 +697,65 @@ function sendDogeBell(){
   var address = $("#sendWalletInput").val()
   var amount = $("#sendInput").val().trim()
 
-  if(address == "" || amount == "" ){
-    showToast("Please fill in all fields")
-    return
-  }
+  // if(address == "" || amount == "" ){
+  //   showToast("Please fill in all fields")
+  //   return
+  // }
 
-  if(isNaN(amount)){
-    showToast("Amount must be a number.")
-    return
-  }
+  // if(isNaN(amount)){
+  //   showToast("Amount must be a number.")
+  //   return
+  // }
 
-  if(amount <= 0){
-    showToast("Amount must be a positive number.")
-    return
-  }
+  // if(amount <= 0){
+  //   showToast("Amount must be a positive number.")
+  //   return
+  // }
 
 
-  if(amount > (TOTALAMOUNT + MININGBELL)){
-    showToast("You hane no DogeBell to send.")
-    return
-  }
+  // if(amount > (TOTALAMOUNT + MININGBELL)){
+  //   showToast("You hane no DogeBell to send.")
+  //   return
+  // }
 
-  showModal()
+  //showModal()
+  
   var insertData = {}
   insertData.from = WALLET
   insertData.to = address
   insertData.amount = amount
 
-  var db = firebase.firestore();
+  var transactionList = getCookie("transactionList")
+  
+  if(transactionList){
+    transactionList = JSON.parse(transactionList)
+  }else{
+    transactionList = []
+  }
 
-  db.collection("transaction").add(insertData)
-  .then((docRef) => {
-      hideModal()
-      showToast("Sending is success.")
-      document.getElementById('sendDialog').hide()
-      //console.log("Document written with ID: ", docRef.id);
-  })
-  .catch((error) => {
-      //console.error("Error adding document: ", error);
-      hideModal()
-      showToast("Something is wrong.")
-      document.getElementById('sendDialog').hide()
-  });
+
+  transactionList.push(insertData)
+  transactionList = JSON.stringify(transactionList)
+  setCookie("transactionList",transactionList)
+
+  showToast("Sending is success.")
+  document.getElementById('sendDialog').hide()
+
+  // var db = firebase.firestore();
+
+  // db.collection("transaction").add(insertData)
+  // .then((docRef) => {
+  //     hideModal()
+  //     showToast("Sending is success.")
+  //     document.getElementById('sendDialog').hide()
+  //     //console.log("Document written with ID: ", docRef.id);
+  // })
+  // .catch((error) => {
+  //     //console.error("Error adding document: ", error);
+  //     hideModal()
+  //     showToast("Something is wrong.")
+  //     document.getElementById('sendDialog').hide()
+  // });
 }
 
 var isBuying = false
@@ -761,23 +778,38 @@ function buy(){
   TOTALMONEY = 0
   TOTALAMOUNT = (TOTALMONEY / BELLPRICEFORUSD).toFixed(0)
   
-  showModal()
-  var db = firebase.firestore();
+  var transactionList = getCookie("transactionList")
+  
+  if(transactionList){
+    transactionList = JSON.parse(transactionList)
+  }else{
+    transactionList = []
+  }
 
-  db.collection("transaction").add(insertData)
-  .then((docRef) => {
-      hideModal()
-      showToast("(BUY PRICE : $"+ BELLPRICEFORUSD +")")
-      isBuying = false
-      //console.log("Document written with ID: ", docRef.id);
-  })
-  .catch((error) => {
-      hideModal()
-      //console.error("Error adding document: ", error);
-      showToast("Something is wrong.")
-      isBuying = false
+  transactionList.push(insertData)
+  transactionList = JSON.stringify(transactionList)
+  setCookie("transactionList",transactionList)
+
+  showToast("(BUY PRICE : $"+ BELLPRICEFORUSD +")")
+  isBuying = false
+
+  // showModal()
+  // var db = firebase.firestore();
+
+  // db.collection("transaction").add(insertData)
+  // .then((docRef) => {
+  //     hideModal()
+  //     showToast("(BUY PRICE : $"+ BELLPRICEFORUSD +")")
+  //     isBuying = false
+  //     //console.log("Document written with ID: ", docRef.id);
+  // })
+  // .catch((error) => {
+  //     hideModal()
+  //     //console.error("Error adding document: ", error);
+  //     showToast("Something is wrong.")
+  //     isBuying = false
       
-  });
+  // });
 }
 
 var isSelling = false
@@ -801,23 +833,39 @@ function sell(){
   TOTALAMOUNT = 0
   MININGBELL = 0
 
-  var db = firebase.firestore();
 
-  showModal()
-  db.collection("transaction").add(insertData)
-  .then((docRef) => {
-      hideModal()
-      showToast("(SELL PRICE : $"+ BELLPRICEFORUSD +")")
-      isSelling = false
-      //console.log("Document written with ID: ", docRef.id);
-  })
-  .catch((error) => {
-      hideModal()
-      //console.error("Error adding document: ", error);
-      isSelling = false
-      showToast("Something is wrong.")
+  var transactionList = getCookie("transactionList")
+  
+  if(transactionList){
+    transactionList = JSON.parse(transactionList)
+  }else{
+    transactionList = []
+  }
+
+  transactionList.push(insertData)
+  transactionList = JSON.stringify(transactionList)
+  setCookie("transactionList",transactionList)
+
+  showToast("(SELL PRICE : $"+ BELLPRICEFORUSD +")")
+  isSelling = false
+
+  // var db = firebase.firestore();
+
+  // showModal()
+  // db.collection("transaction").add(insertData)
+  // .then((docRef) => {
+  //     hideModal()
+  //     showToast("(SELL PRICE : $"+ BELLPRICEFORUSD +")")
+  //     isSelling = false
+  //     //console.log("Document written with ID: ", docRef.id);
+  // })
+  // .catch((error) => {
+  //     hideModal()
+  //     //console.error("Error adding document: ", error);
+  //     isSelling = false
+  //     showToast("Something is wrong.")
       
-  });
+  // });
 }
 
 // isInteger는 es6 임. ie 11 에서는 안되므로 함수 만듬.
@@ -848,11 +896,11 @@ function loadBalance() {
       return;
     }
 
-    var db = firebase.firestore();
+    // var db = firebase.firestore();
+    // var transaction = db.collection("transaction");
 
     WALLET = getParameterByName("WALLET")
 
-    var transaction = db.collection("transaction");
 
     TOTALAMOUNT = 0;
     TOTALTRANSACTION = 0;
@@ -862,73 +910,57 @@ function loadBalance() {
 
     isUpdate = true
 
-    db.collection("transaction").where("to", "==", WALLET)
-    .get()
-    .then((querySnapshot) => {
 
+    var transactionList = getCookie("transactionList")
+    
+    if(transactionList){
+      transactionList = JSON.parse(transactionList)
+    }else{
+      transactionList = []
+    }
 
-        querySnapshot.forEach((doc) => {
-            // doc.data() is never undefined for query doc snapshots
-            //console.log(doc.data())
-            TOTALAMOUNT += parseInt(doc.data().amount)
+    for(i in transactionList) {
+      var transaction = transactionList[i]
+
+      if(transaction.to == WALLET) {
+
+            TOTALAMOUNT += parseInt(transaction.amount)
             TOTALTRANSACTION += 1
 
-            var sendMoney = doc.data().money
+            var sendMoney = transaction.money
 
             if(isNaN(sendMoney) == false){
               TOTALMONEY -= parseFloat(sendMoney)
               //console.log("SELL >>" + parseFloat(sendMoney))
             }
-        });
+      }
 
-        db.collection("transaction").where("from", "==", WALLET)
-        .get()
-        .then((querySnapshot) => {
+      if(transaction.from == WALLET) {
 
+            TOTALAMOUNT -= parseInt(transaction.amount)
+            TOTALTRANSACTION += 1
 
-            querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                //console.log(doc.data())
-                TOTALAMOUNT -= parseInt(doc.data().amount)
-                TOTALTRANSACTION += 1
+            var buyMoney = transaction.money
 
-                var buyMoney = doc.data().money
-
-                if(isNaN(buyMoney) == false){
-                  //console.log("BUY >>" + parseFloat(buyMoney))
-                  TOTALMONEY += parseFloat(buyMoney)
-                }
-
-            });
-            isUpdate = false
-            //alerr TOTALAMOUNT)
-            if (TOTALAMOUNT < 0){
-              TOTALAMOUNT = 0
+            if(isNaN(buyMoney) == false){
+              TOTALMONEY += parseFloat(buyMoney)
+              //console.log("SELL >>" + parseFloat(sendMoney))
             }
+      }
+    }
 
-            if (TOTALMONEY < 0){
-              TOTALMONEY = 0
-            }
+    isUpdate = false
+    //alerr TOTALAMOUNT)
+    if (TOTALAMOUNT < 0){
+      TOTALAMOUNT = 0
+    }
 
-            refreshScreen();
-            return; //For Loop.
-        })
-        .catch((error) => {
-            console.log("Error getting documents: ", error);
-            $("#dogebellAmount").html("0")
-            $("#bellTransaction").html("0")
-            isUpdate = false
-        });        
-        //alerr TOTALAMOUNT)
-        //refreshScreen();
-        return; //For Loop.
-    })
-    .catch((error) => {
-        console.log("Error getting documents: ", error);
-        $("#dogebellAmount").html("0")
-        $("#bellTransaction").html("0")
-        isUpdate = false
-    });
+    if (TOTALMONEY < 0){
+      TOTALMONEY = 0
+    }
+
+    refreshScreen();
+    return; //For Loop.
 }
 
 setInterval(function() {
@@ -937,7 +969,7 @@ setInterval(function() {
   if(MININGBELL > 0){
     mineBell()
   }
-}, 10000) ;
+}, 1000) ;
 
 function mineBell(){
 
@@ -956,19 +988,18 @@ function mineBell(){
 
   var db = firebase.firestore();
 
-  db.collection("transaction").add(insertData)
-  .then((docRef) => {
-      //hideModal()
-      //showToast("Mining is success.")
-      //document.getElementById('sendDialog').hide()
-      //console.log("Document written with ID: ", docRef.id);
-  })
-  .catch((error) => {
-      //console.error("Error adding document: ", error);
-      //hideModal()
-      //showToast("Something is wrong.")
-      //document.getElementById('sendDialog').hide()
-  });
+  var transactionList = getCookie("transactionList")
+  
+  if(transactionList){
+    transactionList = JSON.parse(transactionList)
+  }else{
+    transactionList = []
+  }
+
+
+  transactionList.push(insertData)
+  transactionList = JSON.stringify(transactionList)
+  setCookie("transactionList",transactionList)
 }
 
 
@@ -1689,7 +1720,7 @@ TRADETIMER = setInterval(function() {
   const rand1 = DOGEPRICEFORUSD
   const rand2 = rand1 + 0.03
   const rand3 = rand1 - 0.03;
-  var rand4 = rand1 + Math.random() * 1
+  var rand4 = rand1 + Math.random() * 0.1
 
   if(rand4 > 1){
     rand4 = 1
@@ -1722,15 +1753,15 @@ TRADETIMER = setInterval(function() {
     $("#moneyForTrade").html(TOTALMONEY.toFixed(4))
   }
 
-  dogeData.pop()
+
+  dogeData.shift();
   dogeData.pop()
   
   var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
   dogeData.push(data)
-  
+
   var data = {"t":"14-5-2021","o":1,"h":1,"l":1,"c":1,"v":100}
   dogeData.push(data)
-  
   dojichart.loadData(dogeData, "DOGE", "M5");
 }, 300);
 
@@ -1970,17 +2001,21 @@ var showSendDogeBell = function() {
 
 <script>
  
-function setCookie(cookieName, cookieValue, cookieExpire, cookiePath, cookieDomain, cookieSecure){
-    var cookieText=escape(cookieName)+'='+escape(cookieValue);
-    cookieText+=(cookieExpire ? '; EXPIRES='+cookieExpire.toGMTString() : '');
-    cookieText+=(cookiePath ? '; PATH='+cookiePath : '');
-    cookieText+=(cookieDomain ? '; DOMAIN='+cookieDomain : '');
-    cookieText+=(cookieSecure ? '; SECURE' : '');
-    document.cookie=cookieText;
+function setCookie(name, value, days) {
+        if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+        } else {
+               var expires = "";
+        }
+        
+        document.cookie = name + "=" + value + expires + "; path=/";
 }
+
  
 function getCookie(cookieName){
-    var cookieValue=null;
+    var cookieValue;
     if(document.cookie){
         var array=document.cookie.split((escape(cookieName)+'='));
         if(array.length >= 2){
