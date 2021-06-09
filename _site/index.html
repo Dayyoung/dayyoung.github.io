@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,7 +99,7 @@ function createWalletWithMnemonic(){
 
   showModal()
 
-  alert(address)
+  //alert(address)
 
   var db = firebase.firestore();
   db.collection('wallet').doc(address).get()
@@ -113,6 +113,7 @@ function createWalletWithMnemonic(){
           if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
             WALLET = address
             MNEMONIC = word1+","+word2+","+word3
+
             movePageWithParam()
 
             document.getElementById('mnemonicDialog').hide()
@@ -125,8 +126,10 @@ function createWalletWithMnemonic(){
               transaction.wallet = WALLET
               transaction.amount = bell
               transaction.money = money
-               setCookie("transaction",JSON.stringify(transaction))
+              setCookie("transaction",JSON.stringify(transaction))
             }
+
+            location.reload();
 
           }else{
             document.getElementById('mnemonicDialog').hide()
