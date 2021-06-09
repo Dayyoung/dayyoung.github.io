@@ -214,20 +214,14 @@ function getWallet(){
         var bell = doc.data().bell
         var money = doc.data().money
 
-        if(bell){
-          var transaction = {}
-          transaction.wallet = WALLET
-          transaction.amount = bell
-
-          TOTALAMOUNT = bell
-
-          if(!money){
-            money = 0
-          }
-
-          transaction.money = money
-           setCookie("transaction",JSON.stringify(transaction))
-        }
+        // if(bell && money){
+        //   var transaction = {}
+        //   transaction.wallet = WALLET
+        //   transaction.amount = bell
+        //   TOTALAMOUNT = bell
+        //   transaction.money = money
+        //   setCookie("transaction",JSON.stringify(transaction))
+        // }
       }
     });
 }
