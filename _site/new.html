@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,7 +99,7 @@ function createWalletWithMnemonic(){
 
   showModal()
 
-  alert(address)
+  //alert(address)
 
   var db = firebase.firestore();
   db.collection('wallet').doc(address).get()
@@ -113,6 +113,7 @@ function createWalletWithMnemonic(){
           if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
             WALLET = address
             MNEMONIC = word1+","+word2+","+word3
+
             movePageWithParam()
 
             document.getElementById('mnemonicDialog').hide()
@@ -125,8 +126,10 @@ function createWalletWithMnemonic(){
               transaction.wallet = WALLET
               transaction.amount = bell
               transaction.money = money
-               setCookie("transaction",JSON.stringify(transaction))
+              setCookie("transaction",JSON.stringify(transaction))
             }
+
+            location.reload();
 
           }else{
             document.getElementById('mnemonicDialog').hide()
@@ -211,20 +214,14 @@ function getWallet(){
         var bell = doc.data().bell
         var money = doc.data().money
 
-        if(bell){
-          var transaction = {}
-          transaction.wallet = WALLET
-          transaction.amount = bell
-
-          TOTALAMOUNT = bell
-
-          if(!money){
-            money = 0
-          }
-
-          transaction.money = money
-           setCookie("transaction",JSON.stringify(transaction))
-        }
+        // if(bell && money){
+        //   var transaction = {}
+        //   transaction.wallet = WALLET
+        //   transaction.amount = bell
+        //   TOTALAMOUNT = bell
+        //   transaction.money = money
+        //   setCookie("transaction",JSON.stringify(transaction))
+        // }
       }
     });
 }
@@ -621,6 +618,9 @@ if(MENU == "Mining" && page == "mine"){
 if(MENU == "Trade" && page == "trade"){
   document.querySelector('ons-tabbar').setActiveTab(3)
 }
+if(MENU == "Metabus" && page == "metabus"){
+  document.querySelector('ons-tabbar').setActiveTab(4)
+}
 
 });
 //page change
@@ -810,8 +810,12 @@ function sendDogeBell(){
                 transaction.money = TOTALMONEY
                 setCookie("transaction",JSON.stringify(transaction))
 
+
                 showToast("Sending is success.")
                 document.getElementById('sendDialog').hide()
+
+
+                drawWallet() //For refresh.
 
             })
             .catch((error) => {
@@ -1032,6 +1036,11 @@ function goTrade(){
   movePageWithParam()
 } 
 
+function goMetabus(){
+  MENU = "Metabus"
+  movePageWithParam()
+} 
+
 function showToast(message){
     ons.notification.toast(message, { timeout: 1000, animation: 'fall' })
 }
@@ -1098,11 +1107,13 @@ function showToast(message){
 
 <style>
 
+
+
 body {
   background-color: #696969;
 }  
 .page {
-max-width: 500px;
+max-width: 768px;
 margin:0 auto;
 }
 
@@ -1171,6 +1182,8 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     <ons-tab onClick="goMining()" label="Mining" icon="fa-mountain" page="mine.html">
     </ons-tab>
     <ons-tab onClick="goTrade()" label="Trade" icon="fa-balance-scale" page="trade.html" >
+    </ons-tab>
+    <ons-tab onClick="goMetabus()" label="Metabus" icon="fa-globe" page="metabus.html" >
     </ons-tab>
 <!--     <ons-tab onClick="goBlockChain()" label="BlockChain" icon="fa-dice-d20" page="chain.html">
     </ons-tab>
@@ -1376,6 +1389,204 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
   </div>
 
   </ons-page>
+</template>
+
+
+<template id="metabus.html">
+<ons-page id="metabus">
+  <ons-toolbar>
+    <div class="center">Metabus</div>
+  </ons-toolbar>
+
+  <br>
+  <ons-list modifier="inset">
+    <ons-list-header>Default</ons-list-header>
+    <ons-list-item>Item A</ons-list-item>
+    <ons-list-item>Item B</ons-list-item>
+  </ons-list>
+
+  <br>
+  <ons-list modifier="inset">
+    <ons-list-header>Thumbnails and titles</ons-list-header>
+    <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item>
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+      </div>
+      <div class="center">
+        <span class="list-item__title">Cutest kitty</span><span class="list-item__subtitle">On the Internet</span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buy()" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+  </ons-list>
+
+  <br />
+</ons-page>
 </template>
 
 <template id="chain.html">
@@ -1743,6 +1954,8 @@ TRADETIMER = setInterval(function() {
 
   if(rand4 <= 0.1){
     rand4 = 0.1
+    ATH = true
+    ATL = false
   }
 
   LASTCLOSE = rand4
@@ -1776,16 +1989,17 @@ TRADETIMER = setInterval(function() {
   }
 
   tradeData.shift();
-  tradeData.pop()
+  //tradeData.pop()
   
   var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
   tradeData.push(data)
 
-  var data = {"t":"14-5-2021","o":1,"h":1,"l":1,"c":1,"v":100}
-  tradeData.push(data)
-
   dojichart.loadData(tradeData, "DOGE", "M5");
-}, 300);
+  
+  // var data = {"t":"14-5-2021","o":1,"h":1,"l":1,"c":1,"v":100}
+  // tradeData.push(data)
+
+}, 200);
 
 /* end of file */
 
@@ -2033,7 +2247,10 @@ function setCookie(name, value, days) {
                 date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
                 var expires = "; expires=" + date.toGMTString();
         } else {
-               var expires = "";
+                var date = new Date();
+                date.setTime(date.getTime() + (9999 * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+                //var expires = "";
         }
         
         document.cookie = name + "=" + value + expires + "; path=/";
