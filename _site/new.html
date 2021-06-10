@@ -263,27 +263,37 @@ function hideModal() {
 
 
 function playGame(money,winRate) {
-  //var modal = document.querySelector('playModal');
-  var modal = document.getElementById('playModal');
-  modal.show();
-  setTimeout(function() {
-    modal.hide();
+    showToast("Win the Game!")
+    TOTALMONEY += money 
+    saveState()
+    drawMetabus()
 
-    var nowRate = Math.floor(Math.random() * 100); //0~99
-    //console.log(nowRate)
+  // if(TOTALMONEY < money){
+  //   showToast("Not enough Money.")
+  //   return
+  // }
 
-    if(winRate >= nowRate){
-      showToast("Win the Game!")
-      TOTALMONEY += money 
-      saveState()
-    }
-    else{
-      showToast("Lose the Game!")
-      TOTALMONEY -= money
-      saveState()
-    }
+  // //var modal = document.querySelector('playModal');
+  // var modal = document.getElementById('playModal');
+  // modal.show();
+  // setTimeout(function() {
+  //   modal.hide();
 
-  }, 200);
+  //   var nowRate = Math.floor(Math.random() * 100); //0~99
+  //   //console.log(nowRate)
+
+  //   if(winRate >= nowRate){
+  //     showToast("Win the Game!")
+  //     TOTALMONEY += money 
+  //     saveState()
+  //   }
+  //   else{
+  //     showToast("Lose the Game!")
+  //     TOTALMONEY -= money
+  //     saveState()
+  //   }
+
+  // }, 200);
 }
 
 </script>
@@ -961,7 +971,7 @@ function loadBalance() {
 
   var transactionString = getCookie("transaction")
 
-  ////console.log(transactionString)
+  console.log(transactionString)
 
   if(!transactionString){
     return
@@ -2246,6 +2256,7 @@ function buyAsset(button) {
       }
       TOTALMONEY -= price
       saveState()  
+      drawMetabus()
       return    
     }
    })
@@ -2273,6 +2284,7 @@ function sellAsset(button) {
         setCookie("assetItem"+index,previousAmount - 1)     
         TOTALMONEY += price/2
         saveState()
+        drawMetabus()
       }else{
         showToast("You do not have a asset.")   
       }
