@@ -66,6 +66,14 @@ function backupWallet() {
 
   var db = firebase.firestore();
   // Add a new document in collection "cities"
+
+  if(!TOTALAMOUNT){
+    TOTALAMOUNT = 0
+  }
+  if(!TOTALMONEY){
+    TOTALMONEY = 0
+  }
+
   db.collection("wallet").doc(WALLET).set({
       bell: TOTALAMOUNT,
       money: TOTALMONEY
@@ -263,7 +271,7 @@ function hideModal() {
 
 
 function playGame(money,winRate) {
-    showToast("Win the Game!")
+    //showToast("Win the Game!")
     TOTALMONEY += money 
     saveState()
     drawMetabus()
@@ -638,11 +646,10 @@ if(!MENU){
 }
 
 if(MENU == "Home" && page == "home"){
-
   drawChart()
-
   document.querySelector('ons-tabbar').setActiveTab(0)
 }
+
 if(MENU == "Wallet" && page == "wallet"){
   document.querySelector('ons-tabbar').setActiveTab(1)
 }
@@ -944,8 +951,7 @@ function loadBalance() {
       return
     }
 
-    //alert("loadBalance")
-    ////console.log("CHANGED.")
+    WALLET = getParameterByName("WALLET")
 
     if(!WALLET) {
       $("#dogebellAmount").html("0")
@@ -953,29 +959,16 @@ function loadBalance() {
       return;
     }
 
-    // var db = firebase.firestore();
-    // var transaction = db.collection("transaction");
-
-    WALLET = getParameterByName("WALLET")
-
-
-    TOTALAMOUNT = 0;
-    TOTALTRANSACTION = 0;
-    TOTALMONEY = 0;
-    //$("#dogebellAmount").html("0")
-    //$("#bellTransaction").html("0")
-
     isUpdate = true
-
-
 
   var transactionString = getCookie("transaction")
 
-  console.log(transactionString)
+  //console.log(transactionString)
 
   if(!transactionString){
     return
   }
+
 
   var transaction = JSON.parse(transactionString)
   //transaction.wallet = WALLET
@@ -988,11 +981,11 @@ function loadBalance() {
     
     isUpdate = false
     //alerr TOTALAMOUNT)
-    if (TOTALAMOUNT < 0){
+    if (!TOTALAMOUNT || TOTALAMOUNT < 0){
       TOTALAMOUNT = 0
     }
 
-    if (TOTALMONEY < 0){
+    if (!TOTALMONEY || TOTALMONEY < 0){
       TOTALMONEY = 0
     }
 
@@ -1404,21 +1397,22 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
     </div>
   </div>
 
-  <br>
+<br>
 
     <div class="content" style="margin: 10px;">
       <ons-list>
         <ons-list-header>Information</ons-list-header>
         <ons-list-item>My BELL &nbsp;:&nbsp; <span id="dogeBellForTrade"></span>&nbsp;BELL ($<span id="calculateForTrade"></span>)</ons-list-item>
-        <ons-list-item>My MONEY &nbsp;:&nbsp; $&nbsp; <span id="moneyForTrade"></span>&nbsp;</ons-list-item>
+        <ons-list-item>My Money &nbsp;:&nbsp; $&nbsp; <span id="moneyForTrade"></span>&nbsp;</ons-list-item>
       </ons-list>
     </div>
  
  <br>
 
+
       <div>
-      <ons-button onClick="buy()" style="background-color: red; color: white; width: 150px;margin: : 20px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Buy BELL&nbsp;&nbsp;</ons-button>
-      <ons-button onClick="sell()" style="background-color: blue; color: white; width: 150px;margin: 20px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Sell BELL&nbsp;&nbsp;</ons-button>
+      <ons-button onClick="buy()" style="background-color: red; color: white; width: 180px;margin: : 20px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Buy BELL&nbsp;&nbsp;</ons-button>
+      <ons-button onClick="sell()" style="background-color: blue; color: white; width: 180px;margin: 20px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Sell BELL&nbsp;&nbsp;</ons-button>
       </div>
 
   </center>
@@ -1452,12 +1446,12 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
         <img class="list-item__thumbnail" src="https://i.pinimg.com/originals/76/3b/39/763b39590f0c0674a79b758dd6c9a685.gif">
       </div>
       <div class="center">
-        <span class="list-item__title">Roulette ($10)</span><span class="list-item__subtitle">Win rate : 50%</span>
+        <span class="list-item__title">Roulette ($100)</span><span class="list-item__subtitle">Win rate : 50%</span>
       </div>
       <div class="right">    
 
 
-      <ons-button onClick="playGame(10,50)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-money-bill-alt"></ons-icon>&nbsp;Bet</ons-button>
+      <ons-button onClick="playGame(100,50)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-money-bill-alt"></ons-icon>&nbsp;Bet</ons-button>
     
       </div>
     </ons-list-item>
@@ -1466,12 +1460,12 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
         <img class="list-item__thumbnail" src="https://media.istockphoto.com/vectors/slot-machine-game-yellow-win-777-jackpot-jackpot-triple-seven-lucky-vector-id1226107947">
       </div>
       <div class="center">
-        <span class="list-item__title">Slots ($100)</span><span class="list-item__subtitle">Win rate : 20%</span>
+        <span class="list-item__title">Slots ($1,000)</span><span class="list-item__subtitle">Win rate : 20%</span>
       </div>
       <div class="right">    
 
 
-      <ons-button onClick="playGame(100,20)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-money-bill-alt"></ons-icon>&nbsp;Bet</ons-button>
+      <ons-button onClick="playGame(1000,20)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-money-bill-alt"></ons-icon>&nbsp;Bet</ons-button>
     
       </div>
     </ons-list-item>
@@ -1481,7 +1475,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
         <img class="list-item__thumbnail" src="https://neconnected.co.uk/wp-content/uploads/2021/03/vcs_should_invest_like_poker_player-bf365a82.jpg">
       </div>
       <div class="center">
-        <span class="list-item__title">Poker ($1,000)</span><span class="list-item__subtitle">Win rate : 5%</span>
+        <span class="list-item__title">Poker ($10,000)</span><span class="list-item__subtitle">Win rate : 5%</span>
       </div>
       <div class="right">    
 
@@ -1492,6 +1486,125 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
   </ons-list>
 
   <br>
+
+
+    <ons-list-header>Cryptocurrency</ons-list-header>
+
+     <ons-list-item class="assetItem">
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://blog.kakaocdn.net/dn/bh16KD/btq4qD1HGAp/NR3SDcHaqkNUgOJCsD9ys1/img.png">
+      </div>
+      <div class="center">
+        <span class="list-item__title"><span class="assetName">Dogecoin</span> ($1)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item class="assetItem">
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/440px-Ethereum-icon-purple.svg.png">
+      </div>
+      <div class="center">
+        <span class="list-item__title"><span class="assetName">Ethereum</span> (100,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item class="assetItem">
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://static.coincost.net/logo/cryptocurrency/bitcoin.png">
+      </div>
+      <div class="center">
+        <span class="list-item__title"><span class="assetName">Bitcoin</span> ($1,000,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+
+
+     <ons-list-item class="assetItem">
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://www.domusweb.it/content/dam/domusweb/en/news/2021/05/13/how-to-mint-your-own-nft-in-5-simple-steps/nft.jpg.foto.rmedium.jpg">
+      </div>
+      <div class="center">
+        <span class="list-item__title"><span class="assetName">NFT [Not Funny Token] </span> ($10,000,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+    
+    <ons-list-header>Car</ons-list-header>
+     <ons-list-item class="assetItem">
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://image.shutterstock.com/image-illustration/red-hatchback-car-on-white-260nw-1578260833.jpg">
+      </div>
+      <div class="center">
+        <span class="list-item__title"><span class="assetName">Car</span> ($50,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item class="assetItem">
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf9G7Nik_pHhRSQ_OgjpoHV_IvhuZQFD33vA&usqp=CAU">
+      </div>
+      <div class="center">
+        <span class="list-item__title"><span class="assetName">Truck</span> ($100,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
+     <ons-list-item class="assetItem">
+      <div class="left">
+        <img class="list-item__thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQea1mUZcvPXpXLYvk2fSs71bq2tnkZmeO66A&usqp=CAU">
+      </div>
+      <div class="center">
+        <span class="list-item__title"><span class="assetName">Lamborghini</span> ($10,000,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
+      </div>
+      <div class="right">    
+
+
+      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
+      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
+    
+      </div>
+    </ons-list-item>
+
   <ons-list modifier="inset">
     <ons-list-header>Land</ons-list-header>
     <ons-list-item class="assetItem">
@@ -1556,123 +1669,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
       </div>
     </ons-list-item>
 
-    <ons-list-header>Car</ons-list-header>
-     <ons-list-item class="assetItem">
-      <div class="left">
-        <img class="list-item__thumbnail" src="https://image.shutterstock.com/image-illustration/red-hatchback-car-on-white-260nw-1578260833.jpg">
-      </div>
-      <div class="center">
-        <span class="list-item__title"><span class="assetName">Car</span> ($50,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
-      </div>
-      <div class="right">    
 
-
-      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
-      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
-    
-      </div>
-    </ons-list-item>
-
-     <ons-list-item class="assetItem">
-      <div class="left">
-        <img class="list-item__thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf9G7Nik_pHhRSQ_OgjpoHV_IvhuZQFD33vA&usqp=CAU">
-      </div>
-      <div class="center">
-        <span class="list-item__title"><span class="assetName">Truck</span> ($100,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
-      </div>
-      <div class="right">    
-
-
-      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
-      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
-    
-      </div>
-    </ons-list-item>
-
-     <ons-list-item class="assetItem">
-      <div class="left">
-        <img class="list-item__thumbnail" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQea1mUZcvPXpXLYvk2fSs71bq2tnkZmeO66A&usqp=CAU">
-      </div>
-      <div class="center">
-        <span class="list-item__title"><span class="assetName">Lamborghini</span> ($10,000,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
-      </div>
-      <div class="right">    
-
-
-      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
-      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
-    
-      </div>
-    </ons-list-item>
-
-
-    <ons-list-header>Cryptocurrency</ons-list-header>
-
-     <ons-list-item class="assetItem">
-      <div class="left">
-        <img class="list-item__thumbnail" src="https://blog.kakaocdn.net/dn/bh16KD/btq4qD1HGAp/NR3SDcHaqkNUgOJCsD9ys1/img.png">
-      </div>
-      <div class="center">
-        <span class="list-item__title"><span class="assetName">Dogecoin</span> ($1)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
-      </div>
-      <div class="right">    
-
-
-      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
-      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
-    
-      </div>
-    </ons-list-item>
-
-     <ons-list-item class="assetItem">
-      <div class="left">
-        <img class="list-item__thumbnail" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/440px-Ethereum-icon-purple.svg.png">
-      </div>
-      <div class="center">
-        <span class="list-item__title"><span class="assetName">Ethereum</span> (100,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
-      </div>
-      <div class="right">    
-
-
-      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
-      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
-    
-      </div>
-    </ons-list-item>
-
-     <ons-list-item class="assetItem">
-      <div class="left">
-        <img class="list-item__thumbnail" src="https://static.coincost.net/logo/cryptocurrency/bitcoin.png">
-      </div>
-      <div class="center">
-        <span class="list-item__title"><span class="assetName">Bitcoin</span> ($1,000,000)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
-      </div>
-      <div class="right">    
-
-
-      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
-      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
-    
-      </div>
-    </ons-list-item>
-
-
-
-     <ons-list-item class="assetItem">
-      <div class="left">
-        <img class="list-item__thumbnail" src="https://www.domusweb.it/content/dam/domusweb/en/news/2021/05/13/how-to-mint-your-own-nft-in-5-simple-steps/nft.jpg.foto.rmedium.jpg">
-      </div>
-      <div class="center">
-        <span class="list-item__title"><span class="assetName">NFT</span> ($0 - Not Funny Token)</span><span class="list-item__subtitle">Amount : <span class="assetAmount">0</span></span>
-      </div>dos
-      <div class="right">    
-
-
-      <ons-button onClick="buyAsset(this)" style="background-color: red; color: white; margin: : 10px;"><ons-icon icon="fa-plus"></ons-icon>&nbsp;Buy</ons-button>
-      <ons-button onClick="sellAsset(this)" style="background-color: blue; color: white; margin: 10px;"><ons-icon icon="fa-minus"></ons-icon>&nbsp;Sell</ons-button>
-    
-      </div>
-    </ons-list-item>
     <ons-list-header>Art</ons-list-header>
 
      <ons-list-item  class="assetItem">
@@ -2135,14 +2132,15 @@ TRADETIMER = setInterval(function() {
     $("#dogeBellForTrade").html(totalBell)
     $("#calculateForTrade").html(calculatePrice.toFixed(4))
 
+  }
+
     if(!TOTALMONEY){
       TOTALMONEY = 0
     }
 
-    ////console.log(TOTALMONEY)
+   // console.log(TOTALMONEY)
 
-    $("#moneyForTrade").html(parseFloat(TOTALMONEY.format()).toFixed(4))
-  }
+    $("#moneyForTrade").html(parseFloat(TOTALMONEY).toFixed(4).format())
 
   tradeData.shift();
   //tradeData.pop()
@@ -2174,7 +2172,9 @@ function drawMetabus() {
   //console.log(TOTALMONEY)
 
   if(TOTALMONEY){
-    $("#myMoney").html(TOTALMONEY.format())
+    $("#myMoney").html(TOTALMONEY.toFixed(4).format())
+  }else{
+    $("#myMoney").html(0)
   }
   //var n = $( ".assetItem" ).length;
   var TOTALVALUE = 0
