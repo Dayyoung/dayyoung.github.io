@@ -214,20 +214,14 @@ function getWallet(){
         var bell = doc.data().bell
         var money = doc.data().money
 
-        if(bell){
-          var transaction = {}
-          transaction.wallet = WALLET
-          transaction.amount = bell
-
-          TOTALAMOUNT = bell
-
-          if(!money){
-            money = 0
-          }
-
-          transaction.money = money
-           setCookie("transaction",JSON.stringify(transaction))
-        }
+        // if(bell && money){
+        //   var transaction = {}
+        //   transaction.wallet = WALLET
+        //   transaction.amount = bell
+        //   TOTALAMOUNT = bell
+        //   transaction.money = money
+        //   setCookie("transaction",JSON.stringify(transaction))
+        // }
       }
     });
 }
@@ -1677,7 +1671,7 @@ let timerId = setTimeout(function tick() {
 
   var nextTime = Math.floor(Math.random() * 3);  // 0~2
   timerId = setTimeout(tick, nextTime* 1000); // (*)
-}, 30000);
+}, 3000);
 
 var tradeData = cloneObject(dogeData)
 
@@ -1787,13 +1781,13 @@ TRADETIMER = setInterval(function() {
   }
 
   tradeData.shift();
-  tradeData.pop()
+  //tradeData.pop()
   
   var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
   tradeData.push(data)
 
-  var data = {"t":"14-5-2021","o":1,"h":1,"l":1,"c":1,"v":100}
-  tradeData.push(data)
+  // var data = {"t":"14-5-2021","o":1,"h":1,"l":1,"c":1,"v":100}
+  // tradeData.push(data)
 
   dojichart.loadData(tradeData, "DOGE", "M5");
 }, 300);
