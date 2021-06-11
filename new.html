@@ -272,36 +272,42 @@ function hideModal() {
 
 function playGame(money,winRate) {
     //showToast("Win the Game!")
-    TOTALMONEY += money 
-    saveState()
-    drawMetabus()
+    // TOTALMONEY += money 
+    // saveState()
+    // drawMetabus()
 
-  // if(TOTALMONEY < money){
-  //   showToast("Not enough Money.")
-  //   return
-  // }
+  if(TOTALMONEY < money){
+    showToast("Not enough Money.")
+    return
+  }
 
-  // //var modal = document.querySelector('playModal');
-  // var modal = document.getElementById('playModal');
-  // modal.show();
-  // setTimeout(function() {
-  //   modal.hide();
+  //var modal = document.querySelector('playModal');
+  var modal = document.getElementById('playModal');
+  modal.show();
+  setTimeout(function() {
+    
+    modal.hide();
 
-  //   var nowRate = Math.floor(Math.random() * 100); //0~99
-  //   //console.log(nowRate)
+    var nowRate = Math.floor(Math.random() * 100); //0~99
+    //console.log(nowRate)
+    //nowRate = 0
 
-  //   if(winRate >= nowRate){
-  //     showToast("Win the Game!")
-  //     TOTALMONEY += money 
-  //     saveState()
-  //   }
-  //   else{
-  //     showToast("Lose the Game!")
-  //     TOTALMONEY -= money
-  //     saveState()
-  //   }
+    if(winRate >= nowRate){
+      showToast("Win the Game!")
+      var rewardRate = 100 - winRate
+      var rewardAmount = rewardRate / 10 // X5 , X8 , X9
+      TOTALMONEY += money * rewardAmount
+      saveState()
+      drawMetabus()
+    }
+    else{
+      showToast("Lose the Game!")
+      TOTALMONEY -= money
+      saveState()
+      drawMetabus()
+    }
 
-  // }, 200);
+  }, 200);
 }
 
 </script>
