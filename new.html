@@ -2190,7 +2190,7 @@ function drawMetabus() {
 
     //console.log(name)
 
-    var amount = getCookie("assetItem"+index)
+    var amount = getCookie(WALLET+index)
 
     $(item).find(".assetAmount").html(amount)
    })
@@ -2246,13 +2246,13 @@ function buyAsset(button) {
 
     if(nowName == name){
 
-      var previousAmount = parseInt(getCookie("assetItem"+index))
+      var previousAmount = parseInt(getCookie(WALLET+index))
 
       if(!isNaN(previousAmount)){
         //console.log(previousAmount)
-        setCookie("assetItem"+index,previousAmount + 1)   
+        setCookie(WALLET+index,previousAmount + 1)   
       }else{
-        setCookie("assetItem"+index,1)   
+        setCookie(WALLET+index,1)   
       }
       TOTALMONEY -= price
       saveState()  
@@ -2278,10 +2278,10 @@ function sellAsset(button) {
 
     if(nowName == name){
 
-      var previousAmount = parseInt(getCookie("assetItem"+index))
+      var previousAmount = parseInt(getCookie(WALLET+index))
 
       if(!isNaN(previousAmount) && previousAmount > 0){
-        setCookie("assetItem"+index,previousAmount - 1)     
+        setCookie(WALLET+index,previousAmount - 1)     
         TOTALMONEY += price/2
         saveState()
         drawMetabus()
