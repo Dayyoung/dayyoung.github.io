@@ -1415,13 +1415,13 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
  
  <br>
 
+  <center>
 
       <div>
       <ons-button onClick="buy()" style="background-color: red; color: white; width: 180px;margin: : 20px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Buy BELL&nbsp;&nbsp;</ons-button>
       <ons-button onClick="sell()" style="background-color: blue; color: white; width: 180px;margin: 20px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Sell BELL&nbsp;&nbsp;</ons-button>
       </div>
 
-  </center>
   </center>
 
   </div>
@@ -2079,6 +2079,8 @@ if(TRADETIMER){
   clearInterval(TRADETIMER)
 }
 
+var i = 0;
+
 TRADETIMER = setInterval(function() {
 
   if (DOGEPRICEFORUSD == 0){
@@ -2149,11 +2151,20 @@ TRADETIMER = setInterval(function() {
 
     $("#moneyForTrade").html(parseFloat(TOTALMONEY).toFixed(4).format())
 
-  tradeData.shift();
-  //tradeData.pop()
-  
+  i++
+  var rest = i % 4
+  // console.log(rest)
+
+  // if(rest == 0) {
+  //   //tradeData.pop()
+  //   var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
+  //   tradeData.push(data)
+  // }
+
   var data = {"t":"14-5-2021","o":rand1,"h":rand2,"l":rand3,"c":rand4,"v":100}
+  tradeData.shift();
   tradeData.push(data)
+
 
   dojichart.loadData(tradeData, "DOGE", "M5");
   
