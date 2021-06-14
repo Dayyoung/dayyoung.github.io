@@ -171,7 +171,8 @@ function insertWallet(item) {
       WALLET = docRef.id
       movePageWithParam()
       hideDialog("my-dialog")
-      drawWallet()
+      //drawWallet()
+      location.reload();
 
   })
   .catch((error) => {
@@ -751,7 +752,17 @@ if(WALLET){
 }
 
 function drawMine(){
-  $("#mineLayout").show() 
+
+  WALLET = getParameterByName("WALLET")
+
+  if(!WALLET){
+    $("#mineLayout").hide()
+    //$("#walletLayout").css("display","none")
+    showWalletAlert()
+    return
+  }
+
+  $("#mineLayout").show()
   $("#miningBell").html(TOTALAMOUNT + " BELL")
 }
 
@@ -1419,7 +1430,6 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
       <div>
       <ons-button onClick="buy()" style="background-color: red; color: white; width: 170px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Buy BELL&nbsp;&nbsp;</ons-button>
-      &nbsp;&nbsp;&nbsp;&nbsp;
       <ons-button onClick="sell()" style="background-color: blue; color: white; width: 170px;"><ons-icon icon="fa-bell"></ons-icon>&nbsp;&nbsp;Sell BELL&nbsp;&nbsp;</ons-button>
       </div>
 
@@ -1433,6 +1443,9 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 
 <template id="metabus.html">
 <ons-page id="metabus">
+
+  <div id="metaLayout" style="display: none">
+
   <ons-toolbar>
     <div class="center">Metabus</div>
   </ons-toolbar>
@@ -1747,6 +1760,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
   </ons-list>
 
   <br />
+  </div>
 </ons-page>
 </template>
 
@@ -2046,6 +2060,16 @@ var tradeData = cloneObject(dogeData)
 
 function drawTrade() {
 
+
+  WALLET = getParameterByName("WALLET")
+
+  if(!WALLET){
+    $("#tradeLayout").hide()
+    //$("#walletLayout").css("display","none")
+    showWalletAlert()
+    return
+  }
+
   $("#tradeLayout").show()
 /*
   Hello World
@@ -2181,6 +2205,16 @@ TRADETIMER = setInterval(function() {
 
 function drawMetabus() {
 
+  WALLET = getParameterByName("WALLET")
+
+  if(!WALLET){
+    $("#metaLayout").hide()
+    //$("#walletLayout").css("display","none")
+    showWalletAlert()
+    return
+  }
+
+  $("#metaLayout").show()
   //For reached!
   // var transaction = {}
   // transaction.wallet = WALLET
@@ -2189,6 +2223,7 @@ function drawMetabus() {
   // setCookie("transaction",JSON.stringify(transaction))
 
   //console.log(TOTALMONEY)
+
 
   if(TOTALMONEY){
     $("#myMoney").html(TOTALMONEY.toFixed(4).format())
@@ -2209,7 +2244,14 @@ function drawMetabus() {
 
     //console.log(name)
 
+    if(!WALLET){
+    var amount = 0  
+    }else{
     var amount = getCookie(WALLET+index)
+    }
+    console.log(WALLET+index)
+
+    //console.log(amount)
 
     $(item).find(".assetAmount").html(amount)
    })
