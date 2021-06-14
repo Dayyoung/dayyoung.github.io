@@ -227,6 +227,7 @@ function getWallet(){
         if(word1 == mnemonic[0] && word2 == mnemonic[1] && word3 == mnemonic[2]) {
         LOGIN = true  
         $("#sendButton").show()
+        $("#importButton").show()
         $("#backupButton").show()
         } 
 
@@ -1365,6 +1366,7 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
       <div>
         <ons-button id="sendButton" style="display: none" onClick="showSendDogeBell()"><ons-icon icon="fa-paper-plane"></ons-icon>&#x20;Send</ons-button>&#x20;
         <ons-button onClick="copyAddress()" id="copyButton" data-clipboard-text="AAAA"><ons-icon icon="fa-copy"></ons-icon>&#x20;Copy</ons-button>&#x20;
+        <ons-button id="importButton" style="display: none"  onClick="importWallet()"><ons-icon icon="file-import"></ons-icon>&#x20;Import</ons-button>&#x20;
         <ons-button id="backupButton" style="display: none"  onClick="showMnemonicBackupDialog()"><ons-icon icon="file-export"></ons-icon>&#x20;Backup</ons-button>&#x20;
       </div>
 <br>      
