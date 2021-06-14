@@ -125,17 +125,28 @@ function createWalletWithMnemonic(){
             movePageWithParam()
 
             document.getElementById('mnemonicDialog').hide()
+
             //recovery
             var bell = doc.data().bell
             var money = doc.data().money
 
-            if(bell && money){
+            if(!bell) {
+              bell = 0
+            }
+            if(!money) {
+              money = 0
+            }
+
+            //if(bell && money){
               var transaction = {}
               transaction.wallet = WALLET
               transaction.amount = bell
               transaction.money = money
               setCookie("transaction",JSON.stringify(transaction))
-            }
+
+              console.log(JSON.stringify(transaction))
+              //console.log(money)
+            //}
 
             location.reload();
 
