@@ -266,7 +266,29 @@ function createTransaction(item) {
 }
 
 function showToast(message){
-    ons.notification.toast(message, { timeout: 1000, animation: 'ascend' })
+
+
+  var myToast = document
+  .querySelector('ons-toast')
+
+  var isToast = $(myToast).is(':visible');
+
+  if(isToast){
+    ////console.log("DIALOG.")
+    return
+  }
+
+  $(myToast).find("#myToastString").html(message)
+
+  myToast.show();
+
+  setTimeout(function() {
+    myToast.hide();
+  }, 1000);
+
+ // var myToast = $('#myToast');
+ //  myToast.show();
+
 }
 
 function showModal() {
@@ -1101,10 +1123,6 @@ function goMetabus(){
   movePageWithParam()
 } 
 
-function showToast(message){
-    ons.notification.toast(message, { timeout: 1000, animation: 'fall' })
-}
-
   </script>
 
   <link rel="stylesheet" href="/assets/css/dojichart.css"/>
@@ -1231,6 +1249,9 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 </head>
 <body>
 
+<ons-toast id="myToast" animation="fall">
+  <span id="myToastString"></span>
+</ons-toast>
 
 <ons-page>  
 
