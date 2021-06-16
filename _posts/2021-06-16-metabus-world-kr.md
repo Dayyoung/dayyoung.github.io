@@ -11,6 +11,7 @@ tags:
 "도지코인은 이미 달에 도착했다!"
 
 지갑을 만들고, 채굴을하고, 트레이드를하고, 카지노를 하자 ~
+
 <img width="501" alt="1" src="https://user-images.githubusercontent.com/6928193/122188323-cf34ed00-ceca-11eb-8250-662f1290056c.png">
 
 1. 지갑 생성.
