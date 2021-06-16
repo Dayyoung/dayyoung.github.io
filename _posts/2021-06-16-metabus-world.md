@@ -12,7 +12,7 @@ tags:
 
 Create a wallet, mine, trade, casino! for free.
 
-<img width="501" alt="1" src="https://user-images.githubusercontent.com/6928193/122188323-cf34ed00-ceca-11eb-8250-662f1290056c.png">
+<img width="501" alt="0" src="https://user-images.githubusercontent.com/6928193/122188323-cf34ed00-ceca-11eb-8250-662f1290056c.png">
 
 1. Create a wallet
 <img width="501" alt="1" src="https://user-images.githubusercontent.com/6928193/122188342-d2c87400-ceca-11eb-96bb-fc134a8328fa.png">
