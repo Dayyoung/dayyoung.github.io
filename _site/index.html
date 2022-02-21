@@ -4,6 +4,7 @@
 
   <title>DogeBell</title>
   <meta charset="UTF-8">
+  <meta name="Description" CONTENT="DogeBell - Dogecoin Metabus World.">
 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2027,7 +2028,8 @@ CHARTTIMER = setInterval(function() {
   
   //data_arr = shuffle(data_arr);
 
-  const rand1 = DOGEPRICEFORUSD
+  //const rand1 = DOGEPRICEFORUSD
+  const rand1 = 0.3690867424697277
   const rand2 = rand1 + 0.03
   const rand3 = rand1 - 0.03;
   var rand4 = rand1 + Math.random() * 0.1;
@@ -2538,7 +2540,7 @@ var showSendDogeBell = function() {
 </ons-modal>
 
 <template id="dialog.html">
-  <ons-dialog id="my-dialog" cancelable>
+  <ons-dialog id="my-dialog">
     <div style="text-align: center; padding: 10px;">
       <p>
         You do not have a wallet.
@@ -2664,7 +2666,7 @@ function setCookie(name, value, days) {
                 //var expires = "";
         }
         
-        document.cookie = name + "=" + value + expires + "; path=/";
+        document.cookie = name + "=" + value + expires + "; path=/ ; SameSite=None; Secure;";
 }
 
  
