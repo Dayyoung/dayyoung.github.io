@@ -66,6 +66,8 @@ $('.link___add_cart_15_149').click(function(){
 })
 
 
+var CARDID;
+
 function createOrUpdateItem(type){
 
   var visitNumber = localStorage.getItem('visitNumber');
@@ -93,6 +95,7 @@ function createOrUpdateItem(type){
   if(type==1)requestData["entry.1175135802"] = ++TomatoCount; //Tomato
   if(type==2)requestData["entry.388180984"] = ++OnionCount; //Onion
   if(type==3)requestData["entry.1719807681"] = ++PotatoCount; //Potato
+
 
   $.post("https://corsproxy.io/?" + requestUrl, requestData, function (data) {
     //var responseUrl = $("a").first().attr("href").split("edit2=")[1];
