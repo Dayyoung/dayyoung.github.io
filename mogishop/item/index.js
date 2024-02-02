@@ -190,10 +190,10 @@ function getCartID() {
 
 }
 
-var CarrotCount;
-var TomatoCount;
-var OnionCount;
-var PotatoCount;
+var CarrotCount = 0;
+var TomatoCount = 0;
+var OnionCount = 0;
+var PotatoCount = 0;
 
 function getCartItem() {
 
