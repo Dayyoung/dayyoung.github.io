@@ -1,30 +1,59 @@
 $(function(){
-	
-	//Navigation	
-
-	$('[class*="homebutton"]').click(function(){
-		location.href = "../home"
-	});
-	$('[class*="menubutton"]').click(function(){
-		location.href = "../menu"
-	});
-	$('[class*="itembutton"]').click(function(){
-		location.href = "../item"
-	});
-	$('[class*="cartbutton"]').click(function(){
-		location.href = "../cart"
-	});
-	$('[class*="posbutton"]').click(function(){
-		location.href = "../pos"
-	});
+  
 
 
-	var visitNumber = localStorage.getItem('visitNumber');
 
-	if(!visitNumber){
-    	visitNumber = generateRandomCode(3);
-    	localStorage.setItem('visitNumber', visitNumber);
-	}
+  //Navigation  
+
+  $('[class*="homebutton"]').click(function(){
+    location.href = "../home"
+  });
+  $('[class*="menubutton"]').click(function(){
+    location.href = "../menu"
+  });
+  $('[class*="itembutton"]').click(function(){
+    location.href = "../item"
+  });
+  $('[class*="cartbutton"]').click(function(){
+    location.href = "../cart"
+  });
+  $('[class*="posbutton"]').click(function(){
+    location.href = "../pos"
+  });
+
+const url = new URL(window.location.href);
+const urlParams = url.searchParams;
+
+var itemIndex = urlParams.get('item'); // ekw000033653
+console.log(urlParams.get('item')); // ekw000033653
+
+getCartItem()
+
+$('.image_11_18_332').css("background-image", 'url(images/'+itemIndex+'.png)');
+
+  if(itemIndex==0) $('.heading_1___carrot_15_145').html("Carrot")
+  if(itemIndex==1) $('.heading_1___carrot_15_145').html("Tomato")
+  if(itemIndex==2) $('.heading_1___carrot_15_145').html("Onion")
+  if(itemIndex==3) {
+    $('.heading_1___carrot_15_145').html("Potato")
+    $('.price____5_15_147').html('Price : $7')
+  }
+
+$('.link___buy_15_153').click(function(){
+    location.href = "../cart"
+})
+
+
+$('.link___add_cart_15_149').click(function(){
+        createOrUpdateItem(itemIndex);
+});
+
+  var visitNumber = localStorage.getItem('visitNumber');
+
+  if(!visitNumber){
+      visitNumber = generateRandomCode(3);
+      localStorage.setItem('visitNumber', visitNumber);
+  }
 
     toastr.options.positionClass = 'toast-bottom-right';
     toastr.options.extendedTimeOut = 1000; //1000;
@@ -37,28 +66,159 @@ $(function(){
 })
 
 
-function checkData() {
+function createOrUpdateItem(type){
 
-    var requestUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRU5V07x8i9gRwFJGCfVOwBPmIkmPzpNC6-gULXoGW_n5Lru2LkhjZwaCg68bwPt7grwW5ZZq_lIxO5/pub?gid=1524359055&single=true&output=csv'+"&cachenumber="+generateRandomCode(8);
+  var visitNumber = localStorage.getItem('visitNumber');
 
-    $.get( requestUrl, function( data ) {
-    var jsonData = csvToJSON(data);
-    console.log(jsonData);
+  if(!visitNumber){
+      visitNumber = generateRandomCode(3);
+      localStorage.setItem('visitNumber', visitNumber);
+  }
+
+  var requestData = {};
+  requestData["entry.1073279920"] = visitNumber; //userID
+
+  var cartID = getCartID();
+
+  if(cartID){
+    requestData["edit2"] = cartID; //Carrot
+    requestData["entry.560925289"] = cartID; //Carrot
+  }
+
+  var requestUrl =
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfhZa0aZP9YnJV5Po2r1VRCLMUpnkoy2RqCLbmh4hl2V8Snvw/formResponse";
 
 
-    for(i in jsonData){
-       var jsonItem = jsonData[i];
-       console.log(jsonItem);
+  if(type==0)requestData["entry.1032449173"] = "1"; //Carrot
+  if(type==1)requestData["entry.1175135802"] = "1"; //Tomato
+  if(type==2)requestData["entry.388180984"] = "1"; //Onion
+  if(type==3)requestData["entry.1719807681"] = "1"; //Potato
 
-       if(jsonItem['Order Status'] == 'Preparing'){
-         toastr.warning(jsonItem['Order Number'] + ' is Preparing..');  
-       }
-       if(jsonItem['Order Status'] == 'Completed'){
-         toastr.success(jsonItem['Order Number'] + ' is Completed!');  
-       }
-    }
+  $.post("https://corsproxy.io/?" + requestUrl, requestData, function (data) {
+    //var responseUrl = $("a").first().attr("href").split("edit2=")[1];
+    var responseUrl = $(data).find("a").first().attr("href");
+    RESPONSE_KEY = responseUrl.split("edit2=")[1];
+    console.log(RESPONSE_KEY);
+    updateCartID(RESPONSE_KEY)
+  });
+}
 
-    });
+function updateCartID(cartID){
+
+  var requestUrl =
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfhZa0aZP9YnJV5Po2r1VRCLMUpnkoy2RqCLbmh4hl2V8Snvw/formResponse";
+
+  var requestData = {};
+  requestData["edit2"] = cartID; //Carrot
+  requestData["entry.560925289"] = cartID; //Carrot
+
+  $.post("https://corsproxy.io/?" + requestUrl, requestData, function (data) {
+    //var responseUrl = $("a").first().attr("href").split("edit2=")[1];
+    var responseUrl = $(data).find("a").first().attr("href");
+    console.log(responseUrl);
+    RESPONSE_KEY = responseUrl.split("edit2=")[1];
+    console.log(RESPONSE_KEY);
+  });
+
+}
+
+
+function getCartItem() {
+
+  var visitNumber = localStorage.getItem('visitNumber');
+
+  if(!visitNumber){
+      visitNumber = generateRandomCode(3);
+      localStorage.setItem('visitNumber', visitNumber);
+  }
+
+  var cartID;
+
+  var requestUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRUvdL55WbsPb3fkqtNE9CEopsc-L2RynZDmbH1WupmiMII84_i2te9juZEjTr_01JR2yQ-dmX3iN1t/pub?gid=1382901981&single=true&output=csv';
+
+  requestUrl = 'https://docs.google.com/spreadsheets/d/1u-YNqG2eOLmP-yerGt4G4sYfKBGAvvzCA88t5pCO1nY/edit?resourcekey#gid=1382901981';
+
+  $.ajax({
+          type: "get",            
+          url: requestUrl,         
+          async: false,
+          cache: false,              
+          data: "",                
+          success: function(res){   
+
+          console.log(res); 
+          var table = $(res).find('.waffle').find('td')
+          console.log(table); 
+
+          var nowUserID;
+
+          table.each(function(i,item){
+            //console.log(i +" / "+item)
+            //console.log(item)
+            
+            if(i%13==1){
+               nowUserID =$(item).html()
+              if(nowUserID == visitNumber){
+                  console.log(nowUserID)
+              }
+
+            } 
+            if(i%13==2){
+              var nowCartID =$(item).find('div').html()
+              if(nowUserID == visitNumber){
+                  console.log(nowCartID)
+              }
+
+            }
+            if(i%13==3){
+              var nowCount =$(item).html()
+              if(nowUserID == visitNumber){
+                  console.log(nowCount)
+                  if(nowCount==''){
+                    nowCount=0
+                  }
+                  $('.carrot_x_0_15_211').html('Carrot X '+nowCount)
+              }
+
+            }
+            if(i%13==4){
+              var nowCount =$(item).html()
+              if(nowUserID == visitNumber){
+                  console.log(nowCount)
+                  if(nowCount==''){
+                    nowCount=0
+                  }
+                  $('.tomato_x_0_15_221').html('Tomato X '+nowCount)
+              }
+
+            }   
+            if(i%13==5){
+              var nowCount =$(item).html()
+              if(nowUserID == visitNumber){
+                  console.log(nowCount)
+                  if(nowCount==''){
+                    nowCount=0
+                  }
+                  $('.onion_x_0_15_231').html('Onion X '+nowCount)
+              }
+
+            }   
+            if(i%13==6){
+              var nowCount =$(item).html()
+              if(nowUserID == visitNumber){
+                  console.log(nowCount)
+                  if(nowCount==''){
+                    nowCount=0
+                  }
+                  $('.potato_x_0_15_241').html('Potato X '+nowCount)
+              }
+            }  
+          });
+          
+          }
+  })
+
+  return cartID;
 
 }
 function csvToJSON(csv_string) {
