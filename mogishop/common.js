@@ -4,6 +4,7 @@ loadscript('../menu.js');
 loadscript('../item.js');
 loadscript('../cart.js');
 loadscript('../pos.js');
+loadscript('../confirmation.js');
 
 loadscript('https://code.jquery.com/jquery-3.7.1.min.js',onCreate);
 loadscript('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js');
@@ -48,6 +49,9 @@ console.log('onCreate.')
   }
   if (window.location.href.indexOf("pos") > -1) {
     goPos();
+  }
+  if (window.location.href.indexOf("confirmation") > -1) {
+    goConfirmation();
   }
 })
 
@@ -99,6 +103,9 @@ function generateRandomCode(n) {
 
 function GsheetToJSON(requestUrl) {
 
+  var COLUMN_COUNT = 7; 
+  var SEARCH_COLUMN_COUNT =COLUMN_COUNT * 2; 
+
   var tableList; 
 
   $.ajax({
@@ -117,7 +124,7 @@ function GsheetToJSON(requestUrl) {
 
           table.each(function(i,item){
           
-            if(i%13==0)
+            if(i%(SEARCH_COLUMN_COUNT)==0)
               tableItem = {};
 
             var tableData;
@@ -128,12 +135,15 @@ function GsheetToJSON(requestUrl) {
               tableData = $(item).html();
             }
 
-            tableItem[table.eq(i%13).html()] = tableData;
+            tableItem[table.eq(i%SEARCH_COLUMN_COUNT).html()] = tableData;
             
-            if( i > (13 * 2) && i%13==6 ){ 
+            if( i > (SEARCH_COLUMN_COUNT * 2) && i%SEARCH_COLUMN_COUNT==7 ){ 
               tableList.push(tableItem);
             }
+
           });
+
+         console.log(tableList) 
       }
     });
   return tableList;
@@ -158,7 +168,7 @@ function createOrUpdateItem(type,mode){
   var userID = localStorage.getItem('userID');
 
   var requestData = {};
-  requestData["entry.1073279920"] = userID; //userID
+  requestData["entry.1627849796"] = userID; //userID
 
   //check Update.
   if(USERDATA && USERDATA.cartID){
@@ -226,4 +236,39 @@ function updateCartID(cartID){
   return isSucess;
 
 }
+
+
+function updateStatus(){
+
+  var userID = localStorage.getItem('userID');
+
+  var requestData = {};
+  requestData["entry.1627849796"] = userID; //userID
+
+  //check Update.
+  if(USERDATA && USERDATA.cartID){
+    requestData["edit2"] = USERDATA.cartID; 
+    requestData["entry.560925289"] = USERDATA.cartID;
+  }
+
+   requestData["entry.1073279920"] = 'Completed';
+
+  var requestUrl =
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfhZa0aZP9YnJV5Po2r1VRCLMUpnkoy2RqCLbmh4hl2V8Snvw/formResponse";
+   
+  var isSucess = false; 
+
+  $.ajax({
+          type: "post",            
+          url: "https://corsproxy.io/?" + requestUrl,         
+          async: false,
+          cache: false,              
+          data: requestData,                
+          success: function(res){  
+            isSucess = true; 
+          }
+    });
+  return isSucess;
+}
+
 

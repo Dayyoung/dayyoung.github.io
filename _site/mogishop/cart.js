@@ -39,4 +39,9 @@ function viewCart(){
 
 	  	});
 	  })
+
+
+	  $('.link___buy_now__15_252').off('click').click(function(){
+    		location.href = "../confirmation"
+	  });
 }
