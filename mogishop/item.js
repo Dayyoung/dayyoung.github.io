@@ -4,7 +4,7 @@ function goItem() {
 
 	USERDATA = getUserData();
 
-	viewItem();
+	this.viewItem();
 }
 
 function getUserData(){
@@ -31,36 +31,39 @@ function viewItem(){
 
 	$('.image_11_18_332').css("background-image", 'url(images/'+itemIndex+'.png)');
 
-	  if(itemIndex==0) $('.heading_1___carrot_15_145').html("Carrot")
-	  if(itemIndex==1) $('.heading_1___carrot_15_145').html("Tomato")
-	  if(itemIndex==2) $('.heading_1___carrot_15_145').html("Onion")
-	  if(itemIndex==3) {
-	    $('.heading_1___carrot_15_145').html("Potato")
-	    $('.it_is_so_fresh_carrot__15_146').html('Price : $7')
-	  }
+	  if(itemIndex==0) {$('.heading_1___carrot_15_145').html("Carrot")
+	    $('.it_is_so_fresh_carrot__15_146').html('Price : $5')}
+	  if(itemIndex==1) {$('.heading_1___carrot_15_145').html("Tomato")
+	    $('.it_is_so_fresh_carrot__15_146').html('Price : $5')}
+	  if(itemIndex==2) {$('.heading_1___carrot_15_145').html("Onion")
+	    $('.it_is_so_fresh_carrot__15_146').html('Price : $5')}
+	  if(itemIndex==3) {$('.heading_1___carrot_15_145').html("Potato")
+	    $('.it_is_so_fresh_carrot__15_146').html('Price : $7')}
 
-	  //it_is_so_fresh_carrot__15_146
 
-	if(USERDATA){
+	  if(!USERDATA)USERDATA = {};
+	  if(!USERDATA.Carrot)USERDATA.Carrot=0;
+	  if(!USERDATA.Tomato)USERDATA.Tomato=0;
+	  if(!USERDATA.Onion)USERDATA.Onion=0;
+	  if(!USERDATA.Potato)USERDATA.Potato=0;
+
 	  if(itemIndex==0) $('.amount____5_15_147').html("Amount : " + USERDATA.Carrot)
-	  if(itemIndex==1) $('.amount____5_15_147').html("Amount : " + USERDATA.Tomata)
+	  if(itemIndex==1) $('.amount____5_15_147').html("Amount : " + USERDATA.Tomato)
 	  if(itemIndex==2) $('.amount____5_15_147').html("Amount : " + USERDATA.Onion)
 	  if(itemIndex==3) $('.amount____5_15_147').html("Amount : " + USERDATA.Potato)
-    }else{
-      USERDATA = {};
-      USERDATA.Carrot = 0;
-      USERDATA.Tomata = 0;
-      USERDATA.Onion = 0;
-      USERDATA.Potato = 0;
-    }
+    
 
 	$('.link___add_cart_15_149').off('click').click(function(){
-
-		createOrUpdateItem(itemIndex);
+			var isSuccess = createOrUpdateItem(itemIndex);
+			if(isSuccess){
+				goItem();
+			}
 	});
 
 	$('.link___delete_15_153').off('click').click(function(){
-	    
-		createOrUpdateItem(itemIndex,'delete');
+	    	var isSuccess = createOrUpdateItem(itemIndex,'delete');
+			if(isSuccess){
+				goItem();
+			}
 	})
 }

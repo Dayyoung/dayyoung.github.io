@@ -139,6 +139,19 @@ function GsheetToJSON(requestUrl) {
   return tableList;
 }
 
+function getUserData(){
+  var userID = localStorage.getItem('userID');
+  var cartList = GsheetToJSON('https://docs.google.com/spreadsheets/d/1u-YNqG2eOLmP-yerGt4G4sYfKBGAvvzCA88t5pCO1nY/edit?resourcekey#gid=1382901981')
+  var cartItem;
+
+  for(i in cartList){
+    var nowCartItem = cartList[i];
+    if(nowCartItem.userID == userID){
+      cartItem = nowCartItem;
+    }
+  }
+  return cartItem;
+}
 
 function createOrUpdateItem(type,mode){
 
@@ -157,28 +170,38 @@ function createOrUpdateItem(type,mode){
     "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfhZa0aZP9YnJV5Po2r1VRCLMUpnkoy2RqCLbmh4hl2V8Snvw/formResponse";
    
     if(mode == 'delete') {
-    if(type==0)requestData["entry.1032449173"] = --USERDATA.Carrot; //Carrot
-    if(type==1)requestData["entry.1175135802"] = --USERDATA.Tomata; //Tomato
-    if(type==2)requestData["entry.388180984"] = --USERDATA.Onion; //Onion
-    if(type==3)requestData["entry.1719807681"] = --USERDATA.Potato; //Potato
+    if(type==0)requestData["entry.1032449173"] = (USERDATA.Carrot > 0 ? --USERDATA.Carrot : 0); //Carrot
+    if(type==1)requestData["entry.1175135802"] =(USERDATA.Tomato > 0 ? --USERDATA.Tomato : 0);  //Tomato
+    if(type==2)requestData["entry.388180984"] = (USERDATA.Onion > 0 ? --USERDATA.Onion : 0);  //Onion
+    if(type==3)requestData["entry.1719807681"] =(USERDATA.Potato > 0 ?--USERDATA.Potato : 0);  //Potato
   }else{
     if(type==0)requestData["entry.1032449173"] = ++USERDATA.Carrot; //Carrot
-    if(type==1)requestData["entry.1175135802"] = ++USERDATA.Tomata; //Tomato
+    if(type==1)requestData["entry.1175135802"] = ++USERDATA.Tomato; //Tomato
     if(type==2)requestData["entry.388180984"] = ++USERDATA.Onion; //Onion
     if(type==3)requestData["entry.1719807681"] = ++USERDATA.Potato; //Potato
   }
 
-  $.post("https://corsproxy.io/?" + requestUrl, requestData, function (data) {
-    //var responseUrl = $("a").first().attr("href").split("edit2=")[1];
-    var responseUrl = $(data).find("a").first().attr("href");
-    cartID = responseUrl.split("edit2=")[1];
-    
-    //location.reload();
-    viewItem();
+  var isSucess = false; 
 
-    if(USERDATA && !USERDATA.cartID)
-      updateCartID(cartID)
-  });
+  $.ajax({
+          type: "post",            
+          url: "https://corsproxy.io/?" + requestUrl,         
+          async: false,
+          cache: false,              
+          data: requestData,                
+          success: function(res){  
+
+            isSucess = true; 
+
+            var responseUrl = $(res).find("a").first().attr("href");
+            cartID = responseUrl.split("edit2=")[1];
+
+            if(USERDATA && !USERDATA.cartID)
+              updateCartID(cartID)
+
+          }
+    });
+  return isSucess;
 }
 
 function updateCartID(cartID){
@@ -190,13 +213,17 @@ function updateCartID(cartID){
   requestData["edit2"] = cartID; //Carrot
   requestData["entry.560925289"] = cartID; //Carrot
 
-  $.post("https://corsproxy.io/?" + requestUrl, requestData, function (data) {
-    //var responseUrl = $("a").first().attr("href").split("edit2=")[1];
-    var responseUrl = $(data).find("a").first().attr("href");
-    console.log(responseUrl);
-    RESPONSE_KEY = responseUrl.split("edit2=")[1];
-    console.log(RESPONSE_KEY);
-  });
+  $.ajax({
+          type: "post",            
+          url: "https://corsproxy.io/?" + requestUrl,         
+          async: false,
+          cache: false,              
+          data: requestData,                
+          success: function(res){ 
+            isSucess = true; 
+          }
+    });
+  return isSucess;
 
 }
 
