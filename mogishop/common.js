@@ -34,7 +34,7 @@ console.log('onCreate.')
     location.href = "../pos"
   });
 
-  $('._skillofeveryone_31_74').click(function(){
+  $('._skillofeveryone_14_21').click(function(){
     localStorage.removeItem('userID');
     localStorage.removeItem('cartID');
     window.location.reload(true);

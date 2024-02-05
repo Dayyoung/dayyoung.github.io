@@ -14,7 +14,7 @@ function viewItem(){
 	var urlParams = url.searchParams;
 
 	var itemIndex = urlParams.get('item'); 
-	console.log(urlParams.get('item')); 
+	//console.log(urlParams.get('item')); 
 
 	$('.image_11_18_332').css("background-image", 'url(images/'+itemIndex+'.png)');
 
