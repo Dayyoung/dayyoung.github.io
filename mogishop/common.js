@@ -31,10 +31,11 @@ console.log('onCreate.')
   });
   $('[class*="posbutton"]').click(function(){
     //location.href = "../pos"
-    localStorage.removeItem('userID')
+    localStorage.removeItem1357
+    ('userID')
   });
 
-  getUserID();
+  checkUserID();
 
   if (window.location.href.indexOf("home") > -1) {
     goHome();
@@ -78,20 +79,38 @@ function loadsCSS(url) {
 }
 
 
-function getUserID(){
+function getUserData(){
   var userID = localStorage.getItem('userID');
+  var cartID = localStorage.getItem('cartID');
 
-  if(!userID){
+  var cartList = GsheetToJSON('https://docs.google.com/spreadsheets/d/1u-YNqG2eOLmP-yerGt4G4sYfKBGAvvzCA88t5pCO1nY/edit?resourcekey#gid=1382901981')
+  var cartItem;
+
+  for(i in cartList){
+    var nowCartItem = cartList[i];
+    if(nowCartItem.userID == userID && nowCartItem.cartID == cartID){
+      cartItem = nowCartItem;
+    }
+  }
+  return cartItem;
+}
+
+function checkUserID(){
+  var userID = localStorage.getItem('userID');
+  var cartID = localStorage.getItem('cartID');
+
+  if(!userID || !cartID){
       userID = generateRandomCode(3);
       localStorage.setItem('userID', userID);
-  }
-
+      createUser();
+  }else{
     toastr.options.positionClass = 'toast-bottom-right';
     toastr.options.extendedTimeOut = 1000; //1000;
     toastr.options.timeOut = -1;
     toastr.options.fadeOut = 250;
     toastr.options.fadeIn = 250;    
-    toastr.success("Welcome to number "+userID)  
+    toastr.success("Welcome to number "+userID) 
+  } 
 }
 
 function generateRandomCode(n) {
@@ -144,27 +163,74 @@ function GsheetToJSON(requestUrl) {
 
           });
 
-         console.log(tableList) 
+         //console.log(tableList) 
       }
     });
   return tableList;
 }
 
-function getUserData(){
-  var userID = localStorage.getItem('userID');
-  var cartList = GsheetToJSON('https://docs.google.com/spreadsheets/d/1u-YNqG2eOLmP-yerGt4G4sYfKBGAvvzCA88t5pCO1nY/edit?resourcekey#gid=1382901981')
-  var cartItem;
+function createUser(){
 
-  for(i in cartList){
-    var nowCartItem = cartList[i];
-    if(nowCartItem.userID == userID){
-      cartItem = nowCartItem;
-    }
+  var userID = localStorage.getItem('userID');
+
+  var requestData = {};
+  requestData["entry.1627849796"] = userID; //userID
+
+  //check Update.
+  if(USERDATA && USERDATA.cartID){
+    requestData["edit2"] = USERDATA.cartID; 
+    requestData["entry.560925289"] = USERDATA.cartID;
   }
-  return cartItem;
+
+  var requestUrl =
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfhZa0aZP9YnJV5Po2r1VRCLMUpnkoy2RqCLbmh4hl2V8Snvw/formResponse";
+   
+  var isSucess = false; 
+
+  $.ajax({
+          type: "post",            
+          url: "https://corsproxy.io/?" + requestUrl,         
+          async: false,
+          cache: false,              
+          data: requestData,                
+          success: function(res){  
+
+            isSucess = true; 
+
+            var responseUrl = $(res).find("a").first().attr("href");
+            cartID = responseUrl.split("edit2=")[1];
+            updateCartID(cartID)
+          }
+    });
+  return isSucess;
 }
 
-function createOrUpdateItem(type,mode){
+function updateCartID(cartID){
+
+  var requestUrl =
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfhZa0aZP9YnJV5Po2r1VRCLMUpnkoy2RqCLbmh4hl2V8Snvw/formResponse";
+
+  var requestData = {};
+  requestData["edit2"] = cartID; //Carrot
+  requestData["entry.560925289"] = cartID; //Carrot
+
+  $.ajax({
+          type: "post",            
+          url: "https://corsproxy.io/?" + requestUrl,         
+          async: false,
+          cache: false,              
+          data: requestData,                
+          success: function(res){ 
+            isSucess = true; 
+            localStorage.setItem('cartID',cartID);
+            checkUserID() //Maybe?
+          }
+    });
+  return isSucess;
+
+}
+
+function updateItem(type,mode){
 
   var userID = localStorage.getItem('userID');
 
@@ -201,41 +267,10 @@ function createOrUpdateItem(type,mode){
           cache: false,              
           data: requestData,                
           success: function(res){  
-
-            isSucess = true; 
-
-            var responseUrl = $(res).find("a").first().attr("href");
-            cartID = responseUrl.split("edit2=")[1];
-
-            if(USERDATA && !USERDATA.cartID)
-              updateCartID(cartID)
-
-          }
-    });
-  return isSucess;
-}
-
-function updateCartID(cartID){
-
-  var requestUrl =
-    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSfhZa0aZP9YnJV5Po2r1VRCLMUpnkoy2RqCLbmh4hl2V8Snvw/formResponse";
-
-  var requestData = {};
-  requestData["edit2"] = cartID; //Carrot
-  requestData["entry.560925289"] = cartID; //Carrot
-
-  $.ajax({
-          type: "post",            
-          url: "https://corsproxy.io/?" + requestUrl,         
-          async: false,
-          cache: false,              
-          data: requestData,                
-          success: function(res){ 
             isSucess = true; 
           }
     });
   return isSucess;
-
 }
 
 

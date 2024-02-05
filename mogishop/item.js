@@ -7,19 +7,6 @@ function goItem() {
 	this.viewItem();
 }
 
-function getUserData(){
-  var userID = localStorage.getItem('userID');
-  var cartList = GsheetToJSON('https://docs.google.com/spreadsheets/d/1u-YNqG2eOLmP-yerGt4G4sYfKBGAvvzCA88t5pCO1nY/edit?resourcekey#gid=1382901981')
-  var cartItem;
-
-  for(i in cartList){
-  	var nowCartItem = cartList[i];
-  	if(nowCartItem.userID == userID){
-  		cartItem = nowCartItem;
-  	}
-  }
-  return cartItem;
-}
 
 function viewItem(){
 
@@ -54,14 +41,14 @@ function viewItem(){
     
 
 	$('.link___add_cart_15_149').off('click').click(function(){
-			var isSuccess = createOrUpdateItem(itemIndex);
+			var isSuccess = updateItem(itemIndex);
 			if(isSuccess){
 				goItem();
 			}
 	});
 
 	$('.link___delete_15_153').off('click').click(function(){
-	    	var isSuccess = createOrUpdateItem(itemIndex,'delete');
+	    	var isSuccess = updateItem(itemIndex,'delete');
 			if(isSuccess){
 				goItem();
 			}

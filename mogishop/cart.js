@@ -21,7 +21,7 @@ function viewCart(){
 	  $('[class^="link___add_15"]').each(function(i,item){
 
 	  	$(item).off('click').click(function(){
-			var isSuccess = createOrUpdateItem(i);
+			var isSuccess = updateItem(i);
 
 			if(isSuccess){
 				goCart();
@@ -31,7 +31,7 @@ function viewCart(){
 
 	  $('[class*="link___delete_15"]').each(function(i,item){
 	  	$(item).off('click').click(function(){
-			var isSuccess = createOrUpdateItem(i,'delete');
+			var isSuccess = updateItem(i,'delete');
 
 			if(isSuccess){
 				goCart();
