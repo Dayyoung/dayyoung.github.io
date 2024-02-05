@@ -181,10 +181,10 @@ function createUser(){
   var requestData = {};
   requestData["entry.1627849796"] = userID; //userID
 
-  //check Update.
-  if(USERDATA && USERDATA.cartID){
-    requestData["edit2"] = USERDATA.cartID; 
-    requestData["entry.560925289"] = USERDATA.cartID;
+  var cartID = localStorage.getItem('cartID');
+  if(cartID){
+    requestData["edit2"] = cartID; 
+    requestData["entry.560925289"] = cartID;
   }
 
   var requestUrl =
@@ -242,10 +242,10 @@ function updateItem(type,mode){
   var requestData = {};
   requestData["entry.1627849796"] = userID; //userID
 
-  //check Update.
-  if(USERDATA && USERDATA.cartID){
-    requestData["edit2"] = USERDATA.cartID; 
-    requestData["entry.560925289"] = USERDATA.cartID;
+  var cartID = localStorage.getItem('cartID');
+  if(cartID){
+    requestData["edit2"] = cartID; 
+    requestData["entry.560925289"] = cartID;
   }
 
   var requestUrl =
@@ -286,10 +286,10 @@ function updateStatus(){
   var requestData = {};
   requestData["entry.1627849796"] = userID; //userID
 
-  //check Update.
-  if(USERDATA && USERDATA.cartID){
-    requestData["edit2"] = USERDATA.cartID; 
-    requestData["entry.560925289"] = USERDATA.cartID;
+  var cartID = localStorage.getItem('cartID');
+  if(cartID){
+    requestData["edit2"] = cartID; 
+    requestData["entry.560925289"] = cartID;
   }
 
    requestData["entry.1073279920"] = 'Completed';
