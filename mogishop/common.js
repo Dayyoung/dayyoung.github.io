@@ -29,10 +29,15 @@ console.log('onCreate.')
   $('[class*="cartbutton"]').click(function(){
     location.href = "../cart"
   });
+
   $('[class*="posbutton"]').click(function(){
-    //location.href = "../pos"
-    localStorage.removeItem1357
-    ('userID')
+    location.href = "../pos"
+  });
+
+  $('._skillofeveryone_31_74').click(function(){
+    localStorage.removeItem('userID');
+    localStorage.removeItem('cartID');
+    window.location.reload(true);
   });
 
   checkUserID();
