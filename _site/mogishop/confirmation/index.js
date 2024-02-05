@@ -19,11 +19,11 @@ $(function(){
   });
 
 
-  var visitNumber = localStorage.getItem('visitNumber');
+  var userID = localStorage.getItem('userID');
 
-  if(!visitNumber){
-      visitNumber = generateRandomCode(3);
-      localStorage.setItem('visitNumber', visitNumber);
+  if(!userID){
+      userID = generateRandomCode(3);
+      localStorage.setItem('userID', userID);
   }
 
     toastr.options.positionClass = 'toast-bottom-right';
@@ -31,7 +31,7 @@ $(function(){
     toastr.options.timeOut = -1;
     toastr.options.fadeOut = 250;
     toastr.options.fadeIn = 250;    
-    toastr.success("Welcome to number "+visitNumber)  
+    toastr.success("Welcome to number "+userID)  
 
 
 })

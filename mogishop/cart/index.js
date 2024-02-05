@@ -36,7 +36,7 @@ $('.image_11_18_332').css("background-image", 'url(images/'+itemIndex+'.png)');
   if(itemIndex==2) $('.heading_1___carrot_15_145').html("Onion")
   if(itemIndex==3) {
     $('.heading_1___carrot_15_145').html("Potato")
-    $('.price____5_15_147').html('Price : $7')
+    $('.amount____5_15_147').html('Price : $7')
   }
 
 $('.link___buy_15_153').click(function(){
@@ -48,11 +48,11 @@ $('.link___add_cart_15_149').click(function(){
         createOrUpdateItem(itemIndex);
 });
 
-  var visitNumber = localStorage.getItem('visitNumber');
+  var userID = localStorage.getItem('userID');
 
-  if(!visitNumber){
-      visitNumber = generateRandomCode(3);
-      localStorage.setItem('visitNumber', visitNumber);
+  if(!userID){
+      userID = generateRandomCode(3);
+      localStorage.setItem('userID', userID);
   }
 
     toastr.options.positionClass = 'toast-bottom-right';
@@ -60,7 +60,7 @@ $('.link___add_cart_15_149').click(function(){
     toastr.options.timeOut = -1;
     toastr.options.fadeOut = 250;
     toastr.options.fadeIn = 250;    
-    toastr.success("Welcome to number "+visitNumber)  
+    toastr.success("Welcome to number "+userID)  
 
 
 })
@@ -68,15 +68,15 @@ $('.link___add_cart_15_149').click(function(){
 
 function createOrUpdateItem(type){
 
-  var visitNumber = localStorage.getItem('visitNumber');
+  var userID = localStorage.getItem('userID');
 
-  if(!visitNumber){
-      visitNumber = generateRandomCode(3);
-      localStorage.setItem('visitNumber', visitNumber);
+  if(!userID){
+      userID = generateRandomCode(3);
+      localStorage.setItem('userID', userID);
   }
 
   var requestData = {};
-  requestData["entry.1073279920"] = visitNumber; //userID
+  requestData["entry.1073279920"] = userID; //userID
 
   var cartID = getCartID();
 
@@ -122,14 +122,145 @@ function updateCartID(cartID){
 
 }
 
-
 function getCartItem() {
 
-  var visitNumber = localStorage.getItem('visitNumber');
+  var userID = localStorage.getItem('userID');
 
-  if(!visitNumber){
-      visitNumber = generateRandomCode(3);
-      localStorage.setItem('visitNumber', visitNumber);
+  if(!userID){
+      userID = generateRandomCode(3);
+      localStorage.setItem('userID', userID);
+  }
+
+  var cartID;
+
+  var requestUrl = 'https://docs.google.com/spreadsheets/d/1u-YNqG2eOLmP-yerGt4G4sYfKBGAvvzCA88t5pCO1nY/edit?resourcekey#gid=1382901981';
+
+  $.ajax({
+          type: "get",            
+          url: requestUrl,         
+          async: false,
+          cache: false,              
+          data: "",                
+          success: function(res){   
+
+          //console.log(res); 
+          var table = $(res).find('td')
+          console.log(table); 
+
+          var tableList = [];
+
+          var tableItem;
+
+          table.each(function(i,item){
+            // console.log(i)
+            // console.log(item)
+
+
+            if(i%13==0)
+              tableItem = {};
+
+
+            var tableData;
+
+            if($(item).has("div").length > 0){
+              tableData = $(item).find('div').html()
+            }else{
+              tableData = $(item).html();
+            }
+
+            tableItem[table.eq(i%13).html()] = tableData;
+            
+            if( i > (13 * 2) && i%13==6 ){
+              console.log(i)
+              console.log(tableItem)
+
+              tableList.push(tableItem);
+            }
+
+
+          });
+
+          console.log(tableList)
+
+
+          var nowUserID;
+
+          table.each(function(i,item){
+            //console.log(i +" / "+item)
+            //console.log(item)
+            
+            if(i%13==1){
+               nowUserID =$(item).html()
+              if(nowUserID == userID){
+                  console.log(nowUserID)
+              }
+
+            } 
+            if(i%13==2){
+              var nowCartID =$(item).find('div').html()
+              if(nowUserID == userID){
+                  console.log(nowCartID)
+              }
+
+            }
+            if(i%13==3){
+              var nowCount =$(item).html()
+              if(nowUserID == userID){
+                  console.log(nowCount)
+                  if(nowCount==''){
+                    nowCount=0
+                  }
+                  $('.carrot_x_0_15_211').html('Carrot X '+nowCount)
+              }
+
+            }
+            if(i%13==4){
+              var nowCount =$(item).html()
+              if(nowUserID == userID){
+                  console.log(nowCount)
+                  if(nowCount==''){
+                    nowCount=0
+                  }
+                  $('.tomato_x_0_15_221').html('Tomato X '+nowCount)
+              }
+
+            }   
+            if(i%13==5){
+              var nowCount =$(item).html()
+              if(nowUserID == userID){
+                  console.log(nowCount)
+                  if(nowCount==''){
+                    nowCount=0
+                  }
+                  $('.onion_x_0_15_231').html('Onion X '+nowCount)
+              }
+
+            }   
+            if(i%13==6){
+              var nowCount =$(item).html()
+              if(nowUserID == userID){
+                  console.log(nowCount)
+                  if(nowCount==''){
+                    nowCount=0
+                  }
+                  $('.potato_x_0_15_241').html('Potato X '+nowCount)
+              }
+            }  
+          });
+          
+          }
+  })
+  return cartID;
+}
+
+
+function getCartItem2() {
+
+  var userID = localStorage.getItem('userID');
+
+  if(!userID){
+      userID = generateRandomCode(3);
+      localStorage.setItem('userID', userID);
   }
 
   var cartID;
@@ -158,21 +289,21 @@ function getCartItem() {
             
             if(i%13==1){
                nowUserID =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowUserID)
               }
 
             } 
             if(i%13==2){
               var nowCartID =$(item).find('div').html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCartID)
               }
 
             }
             if(i%13==3){
               var nowCount =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCount)
                   if(nowCount==''){
                     nowCount=0
@@ -183,7 +314,7 @@ function getCartItem() {
             }
             if(i%13==4){
               var nowCount =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCount)
                   if(nowCount==''){
                     nowCount=0
@@ -194,7 +325,7 @@ function getCartItem() {
             }   
             if(i%13==5){
               var nowCount =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCount)
                   if(nowCount==''){
                     nowCount=0
@@ -205,7 +336,7 @@ function getCartItem() {
             }   
             if(i%13==6){
               var nowCount =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCount)
                   if(nowCount==''){
                     nowCount=0
@@ -217,10 +348,9 @@ function getCartItem() {
           
           }
   })
-
   return cartID;
-
 }
+
 function csvToJSON(csv_string) {
   const rows = csv_string.split("\r\n");
   const jsonArray = [];

@@ -1,7 +1,4 @@
 $(function(){
-  
-
-
 
   //Navigation  
 
@@ -36,7 +33,7 @@ $('.image_11_18_332').css("background-image", 'url(images/'+itemIndex+'.png)');
   if(itemIndex==2) $('.heading_1___carrot_15_145').html("Onion")
   if(itemIndex==3) {
     $('.heading_1___carrot_15_145').html("Potato")
-    $('.price____5_15_147').html('Price : $7')
+    $('.amount____5_15_147').html('Price : $7')
   }
 
 $('.link___buy_15_153').click(function(){
@@ -48,11 +45,11 @@ $('.link___add_cart_15_149').click(function(){
         createOrUpdateItem(itemIndex);
 });
 
-  var visitNumber = localStorage.getItem('visitNumber');
+  var userID = localStorage.getItem('userID');
 
-  if(!visitNumber){
-      visitNumber = generateRandomCode(3);
-      localStorage.setItem('visitNumber', visitNumber);
+  if(!userID){
+      userID = generateRandomCode(3);
+      localStorage.setItem('userID', userID);
   }
 
     toastr.options.positionClass = 'toast-bottom-right';
@@ -60,31 +57,24 @@ $('.link___add_cart_15_149').click(function(){
     toastr.options.timeOut = -1;
     toastr.options.fadeOut = 250;
     toastr.options.fadeIn = 250;    
-    toastr.success("Welcome to number "+visitNumber)  
+    toastr.success("Welcome to number "+userID)  
 
 
 })
 
 
-var CARDID;
-
 function createOrUpdateItem(type){
 
-  var visitNumber = localStorage.getItem('visitNumber');
+  var userID = localStorage.getItem('userID');
 
-  if(!visitNumber){
-      visitNumber = generateRandomCode(3);
-      localStorage.setItem('visitNumber', visitNumber);
-  }
+  if(!userID) return;
 
   var requestData = {};
-  requestData["entry.1073279920"] = visitNumber; //userID
-
-  //var cartID = getCartID();
+  requestData["entry.1073279920"] = userID; 
 
   if(CARDID){
-    requestData["edit2"] = CARDID; //Carrot
-    requestData["entry.560925289"] = CARDID; //Carrot
+    requestData["edit2"] = CARDID; 
+    requestData["entry.560925289"] = CARDID; 
   }
 
   var requestUrl =
@@ -128,11 +118,11 @@ function updateCartID(cartID){
 
 function getCartID() {
 
-  var visitNumber = localStorage.getItem('visitNumber');
+  var userID = localStorage.getItem('userID');
 
-  if(!visitNumber){
-      visitNumber = generateRandomCode(3);
-      localStorage.setItem('visitNumber', visitNumber);
+  if(!userID){
+      userID = generateRandomCode(3);
+      localStorage.setItem('userID', userID);
   }
 
   var cartID;
@@ -168,7 +158,7 @@ function getCartID() {
               // var nowCartID =$(item).next('td').find('div').html()
               // var nowCartID =$(item).next('td').find('div').html()
             
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowUserID)
                   console.log(nowCartID)
                   console.log(parent)
@@ -197,11 +187,11 @@ var PotatoCount = 0;
 
 function getCartItem() {
 
-  var visitNumber = localStorage.getItem('visitNumber');
+  var userID = localStorage.getItem('userID');
 
-  if(!visitNumber){
-      visitNumber = generateRandomCode(3);
-      localStorage.setItem('visitNumber', visitNumber);
+  if(!userID){
+      userID = generateRandomCode(3);
+      localStorage.setItem('userID', userID);
   }
 
   var cartID;
@@ -230,14 +220,14 @@ function getCartItem() {
             
             if(i%13==1){
                nowUserID =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowUserID)
               }
 
             } 
             if(i%13==2){
               var nowCartID =$(item).find('div').html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCartID)
                   CARDID = nowCartID;
               }
@@ -245,7 +235,7 @@ function getCartItem() {
             }
             if(i%13==3){
               var nowCount =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCount)
                   if(nowCount==''){
                     nowCount=0
@@ -256,7 +246,7 @@ function getCartItem() {
             }
             if(i%13==4){
               var nowCount =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCount)
                   if(nowCount==''){
                     nowCount=0
@@ -267,7 +257,7 @@ function getCartItem() {
             }   
             if(i%13==5){
               var nowCount =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCount)
                   if(nowCount==''){
                     nowCount=0
@@ -278,7 +268,7 @@ function getCartItem() {
             }   
             if(i%13==6){
               var nowCount =$(item).html()
-              if(nowUserID == visitNumber){
+              if(nowUserID == userID){
                   console.log(nowCount)
                   if(nowCount==''){
                     nowCount=0
