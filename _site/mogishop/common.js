@@ -132,6 +132,7 @@ function GsheetToJSON(requestUrl) {
   var SEARCH_COLUMN_COUNT =COLUMN_COUNT * 2; 
 
   var tableList; 
+  var tableColumnList = ['timeStamp','Status','cartID','userID','Carrot','Tomato','Onion','Potato'];
 
   $.ajax({
           type: "get",            
@@ -160,9 +161,9 @@ function GsheetToJSON(requestUrl) {
               tableData = $(item).html();
             }
 
-            tableItem[table.eq(i%SEARCH_COLUMN_COUNT).html()] = tableData;
+            tableItem[tableColumnList[i%SEARCH_COLUMN_COUNT]] = tableData;
             
-            if( i > (SEARCH_COLUMN_COUNT * 2) && i%SEARCH_COLUMN_COUNT==7 ){ 
+            if(i%SEARCH_COLUMN_COUNT==7 ){ 
               tableList.push(tableItem);
             }
 
@@ -181,10 +182,10 @@ function createUser(){
   var requestData = {};
   requestData["entry.1627849796"] = userID; //userID
 
-  //check Update.
-  if(USERDATA && USERDATA.cartID){
-    requestData["edit2"] = USERDATA.cartID; 
-    requestData["entry.560925289"] = USERDATA.cartID;
+  var cartID = localStorage.getItem('cartID');
+  if(cartID){
+    requestData["edit2"] = cartID; 
+    requestData["entry.560925289"] = cartID;
   }
 
   var requestUrl =
@@ -242,10 +243,10 @@ function updateItem(type,mode){
   var requestData = {};
   requestData["entry.1627849796"] = userID; //userID
 
-  //check Update.
-  if(USERDATA && USERDATA.cartID){
-    requestData["edit2"] = USERDATA.cartID; 
-    requestData["entry.560925289"] = USERDATA.cartID;
+  var cartID = localStorage.getItem('cartID');
+  if(cartID){
+    requestData["edit2"] = cartID; 
+    requestData["entry.560925289"] = cartID;
   }
 
   var requestUrl =
@@ -286,10 +287,10 @@ function updateStatus(){
   var requestData = {};
   requestData["entry.1627849796"] = userID; //userID
 
-  //check Update.
-  if(USERDATA && USERDATA.cartID){
-    requestData["edit2"] = USERDATA.cartID; 
-    requestData["entry.560925289"] = USERDATA.cartID;
+  var cartID = localStorage.getItem('cartID');
+  if(cartID){
+    requestData["edit2"] = cartID; 
+    requestData["entry.560925289"] = cartID;
   }
 
    requestData["entry.1073279920"] = 'Completed';
