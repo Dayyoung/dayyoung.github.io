@@ -147,6 +147,7 @@ function GsheetToJSON(requestUrl) {
           tableList = [];
 
           var tableItem;
+          var startIndex;
 
           table.each(function(i,item){
           
@@ -162,10 +163,13 @@ function GsheetToJSON(requestUrl) {
             if(tableData.indexOf('2024') != -1){
               tableList.push(tableItem);
               tableItem = {};
+              startIndex = 0;
             }
 
-            if(tableItem)
-              tableItem[tableColumnList[i%SEARCH_COLUMN_COUNT]] = tableData;
+            if(tableItem){
+              tableItem[tableColumnList[startIndex]] = tableData;
+              startIndex = startIndex + 1;
+            }
 
           });
 
