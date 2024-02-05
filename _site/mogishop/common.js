@@ -93,7 +93,7 @@ function getUserData(){
 
   for(i in cartList){
     var nowCartItem = cartList[i];
-    if(nowCartItem.userID == userID && nowCartItem.cartID == cartID){
+    if(nowCartItem && nowCartItem.userID == userID && nowCartItem.cartID == cartID){
       cartItem = nowCartItem;
     }
   }
@@ -150,8 +150,6 @@ function GsheetToJSON(requestUrl) {
 
           table.each(function(i,item){
           
-            if(i%(SEARCH_COLUMN_COUNT)==0)
-              tableItem = {};
 
             var tableData;
 
@@ -161,17 +159,22 @@ function GsheetToJSON(requestUrl) {
               tableData = $(item).html();
             }
 
-            tableItem[tableColumnList[i%SEARCH_COLUMN_COUNT]] = tableData;
-            
-            if(i%SEARCH_COLUMN_COUNT==7 ){ 
+            if(tableData.indexOf('2024') != -1){
               tableList.push(tableItem);
+              tableItem = {};
             }
+
+            if(tableItem)
+              tableItem[tableColumnList[i%SEARCH_COLUMN_COUNT]] = tableData;
 
           });
 
          //console.log(tableList) 
       }
     });
+
+
+  //tableList.slice(0, 1)
   return tableList;
 }
 
