@@ -30,7 +30,8 @@ console.log('onCreate.')
     location.href = "../cart"
   });
   $('[class*="posbutton"]').click(function(){
-    location.href = "../pos"
+    //location.href = "../pos"
+    localStorage.removeItem('userID')
   });
 
   getUserID();
