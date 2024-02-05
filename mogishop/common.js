@@ -162,7 +162,7 @@ function GsheetToJSON(requestUrl) {
 
             tableItem[table.eq(i%SEARCH_COLUMN_COUNT).html()] = tableData;
             
-            if( i > (SEARCH_COLUMN_COUNT * 2) && i%SEARCH_COLUMN_COUNT==7 ){ 
+            if(i%SEARCH_COLUMN_COUNT==7 ){ 
               tableList.push(tableItem);
             }
 
