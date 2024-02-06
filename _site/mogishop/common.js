@@ -128,9 +128,6 @@ function generateRandomCode(n) {
 
 function GsheetToJSON(requestUrl) {
 
-  var COLUMN_COUNT = 7; 
-  var SEARCH_COLUMN_COUNT =COLUMN_COUNT * 2; 
-
   var tableList; 
   var tableColumnList = ['timeStamp','Status','cartID','userID','Carrot','Tomato','Onion','Potato'];
 
@@ -147,12 +144,12 @@ function GsheetToJSON(requestUrl) {
           tableList = [];
 
           var tableItem;
+          var tableData;
           var startIndex;
 
           table.each(function(i,item){
           
 
-            var tableData;
 
             if($(item).has("div").length > 0){
               tableData = $(item).find('div').html()
@@ -173,12 +170,12 @@ function GsheetToJSON(requestUrl) {
 
           });
 
-         //console.log(tableList) 
+          if(tableItem){
+            tableList.push(tableItem);
+          }
+
       }
     });
-
-
-  //tableList.slice(0, 1)
   return tableList;
 }
 
@@ -187,7 +184,7 @@ function createUser(){
   var userID = localStorage.getItem('userID');
 
   var requestData = {};
-  requestData["entry.1627849796"] = userID; //userID
+  requestData["entry.1627849796"] = userID; 
 
   var cartID = localStorage.getItem('cartID');
   if(cartID){
