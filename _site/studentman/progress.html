@@ -18,7 +18,7 @@
 <style>
 input[type=text], select {
   width: 100%;
-  //padding: 12px 20px;
+  padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
   border: 1px solid #ccc;
@@ -86,13 +86,18 @@ div {
 	<label for="dateValue">날짜:</label><br>    
 	<input type="date" id="dateValue" />
 
+
+    <label for="subjectValue">진도내용:</label><br>
+    <input type="text" id="subjectValue"> 
+
+<!-- 
     <label for="typeValue">진도종류:</label>
     <select id="typeValue" name="typeValue">
       <option value="어휘">어휘</option>
       <option value="독해">독해</option>
       <option value="어법">어법</option>
       <option value="듣기">듣기</option>
-    </select>
+    </select> -->
   
     <label for="memoValue">메모:</label><br>
 
@@ -204,6 +209,11 @@ document.getElementById("selectValue").value = studentId;
 
 $("#submitButton").click(function() {
 
+  if($("#selectValue").val() == null){
+    alert('입력유형을 선택하세요.')
+    return;
+  }
+  
 	var selectValue = $('#selectValue').val();
 
 	if(selectValue == 'all'){
@@ -222,6 +232,7 @@ $("#submitButton").click(function() {
 	}
 	
   alert("입력이 완료되었습니다.")
+  close();
   
 });
 
@@ -233,7 +244,7 @@ function createData(studentId , isLast){
 
   console.log($('#selectValue').val());
   console.log($('#dateValue').val());
-  console.log($('#typeValue').val());
+  console.log($('#subjectValue').val());
   console.log($('#memoValue').val());  
 
   var yyyymmdd = $('#dateValue').val().split("-");
@@ -246,7 +257,7 @@ function createData(studentId , isLast){
   requestData["entry.979348203_month"] = yyyymmdd[1];
   requestData["entry.979348203_day"] = yyyymmdd[2];
 
-  requestData["entry.2073685603"] = $('#typeValue').val();
+  requestData["entry.2073685603"] = $('#subjectValue').val();
   requestData["entry.980302389"] = $('#memoValue').val();
 
   $.get(requestUrl,requestData);

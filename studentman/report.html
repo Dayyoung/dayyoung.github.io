@@ -4,7 +4,7 @@
   xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>student report.xlsm</title>
+    <title>Report</title>
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
@@ -21,13 +21,15 @@
 
 
   <script type="text/javascript">
-    
+ 
 
 function utf8_to_b64( str ) {
   return window.btoa(unescape(encodeURIComponent( str )));
 }
 
 function b64_to_utf8( str ) {
+  str = str.replaceAll(" ","+")
+
   return decodeURIComponent(escape(window.atob( str )));
 }
 
@@ -50,6 +52,9 @@ const ref3 = urlParams.get('ref3');
 
 console.log(ref3);
 
+
+try {    
+
 var student = b64_to_utf8(ref1);
 console.log(student)
 
@@ -59,6 +64,7 @@ console.log(month)
 var teacher = b64_to_utf8(ref3);
 console.log(teacher)
 
+} catch(e) {}
 
 function getJsonList(url) {
    
@@ -93,7 +99,42 @@ function csvToJSON(csv_string) {
   return jsonArray;
 }
 
+function GsheetToJSON(requestUrl) {
 
+  var tableList; 
+  
+  $.ajax({
+          type: "get",            
+          url: requestUrl,         
+          async: false,
+          cache: false,              
+          data: "",                
+          success: function(res){   
+
+          console.log($(res))
+          var table = $(res).find('.s1')
+          console.log(table)
+          tableList = [];
+
+          table.each(function(i,item){
+            console.log($(item).html())
+            var totalRow = parseInt($(item).html())
+
+            if(totalRow > 0){
+              totalRow = totalRow -1;
+            }
+
+            tableList.push(totalRow);
+
+          try{
+
+          }catch(e){}
+          });
+
+      }
+    });
+  return tableList;
+}
 
 $(function(){
 
@@ -103,6 +144,8 @@ $('body').loadingModal({text: '생성중...'})
 
 setTimeout(function(){
 
+
+try{
 
 var userListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pub?gid=0&single=true&output=csv')
 
@@ -131,6 +174,14 @@ var examList = csvToJSON(examListData)
 
 console.log(examList);
 
+var checkSumData = GsheetToJSON('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pubhtml?gid=64744039&single=true')
+
+console.log(checkSumData);
+
+if(progressList.length != checkSumData[0] || subjectList.length != checkSumData[1] || examList.length != checkSumData[2]){
+console.log("Not sync!")
+location.reload(true);
+}
 
 var USER;
 var PRO = [];
@@ -143,37 +194,129 @@ for (var user of userList) {
   }
 }
 
-var tdAdapter = $('#tdAdapter');
+var studentClass = USER["수업반"]
+var studentMember = []
 
-for (var pro of progressList) {
-  console.log(pro); // 3, 5, 7
-  if(pro["학생아이디"]==student){
-    PRO.push(pro)
-    $('.resultArea').append(JSON.stringify(pro))
-    $('.resultArea').append('<br>')
+console.log(studentClass)
+
+for (var user of userList) {
+  if(user["수업반"]==studentClass){
+    studentMember.push(user["학생아이디"])
   }
 }
 
-for (var sub of subjectList) {
-  if(sub["학생아이디"]==student){
-    SUB.push(sub) 
-    $('.resultArea').append(JSON.stringify(pro))
-    $('.resultArea').append('<br>')
+console.log(studentMember)
+
+var progressListForMonth = []
+var subjectListForMonth = []
+var examListForMonth = []
+
+var nowMonth = month.replace(".0",". ")
+
+for (var i of progressList) {
+  if(i["날짜"].indexOf(nowMonth)!=-1){
+    progressListForMonth.push(i)
+  }
+}
+for (var i of subjectList) {
+  if(i["날짜"].indexOf(nowMonth)!=-1){
+    subjectListForMonth.push(i)
+  }
+}
+for (var i of examList) {
+  if(i["날짜"].indexOf(nowMonth)!=-1){
+    examListForMonth.push(i)
   }
 }
 
-for (var exam of examList) {
-  if(exam["학생아이디"]==student){
-    EXAM.push(exam)
-    $('.resultArea').append(JSON.stringify(pro))
-    $('.resultArea').append('<br>')
+console.log(progressListForMonth)
+
+var progressListForUser = []
+
+for (var pro of progressListForMonth) {
+  if(progressListForUser.indexOf(pro["날짜"])==-1){
+
+    var hasJoin = false
+    for(var i of studentMember){
+      if(pro["학생아이디"]==i) hasJoin = true
+    }
+
+    if(hasJoin)
+      progressListForUser.push(pro["날짜"])
+  }
+}
+
+var tdAdapter = $('#tbAdapter');
+
+for (var pro of progressListForUser) {
+    var tbItem = $(".tbItem").first().clone().show()
+    tbItem.find('.dateValue').html(pro)
+
+    for (var proj of progressListForMonth) {
+      if(proj["날짜"].indexOf(pro)!=-1){
+        tbItem.find('.progressValue').html(proj["진도종류"])
+      }
+    }
+    $('#tbAdapter').append(tbItem)
+}
+
+var myCheckList = [];
+var mySubjectkList = [];
+var myExamList = [];
+
+for (var i of progressListForMonth) {
+  if(USER["학생아이디"] == i["학생아이디"]){
+    myCheckList.push(i)
+  }
+}
+
+for (var i of subjectListForMonth) {
+  if(USER["학생아이디"] == i["학생아이디"]){
+    mySubjectkList.push(i)
+  }
+}
+
+for (var i of examListForMonth) {
+  if(USER["학생아이디"] == i["학생아이디"]){
+    myExamList.push(i)
   }
 }
 
 
-console.log(PRO.length)
-console.log(SUB.length)
-console.log(EXAM.length)
+for (var chk of myCheckList) {
+  $('.dateValue').each(function(i,item){
+    if($(item).html() == chk["날짜"]){
+      $(item).parent().parent().find('.checkValue').html('출석')
+    }
+  })
+}
+
+for (var chk of mySubjectkList) {
+  $('.dateValue').each(function(i,item){
+    if($(item).html() == chk["날짜"]){
+      $(item).parent().parent().find('.subjectValue').html(chk["과제 평가"])
+    }
+  })
+
+  if(chk["메모"]){
+    $('.opinionValue').append(chk["날짜"] +" / 과제 의 : "+ chk["메모"])
+    $('.opinionValue').append("<br>")
+  }
+
+}
+
+for (var chk of myExamList) {
+  $('.dateValue').each(function(i,item){
+    if($(item).html() == chk["날짜"]){
+      $(item).parent().parent().find('.examValue').html(chk["시험평가"])
+    }
+  })
+
+  if(chk["메모"]){
+    $('.opinionValue').append(chk["날짜"] +" / 시험 의견 : "+ chk["메모"])
+    $('.opinionValue').append("<br>")
+  }
+}
 
 $('.monthValue').html(month.split(".")[1]+"월")
 
@@ -183,15 +326,19 @@ $('.timeValue').html(USER["학년"])
 $('.teacherValue').html(teacher)
 $('.classValue').html(USER["수업반"])
 
+ }catch(e){
+
+console.log("Error!")
+location.reload(true);
+
+
+ }
 
 $('body').loadingModal('destroy')
 
 },500)
 
 })
-
-
-
 
 
   </script>
@@ -269,7 +416,7 @@ $('body').loadingModal('destroy')
       <br/>
     </p>
 
-<!--     <table style="border-collapse:collapse;margin-left:5.73999pt" cellspacing="0" id="tbAdapter">
+    <table style="border-collapse:collapse;margin-left:5.73999pt" cellspacing="0" id="tbAdapter">
 
        <tr style="height:17pt">
         <td style="width:551pt;border-bottom-style:solid;border-bottom-width:1pt" colspan="5" bgcolor="#BA001F">
@@ -279,173 +426,42 @@ $('body').loadingModal('destroy')
 
 
       <tr style="height:16pt">
-        <td style="width:155pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
+        <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
           <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">날짜</p>
         </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
-          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">유형</p>
+        <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
+          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">출결</p>
         </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
-          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">내용</p>
+        <td style="width:220pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
+          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">진도</p>
         </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
-          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">평가</p>
+        <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
+          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">과제</p>
         </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
-          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">메모</p>
-        </td>
-      </tr>
-
-
-      <tr style="height:16pt;" class="tdItem">
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 dateItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 tyleItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 subjectItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 gradeItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 memoItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
+        <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
+          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">일일테스트</p>
         </td>
       </tr>
 
-
-      <tr style="height:16pt;" class="tdItem">
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 dateItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
+      <tr style="height:16pt; display:none" class="tbItem">
+        <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+          <p class="s5 dateValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
         </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 tyleItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
+        <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+          <p class="s5 checkValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
         </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 subjectItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
+        <td style="width:220pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+          <p class="s5 progressValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
         </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 gradeItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
+        <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+          <p class="s5 subjectValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
         </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 memoItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-      </tr>
-
-      <tr style="height:16pt;" class="tdItem">
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 dateItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 tyleItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 subjectItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 gradeItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 memoItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
+        <td style="width:82pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+          <p class="s5 examValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
         </td>
       </tr>
 
-      <tr style="height:16pt;" class="tdItem">
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 dateItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 tyleItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 subjectItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 gradeItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 memoItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-      </tr>
-
-      <tr style="height:16pt;" class="tdItem">
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 dateItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 tyleItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 subjectItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 gradeItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 memoItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-      </tr>
-
-      <tr style="height:16pt;" class="tdItem">
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 dateItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 tyleItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 subjectItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 gradeItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 memoItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-      </tr>
-
-      <tr style="height:16pt;" class="tdItem">
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 dateItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 tyleItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 subjectItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 gradeItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 memoItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-      </tr>
-
-      <tr style="height:16pt;" class="tdItem">
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 dateItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 tyleItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:230pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 subjectItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 gradeItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:55pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s5 memoItemValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-      </tr>
     </table>
-
-
--->
-
 
 
     <p style="padding-top: 13pt;text-indent: 0pt;text-align: left;">
@@ -463,12 +479,13 @@ $('body').loadingModal('destroy')
 
       <tr style="height:56pt">
         <td style="width:551pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
-          <p class="s4 resultArea" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">
+          <p class="s4 resultArea opinionValue" style="padding: 10pt;text-indent: 0pt;line-height: 15pt;text-align: left;" >
         </td>
       </tr>
       
     </table> 
 
+<br><br><br>
 
 </center>
   </body>

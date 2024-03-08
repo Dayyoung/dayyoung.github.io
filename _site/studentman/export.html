@@ -11,7 +11,8 @@
   <link href="
   https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
   " rel="stylesheet">
-
+  <!-- google charts -->
+     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <style>
 input[type=text], select {
@@ -101,6 +102,9 @@ div {
     <input type="button" id="submitButton" value="보고서 생성">
   </form>
 </div>
+
+
+<div id="resultValue"></div>
 
 <script type="text/javascript">
 
@@ -217,19 +221,28 @@ document.getElementById("selectValue").value = studentId;
 
 $("#submitButton").click(function() {
 
+
+  if($("#selectValue").val() == null){
+    alert('출력유형을 선택하세요.')
+    return;
+  }
+
+
+  $('#resultValue').html("");
+  $('#resultValue').append('생성결과 : <br>')
+
 	var selectValue = $('#selectValue').val();
 
-	$('body').append('생성결과 : <br>')
 
 	if(selectValue == 'all'){
 		for(i in userList){
-				printData(userList[i]["이름"]);
+				printData(userList[i]["학생아이디"], userList[i]["이름"]);
 		}
 	}
 	else if(uniqueArr.indexOf(selectValue) != -1){
 		for(i in userList){
 			if(selectValue == userList[i]["수업반"]){
-				printData(userList[i]["이름"]);
+				printData(userList[i]["학생아이디"], userList[i]["이름"]);
 			}
 		}
 	}else{
@@ -249,11 +262,11 @@ function b64_to_utf8( str ) {
 }
 
 
-function printData(studentId){
+function printData(studentId,name){
 
 
 	var dateValue = $('#dateValue').val();
-	dateValue = dateValue.replaceAll("-"," .")
+	dateValue = dateValue.replaceAll("-",".")
 
 	console.log(dateValue)
 	console.log(utf8_to_b64(dateValue))
@@ -264,10 +277,7 @@ function printData(studentId){
 	console.log(subjectValue)
 	console.log(utf8_to_b64(subjectValue))
 
-
-
-
-	$('body').append('<a target="_blank" href="./report.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)+'" target="_self">'+studentId+'</a><br>')
+	$('#resultValue').append('<a target="_blank" href="./report.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
 }
 
 
