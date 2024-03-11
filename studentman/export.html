@@ -279,7 +279,7 @@ function printData(studentId,name){
 
 	$('#resultValue').append('<a target="_blank" href="./report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
 
-  var url = window.location.protocol + window.location.hostname + '/studentman/report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)
+  var url = window.location.protocol +"//"+ window.location.hostname + '/studentman/report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)
 
   createData(studentId, url)
 
