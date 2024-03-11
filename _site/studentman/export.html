@@ -94,10 +94,10 @@ div {
 
 	<label for="dateValue">출력날짜(월간):</label><br>    
 	<input type="month" id="dateValue" />
-
+<!-- 
 
     <label for="subjectValue">보고 담당자:</label><br>
-    <input type="text" id="subjectValue"> 
+    <input type="text" id="subjectValue">  -->
 
     <input type="button" id="submitButton" value="보고서 생성">
   </form>
@@ -277,8 +277,27 @@ function printData(studentId,name){
 	console.log(subjectValue)
 	console.log(utf8_to_b64(subjectValue))
 
-	$('#resultValue').append('<a target="_blank" href="./report.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
+	$('#resultValue').append('<a target="_blank" href="./report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
+
+  var url = window.location.protocol + window.location.hostname + '/studentman/report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)
+
+  createData(studentId, url)
+
 }
+
+
+function createData(studentId, url){
+  var requestUrl =
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf_CY8EayYCzq3d2hUlPxllUkMoX6Kmb5WLjiIcHr96yJomwA/formResponse";
+
+  var requestData = {};
+  requestData["entry.641291297"] = studentId;
+
+  requestData["entry.980302389"] = url;
+
+  $.get(requestUrl,requestData);
+}
+
 
 
 // $("<iframe>", {

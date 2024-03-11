@@ -7,6 +7,9 @@
     <title>학습일지</title>
 
 
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Expires" CONTENT="-1">
+  <meta http-equiv="refresh" content="-1">
     <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
     <meta charset="UTF-8" />
 
@@ -48,10 +51,6 @@ const ref2 = urlParams.get('ref2');
 
 console.log(ref2);
 
-const ref3 = urlParams.get('ref3');
-
-console.log(ref3);
-
 
 try {    
 
@@ -60,9 +59,6 @@ console.log(student)
 
 var month = b64_to_utf8(ref2);
 console.log(month)
-
-var teacher = b64_to_utf8(ref3);
-console.log(teacher)
 
 } catch(e) {}
 
@@ -145,48 +141,31 @@ $('body').loadingModal({text: '생성중...'})
 setTimeout(function(){
 
 
-try{
+//try{
 
 var userListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pub?gid=0&single=true&output=csv')
 
 var userList = csvToJSON(userListData)
 
-console.log(userList);
+//console.log(userList);
 
+var totalListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pub?gid=322683622&single=true&output=csv')
 
-var progressListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pub?gid=1451352905&single=true&output=csv')
+var totalList = csvToJSON(totalListData)
 
-var progressList = csvToJSON(progressListData)
-
-console.log(progressList);
-
-
-var subjectListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pub?gid=1411074385&single=true&output=csv')
-
-var subjectList = csvToJSON(subjectListData)
-
-console.log(subjectList);
-
-
-var examListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pub?gid=1623282963&single=true&output=csv')
-
-var examList = csvToJSON(examListData)
-
-console.log(examList);
+console.log(totalList);
 
 var checkSumData = GsheetToJSON('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pubhtml?gid=64744039&single=true')
 
 console.log(checkSumData);
 
-if(progressList.length != checkSumData[0] || subjectList.length != checkSumData[1] || examList.length != checkSumData[2]){
-console.log("Not sync!")
-location.reload(true);
-}
+
+//if(progressList.length != checkSumData[0] || subjectList.length != checkSumData[1] || examList.length != checkSumData[2]){
+//console.log("Not sync!")
+//location.reload(true);
+//}
 
 var USER;
-var PRO = [];
-var SUB = [];
-var EXAM = [];
 
 for (var user of userList) {
   if(user["학생아이디"]==student){
@@ -194,126 +173,85 @@ for (var user of userList) {
   }
 }
 
-var studentClass = USER["수업반"]
-var studentMember = []
-
-console.log(studentClass)
-
-for (var user of userList) {
-  if(user["수업반"]==studentClass){
-    studentMember.push(user["학생아이디"])
-  }
-}
-
-console.log(studentMember)
-
-var progressListForMonth = []
-var subjectListForMonth = []
-var examListForMonth = []
+var totalListForMonth = []
 
 var nowMonth = month.replace(".0",". ")
 
-for (var i of progressList) {
+for (var i of totalList) {
   if(i["날짜"].indexOf(nowMonth)!=-1){
-    progressListForMonth.push(i)
-  }
-}
-for (var i of subjectList) {
-  if(i["날짜"].indexOf(nowMonth)!=-1){
-    subjectListForMonth.push(i)
-  }
-}
-for (var i of examList) {
-  if(i["날짜"].indexOf(nowMonth)!=-1){
-    examListForMonth.push(i)
+    totalListForMonth.push(i)
   }
 }
 
-console.log(progressListForMonth)
+console.log(totalListForMonth)
 
-var progressListForUser = []
+var totalListForUser = []
 
-for (var pro of progressListForMonth) {
-  if(progressListForUser.indexOf(pro["날짜"])==-1){
-
-    var hasJoin = false
-    for(var i of studentMember){
-      if(pro["학생아이디"]==i) hasJoin = true
-    }
-
-    if(hasJoin)
-      progressListForUser.push(pro["날짜"])
+for (var i of totalListForMonth) {
+  if(USER["학생아이디"] == i["학생아이디"]){
+    totalListForUser.push(i)
   }
 }
+
+console.log(">>>> " + totalListForUser)
 
 var tdAdapter = $('#tbAdapter');
 
-for (var pro of progressListForUser) {
+for (var i of totalListForUser) {
     var tbItem = $(".tbItem").first().clone().show()
-    tbItem.find('.dateValue').html(pro)
 
-    for (var proj of progressListForMonth) {
-      if(proj["날짜"].indexOf(pro)!=-1){
-        tbItem.find('.progressValue').html(proj["진도종류"])
-      }
+    if(i["날짜"] != '')
+    tbItem.find('.dateValue').html("<br>" + i["날짜"] + "<br><br>")
+
+
+    if(i["출석여부"] == '출석'){
+    tbItem.find('.checkValue').html("<br><font color='green'>" + i["출석여부"] + "</font><br><br>")
     }
+    else{
+    tbItem.find('.checkValue').html("<br><font color='red'>" + i["출석여부"] + "</font><br><br>")
+    }
+
+
+    //if(i["출석여부"] != '')
+    //tbItem.find('.checkValue').html("<br>" + i["출석여부"] + "<br><br>")
+
+
+    if(i["진도"] != '')
+    tbItem.find('.progressValue').html("<br>" + i["진도"] + "<br><br>")
+
+    if(i["과제제출"] != '')
+    tbItem.find('.subjectValue').html("<br>" + i["과제제출"] + "<br><br>")
+
+
+    if(i["듣기"] != '')
+    tbItem.find('.examValue').html("<br> 듣기 : " + i["듣기"] + "<br><br>")
+
+
+    if(i["모의고사"] != '')
+    tbItem.find('.examValue').html("<br> 모의고사 : " + i["모의고사"] + "<br><br>")
+
+
+    if(i["어법"] != '')
+    tbItem.find('.examValue').html("<br> 어법 : " + i["어법"] + "<br><br>")
+
+
+    if(i["어휘"] != '')
+    tbItem.find('.examValue').html("<br> 어휘 : " + i["어휘"] + "<br><br>")
+
+
+    if(i["주간평가"] != '')
+    tbItem.find('.examValue').html("<br> 주간평가 : " + i["주간평가"] + "<br><br>")
+
+
     $('#tbAdapter').append(tbItem)
 }
 
-var myCheckList = [];
-var mySubjectkList = [];
-var myExamList = [];
 
-for (var i of progressListForMonth) {
-  if(USER["학생아이디"] == i["학생아이디"]){
-    myCheckList.push(i)
-  }
-}
+for (var i of totalListForUser) {
 
-for (var i of subjectListForMonth) {
-  if(USER["학생아이디"] == i["학생아이디"]){
-    mySubjectkList.push(i)
-  }
-}
+    if(i["상담"] != ''){
 
-for (var i of examListForMonth) {
-  if(USER["학생아이디"] == i["학생아이디"]){
-    myExamList.push(i)
-  }
-}
-
-
-for (var chk of myCheckList) {
-  $('.dateValue').each(function(i,item){
-    if($(item).html() == chk["날짜"]){
-      $(item).parent().parent().find('.checkValue').html('출석')
-    }
-  })
-}
-
-for (var chk of mySubjectkList) {
-  $('.dateValue').each(function(i,item){
-    if($(item).html() == chk["날짜"]){
-      $(item).parent().parent().find('.subjectValue').html(chk["과제 평가"])
-    }
-  })
-
-  if(chk["메모"]){
-    $('.opinionValue').append(chk["날짜"] +" / 과제 의견 : "+ chk["메모"])
-    $('.opinionValue').append("<br>")
-  }
-
-}
-
-for (var chk of myExamList) {
-  $('.dateValue').each(function(i,item){
-    if($(item).html() == chk["날짜"]){
-      $(item).parent().parent().find('.examValue').html(chk["시험평가"])
-    }
-  })
-
-  if(chk["메모"]){
-    $('.opinionValue').append(chk["날짜"] +" / 시험 의견 : "+ chk["메모"])
+    $('.opinionValue').append(i["날짜"] +" / 강사 의견 : "+ i["상담"])
     $('.opinionValue').append("<br>")
   }
 }
@@ -323,16 +261,16 @@ $('.monthValue').html(month.split(".")[1]+"월")
 $('.nameValue').html(USER["이름"])
 $('.schoolValue').html(USER["학교"])
 $('.timeValue').html(USER["학년"])
-$('.teacherValue').html(teacher)
+//$('.teacherValue').html(teacher)
 $('.classValue').html(USER["수업반"])
 
- }catch(e){
+//  }catch(e){
 
-console.log("Error!")
-location.reload(true);
+// console.log("Error!")
+// location.reload(true);
 
 
- }
+//  }
 
 $('body').loadingModal('destroy')
 
@@ -380,15 +318,19 @@ $('body').loadingModal('destroy')
           <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">이름</p>
         </td>
         <td style="width:110pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
-          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">학교/학년</p>
+          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">학교</p>
         </td>
         <td style="width:110pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
-          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">요일 및 시간</p>
+          <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">학년</p>
         </td>
-        <td style="width:111pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
+
+
+<!--         <td style="width:0pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
           <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">담당 선생님</p>
-        </td>
-        <td style="width:110pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
+        </td> -->
+
+
+        <td style="width:220pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt" bgcolor="#D8D8D8">
           <p class="s4" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;">반명</p>
         </td>
       </tr>
@@ -402,10 +344,14 @@ $('body').loadingModal('destroy')
         <td style="width:110pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
           <p class="s5 timeValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
         </td>
-        <td style="width:111pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+
+
+ <!--        <td style="width:111pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
           <p class="s5 teacherValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
-        </td>
-        <td style="width:110pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
+        </td> -->
+
+
+        <td style="width:220pt;border-top-style:solid;border-top-width:1pt;border-left-style:solid;border-left-width:1pt;border-bottom-style:solid;border-bottom-width:1pt;border-right-style:solid;border-right-width:1pt">
           <p class="s5 classValue" style="padding-left: 2pt;text-indent: 0pt;line-height: 15pt;text-align: center;"></p>
         </td>
       </tr>

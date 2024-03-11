@@ -1,0 +1,349 @@
+  <!DOCTYPE html>
+
+   <html lang="ko">
+  <head>
+      <title>Box Manager</title> 
+  <meta charset="utf-8" />
+  <meta name="application-name" content="coreflex"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover ,user-scalable=no">
+  <meta name="description" content="Diablo2 Profile">
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="Diablo2 Profile" />
+
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Diablo2 Profile Page.">
+  <meta property="og:site_name" content="Diablo2 Profile">
+  <meta property="og:url" content="https://dayyoung.github.io/diabloapp/d2/">
+  <meta property="og:title" content="Diablo2 Profile">
+  <meta property="og:image" content="https://dayyoung.github.io/diabloapp/d2/previewlogo.jpg">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
+  <!-- Chrome, Firefox OS, Opera -->
+  <meta name="theme-color" content="#484848">
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Expires" CONTENT="-1">
+  <meta http-equiv="refresh" content="-1">
+
+  <link rel="apple-touch-icon-precomposed" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-startup-image" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="shortcut icon" href="../favicon.png">
+
+<!-- 
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+ -->
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+
+  <style>
+
+.tabbar:not(.tabbar--top) {
+    padding-bottom: 0;
+    position: fixed;
+}
+
+
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    background-color: #484848; 
+  }
+
+
+  #captionLayout {
+    //background-color:transparent !important; 
+    cursor : pointer;
+  }
+
+
+  #myImg{
+      height: 100%;
+      width: 100%;
+  }
+
+
+   /* 메인 컨테이너에 다음과 같이 설정 */
+  #mainLayout {
+    padding:
+      env(safe-area-inset-top)
+      env(safe-area-inset-right)
+      env(safe-area-inset-bottom)
+      env(safe-area-inset-left);
+  }
+
+  :root {
+      --sat2: 100;
+      --sat: env(safe-area-inset-top);
+      --sar: env(safe-area-inset-right);
+      --sab: env(safe-area-inset-bottom);
+      --sal: env(safe-area-inset-left);
+  }
+
+  </style>
+     
+  </head>
+  <body>
+
+  <div id="mainLayout">
+<!-- 
+  <div id="captionLayout" class="tooltip" style="display: block;  width: 100px;height: 100px;  position:absolute;background-color:greenyellow;opacity:0.7;z-index: 100;top: 0; margin-left: 10; margin-top: 0;">
+
+
+          <span class="tooltiptext" onclick="addNewItem()">!!!</span>
+  </div> 
+ -->
+
+
+  <center>
+  <div id="header" style="position: block; width : 100%; height: 5vh;">
+   <font size=6 color="white">- APP -</font>
+
+  </div>
+  </center>
+
+  <div id="body" style="height: 90vh;">
+ <!--    <input type="file" id="imgInput" style="display:block;position:absolute;margin-right: 10px; margin-top: 10px;"/>
+
+  <img onload="onCreate()" id="myImg" onclick="getImageFile(0)" src="" height="100%" width="100%" class="fixed" style="sz-index: 100; position:block; ">
+ -->
+<!--   <img onload="getBase64Image(this)" id="downloadImg" src="" style="width: 100px;height: 100px;  position:absolute; background-color:greenyellow; opacity:0.7; z-index: 100; margin-right:10px; margin-bottom: 0px;">
+  </img> -->
+  </div>
+
+  <center>
+  <div id="footer" style="width : 100%; height: 5vh;">
+   <input type="button" value="ADD" onclick="addNewItem()" style="width:60px; height: 40px;" />
+   <input type="button" value="SAVE" onclick="saveData()" style="width:60px; height: 40px;" />
+   <!-- <input type="button" value="Share" onclick="alert('Comming soon!')" style="width:60px; height: 40px;" /> -->
+  </div>
+  </center>
+
+  </div>
+
+
+  <script>
+
+function touchHandler(event) {
+    var touch = event.changedTouches[0];
+
+    var simulatedEvent = document.createEvent("MouseEvent");
+        simulatedEvent.initMouseEvent({
+        touchstart: "mousedown",
+        touchmove: "mousemove",
+        touchend: "mouseup"
+    }[event.type], true, true, window, 1,
+        touch.screenX, touch.screenY,
+        touch.clientX, touch.clientY, false,
+        false, false, false, 0, null);
+
+    touch.target.dispatchEvent(simulatedEvent);
+    //event.preventDefault();
+}
+
+
+function init() {
+    document.addEventListener("touchstart", touchHandler, true);
+    document.addEventListener("touchmove", touchHandler, true);
+    document.addEventListener("touchend", touchHandler, true);
+    document.addEventListener("touchcancel", touchHandler, true);
+}
+
+  $(function(){
+    init()
+    drawItem()
+  });
+
+
+  var itemList = [{"id":1,"w":50,"h":50,"x":180,"y":137,"caption":""},{"id":2,"w":50,"h":50,"x":280,"y":137,"caption":""},{"id":3,"w":50,"h":50,"x":380,"y":137,"caption":""}];
+
+  function saveData(){
+    localStorage.setItem("data",JSON.stringify(itemList))
+    location.reload(true);
+  }
+
+
+  //var itemList = []
+
+  function addNewItem(){
+        //var captionItem = cationpList[i]
+
+        //if($('.caption'+i).length == 0){
+          //var copyCaption = $('<div id="" class="tooltip" style="display: block;  width: 100px;height: 100px;"></div>').clone();
+          var copyCaption = $('<div id="" class="tooltip" style="display: block;  width: 50px;height: 5-px;  position:absolute;z-index: 100;top: 0; margin-left: 10; margin-top: 0;"><span class="idText" onclick="addNewItem()"></span><input type="button" class="goButton" style="display:block">수정</input></div>').clone();
+         
+          //copyCaption.hide()
+
+          copyCaption.css("z-index",99)
+          copyCaption.attr('id', (itemList.length+1))
+          copyCaption.find(".idText").html(itemList.length+1)
+
+          isEdit = true
+          isUpload = false
+          copyCaption.css("background-color","greenyellow")
+          copyCaption.css("opacity","0.7")
+          //$("#imgInput").hide()
+          //copyCaption.find(".goButton").hide()
+
+
+           copyCaption.draggable({
+              start: function() {
+                
+              },
+              drag: function() {
+              },
+              stop: function() {
+
+                var obj = $(this)
+
+                var id = obj.attr('id')
+                var width = obj.width();
+                var height = obj.height();
+                var offset = obj.offset();
+                var xPos = offset.left;
+                var yPos = offset.top;
+                
+                for(i in itemList)
+                {
+                  var captionItem = itemList[i]
+                  if(captionItem.id == id){
+                    captionItem.w = width;
+                    captionItem.h = height;
+                    captionItem.x = xPos;
+                    captionItem.y = (yPos);
+                  }
+                }
+                
+                console.log(JSON.stringify(itemList))
+
+
+              }, disabled : false
+            });
+
+           copyCaption.resizable({
+              start: function() {
+                
+              },
+              resize: function() {
+     
+              },
+              stop: function() {
+
+           
+                var obj = $(this)
+
+                var id = obj.attr('id')
+                var width = obj.width();
+                var height = obj.height();
+                var offset = obj.offset();
+                var xPos = offset.left;
+                var yPos = offset.top;
+            
+                for(i in itemList)
+                {
+                  
+                  var captionItem = itemList[i]
+                  if(captionItem.id == id){
+
+                    captionItem.w = width;
+                    captionItem.h = height;
+                    captionItem.x = xPos;
+                    captionItem.y = (yPos);
+                    
+                  }
+                }
+                console.log(JSON.stringify(itemList))
+
+              }, disabled : false
+            });
+
+          var obj = copyCaption
+          var width = obj.width();
+          var height = obj.height();
+          var offset = copyCaption.offset();
+          var xPos = offset.left;
+          var yPos = offset.top ;
+
+          captionItem = {};
+          captionItem.id = itemList.length+1;
+          captionItem.w = width;
+          captionItem.h = height;
+          captionItem.x = xPos;
+          captionItem.y = yPos;
+          captionItem.caption = ''; 
+
+          $("#mainLayout").append(copyCaption)
+
+          itemList.push(captionItem)
+
+          //drawItem();
+  }
+
+
+  function drawItem(){
+
+        var hasData = localStorage.getItem('data');
+        if(hasData){
+          itemList = JSON.parse(hasData);
+        }
+
+        for(i in itemList)
+        {
+          //addNewItem();
+        var captionItem = itemList[i]
+
+
+        //if($('.caption'+i).length == 0){
+          //var copyCaption = $('<div id="" class="tooltip" style="display: block;  width: 100px;height: 100px;"></div>').clone();
+          var copyCaption = $('<div id="" class="tooltip" style="display: block;  width: 50px;height: 5-px;  position:absolute;z-index: 100;top: 0; margin-left: 10; margin-top: 0;"><span class="idText" onclick="addNewItem()"></span><input type="button" class="goButton" style="display:block">수정</input></div>').clone();
+         
+          //copyCaption.hide()
+
+          copyCaption.css("z-index",99)
+          copyCaption.attr('id', (i+1))
+          copyCaption.find(".idText").html(i+1)
+
+          copyCaption.css("background-color","red")
+          copyCaption.css("opacity","0.7")
+
+
+        copyCaption.css("width", captionItem.w );
+        copyCaption.css("height", captionItem.h );
+        copyCaption.css("left", captionItem.x );
+        copyCaption.css("margin-top", captionItem.y );
+
+        $("#mainLayout").append(copyCaption)
+
+      }
+  }
+
+
+
+    
+  </script>
+
+
+  </body>
+  </html>  

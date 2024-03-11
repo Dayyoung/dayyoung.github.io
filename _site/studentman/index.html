@@ -63,7 +63,7 @@
     <div id="app">
       <div class="product">
         <center>
-        <button class="favorite styled button" type="button" onclick="goPopup('./progress.html')">
+<!--         <button class="favorite styled button" type="button" onclick="goPopup('./progress.html')">
           진도 추가
         </button>
         <button class="favorite styled button" type="button" onclick="goPopup('./subject.html')">
@@ -71,6 +71,9 @@
         </button>
         <button class="favorite styled button" type="button" onclick="goPopup('./exam.html')">
           시험 추가
+        </button> -->
+        <button class="favorite styled button" type="button" onclick="goPopup('./class.html')">
+          정보 입력
         </button>
         <button class="favorite styled button" type="button" onclick="goPopup('./export.html')">
           보고서 출력
@@ -91,7 +94,7 @@ function goPopup(url){
 
 
 $("<iframe>", {
-  src: "https://docs.google.com/spreadsheets/d/132q1hzTEGOEEehnBBFVCKxQ9sMUf3TncskbKB_l_cUI/edit#gid=0",
+  src: "https://docs.google.com/spreadsheets/d/132q1hzTEGOEEehnBBFVCKxQ9sMUf3TncskbKB_l_cUI/edit#gid=322683622",
   id: "dataTable",
 }).appendTo("body");
       

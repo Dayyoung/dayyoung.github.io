@@ -4,6 +4,8 @@
     <title>Form</title>
     <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
     <meta charset="UTF-8" />
+
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="
   https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
@@ -11,8 +13,7 @@
   <link href="
   https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
   " rel="stylesheet">
-  <!-- google charts -->
-     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 
 <style>
 input[type=text], select {
@@ -45,16 +46,6 @@ input[type=date], select {
   box-sizing: border-box;
 }
 
-input[type=month], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
 input[type=button] {
   width: 100%;
   background-color: #4CAF50;
@@ -70,11 +61,11 @@ input[type=submit]:hover {
   background-color: #45a049;
 }
 
-div {
+/*div {
   border-radius: 5px;
   background-color: #f2f2f2;
   padding: 20px;
-}
+}*/
 
 </style>
 
@@ -86,25 +77,18 @@ div {
 
 <div>
   <form action="/action_page.php">
-    <label for="selectValue">출력유형:</label>
+    <label for="selectValue">반/학생:</label>
 	<select id="selectValue" name="Titel">
     <option disabled>---전체---</option>
     <option selected value="all">전체</option>
 	</select>
 
-	<label for="dateValue">출력날짜(월간):</label><br>    
-	<input type="month" id="dateValue" />
-<!-- 
+	<label for="dateValue">날짜:</label><br>    
+	<input type="date" id="dateValue" />
 
-    <label for="subjectValue">보고 담당자:</label><br>
-    <input type="text" id="subjectValue">  -->
-
-    <input type="button" id="submitButton" value="보고서 생성">
+    <input type="button" id="submitButton" value="입력">
   </form>
 </div>
-
-
-<div id="resultValue"></div>
 
 <script type="text/javascript">
 
@@ -205,6 +189,9 @@ for (var i = 0; i < userList.length; i++) {
 }
 
 
+//$('body').loadingModal({text: '생성중...'})
+
+
 const urlStr = window.location.href;
 
 const url = new URL(urlStr);
@@ -223,81 +210,78 @@ $("#submitButton").click(function() {
 
 
   if($("#selectValue").val() == null){
-    alert('출력유형을 선택하세요.')
+    alert('입력유형을 선택하세요.')
     return;
   }
 
 
-  $('#resultValue').html("");
-  $('#resultValue').append('생성결과 : <br>')
+  $('body').loadingModal({text: '생성중...'})
+
+
+  setTimeout(function(){
 
 	var selectValue = $('#selectValue').val();
 
+  var selectText = $("#selectValue option:selected").text();
 
 	if(selectValue == 'all'){
 		for(i in userList){
-				printData(userList[i]["학생아이디"], userList[i]["이름"]);
+				createData(userList[i]["학생아이디"],userList[i]["이름"]);
 		}
 	}
 	else if(uniqueArr.indexOf(selectValue) != -1){
 		for(i in userList){
 			if(selectValue == userList[i]["수업반"]){
-				printData(userList[i]["학생아이디"], userList[i]["이름"]);
+				createData(userList[i]["학생아이디"],userList[i]["이름"]);
 			}
 		}
 	}else{
-		printData(selectValue,true);
+		createData(selectValue,selectText);
 	}
 
-  alert("출력이 완료되었습니다.")
+  $('body').loadingModal('destroy')
+  alert("입력이 완료되었습니다.")
+  close();
+
+  },500)
   
+
+
 });
 
-function utf8_to_b64( str ) {
-  return window.btoa(unescape(encodeURIComponent( str )));
-}
 
-function b64_to_utf8( str ) {
-  return decodeURIComponent(escape(window.atob( str )));
-}
+function createData(studentId , name){
+	var requestUrl =
+    "https://docs.google.com/forms/u/0/d/e/1FAIpQLScBDiDgLllDj3kr3fziqgzGitWY6DqWnNS0QcMkvHVg-83F-Q/formResponse";
 
+  console.log($('#selectValue').val());
+  console.log($('#dateValue').val());
+  console.log($('#subjectValue').val());
+  console.log($('#typeValue').val());
+  console.log($('#memoValue').val());  
 
-function printData(studentId,name){
+  var yyyymmdd = $('#dateValue').val().split("-");
 
-
-	var dateValue = $('#dateValue').val();
-	dateValue = dateValue.replaceAll("-",".")
-
-	console.log(dateValue)
-	console.log(utf8_to_b64(dateValue))
-
-
-	var subjectValue = $('#subjectValue').val();
-
-	console.log(subjectValue)
-	console.log(utf8_to_b64(subjectValue))
-
-	$('#resultValue').append('<a target="_blank" href="./report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
-
-  var url = window.location.protocol + window.location.hostname + '/studentman/report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)
-
-  createData(studentId, url)
-
-}
-
-
-function createData(studentId, url){
-  var requestUrl =
-    "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf_CY8EayYCzq3d2hUlPxllUkMoX6Kmb5WLjiIcHr96yJomwA/formResponse";
 
   var requestData = {};
   requestData["entry.641291297"] = studentId;
+  requestData["entry.2041164107"] = name;
 
-  requestData["entry.980302389"] = url;
+  requestData["entry.980302389_year"] = yyyymmdd[0];
+  requestData["entry.980302389_month"] = yyyymmdd[1];
+  requestData["entry.980302389_day"] = yyyymmdd[2];
 
-  $.get(requestUrl,requestData);
+  requestData["entry.847030929"] = '출석'
+
+  //$.get(requestUrl,requestData);
+  $.ajax({
+          type: "get",            
+          url: requestUrl,         
+          async: false,
+          cache: false,              
+          data: requestData
+    });
 }
-
 
 
 // $("<iframe>", {
