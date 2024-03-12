@@ -277,21 +277,22 @@ function printData(studentId,name){
 	console.log(subjectValue)
 	console.log(utf8_to_b64(subjectValue))
 
-	$('#resultValue').append('<a target="_blank" href="./report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
+	$('#resultValue').append('<a target="_blank" href="./report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
 
-  var url = window.location.protocol +"//"+ window.location.hostname + '/studentman/report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+"&ref3="+utf8_to_b64(subjectValue)
+  var url = window.location.protocol +"//"+ window.location.hostname + '/studentman/report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)
 
-  createData(studentId, url)
+  createData(studentId, name, url)
 
 }
 
 
-function createData(studentId, url){
+function createData(studentId, name , url){
   var requestUrl =
     "https://docs.google.com/forms/u/0/d/e/1FAIpQLSf_CY8EayYCzq3d2hUlPxllUkMoX6Kmb5WLjiIcHr96yJomwA/formResponse";
 
   var requestData = {};
   requestData["entry.641291297"] = studentId;
+  requestData["entry.1993270524"] = name;
 
   requestData["entry.980302389"] = url;
 
