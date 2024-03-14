@@ -81,7 +81,7 @@ input[type=submit]:hover {
 
 <div>
   <form action="/action_page.php">
-    <label for="selectValue">출력유형:</label>
+    <label for="selectValue">반/학생:</label>
 	<select id="selectValue" name="Titel">
     <option disabled>---전체---</option>
     <option selected value="all">전체</option>
@@ -283,9 +283,9 @@ function printData(studentId,name){
 	console.log(subjectValue)
 	console.log(utf8_to_b64(subjectValue))
 
-	$('#resultValue').append('<a target="_blank" href="./report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
+	$('#resultValue').append('<a target="_blank" href="./report.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)+'" target="_self">'+studentId + ' : ' + name+'</a><br>')
 
-  var url = window.location.protocol +"//"+ window.location.hostname + '/studentman/report2.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)
+  var url = window.location.protocol +"//"+ window.location.hostname + '/studentman/report.html?ref1='+utf8_to_b64(studentId)+"&ref2="+utf8_to_b64(dateValue)
 
   createData(studentId, name, url)
 
