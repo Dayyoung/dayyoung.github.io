@@ -66,13 +66,13 @@
       th.style17 { vertical-align:middle; text-align:left; padding-left:0px; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; font-weight:bold; color:#666666; font-family:'Roboto'; font-size:13.0pt; background-color:white }
       td.style18 { vertical-align:bottom; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:10pt; background-color:white }
       th.style18 { vertical-align:bottom; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#000000; font-family:'Calibri'; font-size:10pt; background-color:white }
-      td.style19 { vertical-align:middle; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:13.0pt; background-color:#FFFFFF }
+      td.style19 { vertical-align:bottom; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:10.0pt; background-color:#FFFFFF }
       th.style19 { vertical-align:middle; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:13.0pt; background-color:#FFFFFF }
       td.style20 { vertical-align:middle; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:13.0pt; background-color:#FFFFFF }
       th.style20 { vertical-align:middle; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:13.0pt; background-color:#FFFFFF }
       td.style21 { vertical-align:middle; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #999999 !important; color:#000000; font-family:'Poppins'; font-size:13.0pt; background-color:white }
       th.style21 { vertical-align:middle; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:1px solid #999999 !important; color:#000000; font-family:'Poppins'; font-size:13.0pt; background-color:white }
-      td.style22 { vertical-align:middle; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:13.0pt; background-color:white }
+      td.style22 { vertical-align:bottom; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:10.0pt; background-color:white }
       th.style22 { vertical-align:middle; border-bottom:1px solid #D9D9D9 !important; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:13.0pt; background-color:white }
       td.style23 { vertical-align:middle; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:13.0pt; background-color:white }
       th.style23 { vertical-align:middle; border-bottom:none #000000; border-top:none #000000; border-left:none #000000; border-right:none #000000; color:#999999; font-family:'Roboto'; font-size:13.0pt; background-color:white }
@@ -591,13 +591,31 @@ for (var user of userList) {
   }
 }
 
+var sameClassUser = [];
+
+for (var user of userList) {
+  if(USER["수업반"]==user["수업반"]){
+   sameClassUser.push(user["학생아이디"])
+  }
+}
+
+console.log("same >>> " + sameClassUser)
+
+
+
 var totalListForMonth = []
 
 var nowMonth = month.replace(".0",". ")
 
 for (var i of totalList) {
   if(i["날짜"].indexOf(nowMonth)!=-1){
+
+    for(var j of sameClassUser){
+
+    if(j == i["학생아이디"])
     totalListForMonth.push(i)
+
+    }
   }
 }
 
@@ -613,44 +631,84 @@ var totalListExam2ForUser = []
 var totalListExam3ForUser = []
 var totalListExam4ForUser = []
 
+var totalListExam1ForDate = []
+var totalListExam2ForDate = []
+var totalListExam3ForDate = []
+var totalListExam4ForDate = []
+
+
 for (var i of totalListForMonth) {
   if(USER["듣기"] != ""){
 
-    var intValue = parseInt(i["듣기"].split("/")[0])
+    if(i["듣기"].indexOf("/") != -1){
+      var firstValue = parseInt(i["듣기"].split("/")[0])
+      var secondValue = parseInt(i["듣기"].split("/")[1])
+      var intValue = parseInt((firstValue/secondValue) * 100);
+    }else{
+      var intValue = parseInt(i["듣기"])
+    }
 
     if(!isNaN(intValue))
     totalListExam1.push(intValue)
+
     if(USER["학생아이디"] == i["학생아이디"] && !isNaN(intValue)){
       totalListExam1ForUser.push(intValue)
     }
+    totalListExam1ForDate.push(i)
   }
   if(USER["어법"] != ""){
-    var intValue = parseInt(i["어법"].split("/")[0])
 
+    if(i["어법"].indexOf("/") != -1){
+      var firstValue = parseInt(i["어법"].split("/")[0])
+      var secondValue = parseInt(i["어법"].split("/")[1])
+      var intValue = parseInt((firstValue/secondValue) * 100);
+    }else{
+      var intValue = parseInt(i["어법"])
+    }
     if(!isNaN(intValue))
     totalListExam2.push(intValue)
 
     if(USER["학생아이디"] == i["학생아이디"] && !isNaN(intValue)){
       totalListExam2ForUser.push(intValue)
     }
+    totalListExam2ForDate.push(i)
   }
   if(USER["어휘"] != ""){
-    var intValue = parseInt(i["어휘"].split("/")[0])
+
+    if(i["어휘"].indexOf("/") != -1){
+      var firstValue = parseInt(i["어휘"].split("/")[0])
+      var secondValue = parseInt(i["어휘"].split("/")[1])
+      var intValue = parseInt((firstValue/secondValue) * 100);
+    }else{
+      var intValue = parseInt(i["어휘"])
+    }
 
     if(!isNaN(intValue))
     totalListExam3.push(intValue)
+
     if(USER["학생아이디"] == i["학생아이디"] && !isNaN(intValue)){
       totalListExam3ForUser.push(intValue)
     }
+    totalListExam3ForDate.push(i)
   }
   if(USER["모의고사"] != ""){
-    var intValue = parseInt(i["모의고사"].split("/")[0])
+
+    if(i["모의고사"].indexOf("/") != -1){
+      var firstValue = parseInt(i["모의고사"].split("/")[0])
+      var secondValue = parseInt(i["모의고사"].split("/")[1])
+      var intValue = parseInt((firstValue/secondValue) * 100);
+    }else{
+      var intValue = parseInt(i["모의고사"])
+    }
+
 
     if(!isNaN(intValue))
     totalListExam4.push(intValue)
+
     if(USER["학생아이디"] == i["학생아이디"] && !isNaN(intValue)){
       totalListExam4ForUser.push(intValue)
     }
+    totalListExam4ForDate.push(i)
   }
 }
 
@@ -671,91 +729,242 @@ var gListForUser= {"g1":0,"g2":0,"g3":0,"g4":0,}
 
 //1
 
-var result = totalListExam1.reduce(function add(sum, currValue) {
-  return sum + currValue;
-}, 0);
-var average = result / totalListExam1.length;
-console.log(average)
+var gData1 = [];
 
-if(!isNaN(average)){
-  gList['g1']= average
+gData1.push(['날짜', '평균점수', '학생점수', '만점', ])
+
+var dupArr =  [];
+
+for (var i = 0; i < totalListExam1ForDate.length; i++) {
+    dupArr.push(totalListExam1ForDate[i]["날짜"])
 }
 
-var result = totalListExam1ForUser.reduce(function add(sum, currValue) {
-  return sum + currValue;
-}, 0);
-var average = result / totalListExam1ForUser.length;
-console.log(average)
+console.log(dupArr);
 
-if(!isNaN(average)){
-  gListForUser['g1']= average
+var uniqueArr = dupArr.filter((element, index) => {
+    return dupArr.indexOf(element) === index;
+});
+
+console.log(uniqueArr);
+
+for (var date of uniqueArr){
+
+  var item = [];
+  var itemValue = 0;
+  var itemCount = 0;
+  var userPoint = 0;
+
+  for (var i of totalListExam1ForDate) {
+
+      if(date == i["날짜"]){ 
+
+      if(i["듣기"].indexOf("/") != -1){
+        var firstValue = parseInt(i["듣기"].split("/")[0])
+        var secondValue = parseInt(i["듣기"].split("/")[1])
+        var intValue = parseInt((firstValue/secondValue) * 100);
+      }else{
+        var intValue = parseInt(i["듣기"])
+      }
+
+      if(!isNaN(intValue))
+        itemValue = itemValue + intValue;
+
+      if(i["학생아이디"]==student){
+        if(!isNaN(intValue))
+        userPoint = intValue;
+      }
+      itemCount = itemCount+1;
+      console.log(itemCount)
+      }
+   }
+    item.push(date)
+    item.push(itemValue/itemCount)
+    item.push(userPoint)
+    item.push(100)
+    gData1.push(item)
 }
+
+console.log(gData1);
+
+
 
 //2
 
-var result = totalListExam2.reduce(function add(sum, currValue) {
-  return sum + currValue;
-}, 0);
-var average = result / totalListExam2.length;
-console.log(average)
+var gData2 = [];
 
-if(!isNaN(average)){
-  gList['g2']= average
+gData2.push(['날짜', '평균점수', '학생점수', '만점', ])
+
+var dupArr =  [];
+
+for (var i = 0; i < totalListExam2ForDate.length; i++) {
+    dupArr.push(totalListExam2ForDate[i]["날짜"])
 }
 
-var result = totalListExam2ForUser.reduce(function add(sum, currValue) {
-  return sum + currValue;
-}, 0);
-var average = result / totalListExam2ForUser.length;
-console.log(average)
+console.log(dupArr);
 
-if(!isNaN(average)){
-  gListForUser['g2']= average
+var uniqueArr = dupArr.filter((element, index) => {
+    return dupArr.indexOf(element) === index;
+});
+
+console.log(uniqueArr);
+
+for (var date of uniqueArr){
+
+  var item = [];
+  var itemValue = 0;
+  var itemCount = 0;
+  var userPoint = 0;
+
+  for (var i of totalListExam2ForDate) {
+
+      if(date == i["날짜"]){ 
+
+      if(i["어법"].indexOf("/") != -1){
+        var firstValue = parseInt(i["어법"].split("/")[0])
+        var secondValue = parseInt(i["어법"].split("/")[1])
+        var intValue = parseInt((firstValue/secondValue) * 100);
+      }else{
+        var intValue = parseInt(i["어법"])
+      }
+
+      if(!isNaN(intValue))
+        itemValue = itemValue + intValue;
+
+      if(i["학생아이디"]==student){
+        if(!isNaN(intValue))
+        userPoint = intValue;
+      }
+      itemCount = itemCount+1;
+      console.log(itemCount)
+      }
+   }
+    item.push(date)
+    item.push(itemValue/itemCount)
+    item.push(userPoint)
+    item.push(100)
+    gData2.push(item)
 }
+
+console.log(gData2);
+
 
 //3
 
-var result = totalListExam3.reduce(function add(sum, currValue) {
-  return sum + currValue;
-}, 0);
-var average = result / totalListExam3.length;
-console.log(average)
+var gData3 = [];
 
-if(!isNaN(average)){
-  gList['g3']= average
+gData3.push(['날짜', '평균점수', '학생점수', '만점', ])
+
+var dupArr =  [];
+
+for (var i = 0; i < totalListExam3ForDate.length; i++) {
+    dupArr.push(totalListExam3ForDate[i]["날짜"])
 }
 
-var result = totalListExam3ForUser.reduce(function add(sum, currValue) {
-  return sum + currValue;
-}, 0);
-var average = result / totalListExam3ForUser.length;
-console.log(average)
+console.log(dupArr);
 
-if(!isNaN(average)){
-  gListForUser['g3']= average
+var uniqueArr = dupArr.filter((element, index) => {
+    return dupArr.indexOf(element) === index;
+});
+
+console.log(uniqueArr);
+
+for (var date of uniqueArr){
+
+  var item = [];
+  var itemValue = 0;
+  var itemCount = 0;
+  var userPoint = 0;
+
+  for (var i of totalListExam3ForDate) {
+
+      if(date == i["날짜"]){ 
+
+      if(i["어휘"].indexOf("/") != -1){
+        var firstValue = parseInt(i["어휘"].split("/")[0])
+        var secondValue = parseInt(i["어휘"].split("/")[1])
+        var intValue = parseInt((firstValue/secondValue) * 100);
+      }else{
+        var intValue = parseInt(i["어휘"])
+      }
+
+      if(!isNaN(intValue))
+        itemValue = itemValue + intValue;
+
+      if(i["학생아이디"]==student){
+        if(!isNaN(intValue))
+        userPoint = intValue;
+      }
+      itemCount = itemCount+1;
+      console.log(itemCount)
+      }
+   }
+    item.push(date)
+    item.push(itemValue/itemCount)
+    item.push(userPoint)
+    item.push(100)
+    gData3.push(item)
 }
+
+console.log(gData3);
 
 //4
 
-var result = totalListExam4.reduce(function add(sum, currValue) {
-  return sum + currValue;
-}, 0);
-var average = result / totalListExam4.length;
-console.log(average)
+var gData4 = [];
 
-if(!isNaN(average)){
-  gList['g4']= average
+gData4.push(['날짜', '평균점수', '학생점수', '만점', ])
+
+var dupArr =  [];
+
+for (var i = 0; i < totalListExam4ForDate.length; i++) {
+    dupArr.push(totalListExam4ForDate[i]["날짜"])
 }
 
-var result = totalListExam4ForUser.reduce(function add(sum, currValue) {
-  return sum + currValue;
-}, 0);
-var average = result / totalListExam4ForUser.length;
-console.log(average)
+console.log(dupArr);
 
-if(!isNaN(average)){
-  gListForUser['g4']= average
+var uniqueArr = dupArr.filter((element, index) => {
+    return dupArr.indexOf(element) === index;
+});
+
+console.log(uniqueArr);
+
+for (var date of uniqueArr){
+
+  var item = [];
+  var itemValue = 0;
+  var itemCount = 0;
+  var userPoint = 0;
+
+  for (var i of totalListExam4ForDate) {
+
+      if(date == i["날짜"]){ 
+
+      if(i["모의고사"].indexOf("/") != -1){
+        var firstValue = parseInt(i["모의고사"].split("/")[0])
+        var secondValue = parseInt(i["모의고사"].split("/")[1])
+        var intValue = parseInt((firstValue/secondValue) * 100);
+      }else{
+        var intValue = parseInt(i["모의고사"])
+      }
+
+      if(!isNaN(intValue))
+        itemValue = itemValue + intValue;
+
+      if(i["학생아이디"]==student){
+        if(!isNaN(intValue))
+        userPoint = intValue;
+      }
+      itemCount = itemCount+1;
+      console.log(itemCount)
+      }
+   }
+    item.push(date)
+    item.push(itemValue/itemCount)
+    item.push(userPoint)
+    item.push(100)
+    gData4.push(item)
 }
+
+console.log(gData4);
 
 
 
@@ -854,7 +1063,7 @@ $('.timeValue').html(USER["학년"])
 //$('.teacherValue').html(teacher)
 $('.classValue').html(USER["수업반"])
 
-drawChart(gList, gListForUser);
+drawChart(gData1, gData2, gData3, gData4);
 
 //  }catch(e){
 
@@ -1014,30 +1223,30 @@ table, th, td {
             <td class="column1 style31 null"></td>
             <td class="column2 style30 null"></td>
             <td class="column3 style32 null"></td>
-            <td class="column4 style33 s style34" colspan="2" style="text-align:center; font-size:11pt">ATTENDANCE</td>
-            <td class="column6 style35 s" style="text-align:center; font-size:11pt">HOMEWORK</td>
-            <td class="column7 style36 s style34" colspan="5" style="text-align:center; font-size:11pt">TEST</td>
+            <td class="column4 style33 s style34" colspan="2" style="text-align:center; font-size:9pt">ATTENDANCE</td>
+            <td class="column6 style35 s" style="text-align:center; font-size:9pt">HOMEWORK</td>
+            <td class="column7 style36 s style34" colspan="5" style="text-align:center; font-size:9pt">TEST</td>
           </tr>
           <tr class="row8">
             <td class="column0 style30 null"></td>
             <td class="column1 style31 null"></td>
             <td class="column2 style30 null"></td>
-            <td class="column3 style39 s style49" rowspan="2" style="text-align:center">NO.</td>
-            <td class="column4 style40 s style50" rowspan="2" style="text-align:center">날짜</td>
-            <td class="column5 style40 s style50" rowspan="2" style="text-align:center">출결</td>
-            <td class="column6 style41 s style50" rowspan="2" style="text-align:center">과제</td>
-            <td class="column7 style41 s style50" rowspan="2" style="text-align:center">듣기</td>
-            <td class="column8 style41 s style50" rowspan="2" style="text-align:center">어법</td>
-            <td class="column9 style41 s style50" rowspan="2" style="text-align:center">어휘</td>
-            <td class="column10 style41 s style50" rowspan="2" style="text-align:center">모의고사</td>
-            <td class="column11 style40 s style50" rowspan="2" style="text-align:center">주간평가</td>
+            <td class="column3 style39 s style49" rowspan="1" style="text-align:center">NO.</td>
+            <td class="column4 style40 s style50" rowspan="1" style="text-align:center">날짜</td>
+            <td class="column5 style40 s style50" rowspan="1" style="text-align:center">출결</td>
+            <td class="column6 style41 s style50" rowspan="1" style="text-align:center">과제</td>
+            <td class="column7 style41 s style50" rowspan="1" style="text-align:center">듣기</td>
+            <td class="column8 style41 s style50" rowspan="1" style="text-align:center">어법</td>
+            <td class="column9 style41 s style50" rowspan="1" style="text-align:center">어휘</td>
+            <td class="column10 style41 s style50" rowspan="1" style="text-align:center">모의고사</td>
+            <td class="column11 style40 s style50" rowspan="1" style="text-align:center">주간평가</td>
           </tr>
-          <tr class="row9">
+<!--           <tr class="row9">
             <td class="column0 style42 null"></td>
             <td class="column1 style43 null"></td>
             <td class="column2 style42 null"></td>
           </tr>
-
+ -->
           <tr class="row11 tbItem" style="display: none">
             <td class="column0 style52 null"></td>
             <td class="column1 style53 null"></td>
@@ -1059,81 +1268,64 @@ table, th, td {
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       //google.charts.setOnLoadCallback(drawChart);
-      function drawChart(gList,gListForUser) {
-        
+      function drawChart(gData1, gData2, gData3, gData4) {
 
-
-      console.log(gList)
-      console.log(gListForUser)
-
-
-
-        var options1 = {
-          title: '듣기',
-          pieHole: 0.4,
-        };
-        var options2 = {
-          title: '어법',
-          pieHole: 0.4,
-        };
-        var options3 = {
-          title: '어휘',
-          pieHole: 0.4,
-        };
-        var options4 = {
-          title: '모의고사',
-          pieHole: 0.4,
+        var data = google.visualization.arrayToDataTable(gData1);
+        var options = {
+          title : '듣기',
+          vAxis: {title: '점수'},
+          hAxis: {title: '기간'},
+          seriesType: 'bars',
+          series: {2: {type: 'line'}}
         };
 
-        if(gListForUser['g1'] != 0){
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
 
-          $('#donutchart1').show()
-          var data1 = google.visualization.arrayToDataTable([
-            ['학생', '점수'],
-            ['학생평균',     gList['g1']],
-            ['전체평균',      gListForUser['g1']],
-          ]);
-          var chart = new google.visualization.PieChart(document.getElementById('donutchart1'));
-          chart.draw(data1, options1);
 
-        }
-if(gListForUser['g1'] != 0){
+        var data = google.visualization.arrayToDataTable(gData2);
+        var options = {
+          title : '어법',
+          vAxis: {title: '점수'},
+          hAxis: {title: '기간'},
+          seriesType: 'bars',
+          series: {2: {type: 'line'}}
+        };
 
-          $('#donutchart2').show()
-        var data2 = google.visualization.arrayToDataTable([
-          ['학생', '점수'],
-          ['학생평균',     gList['g2']],
-          ['전체평균',      gListForUser['g2']],
-        ]);
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart2'));
-        chart.draw(data2, options2);
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
+        chart.draw(data, options);
 
-        }
-if(gListForUser['g1'] != 0){
-          $('#donutchart3').show()
 
-        var data3 = google.visualization.arrayToDataTable([
-          ['학생', '점수'],
-          ['학생평균',     gList['g3']],
-          ['전체평균',      gListForUser['g3']],
-        ]);
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart3'));
-        chart.draw(data3, options3);
+        var data = google.visualization.arrayToDataTable(gData3);
+        var options = {
+          title : '어법',
+          vAxis: {title: '점수'},
+          hAxis: {title: '기간'},
+          seriesType: 'bars',
+          series: {2: {type: 'line'}}
+        };
 
-        }
-if(gListForUser['g1'] != 0){
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div3'));
+        chart.draw(data, options);
 
-          $('#donutchart4').show()
-        var data4 = google.visualization.arrayToDataTable([
-          ['학생', '점수'],
-          ['학생평균',     gList['g4']],
-          ['전체평균',      gListForUser['g4']],
-        ]);
-        var chart = new google.visualization.PieChart(document.getElementById('donutchart4'));
-        chart.draw(data4, options4);
-      }
 
-        }
+
+        var data = google.visualization.arrayToDataTable(gData4);
+        var options = {
+          title : '모의고사',
+          vAxis: {title: '점수'},
+          hAxis: {title: '기간'},
+          seriesType: 'bars',
+          series: {2: {type: 'line'}}
+        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div4'));
+        chart.draw(data, options);
+
+
+}
+
+
     </script>
   
 
@@ -1151,7 +1343,7 @@ if(gListForUser['g1'] != 0){
 }
 
 .item {
-  flex: 1 1 40%;
+  flex: 1 1 80%;
   border:1px solid #B7B7B7 !important;
 }
 
@@ -1160,10 +1352,11 @@ if(gListForUser['g1'] != 0){
     <br><br>
 
     <div class="container">
-    <div class="item" id="donutchart1" style="width: 400px; height: 300px; display: none;"></div>
-    <div class="item" id="donutchart2" style="width: 400px; height: 300px; display: none;"></div>
-    <div class="item" id="donutchart3" style="width: 400px; height: 300px; display: none;"></div>
-    <div class="item" id="donutchart4" style="width: 400px; height: 300px; display: none;"></div>
+
+    <div class="item" id="chart_div1" style="width: 500px; height: 300px;"></div>
+    <div class="item" id="chart_div2" style="width: 500px; height: 300px;"></div>
+    <div class="item" id="chart_div3" style="width: 500px; height: 300px;"></div>
+    <div class="item" id="chart_div4" style="width: 500px; height: 300px;"></div>
     </div>
 
     </center>
