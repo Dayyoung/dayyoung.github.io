@@ -463,20 +463,16 @@ const urlParams = url.searchParams;
 
 const ref1 = urlParams.get('ref1');
 
-console.log(ref1);
 
 const ref2 = urlParams.get('ref2');
 
-console.log(ref2);
 
 
 try {    
 
 var student = b64_to_utf8(ref1);
-console.log(student)
 
 var month = b64_to_utf8(ref2);
-console.log(month)
 
 } catch(e) {}
 
@@ -525,13 +521,10 @@ function GsheetToJSON(requestUrl) {
           data: "",                
           success: function(res){   
 
-          console.log($(res))
           var table = $(res).find('.s1')
-          console.log(table)
           tableList = [];
 
           table.each(function(i,item){
-            console.log($(item).html())
             var totalRow = parseInt($(item).html())
 
             if(totalRow > 0){
@@ -559,7 +552,7 @@ $('body').loadingModal({text: '생성중...'})
 setTimeout(function(){
 
 
-//try{
+try{
 
 var userListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pub?gid=0&single=true&output=csv')
 
@@ -571,11 +564,8 @@ var totalListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-
 
 var totalList = csvToJSON(totalListData)
 
-console.log(totalList);
 
 var checkSumData = GsheetToJSON('https://docs.google.com/spreadsheets/d/e/2PACX-1vTL1l7kkGoqRycPXW-vkvYuxx4WvhE7BubWWCNlkZzKQbTufIQ19EM96sa6jVzdv0eNRFodaOFGL8k8/pubhtml?gid=64744039&single=true')
-
-console.log(checkSumData);
 
 
 //if(progressList.length != checkSumData[0] || subjectList.length != checkSumData[1] || examList.length != checkSumData[2]){
@@ -599,7 +589,6 @@ for (var user of userList) {
   }
 }
 
-console.log("same >>> " + sameClassUser)
 
 
 
@@ -619,7 +608,6 @@ for (var i of totalList) {
   }
 }
 
-console.log(totalListForMonth)
 
 var totalListExam1 = []
 var totalListExam2 = []
@@ -712,17 +700,6 @@ for (var i of totalListForMonth) {
   }
 }
 
-console.log(totalListExam1)
-console.log(totalListExam2)
-console.log(totalListExam3)
-console.log(totalListExam4)
-
-console.log(totalListExam1ForUser)
-console.log(totalListExam2ForUser)
-console.log(totalListExam3ForUser)
-console.log(totalListExam4ForUser)
-
-
 var gList = {"g1":0,"g2":0,"g3":0,"g4":0,}
 var gListForUser= {"g1":0,"g2":0,"g3":0,"g4":0,}
 
@@ -731,7 +708,7 @@ var gListForUser= {"g1":0,"g2":0,"g3":0,"g4":0,}
 
 var gData1 = [];
 
-gData1.push(['날짜', '평균점수', '학생점수', '만점', ])
+gData1.push(['날짜', '평균점수', { role: 'style' }, '내 점수', { role: 'style' } , '만점', { role: 'style' } ])
 
 var dupArr =  [];
 
@@ -739,13 +716,13 @@ for (var i = 0; i < totalListExam1ForDate.length; i++) {
     dupArr.push(totalListExam1ForDate[i]["날짜"])
 }
 
-console.log(dupArr);
+
 
 var uniqueArr = dupArr.filter((element, index) => {
     return dupArr.indexOf(element) === index;
 });
 
-console.log(uniqueArr);
+
 
 for (var date of uniqueArr){
 
@@ -778,12 +755,15 @@ for (var date of uniqueArr){
    }
     item.push(date)
     item.push(itemValue/itemCount)
+    item.push('color: #FFD966')
     item.push(userPoint)
+    item.push('color: #F1C233')
     item.push(100)
+    item.push('color: red')
     gData1.push(item)
 }
 
-console.log(gData1);
+//console.log(gData1);
 
 
 
@@ -791,7 +771,7 @@ console.log(gData1);
 
 var gData2 = [];
 
-gData2.push(['날짜', '평균점수', '학생점수', '만점', ])
+gData2.push(['날짜', '평균점수', { role: 'style' }, '내 점수', { role: 'style' } , '만점', { role: 'style' } ])
 
 var dupArr =  [];
 
@@ -799,13 +779,13 @@ for (var i = 0; i < totalListExam2ForDate.length; i++) {
     dupArr.push(totalListExam2ForDate[i]["날짜"])
 }
 
-console.log(dupArr);
+
 
 var uniqueArr = dupArr.filter((element, index) => {
     return dupArr.indexOf(element) === index;
 });
 
-console.log(uniqueArr);
+
 
 for (var date of uniqueArr){
 
@@ -838,19 +818,22 @@ for (var date of uniqueArr){
    }
     item.push(date)
     item.push(itemValue/itemCount)
+    item.push('color: #F4CCCC')
     item.push(userPoint)
+    item.push('color: #FF0000')
     item.push(100)
+    item.push('color: red')
     gData2.push(item)
 }
 
-console.log(gData2);
+//console.log(gData2);
 
 
 //3
 
 var gData3 = [];
 
-gData3.push(['날짜', '평균점수', '학생점수', '만점', ])
+gData3.push(['날짜', '평균점수', { role: 'style' }, '내 점수', { role: 'style' } , '만점', { role: 'style' } ])
 
 var dupArr =  [];
 
@@ -858,13 +841,13 @@ for (var i = 0; i < totalListExam3ForDate.length; i++) {
     dupArr.push(totalListExam3ForDate[i]["날짜"])
 }
 
-console.log(dupArr);
+
 
 var uniqueArr = dupArr.filter((element, index) => {
     return dupArr.indexOf(element) === index;
 });
 
-console.log(uniqueArr);
+
 
 for (var date of uniqueArr){
 
@@ -897,18 +880,21 @@ for (var date of uniqueArr){
    }
     item.push(date)
     item.push(itemValue/itemCount)
+    item.push('color: #57BB8A')
     item.push(userPoint)
+    item.push('color: #0F9D59')
     item.push(100)
+    item.push('color: red')
     gData3.push(item)
 }
 
-console.log(gData3);
+//console.log(gData3);
 
 //4
 
 var gData4 = [];
 
-gData4.push(['날짜', '평균점수', '학생점수', '만점', ])
+gData4.push(['날짜', '평균점수', { role: 'style' }, '내 점수', { role: 'style' } , '만점', { role: 'style' } ])
 
 var dupArr =  [];
 
@@ -916,13 +902,13 @@ for (var i = 0; i < totalListExam4ForDate.length; i++) {
     dupArr.push(totalListExam4ForDate[i]["날짜"])
 }
 
-console.log(dupArr);
+
 
 var uniqueArr = dupArr.filter((element, index) => {
     return dupArr.indexOf(element) === index;
 });
 
-console.log(uniqueArr);
+
 
 for (var date of uniqueArr){
 
@@ -955,8 +941,11 @@ for (var date of uniqueArr){
    }
     item.push(date)
     item.push(itemValue/itemCount)
+    item.push('color: #9FC5E8')
     item.push(userPoint)
+    item.push('color: #6D9EEB')
     item.push(100)
+    item.push('color: red')
     gData4.push(item)
 }
 
@@ -1057,13 +1046,13 @@ $('.classValue').html(USER["수업반"])
 
 drawChart(gData1, gData2, gData3, gData4);
 
-//  }catch(e){
+ }catch(e){
 
-// console.log("Error!")
-// location.reload(true);
+console.log("Error!")
+location.reload(true);
 
 
-//  }
+ }
 
 
 
@@ -1262,16 +1251,31 @@ table, th, td {
       //google.charts.setOnLoadCallback(drawChart);
       function drawChart(gData1, gData2, gData3, gData4) {
 
+        var data = google.visualization.arrayToDataTable(gData3);
+        var options = {
+          title : '어휘',
+          vAxis: {title: '점수'},
+          hAxis: {title: '기간'},
+          seriesType: 'bars',
+          series: {2: {type: 'line'}},
+          colors: ['57BB8A', '0F9D59', 'red']
+        };
+
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
+
+
         var data = google.visualization.arrayToDataTable(gData1);
         var options = {
           title : '듣기',
           vAxis: {title: '점수'},
           hAxis: {title: '기간'},
           seriesType: 'bars',
-          series: {2: {type: 'line'}}
+          series: {2: {type: 'line'}},
+          colors: ['FFD966', 'F1C233', 'red']
         };
 
-        var chart = new google.visualization.ComboChart(document.getElementById('chart_div1'));
+        var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
         chart.draw(data, options);
 
 
@@ -1281,20 +1285,8 @@ table, th, td {
           vAxis: {title: '점수'},
           hAxis: {title: '기간'},
           seriesType: 'bars',
-          series: {2: {type: 'line'}}
-        };
-
-        var chart = new google.visualization.ComboChart(document.getElementById('chart_div2'));
-        chart.draw(data, options);
-
-
-        var data = google.visualization.arrayToDataTable(gData3);
-        var options = {
-          title : '복습테스트',
-          vAxis: {title: '점수'},
-          hAxis: {title: '기간'},
-          seriesType: 'bars',
-          series: {2: {type: 'line'}}
+          series: {2: {type: 'line'}},
+          colors: ['F4CCCC', 'FF0000', 'red']
         };
 
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div3'));
@@ -1308,7 +1300,8 @@ table, th, td {
           vAxis: {title: '점수'},
           hAxis: {title: '기간'},
           seriesType: 'bars',
-          series: {2: {type: 'line'}}
+          series: {2: {type: 'line'}},
+          colors: ['9FC5E8', '6D9EEB', 'red']
         };
 
         var chart = new google.visualization.ComboChart(document.getElementById('chart_div4'));
