@@ -1325,6 +1325,29 @@ table, th, td {
       //google.charts.setOnLoadCallback(drawChart);
       function drawChart(gData1, gData2, gData3, gData4, gData5) {
 
+        if(gData1.length > 1){
+          $('#chart_div1').show()
+        }
+        if(gData2.length > 1){
+          $('#chart_div2').show()
+          
+        }
+        if(gData3.length > 1){
+          $('#chart_div3').show()
+          
+        }
+        if(gData4.length > 1){
+          $('#chart_div4').show()
+          
+        }
+        if(gData5.length > 1){
+          $('#chart_div5').show()
+          
+        }
+
+
+
+
         var data = google.visualization.arrayToDataTable(gData3);
         var options = {
           title : '어휘',
@@ -1425,11 +1448,11 @@ table, th, td {
 
     <div class="container">
 
-    <div class="item" id="chart_div1" style="width: 500px; height: 300px;"></div>
-    <div class="item" id="chart_div2" style="width: 500px; height: 300px;"></div>
-    <div class="item" id="chart_div3" style="width: 500px; height: 300px;"></div>
-    <div class="item" id="chart_div5" style="width: 500px; height: 300px;"></div>
-    <div class="item" id="chart_div4" style="width: 500px; height: 300px;"></div>
+    <div class="item" id="chart_div1" style="width: 500px; height: 300px; display: none;"></div>
+    <div class="item" id="chart_div2" style="width: 500px; height: 300px; display: none;"></div>
+    <div class="item" id="chart_div3" style="width: 500px; height: 300px; display: none;"></div>
+    <div class="item" id="chart_div5" style="width: 500px; height: 300px; display: none;"></div>
+    <div class="item" id="chart_div4" style="width: 500px; height: 300px; display: none;"></div>
     </div>
 
     </center>
