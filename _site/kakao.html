@@ -656,14 +656,14 @@ for (var i of totalListForMonth) {
     }
     totalListExam1ForDate.push(i)
   }
-  if(USER["복습테스트"] != ""){
+  if(USER["복습평가"] != ""){
 
-    if(i["복습테스트"].indexOf("/") != -1){
-      var firstValue = parseInt(i["복습테스트"].split("/")[0])
-      var secondValue = parseInt(i["복습테스트"].split("/")[1])
+    if(i["복습평가"].indexOf("/") != -1){
+      var firstValue = parseInt(i["복습평가"].split("/")[0])
+      var secondValue = parseInt(i["복습평가"].split("/")[1])
       var intValue = parseInt((firstValue/secondValue) * 100);
     }else{
-      var intValue = parseInt(i["복습테스트"])
+      var intValue = parseInt(i["복습평가"])
     }
     if(!isNaN(intValue))
     totalListExam2.push(intValue)
@@ -821,12 +821,12 @@ for (var date of uniqueArr){
 
       if(date == i["날짜"]){ 
 
-      if(i["복습테스트"].indexOf("/") != -1){
-        var firstValue = parseInt(i["복습테스트"].split("/")[0])
-        var secondValue = parseInt(i["복습테스트"].split("/")[1])
+      if(i["복습평가"].indexOf("/") != -1){
+        var firstValue = parseInt(i["복습평가"].split("/")[0])
+        var secondValue = parseInt(i["복습평가"].split("/")[1])
         var intValue = parseInt((firstValue/secondValue) * 100);
       }else{
-        var intValue = parseInt(i["복습테스트"])
+        var intValue = parseInt(i["복습평가"])
       }
 
       if(!isNaN(intValue))
@@ -1034,8 +1034,8 @@ for (var i of totalListForUser) {
     tbItem.find('.examValue1').html(tbItem.find('.examValue1').html() + i["듣기"] + "<br>")
 
 
-    if(i["복습테스트"] != '')
-    tbItem.find('.examValue2').html(tbItem.find('.examValue2').html() +  i["복습테스트"] + "<br>")
+    if(i["복습평가"] != '')
+    tbItem.find('.examValue2').html(tbItem.find('.examValue2').html() +  i["복습평가"] + "<br>")
 
 
     if(i["모의고사"] != '')
@@ -1241,7 +1241,7 @@ table, th, td {
             <td class="column6 style41 s style50" rowspan="1" style="text-align:center">과제</td>
             <td class="column9 style41 s style50" rowspan="1" style="text-align:center">어휘</td>
             <td class="column7 style41 s style50" rowspan="1" style="text-align:center">듣기</td>
-            <td class="column8 style41 s style50" rowspan="1" style="text-align:center">복습테스트</td>
+            <td class="column8 style41 s style50" rowspan="1" style="text-align:center">복습평가</td>
             <td class="column10 style41 s style50" rowspan="1" style="text-align:center">모의고사</td>
             <td class="column11 style40 s style50" rowspan="1" style="text-align:center">주간평가</td>
           </tr>
@@ -1304,7 +1304,7 @@ table, th, td {
 
         var data = google.visualization.arrayToDataTable(gData2);
         var options = {
-          title : '복습테스트',
+          title : '복습평가',
           vAxis: {title: '점수'},
           hAxis: {title: '기간'},
           seriesType: 'bars',
