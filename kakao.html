@@ -32,18 +32,18 @@ input[type=date], select {
 
 input[type=button] {
   width: 100%;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #FEE500;
+  color: black;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
 }
 
-input[type=submit]:hover {
-  background-color: #45a049;
-}
+input[type=button]:hover {
+  background-color: #FEBD00
     </style>
 
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
@@ -91,29 +91,34 @@ window.addEventListener("storage", (e) => {
 
 <div style="max-width:500px">
 
-<label for="progressValue">로그인:</label><br>  
-<a id="kakao-login-btn" href="javascript:loginWithKakao()">
-  <img src="https://k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" width="222"
-    alt="카카오 로그인 버튼" />
+<label for="progressValue">Login Kakao:</label><br>  
+
+    <input type="button" id="kakao-login-btn" onclick="loginWithKakao()" value="Login Kakao">
+
 </a>
 <br>
-  <label for="progressValue">이미지 링크:</label><br>    
-  <textarea id="kakaoLink" name="progressValue" rows="1" >https://dayyoung.github.io/mogi.jpg</textarea>
+  <label for="progressValue">Image Link:</label><br>    
+  <textarea id="kakaoImage" name="progressValue" rows="1" >https://dayyoung.github.io/mogi.jpg</textarea>
 
-  <label for="progressValue">제목:</label><br>    
-  <textarea id="kakaoTitle" name="progressValue" rows="1" >제목 입니다.</textarea>
+  <label for="progressValue">Subject:</label><br>    
+  <textarea id="kakaoTitle" name="progressValue" rows="1" >Subject</textarea>
 
-  <label for="subjectValue">내용:</label><br>    
-  <textarea id="kakaoContent" name="subjectValue" rows="5" >내용 입니다.</textarea>
+  <label for="subjectValue">Comment:</label><br>    
+  <textarea id="kakaoContent" name="subjectValue" rows="5" >Comment</textarea>
 
-  <label for="progressValue">바로가기 링크:</label><br>    
+  <label for="progressValue">Hyper Link:</label><br>    
   <textarea id="kakaoLink" name="progressValue" rows="1" >https://google.com</textarea>
 
-  <label for="subjectValue">보내는 사람(콤마 구분):</label><br>    
-  <textarea id="kakaoList" name="subjectValue" rows="5" >유대영</textarea>
+  <label for="subjectValue">Send To (Comma needs to separate):</label><br>    
+  <textarea id="kakaoList" name="subjectValue" rows="5" ></textarea>
 
-    <input type="button" id="submitButton" value="전송">
+    <input type="button" id="submitButton" value="Send">
 </div>
+
+<a id="kakaotalk-sharing-btn" style="display: none;">
+  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+    alt="카카오톡 공유 보내기 버튼" />
+</a>
 
 <script type="text/javascript">
   
@@ -131,6 +136,7 @@ const submitButton = document.getElementById('submitButton');
 
 submitButton.addEventListener('click', (event) => {
 
+  var img = document.getElementById('kakaoImage').value;
   var title = document.getElementById('kakaoTitle').value;
   var content = document.getElementById('kakaoContent').value;
   var link = document.getElementById('kakaoLink').value;
@@ -138,13 +144,17 @@ submitButton.addEventListener('click', (event) => {
   var senderArray = sender.split(',');
   var senderString = JSON.stringify(senderArray);
   
-  setKakao(title,content,link)
+  setKakao(title,content,link,img)
 
-  localStorage.setItem("kakaoTitle",title)
-  localStorage.setItem("kakaoContent",content)
+  let loginButton =  document.querySelector("#kakaotalk-sharing-btn");
+  loginButton.click()
+
   localStorage.setItem("kakaoList",senderString)
-  localStorage.setItem("kakaoLink",link)
+
 });
+
+
+
 
 </script>
 
@@ -156,15 +166,11 @@ submitButton.addEventListener('click', (event) => {
 
  <br>
 
-<a id="kakaotalk-sharing-btn" style="display: none;">
-  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-    alt="카카오톡 공유 보내기 버튼" />
-</a>
 
 <script>
 
 
-function setKakao(title,message,link) {
+function setKakao(title,message,link,img) {
 
   console.log(title)
   console.log(message)
@@ -178,7 +184,7 @@ function setKakao(title,message,link) {
     content: {
       title: title,
       description: message,
-      //imageUrl:
+      imageUrl: img,
        // 'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
       link: {
         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
