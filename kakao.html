@@ -146,10 +146,14 @@ submitButton.addEventListener('click', (event) => {
   
   setKakao(title,content,link,img)
 
-  let loginButton =  document.querySelector("#kakaotalk-sharing-btn");
-  loginButton.click()
-
   localStorage.setItem("kakaoList",senderString)
+
+  setTimeout(function(){
+      if(localStorage.getItem("kakaoList") != "undefined"){
+        let loginButton =  document.querySelector("#kakaotalk-sharing-btn");
+        loginButton.click()
+      }
+  }, 2000);
 
 });
 
