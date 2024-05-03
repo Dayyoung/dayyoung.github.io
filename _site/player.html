@@ -1,0 +1,258 @@
+<html>
+  <head>
+    <title>Sandbox Test</title>
+    <meta charset="UTF-8" />
+    <style>
+      iframe {
+        display: block;
+        border: none;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      body{
+        margin: 0;
+        padding: 0;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <!-- <iframe
+      src="https://docs.google.com/presentation/d/e/2PACX-1vQtatC0SnnOUvqKU95stLI0NrgAq0WwHlZNbqYKdROg8xIacB1RU1IAhZ_oOuKktwb04rTxY2JWIN7h/embed?start=true&loop=true&delayms=3000"
+      frameborder="0"
+      width="960"
+      height="569"
+      allowfullscreen="true"
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+    ></iframe> -->
+
+    <!-- <iframe src="https://www.youtube.com/embed/Ek_CMWVd_0I?si=U6uvh1Nyd2nCsjk2&autoplay=1&mute=1&controls=1&loop=1&playlist=4kh1FHjKii8" id="player" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+    <div id="player"></div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous">
+    </script>
+    <script>
+
+window.addEventListener("load", () => {
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+  }
+});
+
+function GsheetToJSON(requestUrl) {
+
+  var tableList; 
+  var tableColumnList = ['timeStamp','url','time','mill'];
+
+  $.ajax({
+          type: "get",            
+          url: requestUrl,         
+          async: false,
+          cache: false,              
+          data: "",                
+          success: function(res){   
+
+          var table = $(res).find('td')
+          
+          tableList = [];
+
+          var tableItem;
+          var tableData;
+          var startIndex;
+
+          table.each(function(i,item){
+          
+
+
+            if($(item).has("div").length > 0){
+              tableData = $(item).find('div').html()
+            }else{
+              tableData = $(item).html();
+            }
+
+            if(tableData.indexOf('2024') != -1){
+              tableList.push(tableItem);
+              tableItem = {};
+              startIndex = 0;
+            }
+
+            if(tableItem){
+              tableItem[tableColumnList[startIndex]] = tableData;
+              startIndex = startIndex + 1;
+            }
+
+          });
+
+          if(tableItem){
+            tableList.push(tableItem);
+          }
+
+      }
+    });
+
+  if(tableList && tableList.length>0)
+  tableList.shift();
+
+  return tableList;
+}
+
+
+const tag = document.createElement('script')
+tag.src = 'https://www.youtube.com/iframe_api'
+const firstScriptTag = document.getElementsByTagName('script')[0]
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+
+let player;
+
+const onApiChange = _ => {   
+  if (typeof player.setOption === 'function') {
+    player.setOption('captions', 'track', {languageCode: 'ko'})
+  }  
+}
+
+const onReady = _ => {   
+  player.playVideo()
+}
+
+function onYouTubePlayerAPIReady() {
+  // player = new YT.Player('player', {
+  //   height: '360',
+  //   width: '640',
+  //   videoId: '4kh1FHjKii8',
+  //   playerVars: {
+  //     cc_lang_pref: 'ko',
+  //     cc_load_policy: 1,
+  //     autoplay : 1,
+  //     mute : 1
+  //   },
+  //   events: {
+  //     onReady,
+  //     onApiChange
+  //   }
+  // })
+}
+
+function changeVideo(key){
+
+  player = new YT.Player('player', {
+    height: '360',
+    width: '640',
+    videoId: key,
+    playerVars: {
+      cc_lang_pref: 'ko',
+      cc_load_policy: 1,
+      autoplay : 1,
+      mute : 1,
+      loop : 1
+    },
+    events: {
+      onReady,
+      onApiChange
+    }
+  })
+
+}
+
+
+
+$(function(){
+
+if (window.navigator.onLine) {
+
+
+var playlist = GsheetToJSON('https://docs.google.com/spreadsheets/d/1oG1c2s6uGC3zXF3SQDY6QvAM2CUmLEe6qTh_GSYM_K4/edit?usp=sharing')
+
+console.log(playlist)
+
+var totalTimeMill = 0;
+
+  for(i in playlist){
+
+  totalTimeMill += parseInt(playlist[i].mill);
+
+  if(i==0){
+
+        setTimeout(function(){
+          // var playUrl = play.url+ '&autoplay=1&mute=1&controls=1&loop=1&cc_lang_pref=ko&cc_load_policy=1'
+          //$("player").attr("src", playUrl);
+          //alert(playlist[0].url)
+          changeVideo(playlist[0].url)
+         
+        },1000)
+          
+    
+  }else{
+        setTimeout(function(){
+          // var playUrl = play.url+ '&autoplay=1&mute=1&controls=1&loop=1&cc_lang_pref=ko&cc_load_policy=1'
+          //$("player").attr("src", playUrl);
+          console.log(playlist[i].url)
+          player.loadVideoById(playlist[i].url)
+        },playlist[0].mill)
+    }
+  }
+
+  console.log(totalTimeMill)
+
+        if(totalTimeMill !=0){
+
+        setTimeout(function(){
+              window.location.reload()
+
+        },totalTimeMill)
+        }
+
+
+}else{
+
+
+}
+
+
+})
+
+
+
+    setInterval(function() {
+      if (!navigator.onLine){
+          location.href = "file:///Users/mogi/diabloapp/localhost.html";
+      }
+    }, 1000);
+         
+
+
+
+
+
+
+      // setTimeout(
+      //   () => {
+      //     //clearInterval(timerId);
+      //     //alert("정지");
+      //     var iframeSrc =
+      //       "https://docs.google.com/presentation/d/e/2PACX-1vQtatC0SnnOUvqKU95stLI0NrgAq0WwHlZNbqYKdROg8xIacB1RU1IAhZ_oOuKktwb04rTxY2JWIN7h/embed?start=true&loop=true&delayms=3000";
+      //     $("iframe").attr("src", iframeSrc);
+      //     //location.href = "https://32dmg2-1234.csb.app/";
+
+      //     setTimeout(
+      //       () => {
+            
+      //         window.location.reload()
+
+      //       },
+      //       //5000
+      //       1000 * 60 * 1,
+      //     );
+      //   },
+      //   //5000
+      //   1000 * 60 * 1,
+      // );
+    </script>
+  </body>
+</html>

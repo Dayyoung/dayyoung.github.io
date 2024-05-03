@@ -1,0 +1,27 @@
+body,table,td {font-size:9pt;color:#393326}
+
+	.base	{background-color:#C0AA7F}
+	.boxCl	{background-color:#D0BF9F}
+	.boxLn	{background-color:#9A8866}
+	.check  {border:0;background-color:#C0AA7F;}
+
+
+form,input,password,select,option,{font-size:9pt;color:#222222;font-family:"±¼¸²","Georgia","Times New Roman","serif";}
+  .flat {background-color:#D0BF9F; border-bottom:#9A8866 1px solid; border-left:#9A8866 1px solid; border-right:#9A8866 1px solid; border-top:#9A8866 1px solid;}
+  .flat2{background-color:#DED3BC; border-bottom:#9A8866 1px solid; border-left:#9A8866 1px solid; border-right:#9A8866 1px solid; border-top:#9A8866 1px solid;}
+
+
+textarea {font-size:9pt;color:#222222;font-family:"±¼¸²","Georgia","Times New Roman","serif";}
+  .flat {background-color:#D0BF9F; border-bottom:#9A8866 1px solid; border-left:#9A8866 1px solid; border-right:#9A8866 1px solid; border-top:#9A8866 1px solid;
+			scrollbar-3dlight-color:#6B6B6B;
+			scrollbar-arrow-color:#ffffff;
+			scrollbar-base-color:#BCB9B8;
+			scrollbar-darkshadow-color:#FFFFFF;
+			scrollbar-face-color:#BCB9B8;
+			scrollbar-highlight-color:#FFFFF;
+			scrollbar-shadow-color:#6B6B6B
+		}
+
+a:link		{text-decoration:none;color:#101010}
+a:visited	{text-decoration:none;color:#101010}
+a:hover		{text-decoration:underline;color:#020FBD}

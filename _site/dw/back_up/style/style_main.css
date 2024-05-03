@@ -1,0 +1,12 @@
+	a:hover {
+		text_decoration : underline;
+		color : #8C53E0;
+		font-size : 9pt;
+	}
+
+	body{
+		font-family: "µ¸¿ò";
+		font-size :9pt;
+		color : #505050;
+	}
+.compa {  font-family: "µ¸¿ò"; font-size: 12px; line-height: 22px; color: #505050}

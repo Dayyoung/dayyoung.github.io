@@ -1,0 +1,8 @@
+@referers = ('abc.net');		# 도메인
+@recipients = ('webmaster@abc.net');	# 수신자 이메일
+
+# 이 파일에 formmail2.pl이 동작할때  참조하는 허용 도메인과 수신메일도메인을 지정합니다.
+
+# 도메인과 수신자 이메일은 여러개 지정할 수 있습니다.
+# 예) @referers = ('abc.net', 'abckorea.net');
+# 예) @recipients = ('webmaster@abc.net', 'myid@hanmail.net');

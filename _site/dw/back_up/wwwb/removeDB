@@ -1,0 +1,22 @@
+#!/bin/sh
+echo ---------------------------------
+echo Database name : $1
+echo Database filename : data/$1.gdbm
+echo Database directory : data/$1
+echo ---------------------------------
+echo
+
+if [ -f data/$1.gdbm ]; then
+        rm data/$1.gdbm
+        echo .. Deleted data/$1.gdbm
+else
+        echo There is no file named $1.gdbm
+fi
+
+if [ -d data/$1 ]; then
+        rm -rf data/$1
+        echo .. Deleted data/$1
+else
+        echo There is no directory named $1
+fi
+

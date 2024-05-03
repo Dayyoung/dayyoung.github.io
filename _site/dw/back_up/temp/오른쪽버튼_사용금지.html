@@ -1,0 +1,28 @@
+<html>
+<head>
+<script language="JavaScript">
+<!--
+function Right(e) {
+
+    if (navigator.appName == 'Netscape' && (e.which == 3 || e.which == 2))
+        return false;
+    else if (navigator.appName == 'Microsoft Internet Explorer' && (event.button == 2 || event.button == 3)) {
+        alert("오른쪽 마우스는 안되죠.");
+        return false;
+    }
+    return true;
+}
+
+document.onmousedown=Right;
+
+if (document.layers) {
+    window.captureEvents(Event.MOUSEDOWN);
+    window.onmousedown=Right;
+}
+//-->
+</script>
+</head>
+<body>
+<p align=center>오른쪽 마우스 한번 눌러봐요....</p>
+</body>
+</html>

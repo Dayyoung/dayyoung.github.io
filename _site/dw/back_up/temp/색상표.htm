@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<html>
+<head>
+<title>script161</title>
+<meta name="generator" content="Namo WebEditor v3.0">
+</head>
+
+<body bgcolor="white" text="black" link="blue" vlink="purple" alink="red">
+
+<p align="center"><font face="굴림" size="2">간단하게 색상표를 출력해주네요..<hr
+ width="600" noshade color="blue"></font></p>
+<script language="JavaScript">
+clr=new Array('00','20','40','60','80','a0','c0','ff');
+for (i=0;i<8;i++) { 
+document.write("<center><table border=1 cellpadding=8>");
+for (j=0;j<8;j++) {
+document.write("<tr>");
+for (k=0;k<8;k++) {
+document.write('<td bgcolor="#'+clr[i]+clr[j]+clr[k]+'">');
+document.write('<tt><font color="#'+clr[7-i]+clr[7-j]+clr[7-k]+'"> ');
+document.write(clr[i]+clr[j]+clr[k]+' </font></tt></td>'); }
+document.write("</tr>"); }
+document.write("</table></center>"); }
+// end -->
+</script>
+
+</body>
+
+</html>
