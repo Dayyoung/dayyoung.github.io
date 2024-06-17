@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="generator" content="Hugo 0.59.1" />
+<title>Exception(익셉션) | 짜몽 개발 연구소</title>
+
+
+<link rel="canonical" href="http://jjamong.github.io">
+<meta name="title" content="짜몽 개발 연구소">
+<meta name="keywords" content="웹, 서버, 프론트엔드, 백엔드, DB 등 IT 개발 블로그/Docs">
+<meta name="description" content="Exception(익셉션) 가이드">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<link rel="apple-touch-icon" href="/favicons/apple-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-icon-36x36" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-icon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-icon-192x192.png" sizes="192x192">
+
+<link type="text/css" rel="stylesheet" href="/css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/css/tocbot.css" />
+<link type="text/css" rel="stylesheet" href="/css/scrollbar.css" />
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://jjamong.github.io/styles.5a77e4490684e8be54980d1a17667ec16f3a490202e7759fda9f3c83985943bb.css" integrity="sha256-WnfkSQaE6L5UmA0aF2Z&#43;wW86SQIC53Wf2p88g5hZQ7s=">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+  crossorigin="anonymous">
+
+
+<link type="text/css" rel="stylesheet" href="/css/monokai-sublime.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149836281-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149836281-1');
+</script>
+
+<script data-ad-client="ca-pub-3588286886332636" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+</head>
+
+<body class="has-navbar-fixed-top">
+  <section class="gen-wrapper">
+    <header>
+  <nav class="navbar is-fixed-top is-transparent">
+    <div class="container is-fluid">
+      <div class="navbar-brand">
+        <div class="logo-area">
+          <a class="navbar-item logo" href="/" >
+          <a href="/" ><h1 class="logo-text">짜몽 개발 연구소</h1></a>
+        </div>
+        <span class="navbar-burger burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          
+          <span class="navbar-item">
+            <a href="/" >PORTFOLIO</a>
+          </span>
+          
+          <span class="navbar-item">
+            <a href="/docs" class="is-active">DOCS</a>
+          </span>
+          
+          
+          
+          
+          
+        </div>
+      </div>
+    </div>
+  </nav>
+
+</header>
+    
+    
+
+
+
+<div class="container top-menu">
+  <div class="docs-top-menu tabs">
+    <ul>
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">Front</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="React"><a href="https://jjamong.github.io/docs/front/react/">React</a></li>
+            
+            <li class="Nodejs"><a href="https://jjamong.github.io/docs/front/nodejs/">Nodejs</a></li>
+            
+            <li class="JavaScript"><a href="https://jjamong.github.io/docs/front/javascript/">JavaScript</a></li>
+            
+            <li class="HTML_CSS"><a href="https://jjamong.github.io/docs/front/htmlcss/">HTML_CSS</a></li>
+            
+          </ul>
+        </div>
+      </li>
+      
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">Back</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="Spring"><a href="https://jjamong.github.io/docs/back/spring/">Spring</a></li>
+            
+            <li class="Java"><a href="https://jjamong.github.io/docs/back/java/">Java</a></li>
+            
+            <li class="Back"><a href="https://jjamong.github.io/docs/back/back/">Back</a></li>
+            
+          </ul>
+        </div>
+      </li>
+
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">DB</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="Mssql"><a href="https://jjamong.github.io/docs/db/mssql/">Mssql</a></li>
+            
+            <li class="Mysql"><a href="https://jjamong.github.io/docs/db/mysql/">Mysql</a></li>
+            
+          </ul>
+        </div>
+      </li>
+
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">APP</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="ReactNative"><a href="https://jjamong.github.io/docs/app/reactnative/">ReactNative</a></li>
+            
+          </ul>
+        </div>
+      </li>
+
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">Infra</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="AWS"><a href="https://jjamong.github.io/docs/infra/aws/">AWS</a></li>
+            
+            <li class="deploy"><a href="https://jjamong.github.io/docs/infra/deploy/">deploy</a></li>
+            
+            <li class="OS"><a href="https://jjamong.github.io/docs/infra/os/">OS</a></li>
+            
+          </ul>
+        </div>
+      </li>
+
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">ETC</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="Term"><a href="https://jjamong.github.io/docs/etc/term/">Term</a></li>
+            
+            <li class="Hugo"><a href="https://jjamong.github.io/docs/etc/hugo/">Hugo</a></li>
+            
+            <li class="GIT"><a href="https://jjamong.github.io/docs/etc/git/">GIT</a></li>
+            
+            <li class="DevOps"><a href="https://jjamong.github.io/docs/etc/devops/">DevOps</a></li>
+            
+            <li class="ETC"><a href="https://jjamong.github.io/docs/etc/etc/">ETC</a></li>
+            
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+    <div class="container is-fluid">
+      <div class="columns verticals">
+
+        
+
+        
+        
+          
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+<div class="sidebar-container column is-one-fifth">
+  <p class="sidebar-title is-hidden-tablet">Menu</p>
+  <div class="switch is-hidden-tablet">
+    <span class="slider round"></span>
+  </div>
+  <div class="custom-side">
+    <div class="sidebar-main sidebar">
+      <div class="sidebar-inner">
+        <p class="sidebar-title dis-hidden-mobile">
+          Spring
+        </p>
+        <div class="slider-menu-wrap">
+          <ul class="sidebar-menu nav scrollbar-outer">
+            
+            <li >
+              
+              <a href="#" class="Spring(스프링)"><i></i><strong>Spring(스프링)</strong></a>
+              <ul>
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/spring/pattern/">pattern(패턴)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/spring/restapi/">REST API</a>
+                  </li>
+                  
+                
+              </ul>
+              
+            </li>
+            
+            <li >
+              
+              <a href="#" class="Spring Boot(부트)"><i></i><strong>Spring Boot(부트)</strong></a>
+              <ul>
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/boot/start/">Spring Boot 시작하기</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/boot/jsp/">JSP(Java Server Page)</a>
+                  </li>
+                  
+                
+                  
+                  <li class="subsections">
+                    <a href="#">WebMvcConfigurer</a>
+                    <ul>
+                      
+                        
+                        <li >
+                          <a href="/docs/back/spring/boot/webmvcconfigurer/cors/">CORS(Cross-Origin Resource Sharing)</a>
+                        </li>
+                        
+                      
+                        
+                        <li >
+                          <a href="/docs/back/spring/boot/webmvcconfigurer/xss/">XSS(Cross Site Scripting)</a>
+                        </li>
+                        
+                      
+                    </ul>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/boot/aop/">AOP(Aspect Orented Programming)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/boot/lombok/">lombok(롬복)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/boot/cache/">Cache(캐시)</a>
+                  </li>
+                  
+                
+                  
+                  <li class="subsections">
+                    <a href="#">Spring Batch(배치)</a>
+                    <ul>
+                      
+                        
+                        <li >
+                          <a href="/docs/back/spring/boot/batch/batch/">batch</a>
+                        </li>
+                        
+                      
+                        
+                        <li >
+                          <a href="/docs/back/spring/boot/batch/cron/">cron</a>
+                        </li>
+                        
+                      
+                    </ul>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/boot/log/">log(로그)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="active"  class="subsections">
+                    <a href="/docs/back/spring/boot/exception/">Exception(익셉션)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/boot/swagger/">swagger(스웨거)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/boot/gradle/">Gradle</a>
+                  </li>
+                  
+                
+              </ul>
+              
+            </li>
+            
+            <li >
+              
+              <a href="#" class="Security"><i></i><strong>Security</strong></a>
+              <ul>
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/security/security/">Security(시큐리티)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/security/login/">로그인</a>
+                  </li>
+                  
+                
+              </ul>
+              
+            </li>
+            
+            <li >
+              
+              <a href="#" class="ORM(Object Relational Mapping)"><i></i><strong>ORM(Object Relational Mapping)</strong></a>
+              <ul>
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/orm/mybatis/">mybtis(마이바티스)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/back/spring/orm/jpa/">JPA(Java Persistence API)</a>
+                  </li>
+                  
+                
+              </ul>
+              
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+        
+
+        <div class="content-container column is-three-fifths-desktop is-two-thirds-tablet">
+          <div class="content-main content">
+            
+            <h1 class="title">Exception(익셉션)</h1>
+
+            <div class="content-ads">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              
+              <ins class="adsbygoogle"
+                  style="display:block"
+                  data-ad-client="ca-pub-3588286886332636"
+                  data-ad-slot="4509829062"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"></ins>
+              <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+            
+            
+
+
+<p>@ControllerAdvice는 전역으로 exception handling을 할 수 있습니다.</p>
+
+<h2 id="controlleradvice-시작하기">@ControllerAdvice 시작하기</h2>
+
+<h3 id="globalexceptionhandler">GlobalExceptionHandler</h3>
+
+<pre><code>package com.jjamong.hormone.common.util.handler;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.jjamong.hormone.common.response.ResponseError;
+import com.jjamong.hormone.common.util.CustomException;
+
+import lombok.extern.slf4j.Slf4j;
+
+@RestControllerAdvice
+@Slf4j
+public class GlobalExceptionHandler {
+
+    @ExceptionHandler(CustomException.class)
+    protected ResponseEntity&lt;ResponseError&gt; handleCustomException(final CustomException e) {
+        return ResponseEntity
+                .status(e.getErrorCode().getStatus().value())
+                .body(new ResponseError(e.getErrorCode()));
+    }
+
+}
+</code></pre>
+
+<h3 id="responseerror">ResponseError</h3>
+
+<pre><code>package com.jjamong.hormone.common.response;
+
+import org.springframework.http.ResponseEntity;
+
+import com.jjamong.hormone.common.util.CustomException;
+import com.jjamong.hormone.common.vo.ErrorCode;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@Builder
+@RequiredArgsConstructor
+public class ResponseError {
+
+    private final String error;
+    private final int code;
+    private final String msg;
+
+    public ResponseError(ErrorCode errorCode) {
+        this.error = errorCode.getError();
+        this.code = errorCode.getCode();
+        this.msg = errorCode.getMsg();
+    }
+
+    public static ResponseEntity&lt;ResponseError&gt; error(CustomException e) {
+        return ResponseEntity
+                .status(e.getErrorCode().getStatus())
+                .body(ResponseError.builder()
+                        .code(e.getErrorCode().getCode())
+                        .msg(e.getErrorCode().getMsg())
+                        .build());
+    }
+}
+</code></pre>
+
+<h3 id="errorcode">ErrorCode</h3>
+
+<pre><code>package com.jjamong.hormone.common.vo;
+
+import org.springframework.http.HttpStatus;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public enum ErrorCode {
+    BAD_REQUEST(HttpStatus.OK, &quot;API오류&quot;, 101, &quot;잘못된 요청입니다.&quot;),
+    API_NOT_FOUND(HttpStatus.OK, &quot;API오류&quot;, 102, &quot;API 정보를 찾을 수 없습니다.&quot;),
+    METHOD_NOT_ALLOWED(HttpStatus.OK, &quot;API오류&quot;, 103, &quot;허용되지 않은 메서드입니다.&quot;),
+    INTERNAL_SERVER_ERROR(HttpStatus.OK, &quot;API오류&quot;, 104, &quot;내부 서버 오류입니다.&quot;),
+    INPUT_ERROR(HttpStatus.OK, &quot;API오류&quot;, 105, &quot;입력 필드를 다시 확인해주세요.&quot;),
+    DUPLICATION_ERROR(HttpStatus.OK, &quot;API오류&quot;, 106, &quot;중복 필드 존재&quot;),
+    DATABASE_ERROR(HttpStatus.OK, &quot;API오류&quot;, 107, &quot;데이터베이스 오류&quot;),
+    AUTH_ERROR(HttpStatus.OK, &quot;API오류&quot;, 108, &quot;권한이 없는 사용자입니다.&quot;),
+    API_NOT_ALLOWED(HttpStatus.OK, &quot;API오류&quot;, 109, &quot;접근할 수 없습니다.&quot;),
+
+    // TOKEN ERROR
+    INVALID_TOKEN(HttpStatus.OK, &quot;토큰오류&quot;, 201, &quot;유효하지 않은 토큰입니다.&quot;),
+    EXPRIATION_TOKEN(HttpStatus.OK, &quot;토큰오류&quot;, 202, &quot;인증 정보가 만료되었습니다.&quot;),
+    INVALID_REFRESH_TOKEN(HttpStatus.OK, &quot;토큰오류&quot;, 203, &quot;REFRESH TOKEN이 유효하지 않습니다.&quot;),
+    INVALID_USER_TOKEN(HttpStatus.OK, &quot;토큰오류&quot;, 204, &quot;토큰의 유저 정보가 일치하지 않습니다.&quot;),
+    FORBIDDEN_ERROR(HttpStatus.FORBIDDEN, &quot;토큰오류&quot;, 403, &quot;권한접근 에러&quot;),
+
+    // AUTH ERROR
+    IDANDPW_NOT_FOUND(HttpStatus.OK, &quot;회원오류&quot;, 301, &quot;아이디나 또는 비밀번호를 다시 확인해주세요.&quot;),
+    USER_NOT_FOUND(HttpStatus.OK, &quot;회원오류&quot;, 302, &quot;일치하는 회원이 없습니다.&quot;),
+    NO_INPUT_PWIDERROR(HttpStatus.OK, &quot;회원오류&quot;, 304, &quot;아이디 또는 비밀번호를 입력해주세요.&quot;),
+    UNAPPROVED_LOGIN(HttpStatus.OK, &quot;회원오류&quot;, 311, &quot;관리자 승인을 기다리고 있는 아이디입니다.&quot;),
+
+    // IMAGE ERROR
+    IMAGE_SERVER_ERROR(HttpStatus.OK, &quot;이미지오류&quot;, 401, &quot;서버 오류 : 이미지가 생성되지 않았습니다.&quot;),
+    IMAGE_DELETE_ERROR(HttpStatus.OK, &quot;이미지오류&quot;, 402, &quot;서버 오류 : 이미지가 삭제되지 않았습니다.&quot;),
+    IMAGE_ERROR(HttpStatus.OK, &quot;이미지오류&quot;, 403, &quot;이미지 형식이 맞지 않습니다.&quot;),
+    IMAGE_INPUT_ERROR(HttpStatus.OK, &quot;이미지오류&quot;, 405, &quot;이미지 입력을 다시 확인해주세요.&quot;),
+    // Order Error
+    OVER_ORDER(HttpStatus.OK, &quot;주문오류&quot;, 501, &quot;소모품 신청이 불가능합니다.&quot;),
+
+    // CMS ERROR
+    INPUT_NURSE_ERROR(HttpStatus.OK, &quot;CMS오류&quot;, 601, &quot;간호사 정보를 등록해주세요.&quot;),
+
+    // FASSTO ERROR
+    FASSTO_SYSTEM_ERROR(HttpStatus.OK, &quot;FASSTO오류&quot;, 801, &quot;FASSTO TOKEN 오류&quot;),
+    FASSTO_BAD_ERROR(HttpStatus.OK, &quot;FASSTO오류&quot;, 802, &quot;Bad Request&quot;),
+    FASSTO_AUTH_ERROR(HttpStatus.OK, &quot;FASSTO오류&quot;, 803, &quot;Unauthorized&quot;),
+    FASSTO_UNKNOW_ERROR(HttpStatus.OK, &quot;FASSTO오류&quot;, 804, &quot;잘못된 경로&quot;),
+    FASSTO_DENY_ERROR(HttpStatus.OK, &quot;FASSTO오류&quot;, 805, &quot;접근 거부&quot;),
+    FASSTO_SERVER_ERROR(HttpStatus.OK, &quot;FASSTO오류&quot;, 806, &quot;서버 에러&quot;),
+    FASSTO_INPUT_ERROR(HttpStatus.OK, &quot;FASSTO오류&quot;, 807, &quot;단위 수량을 0개 이상 입력하세요.&quot;),
+    FASSTO_PRODUCT_ERROR(HttpStatus.OK, &quot;FASSTO오류&quot;, 808, &quot;해당 상품의 재고가 부족합니다. 관리자에게 문의해주세요.&quot;);
+
+    private final HttpStatus status;
+    private final String error;
+    private final int code;
+    private final String msg;
+
+}
+</code></pre>
+
+<h3 id="controller">controller</h3>
+
+<pre><code>package com.jjamong.hormone.user.controller;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jjamong.hormone.common.response.ResponseCommon;
+import com.jjamong.hormone.common.util.CustomException;
+import com.jjamong.hormone.common.vo.ErrorCode;
+import com.jjamong.hormone.user.request.RequestLogin;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(value = &quot;/api/user&quot;)
+public class UserController {
+
+        @RequestMapping(value = &quot;/login&quot;, method = { RequestMethod.POST })
+        public ResponseEntity&lt;ResponseCommon&lt;Object&gt;&gt; login(@RequestBody RequestLogin requestLogin,
+                        HttpServletResponse rep) {
+
+                if (true) {
+                        throw new CustomException(ErrorCode.USER_NOT_FOUND);
+                }
+
+                return null;
+        }
+
+}
+</code></pre>
+
+
+          </div>
+          
+        </div>
+        
+<div class="toc-container column is-one-fifth is-hidden-touch">
+  <div class="toc-main">
+    <p class="subtitle is-6">
+      Contents
+    </p>
+    <div class="scrollbar-outer">
+      <nav class="toc-menu"></nav>
+    </div>
+    
+    
+    
+  </div>
+</div>
+
+      </div>
+    </div>
+    
+<script src="/js/burger-menu.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+
+<script src="/js/common.js"></script>
+
+<script src="/js/anchor-4.2.0.min.js"></script>
+<script src="/js/anchors.js"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+<script src="/js/jquery.scrollbar.min.js"></script>
+<script src="/js/sticky-sidebar.min.js"></script>
+<script src="/js/contents-nav.js"></script>
+
+<script src="/js/tocbot.min.js"></script>
+<script src="/js/toc.js"></script>
+
+
+<script>
+  $(".sidebar-menu").find("li.active").parents('li').toggleClass("open");
+</script>
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    <div class="btn-top"></div>
+<footer class="footer">
+  
+</footer>
+    
+  </section>
+</body>
+
+</html>

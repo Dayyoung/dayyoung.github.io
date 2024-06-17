@@ -1,6 +1,0 @@
-<?php
-$footer = "
-</body>
-</html>
-";
-?>

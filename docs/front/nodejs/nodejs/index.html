@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="generator" content="Hugo 0.59.1" />
+<title>Node.js(노드JS) | 짜몽 개발 연구소</title>
+
+
+<link rel="canonical" href="http://jjamong.github.io">
+<meta name="title" content="짜몽 개발 연구소">
+<meta name="keywords" content="웹, 서버, 프론트엔드, 백엔드, DB 등 IT 개발 블로그/Docs">
+<meta name="description" content="NodeJS 환경설정(.env) 가이드">
+
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico">
+<link rel="apple-touch-icon" href="/favicons/apple-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-icon-36x36" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-icon-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-icon-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-icon-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-icon-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-icon-192x192.png" sizes="192x192">
+
+<link type="text/css" rel="stylesheet" href="/css/fonts.css" />
+<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+
+
+
+
+
+
+
+
+
+<link type="text/css" rel="stylesheet" href="/css/tocbot.css" />
+<link type="text/css" rel="stylesheet" href="/css/scrollbar.css" />
+
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="https://jjamong.github.io/styles.5a77e4490684e8be54980d1a17667ec16f3a490202e7759fda9f3c83985943bb.css" integrity="sha256-WnfkSQaE6L5UmA0aF2Z&#43;wW86SQIC53Wf2p88g5hZQ7s=">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+  crossorigin="anonymous">
+
+
+<link type="text/css" rel="stylesheet" href="/css/monokai-sublime.css" />
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-149836281-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-149836281-1');
+</script>
+
+<script data-ad-client="ca-pub-3588286886332636" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+</head>
+
+<body class="has-navbar-fixed-top">
+  <section class="gen-wrapper">
+    <header>
+  <nav class="navbar is-fixed-top is-transparent">
+    <div class="container is-fluid">
+      <div class="navbar-brand">
+        <div class="logo-area">
+          <a class="navbar-item logo" href="/" >
+          <a href="/" ><h1 class="logo-text">짜몽 개발 연구소</h1></a>
+        </div>
+        <span class="navbar-burger burger" data-target="navbarMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+      </div>
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-end">
+          
+          <span class="navbar-item">
+            <a href="/" >PORTFOLIO</a>
+          </span>
+          
+          <span class="navbar-item">
+            <a href="/docs" class="is-active">DOCS</a>
+          </span>
+          
+          
+          
+          
+          
+        </div>
+      </div>
+    </div>
+  </nav>
+
+</header>
+    
+    
+
+
+
+<div class="container top-menu">
+  <div class="docs-top-menu tabs">
+    <ul>
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">Front</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="React"><a href="https://jjamong.github.io/docs/front/react/">React</a></li>
+            
+            <li class="Nodejs"><a href="https://jjamong.github.io/docs/front/nodejs/">Nodejs</a></li>
+            
+            <li class="JavaScript"><a href="https://jjamong.github.io/docs/front/javascript/">JavaScript</a></li>
+            
+            <li class="HTML_CSS"><a href="https://jjamong.github.io/docs/front/htmlcss/">HTML_CSS</a></li>
+            
+          </ul>
+        </div>
+      </li>
+      
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">Back</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="Spring"><a href="https://jjamong.github.io/docs/back/spring/">Spring</a></li>
+            
+            <li class="Java"><a href="https://jjamong.github.io/docs/back/java/">Java</a></li>
+            
+            <li class="Back"><a href="https://jjamong.github.io/docs/back/back/">Back</a></li>
+            
+          </ul>
+        </div>
+      </li>
+
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">DB</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="Mssql"><a href="https://jjamong.github.io/docs/db/mssql/">Mssql</a></li>
+            
+            <li class="Mysql"><a href="https://jjamong.github.io/docs/db/mysql/">Mysql</a></li>
+            
+          </ul>
+        </div>
+      </li>
+
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">APP</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="ReactNative"><a href="https://jjamong.github.io/docs/app/reactnative/">ReactNative</a></li>
+            
+          </ul>
+        </div>
+      </li>
+
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">Infra</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="AWS"><a href="https://jjamong.github.io/docs/infra/aws/">AWS</a></li>
+            
+            <li class="deploy"><a href="https://jjamong.github.io/docs/infra/deploy/">deploy</a></li>
+            
+            <li class="OS"><a href="https://jjamong.github.io/docs/infra/os/">OS</a></li>
+            
+          </ul>
+        </div>
+      </li>
+
+      
+      <li class="tabs-li">
+        
+        <a class="tabs-a">ETC</a>
+        <div class="sub-menu">
+          <ul>
+            
+            <li class="Term"><a href="https://jjamong.github.io/docs/etc/term/">Term</a></li>
+            
+            <li class="Hugo"><a href="https://jjamong.github.io/docs/etc/hugo/">Hugo</a></li>
+            
+            <li class="GIT"><a href="https://jjamong.github.io/docs/etc/git/">GIT</a></li>
+            
+            <li class="DevOps"><a href="https://jjamong.github.io/docs/etc/devops/">DevOps</a></li>
+            
+            <li class="ETC"><a href="https://jjamong.github.io/docs/etc/etc/">ETC</a></li>
+            
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+    <div class="container is-fluid">
+      <div class="columns verticals">
+
+        
+
+        
+        
+          
+
+
+
+
+
+
+
+  
+  
+
+  
+  
+    
+  
+
+  
+  
+
+  
+  
+
+
+
+
+
+
+<div class="sidebar-container column is-one-fifth">
+  <p class="sidebar-title is-hidden-tablet">Menu</p>
+  <div class="switch is-hidden-tablet">
+    <span class="slider round"></span>
+  </div>
+  <div class="custom-side">
+    <div class="sidebar-main sidebar">
+      <div class="sidebar-inner">
+        <p class="sidebar-title dis-hidden-mobile">
+          Nodejs
+        </p>
+        <div class="slider-menu-wrap">
+          <ul class="sidebar-menu nav scrollbar-outer">
+            
+            <li >
+              
+              <a href="#" class="Nodejs(노드JS)"><i></i><strong>Nodejs(노드JS)</strong></a>
+              <ul>
+                
+                  
+                  <li  class="active"  class="subsections">
+                    <a href="/docs/front/nodejs/nodejs/">Node.js(노드JS)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/front/nodejs/npm/">npm</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/front/nodejs/yarn/">yarn</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/front/nodejs/babel/">babel(바벨)</a>
+                  </li>
+                  
+                
+                  
+                  <li  class="subsections">
+                    <a href="/docs/front/nodejs/webpack/">webpack(웹팩)</a>
+                  </li>
+                  
+                
+              </ul>
+              
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+        
+        
+
+        <div class="content-container column is-three-fifths-desktop is-two-thirds-tablet">
+          <div class="content-main content">
+            
+            <h1 class="title">Node.js(노드JS)</h1>
+
+            <div class="content-ads">
+              <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+              
+              <ins class="adsbygoogle"
+                  style="display:block"
+                  data-ad-client="ca-pub-3588286886332636"
+                  data-ad-slot="4509829062"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"></ins>
+              <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+            
+            
+
+
+<h2 id="이해하기">이해하기</h2>
+
+<p>Node.js는 Chrome(크롬) V8 JavaScript(자바스크립트) 엔진으로 빌드 된 JavaScript 런타임 환경입니다.</p>
+
+<p>Node.js를 통해서 다양한 JavaScript 애플리케이션을 실행할 수 있고, 서버를 실행하는데 대표적으로 사용됩니다.</p>
+
+<p>좀 더 쉽게 설명하자면 JavaScript는 웹 브라우저 환경에서 동작하는 스크립트 언어인데
+<br>
+Node.js를 설치하여 웹 브라우저가 아닌 터미널, 서버 등 다른 환경에서도 실행 할 수 있도록 하는 환경이라고 할 수 있습니다.</p>
+
+<p><br></p>
+
+<p><strong>Node.js는 JavaScript를 실행할 수 있도록 하는 환경이며
+<br>프론트 엔드 프레임워크(React, Angular, Vue)를 사용하는데 기반이 되는 환경입니다.</strong></p>
+
+<p><strong>Node.js는 I/O와 단일 스레드 처리에 대한 높은 성능이 특징이어서
+<br>실시간 채팅, 실시간 예매 등 비동기식 처리 서버를 구현 하는데도 좋습니다.</strong></p>
+
+<h3 id="javascript-runtime-자바스크립트-런타임">JavaScript RunTime(자바스크립트 런타임)</h3>
+
+<p>런타임이란 용어는 특정 언어로 만든 프로그램을 실행할 수 있는 환경을 뜻합니다.
+<br>
+Node.js에 대입해 보면 JavaScript로 작성한 코드를 실행할 수 있는 환경(터미널, 서버 등)이 됩니다.</p>
+
+<!-- 
+https://velog.io/@kimkevin90/Nodejs-%EA%B0%9C%EB%85%90-%EC%9D%B4%ED%95%B4%ED%95%98%EA%B8%B0Nodejs-%EB%9E%80
+-->
+
+<!--
+논 블로킹I/0
+이벤트 루프를 잘 활용하면 오래 걸리는 작업을 효율적으로 처리할 수 있습니다. 작업에는 두가지 종류가 있는데, 동시에 실행될 수 있는 작업과 동시에 실행될 수 없는 작업입니다. 특히 파일 시스템 접근, 네트워크를 통한 요청 작업은 I/O의 일종이며 이러한 작업을 할 때 노드는 논 브로킹 방식으로 처리합니다. 논 블로킹이란 이전 작업이 완료될 때까지 대기하지 않고 다음 작업을 수행하는 것을 의미합니다. 반대로 블로킹은 이전 작업이 끝나야만 다음 작업을 수행합니다.
+-->
+
+<!-- 
+싱글 스레드
+이벤트 기반, 논 블로킹 모델과 더불어 노드를 설명하는 키워드 중 하나는 싱글 스레드 입니다. 자바스크립트 코드는 동시에 실행될 수 없는데 그 이유는 노드가 싱글 스레드 기반이기 때문입니다.
+-->
+
+<!-- 
+이벤트 루프
+이벤트 루프(event loop)는 여러 이벤트가 동시에 발생했을 때 어떤 순서로 콜백 함수를 호출할지를 이벤트 루프가 판단합니다. 노드는 이벤트가 종료될 때까지 이벤트 처리를 위한 작업을 반복 하므로 루프(loop)라고 부릅니다.
+-->
+
+<!-- 
+이벤트 기반
+노드는 V8과 더불어 libuv라는 라이브러리르 사용합니다. libuv 라이브러리는 노드의 특성인 이벤트 기반, 논 블로킹 I/O 모델을 구현하고 있습니다.
+이벤트 기반(event-driven)이란 이벤트가 발생할 때 미리 지정해둔 작업을 수행하는 방식을 의미합니다. 즉, 이벤트 기반 시스템에서는 특정 이벤트가 발생할 때 무엇을 할지 미리 등록해두고, 이를 이벤트 리스너에 콜백 함수를 등록 합니다. 이후 이벤트가 발생하면 리스너에 등록해둔 콜백 함수를 호출하며 이벤트가 끝난 후 노드는 다음 이벤트가 발생할 때까지 대기합니다.
+-->
+
+<h2 id="시작하기">시작하기</h2>
+
+<h3 id="dotenv-패키지-설치">dotenv 패키지 설치</h3>
+
+<p>루트 경로에 package.json 을 추가합니다.</p>
+
+<pre><code>$ yarn init -y
+
+// package.json
+{
+  &quot;name&quot;: &quot;nodejs&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;license&quot;: &quot;MIT&quot;,
+  &quot;dependencies&quot;: {
+    &quot;dotenv&quot;: &quot;^8.2.0&quot;
+  }
+}
+</code></pre>
+
+<p>dotenv 설치</p>
+
+<pre><code>$ yarn install
+</code></pre>
+
+<h3 id="노드-server-js-설정-env-파일-추가">노드(server.js), 설정(.env) 파일 추가</h3>
+
+<p>루트경로 노드로 실행할 파일(server.js) 과 설정파일(.env)을 추가합니다.</p>
+
+<pre><code>// /server.js
+
+const dotenv = require('dotenv')
+
+// 환결설정 설정하기
+dotenv.config()
+
+console.log(process.env.PORT)
+</code></pre>
+
+<pre><code>// .env
+
+PORT=9999
+</code></pre>
+
+<p>server.js를 노드로 실행합니다.</p>
+
+<pre><code>$ node server.js
+
+// 9999
+</code></pre>
+
+<h3 id="파라미터">파라미터</h3>
+
+<p>node 실행 시 파라미터를 추가할 수 있습니다.</p>
+
+<p>server.js 파일을 수정합니다.</p>
+
+<pre><code>// /server.js
+
+const dotenv = require('dotenv')
+
+// 환결설정 설정하기
+dotenv.config()
+
+console.log(process.env.NODE_ENV)
+console.log(process.env.PORT)
+</code></pre>
+
+<p>server.js를 파마리터와 함께 노드로 실행합니다.</p>
+
+<pre><code>// windows
+$ set NODE_ENV=development &amp;&amp; node server.js
+// linux
+$ NODE_ENV=development node server.js
+
+// development
+// 9999
+</code></pre>
+
+
+          </div>
+          
+        </div>
+        
+<div class="toc-container column is-one-fifth is-hidden-touch">
+  <div class="toc-main">
+    <p class="subtitle is-6">
+      Contents
+    </p>
+    <div class="scrollbar-outer">
+      <nav class="toc-menu"></nav>
+    </div>
+    
+    
+    
+  </div>
+</div>
+
+      </div>
+    </div>
+    
+<script src="/js/burger-menu.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
+
+
+
+<script src="/js/common.js"></script>
+
+<script src="/js/anchor-4.2.0.min.js"></script>
+<script src="/js/anchors.js"></script>
+<script src="/js/jquery.navgoco.min.js"></script>
+<script src="/js/jquery.scrollbar.min.js"></script>
+<script src="/js/sticky-sidebar.min.js"></script>
+<script src="/js/contents-nav.js"></script>
+
+<script src="/js/tocbot.min.js"></script>
+<script src="/js/toc.js"></script>
+
+
+<script>
+  $(".sidebar-menu").find("li.active").parents('li').toggleClass("open");
+</script>
+
+
+<script src="/js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    <div class="btn-top"></div>
+<footer class="footer">
+  
+</footer>
+    
+  </section>
+</body>
+
+</html>
