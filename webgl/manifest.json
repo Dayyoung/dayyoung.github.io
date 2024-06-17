@@ -38,7 +38,7 @@
    "density": "4.0"
   }
  ],
-  "start_url": "./intro.html",
+  "start_url": "/webgl/index.html",
   "display": "fullscreen",
   "orientation": "any" 
 }
