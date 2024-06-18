@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on 짜몽 개발 연구소</title>
-    <link>https://jjamong.github.io/tags/</link>
-    <description>Recent content in Tags on 짜몽 개발 연구소</description>
+    <title>Tags on 모두의 기술 연구소</title>
+    <link>https://dayyoung.github.io/tags/</link>
+    <description>Recent content in Tags on 모두의 기술 연구소</description>
     <generator>Hugo -- gohugo.io</generator>
     
-	<atom:link href="https://jjamong.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://dayyoung.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>
