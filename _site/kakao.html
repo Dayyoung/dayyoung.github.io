@@ -1,0 +1,248 @@
+    <style>
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=date], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=button] {
+  width: 100%;
+  background-color: #FEE500;
+  color: black;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+input[type=button]:hover {
+  background-color: #FEBD00
+    </style>
+
+<script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.0/kakao.min.js"
+  integrity="sha384-l+xbElFSnPZ2rOaPrU//2FF5B4LB8FiX5q4fXYTlfcG4PGpMkE1vcL7kNXI6Cci0" crossorigin="anonymous"></script>
+<script>
+  Kakao.init('56cbcecc9762f34400b3f9cc913ccc40'); // 사용하려는 앱의 JavaScript 키 입력
+
+function updateList(){
+
+  // The ID of the extension we want to talk to.
+  // var editorExtensionId = "nhnjhfhkjoiccacooogdgiddehamoale";
+
+  // var url = "https://google.com";
+  // // Make a simple request:
+  // chrome.runtime.sendMessage(editorExtensionId, {openUrlInEditor: url},
+  // function(response) {
+  //   if (!response.success)
+  //     handleError(url);
+  // });
+
+  var kakaoList = ['유대영','유대영1','유대영2'];
+  localStorage.setItem('kakaoList', JSON.stringify(kakaoList));
+  //localStorage.setItem(JSON.stringify(kakaoList));
+
+  //let loginButton =  document.querySelector("#kakaotalk-sharing-btn");
+  //loginButton.click()
+}
+
+
+window.addEventListener("storage", (e) => {
+  console.log(e.key)
+  console.log(e.newValue)
+});
+
+
+  function loginWithKakao() {
+    Kakao.Auth.authorize({
+      redirectUri: 'https://dayyoung.github.io/kakao.html',
+    });
+  }
+
+
+</script>
+
+
+<div style="max-width:500px">
+
+<label for="progressValue">Login Kakao:</label><br>  
+
+    <input type="button" id="kakao-login-btn" onclick="loginWithKakao()" value="Login Kakao">
+
+</a>
+<br>
+  <label for="progressValue">Image Link:</label><br>    
+  <textarea id="kakaoImage" name="progressValue" rows="1" >https://dayyoung.github.io/mogi.jpg</textarea>
+
+  <label for="progressValue">Subject:</label><br>    
+  <textarea id="kakaoTitle" name="progressValue" rows="1" >Subject</textarea>
+
+  <label for="subjectValue">Comment:</label><br>    
+  <textarea id="kakaoContent" name="subjectValue" rows="5" >Comment</textarea>
+
+  <label for="progressValue">Hyper Link:</label><br>    
+  <textarea id="kakaoLink" name="progressValue" rows="1" >https://google.com</textarea>
+
+  <label for="subjectValue">Send To (Comma needs to separate):</label><br>    
+  <textarea id="kakaoList" name="subjectValue" rows="5" ></textarea>
+
+    <input type="button" id="submitButton" value="Send">
+</div>
+
+<a id="kakaotalk-sharing-btn" style="display: none;">
+  <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+    alt="카카오톡 공유 보내기 버튼" />
+</a>
+
+<script type="text/javascript">
+  
+const urlStr = window.location.href;
+const url = new URL(urlStr);
+const urlParams = url.searchParams;
+const red = urlParams.get('red');
+
+if(red){
+  window.location.href = red;
+}
+
+const submitButton = document.getElementById('submitButton');
+
+
+submitButton.addEventListener('click', (event) => {
+
+  var img = document.getElementById('kakaoImage').value;
+  var title = document.getElementById('kakaoTitle').value;
+  var content = document.getElementById('kakaoContent').value;
+  var link = document.getElementById('kakaoLink').value;
+  var sender = document.getElementById('kakaoList').value;
+  var senderArray = sender.split(',');
+  var senderString = JSON.stringify(senderArray);
+  
+  setKakao(title,content,link,img)
+
+  localStorage.setItem("kakaoList",senderString)
+
+  setTimeout(function(){
+      if(localStorage.getItem("kakaoList") != "undefined"){
+        let loginButton =  document.querySelector("#kakaotalk-sharing-btn");
+        loginButton.click()
+      }
+  }, 2000);
+
+});
+
+
+
+
+</script>
+
+
+<!-- <button onclick="updateList()">
+ 명단 보내기
+</a>
+ -->
+
+ <br>
+
+
+<script>
+
+
+function setKakao(title,message,link,img) {
+
+  console.log(title)
+  console.log(message)
+  console.log(link)
+
+  link = "https://dayyoung.github.io/kakao.html?red="+link;
+
+  Kakao.Share.createDefaultButton({
+    container: '#kakaotalk-sharing-btn',
+    objectType: 'feed',
+    content: {
+      title: title,
+      description: message,
+      imageUrl: img,
+       // 'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+      link: {
+        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+        mobileWebUrl: link,
+        webUrl: link,
+      },
+    },
+    buttons: [
+      {
+        title: '바로가기',
+        link: {
+          mobileWebUrl: link,
+          webUrl: link,
+        },
+      }
+    ],
+  });
+}
+
+
+  Kakao.Share.createDefaultButton({
+    container: '#kakaotalk-sharing-btn',
+    objectType: 'feed',
+    content: {
+      title: '딸기 치즈 케익',
+      description: '#케익 #딸기 #삼평동 #카페 #분위기 #소개팅',
+      imageUrl:
+        'http://k.kakaocdn.net/dn/Q2iNx/btqgeRgV54P/VLdBs9cvyn8BJXB3o7N8UK/kakaolink40_original.png',
+      link: {
+        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+        mobileWebUrl: 'https://developers.kakao.com',
+        webUrl: 'https://developers.kakao.com',
+      },
+    },
+    social: {
+      likeCount: 286,
+      commentCount: 45,
+      sharedCount: 845,
+    },
+    buttons: [
+      {
+        title: '웹으로 보기',
+        link: {
+          mobileWebUrl: 'https://developers.kakao.com',
+          webUrl: 'https://developers.kakao.com',
+        },
+      },
+      {
+        title: '앱으로 보기',
+        link: {
+          mobileWebUrl: 'https://developers.kakao.com',
+          webUrl: 'https://developers.kakao.com',
+        },
+      },
+    ],
+  });
+</script>
