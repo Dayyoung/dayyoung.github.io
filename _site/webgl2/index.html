@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | My project (2)</title>
-    <link rel="shortcut icon" href="/webgl/TemplateData/favicon.ico">
-    <link rel="stylesheet" href="/webgl/TemplateData/style.css">
+    <title>Unity WebGL Player | My project</title>
+    <link rel="shortcut icon" href="/webgl2/TemplateData/favicon.ico">
+    <link rel="stylesheet" href="/webgl2/TemplateData/style.css">
   </head>
   <body>
     <div id="unity-container" class="unity-desktop">
@@ -20,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">My project (2)</div>
+        <div id="unity-build-title">My project</div>
       </div>
     </div>
     <script>
@@ -56,16 +56,16 @@
         updateBannerVisibility();
       }
 
-      var buildUrl = "/webgl/Build";
-      var loaderUrl = buildUrl + "/0622.loader.js";
+      var buildUrl = "/webgl2/Build";
+      var loaderUrl = buildUrl + "/webgl.loader.js";
       var config = {
-        dataUrl: buildUrl + "/0622.data.unityweb",
-        frameworkUrl: buildUrl + "/0622.framework.js.unityweb",
-        codeUrl: buildUrl + "/0622.wasm.unityweb",
+        dataUrl: buildUrl + "/webgl.data.unityweb",
+        frameworkUrl: buildUrl + "/webgl.framework.js.unityweb",
+        codeUrl: buildUrl + "/webgl.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
-        productName: "My project (2)",
-        productVersion: "1.0.2",
+        productName: "My project",
+        productVersion: "4.0.2",
         showBanner: unityShowBanner,
       };
 
