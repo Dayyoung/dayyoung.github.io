@@ -1,0 +1,147 @@
+  <!DOCTYPE html>
+
+   <html lang="ko">
+  <head>
+      <title>모두의 기술</title> 
+  <meta charset="utf-8" />
+  <meta name="application-name" content="모두의 기술"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
+  <meta name="description" content="Diablo App Launcher.">
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="DiabloApp Diablo App" />
+
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Diablo App Launcher.">
+  <meta property="og:site_name" content="모두의 기술">
+  <meta property="og:url" content="https://dayyoung.github.io/diabloapp">
+  <meta property="og:title" content="모두의 기술">
+  <meta property="og:image" content="https://dayyoung.github.io/diabloapp/previewlogo.jpg">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
+  <!-- Chrome, Firefox OS, Opera -->
+  <meta name="theme-color" content="#484848">
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Expires" CONTENT="-1">
+  <meta http-equiv="refresh" content="-1">
+
+  <link rel="apple-touch-icon-precomposed" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-startup-image" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="shortcut icon" href="../favicon.png">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7WENGDYNCC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7WENGDYNCC');
+  </script>
+
+  <script src="./diabloData.js"></script>
+<!-- 
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+ -->
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+ 
+   <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <!-- Demo styles -->
+
+<script type="text/javascript">
+
+</script>
+
+ <style>
+
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+
+#swiper-container,
+#swiper-wrapper,
+#swiper-slide{
+  width: 100%;
+  height: 100%;
+}
+ #swiper-slide {
+   text-align: center;
+   font-size: 18px;
+   background: #fff;
+   /* Center slide text vertically */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   
+   &:nth-child(4n + 1){
+     background: #D8E2DC;
+   }
+   &:nth-child(4n + 2){
+     background: #FFE5D9;
+   }
+   &:nth-child(4n + 3){
+     background: #FFCAD4;
+   }
+   &:nth-child(4n + 4){
+     background: #F4ACB7;
+   }
+}
+  </style>
+     
+  </head>
+
+  <body>
+<img id="topImage" src="/spacetime/image/l1.png" alt="" style="width:100%; max-width: 500px;">
+
+<img src="/spacetime/image/null.png" alt="" style="height:200px; margin-top:20px; margin-left: 10px; idth:100%; max-width: 500px;">
+
+<script type="text/javascript">
+$(function(){
+
+  $('#topImage').click(function(){
+    console.log("click")
+    console.log($(this).attr("src"))
+    var nowPage = $(this).attr("src")
+
+    if(nowPage.indexOf("l1") != -1){
+      $(this).attr("src","/spacetime/image/l2.png")
+    } else{
+      $(this).attr("src","/spacetime/image/l1.png")
+
+    } 
+
+
+  })
+
+})
+</script>
+
+  </body>
+  </html>  

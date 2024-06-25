@@ -1,0 +1,489 @@
+  <!DOCTYPE html>
+
+   <html lang="ko">
+  <head>
+      <title>모두의 기술</title> 
+  <meta charset="utf-8" />
+  <meta name="application-name" content="모두의 기술"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
+  <meta name="description" content="Diablo App Launcher.">
+  <meta name="robots" content="index, follow">
+  <meta name="keywords" content="DiabloApp Diablo App" />
+
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="Diablo App Launcher.">
+  <meta property="og:site_name" content="모두의 기술">
+  <meta property="og:url" content="https://dayyoung.github.io/diabloapp">
+  <meta property="og:title" content="모두의 기술">
+  <meta property="og:image" content="https://dayyoung.github.io/diabloapp/previewlogo.jpg">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
+  <!-- Chrome, Firefox OS, Opera -->
+  <meta name="theme-color" content="#484848">
+  <meta HTTP-EQUIV="Pragma" CONTENT="no-cache">
+  <meta HTTP-EQUIV="Expires" CONTENT="-1">
+  <meta http-equiv="refresh" content="-1">
+
+  <link rel="apple-touch-icon-precomposed" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-startup-image" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="shortcut icon" href="../favicon.png">
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7WENGDYNCC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7WENGDYNCC');
+  </script>
+
+  <script src="./diabloData.js"></script>
+<!-- 
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+ -->
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+ 
+   <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <!-- Demo styles -->
+
+<script type="text/javascript">
+  
+
+
+</script>
+
+ <style>
+
+h1 {
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: 1.2em;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&display=swap");
+body {
+  padding: 0;
+  margin: 0;
+  background-color: #0d092f;
+  color: white;
+  font-family: "DM Mono", monospace;
+}
+
+.container {
+  width: 100%;
+  //min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+.swiper {
+  width: 100%;
+  //padding-top: 50px;
+  //padding-bottom: 50px;
+}
+.swiper .swiper-slide {
+  position: relative;
+  width: 300px;
+  //height: 400px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  filter: grayscale(80%);
+  transition: all 0.8s cubic-bezier(0.25, 0.4, 0.45, 1.4);
+  border-radius: 15px;
+  //border-radius: 50%;
+  background: linear-gradient(to right, #c31432, #240b36);
+  overflow: hidden;
+}
+
+.swiper .mainSwiper-slide {
+  position: relative;
+  width: 100px;
+  //height: 400px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  filter: grayscale(80%);
+  transition: all 0.8s cubic-bezier(0.25, 0.4, 0.45, 1.4);
+  //border-radius: 15px;
+  border-radius: 50%;
+  background: linear-gradient(to right, #c31432, #240b36);
+  overflow: hidden;
+  border: 2px solid white;
+  //margin-right: -15px !important;
+}
+
+.swiper .topSwiper-slide {
+  position: relative;
+  width: 300px;
+  //height: 400px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
+  filter: grayscale(80%);
+  transition: all 0.8s cubic-bezier(0.25, 0.4, 0.45, 1.4);
+  border-radius: 15px;
+  //border-radius: 50%;
+  background: linear-gradient(to right, #c31432, #240b36);
+  overflow: hidden;
+}
+
+.swiper .swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.swiper .swiper-slide .info {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 10;
+  padding: 15px;
+  box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -120px black;
+}
+.swiper .swiper-slide .info h4 {
+  margin: 0;
+  padding-bottom: 10px;
+}
+.swiper .swiper-slide-active {
+  filter: none;
+}
+.swiper .swiper-pagination-bullet-active {
+  background-color: #c31432 !important;
+}
+.swiper .swiper-pagination-bullet {
+  background-color: grey;
+}
+.swiper .swiper-button-prev,
+.swiper .swiper-button-next {
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background: white;
+  border: 3px solid #240b36;
+  border-radius: 50%;
+  color: #c31432;
+  font-weight: 700;
+  outline: 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.swiper .swiper-button-prev::after,
+.swiper .swiper-button-next::after {
+  font-size: 18px;
+}
+.swiper .swiper-button-prev:after {
+  position: relative;
+  left: -1px;
+}
+.swiper .swiper-button-next:after {
+  position: relative;
+  left: 1px;
+}
+.swiper .swiper-button-prev,
+.swiper .swiper-container-rtl .swiper-button-next {
+  left: 10px;
+  right: auto;
+}
+.swiper .swiper-button-next,
+.swiper .swiper-container-rtl .swiper-button-prev {
+  right: 10px;
+  left: auto;
+}
+.swiper .swiper-button-prev.swiper-button-disabled,
+.swiper .swiper-button-next.swiper-button-disabled {
+  opacity: 0;
+  cursor: auto;
+  pointer-events: none;
+}
+
+  </style>
+     
+  </head>
+
+  <body>
+
+
+<img src="/spacetime/image/logo.png" alt="" style="position:absolute; width:100px; margin-top:20px; margin-left: 10px;">
+
+
+<img id="topImage" src="/spacetime/image/1.png" alt="" style="width:100%;">
+
+<!-- partial:index.partial.html -->
+<div class="container" style="margin-top: -50px;">
+  <div class="swiper" id="mainSwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/1.png" alt="">
+       
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/2.png" alt="">
+       
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/3.png" alt="">
+      
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/4.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/5.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/6.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/7.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/8.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/9.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/10.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/11.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/12.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/13.png" alt="">
+        
+      </div>
+      <div class="swiper-slide mainSwiper-slide swiper-slide-active">
+        <img src="/spacetime/image/14.png" alt="">
+        
+      </div>
+    </div>
+    <!-- If we need pagination -->
+    <!-- <div class="swiper-pagination"></div> -->
+
+    <!-- If we need navigation buttons -->
+<!--     <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div> -->
+  </div>
+</div>
+<!-- partial -->
+
+
+<H1>내 게임</H1>
+
+<img src="/spacetime/image/my.png" alt="" style="width:100%; max-width: 400px;">
+      
+<H1>인기게임</H1>
+
+<!-- partial:index.partial.html -->
+<div class="container">
+  <div class="swiper"  id="popularSwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/p1.png" alt="">
+       
+      </div>
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/p2.png" alt="">
+      </div>
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/p3.png" alt="">
+      </div>
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/p4.png" alt="">
+        
+      </div>
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/p5.png" alt="">
+        
+      </div>
+    </div>
+    <!-- If we need pagination -->
+    <!-- <div class="swiper-pagination"></div> -->
+
+    <!-- If we need navigation buttons -->
+<!--     <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div> -->
+  </div>
+</div>
+
+<!--part3-->
+
+<H1>추천게임</H1>
+
+<!-- partial:index.partial.html -->
+<div class="container">
+  <div class="swiper" id="recomendSwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/r1.png" alt="">
+       
+      </div>
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/r2.png" alt="">
+        
+      </div>
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/r3.png" alt="">
+        
+      </div>
+      <div class="swiper-slide swiper-slide-active">
+        <img src="/spacetime/image/r4.png" alt="">
+      
+      </div>
+<!--       <div class="swiper-slide swiper-slide-active">
+        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/383.svg" alt="">
+        <div class="info">
+          <h4 class="name">
+            Groudon
+          </h4>
+          <span class="type">
+            Ground
+          </span>
+        </div>
+      </div> -->
+    </div>
+    <!-- If we need pagination -->
+    <!-- <div class="swiper-pagination"></div> -->
+
+    <!-- If we need navigation buttons -->
+<!--     <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div> -->
+  </div>
+</div>
+
+<img src="/spacetime/image/null.png" alt="" style="width:100%; height:200px; margin-top:20px; margin-left: 10px;">
+
+  <script src='https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js'></script>
+
+  <script>
+
+
+  var mainSwiper = new Swiper("#mainSwiper", {
+  effect: "coverflow",
+//  grabCursor: true,
+  //spaceBetween: -10,
+  loop: false,
+  centeredSlides: true,
+//  slidesPerView: "auto",
+  coverflowEffect: {
+    rotate: 0,
+    stretch: 0,
+    //depth: 100,
+    modifier: 2,
+    slideShadows: true,
+    clickable: true
+  },
+  spaceBetween: 10,
+  slidesPerView: 4,
+  freeMode: true,
+  watchSlidesProgress: true,
+  //spaceBetween: 50,
+  //loop: true,
+  // pagination: {
+  //   el: ".swiper-pagination",
+  //   clickable: true
+  // },
+  // navigation: {
+  //   nextEl: ".swiper-button-next",
+  //   prevEl: ".swiper-button-prev"
+  // }
+  on: {
+        slideChange : function() {
+          console.log("changed.")
+
+          const index_currentSlide      = this.realIndex;
+          const currentSlide            = this.slides[index_currentSlide]
+
+          const pictureIndex      = index_currentSlide+1 + ".png"
+          $('#topImage').attr("src","/spacetime/image/"+pictureIndex);
+
+          console.log("index_currentSlide." + index_currentSlide)
+          console.log("currentSlide." + currentSlide)
+        },
+    },
+  });    
+
+
+$(function(){
+
+  $('.mainSwiper-slide').click(function(){
+    console.log("click")
+    console.log($(this).index())
+    var goIndex= $(this).index()
+
+    mainSwiper.slideTo(goIndex);
+
+  })
+
+})
+
+  var swiper = new Swiper("#popularSwiper", {
+  //effect: "coverflow",
+  //grabCursor: true,
+  centeredSlides: false,
+  slidesPerView: "auto",
+  // autoplay: {
+  //   delay: 3000
+  // },
+});    
+
+
+  var swiper = new Swiper("#recomendSwiper", {
+  //effect: "coverflow",
+  //grabCursor: true,
+  centeredSlides: false,
+  slidesPerView: "auto",
+  // autoplay: {
+  //   delay: 3000
+  // },
+});    
+
+const menuLinks = document.querySelectorAll(".menu-link");
+
+menuLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    menuLinks.forEach((link) => {
+      link.classList.remove("is-active");
+    });
+    link.classList.add("is-active");
+  });
+});
+  </script>
+
+
+  </body>
+  </html>  
