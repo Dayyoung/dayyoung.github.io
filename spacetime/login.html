@@ -28,6 +28,12 @@
   <meta HTTP-EQUIV="Expires" CONTENT="-1">
   <meta http-equiv="refresh" content="-1">
 
+  <meta name="appleid-signin-client-id" content="kr.co.test.login">
+  <meta name="appleid-signin-scope" content="name email">
+  <meta name="appleid-signin-redirect-uri" content="https://test.co.kr/mobile/login.asp">
+  <meta name="appleid-signin-state" content="signin">
+  <meta name="appleid-signin-use-popup" content="false">
+
   <link rel="apple-touch-icon-precomposed" href="/spacetime/apple-icon-152x152.png">
   <link rel="apple-touch-startup-image" href="/spacetime/apple-icon-152x152.png">
   <link rel="apple-touch-icon" sizes="57x57" href="/spacetime/apple-icon-57x57.png">
@@ -68,7 +74,6 @@
  
    <!-- Link Swiper's CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-
   <link rel='stylesheet' href='https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css'>
 
 
@@ -85,9 +90,13 @@ https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.m
 $(function(){
   loading();
 
-  $('.loginButton').click(function(){
-    //alert('test')
+  $('.kakaoLoginButton').click(function(){
     loginWithKakao();
+
+  });
+
+  $('.appleLoginButton').click(function(){
+    $('#appleid-signin').click();
   });
 
 });
@@ -120,7 +129,7 @@ body, html {
   background-position: center;
 }
 
-.loginButton{
+.kakaoLoginButton{
     display: block;
     position: absolute;
     width: 100%;
@@ -134,13 +143,30 @@ body, html {
     margin-bottom: 100px;
 }
 
+.appleLoginButton{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 62px;
+    z-index: 100;
+    //margin-top: 212.586px;
+    //left: 555.529px;
+    //background-color: rgb(255, 0, 0);
+    opacity: 0.7;
+    bottom: 0px;
+    margin-bottom: 20px;
+}
 
 </style>
 </head>
   <body>
- 
+
+      <div id="appleid-signin" data-color="black" data-border="true" data-type="sign in" style="display: none;"></div>
+        <script type="text/javascript" src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+  
     <div class="loginDiv"></div>
-    <div class="loginButton"></div>
+    <div class="kakaoLoginButton"></div>
+    <div class="appleLoginButton"></div>
 
 
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
