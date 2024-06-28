@@ -145,7 +145,7 @@ $(function(){
 
 $(function(){
   $('#preview').click(function(){
-    location.href = "/spacetime?data=1234"
+    location.href = "/spacetime/profile?data=1234"
   })
 });
 
@@ -169,7 +169,7 @@ function goBack() {
   if(RETURNURL) {
     location.href = RETURNURL
   }else{
-    location.href = "/spacetime"
+    location.href = "/spacetime/profile"
   }
 }
     var video = document.createElement("video");
@@ -229,7 +229,7 @@ function goBack() {
             location.href = RETURNURL
             }
             else {
-              RETURNURL = "/spacetime"
+              RETURNURL = "/spacetime/profile"
               RETURNURL = updateQueryStringParameter(RETURNURL,"data",code.data)
               //alert(RETURNURL)
               location.href = RETURNURL
