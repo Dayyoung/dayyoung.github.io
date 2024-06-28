@@ -1,5 +1,44 @@
+
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+ 
+   <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <link rel='stylesheet' href='https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css'>
+
+
+
+<script src="
+https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
+" rel="stylesheet">
+
+<script>
+
+$(function(){
+  loading();
+
+});
+
+  function loading() {
+        $('body').loadingModal({text: '불러오는 중...'});
+    setTimeout(function(){
+      
+    $('body').loadingModal('destroy')
+    },1500)
+
+  }
+</script>
+
 <script src='https://unpkg.com/tesseract.js@4.0.1/dist/tesseract.min.js'></script>
 <script>
+
+
+
 
 function progressUpdate(packet){
 	var log = document.getElementById('log');
@@ -46,6 +85,13 @@ async function recognizeFile(file) {
     langPath: 'https://tessdata.projectnaptha.com/4.0.0',
     corePath: 'https://unpkg.com/tesseract.js-core@v4.0.1/tesseract-core.wasm.js',
   });
+
+  // const data = await Tesseract.recognize(file, lang, {
+  //  logger: progressUpdate,
+  // workerPath: '[https://unpkg.com/tesseract.js@v4.0.1/dist/worker.min.js](https://unpkg.com/tesseract.js@v4.0.1/dist/worker.min.js)',
+  // langPath: '[https://tessdata.projectnaptha.com/4.0.0](https://tessdata.projectnaptha.com/4.0.0)',
+  // corePath: '[https://unpkg.com/tesseract.js-core@v4.0.1/tesseract-core.wasm.js](https://unpkg.com/tesseract.js-core@v4.0.1/tesseract-core.wasm.js)',
+  // })
 
   progressUpdate({ status: 'done', data });
 }
@@ -123,7 +169,24 @@ async function recognizeFile(file) {
 
 <div id="log"></div>
 
+ <div class="my_div"> <img src="/spacetime/recipe.jpg">        <p>원본</p>    </div>    
+
+ 	<div>     <img src="/spacetime/recipe.jpg" class="grayscale_img_1">        <p>grayscale(0)</p>    </div>    
+
+ 	<div>     <img src="/spacetime/recipe.jpg" class="grayscale_img_2">        <p>grayscale(50%)</p>    </div>    
+
+ 	<div>     <img src="/spacetime/recipe.jpg" class="grayscale_img_3">        <p>grayscale(100%)</p>    </div>
+
+
 <style>
+
+.grayscale_img_1 {    filter: grayscale(0);} 
+.grayscale_img_2 {    filter: grayscale(50%);} 
+.grayscale_img_3 {    filter: grayscale(100%);} 
+
+div {    width: 300px;    float2: left;    border: 1px solid;}
+
+
 #log > div {
     color: #313131;
     border-top: 1px solid #dadada;

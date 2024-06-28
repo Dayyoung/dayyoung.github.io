@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORC</title>
+</head>
+
+
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css"/>
+ 
+   <!-- Link Swiper's CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+
+  <link rel='stylesheet' href='https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css'>
+
+
+
+<script src="
+https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
+" rel="stylesheet">
+
+<script>
+
+$(function(){
+  loading();
+
+});
+
+  function loading() {
+        $('body').loadingModal({text: '불러오는 중...'});
+    setTimeout(function(){
+      
+    $('body').loadingModal('destroy')
+    },1500)
+
+  }
+
+
+  function loading() {
+        $('body').loadingModal({text: '불러오는 중...'});
+    setTimeout(function(){
+      
+    $('body').loadingModal('destroy')
+    },1500)
+
+  }
+
+</script>
+
+<body>
+
+
+<style type="text/css">
+	
+input {
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  width: 90%;
+  cursor: pointer;
+}
+	
+
+button {
+  text-align: right;
+  background-color: #04AA6D;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  font-size: 25px;
+}
+</style>
+
+  <img id="preview" src="/spacetime/recipe.jpg" style="width: 100%;">
+
+
+  <input type="file" onchange="readURL(this);">
+
+  <button onclick="handleClick()">분석</button>
+
+
+<div id="log"  style="white-space:pre;">
+	
+</div>
+
+
+  <script src='https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js'></script>
+  <script>
+
+    const handleClick = () => {
+      $('body').loadingModal({text: '이미지 분석 중...'});
+
+      Tesseract.recognize(
+        document.querySelector('#preview'),
+        'kor', // 영어일 경우 eng, 둘 다: eng+kor
+        { logger: m => { console.log(m) } }  // 인식 진행 상태 관련 로그
+      )
+      .then(({ data: { text } }) => { 
+
+    		$('body').loadingModal('destroy')
+  			var log = document.getElementById('log');
+  			log.innerHTML  = text;
+			//line.appendChild(text)
+        console.log(text);  // 이미지에서 추출된 텍스트
+      })
+      .catch (err => { console.error(err); })
+      }
+
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      document.getElementById('preview').src = e.target.result;
+    };
+    reader.readAsDataURL(input.files[0]);
+  } else {
+    document.getElementById('preview').src = "";
+  }
+}
+
+
+  </script>
+</body>
+</html>
