@@ -1,0 +1,249 @@
+
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>dayyoung.github.io/qrturn</title>
+  <script src="https://dayyoung.github.io/qrturn/qrturn.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Ropa Sans', sans-serif;
+      color: #333;
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    #githubLink {
+      position: absolute;
+      right: 0;
+      top: 12px;
+      color: #2D99FF;
+    }
+
+    h1 {
+      margin: 10px 0;
+      font-size: 40px;
+    }
+
+    #loadingMessage {
+      text-align: center;
+      padding: 40px;
+      background-color: #eee;
+    }
+
+    #canvas {
+      width: 100%;
+    }
+
+    #output {
+      margin-top: 20px;
+      background: #eee;
+      padding: 10px;
+      padding-bottom: 0;
+    }
+
+    #output div {
+      padding-bottom: 10px;
+      word-wrap: break-word;
+    }
+
+    #noQRFound {
+      text-align: center;
+    }
+  </style>
+
+
+<style>
+
+body {
+  background-color: #696969;
+}  
+.page {
+max-width: 500px;
+margin:0 auto;
+}
+
+.dialog{
+    width: auto;
+    max-width: 90%;
+}
+
+.dialog {//min-height:350px;}
+#iput-dialog {min-height:200px;}
+#inform-dialog {min-height:100px;}
+
+.action-sheet {
+  max-width: 500px;
+  /  left: 15%;
+  //  right: 15%;
+}
+
+ons-input, ons-radio, ons-checkbox, ons-search-input {
+    display: block;
+}
+
+.page__background {
+  background-color: #FFFFFF;
+
+}
+
+.speed-dial.fab--bottom__right, button.fab--bottom__right, ons-fab.fab--bottom__right {
+  bottom: 60px;
+}
+
+</style>
+
+</head>
+<body>
+
+  <ons-page id="genQR">
+
+<div style="margin-top: 44px; display: block" id="walletLayout">
+
+    <ons-toolbar>
+      <div class="left"><ons-back-button onClick="goBack()">뒤로가기</ons-back-button></div>
+      <div class="center">QR코드리더</div>
+    </ons-toolbar>
+
+  <ons-card style="margin: 20px;" id="walletCard">
+    <center>
+    <a download="qrturn.png" id = "qrCodeUrl" >
+    <img id="qrCode" onClick="download(this)" src="./qrturn.png" alt="Onsen UI" style="width: 50%">
+    </a>
+<br>
+
+
+    <div class="content">
+      <ons-list id="adapter">
+        <ons-list-header>Information</ons-list-header>
+          <ons-list-item id="item" style="display: none" class="list-item"><div class="center list-item__center">test</div></ons-list-item>
+      </ons-list>
+    </div>
+
+<br>
+<textarea class="textarea" rows="10" placeholder="DATA" id="qrData"></textarea>
+
+<br>
+<br>
+      <div>
+        <ons-button onClick="copyAddress()" id="copyButton" data-clipboard-text="AAAA"><ons-icon icon="fa-copy"></ons-icon>&#x20;Copy</ons-button>&#x20;
+      </div>
+<br>      
+    </center>
+  </ons-card>
+
+</ons-page>
+
+
+  <script>
+
+
+function showToast(message){
+    ons.notification.toast(message, { timeout: 1000, animation: 'fall' })
+}
+
+function copyToClipboard(val) {
+  const t = document.createElement("textarea");
+  document.body.appendChild(t);
+  t.value = val;
+  t.select();
+  document.execCommand('copy');
+  document.body.removeChild(t);
+}
+function copyAddress() {
+  var address = $("#qrData").val()
+  copyToClipboard(address);
+  showToast("Copied.")
+}
+
+function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  }
+  else {
+    return uri + separator + key + "=" + value;
+  }
+}
+
+var getParams = function (url = window.location.href) {
+    var params = {};
+    var match = url.match(/\?(.*)$/);
+
+    if (match && match[1]) {
+        match[1].split('&').forEach(function (pair) {
+            pair = pair.split('=');
+            params[pair[0]] = pair[1];
+        });
+    }
+
+    return params;
+};
+
+
+function getParameterByName(name, url = window.location.href) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+  results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+var RETURNURL = getParameterByName("returnUrl")
+var DATA = getParameterByName("data")
+
+function goBack() {
+  if(RETURNURL) {
+    location.href = RETURNURL
+  }else{
+    location.href = "/"
+  }
+}
+
+function download(base64){
+  console.log(base64.src)
+  window.open(base64.src)
+}
+
+$(document).ready(function(){
+  if(DATA){
+    $("#qrData").val(DATA)
+    var options = {ecclevel: "M"};
+    var qrCode = QRCode.generatePNG(DATA, options);
+    //console.log(qrCode)
+    $("#qrCode").attr("src",qrCode)
+    $("#qrCodeUrl").attr("href",qrCode)
+  }
+
+
+});
+
+
+//page init
+document.addEventListener('init', function(event) {
+ //console.log('This is a lifecycle event!', event.target.id);
+  //alert(JSON.stringify(getParams()))
+  var jsonData = getParams()
+  for(key in jsonData) {
+      var item = $("#item").clone()
+      item.find("div").html(key+" : " +jsonData[key])
+      item.show()
+      $("#adapter").append(item)
+      //console.log('key:' + key + ' / ' + 'value:' + jsonData[key]);
+  }
+});
+
+  </script>
+</body>
+</html>

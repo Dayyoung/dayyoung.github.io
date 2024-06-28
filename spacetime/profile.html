@@ -79,6 +79,36 @@
 
 <script type="text/javascript">
 
+
+function getParameterByName(name, url = window.location.href) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+  results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+
+$(function(){
+
+  $("#scanButton").click(function(){
+    window.location.href = "/spacetime/ocr.html"
+  });
+
+  $("#qrButton").click(function(){
+    window.location.href = "/spacetime/qr.html"
+  });
+
+var QRDATA = getParameterByName('data');
+
+if(QRDATA){
+  alert('걸음수가 적립 되었습니다.')
+  $("#stepCount").html("1,000");
+}
+
+});
+
 </script>
 
  <style>
@@ -123,8 +153,8 @@ html {
       <div class="flex flex-col flex-1">
         <h2 class="font-semibold mb-2 text-xl">김시옷</h2>
         <div class="grid grid-cols-3 text-gray-700">
-          <div class="flex flex-col items-center justify-center p-1">
-            <span class="font-semibold text-lg">2,071</span>
+          <div  id="qrButton" class="flex flex-col items-center justify-center p-1">
+            <span class="font-semibold text-lg" id="stepCount">0</span>
             <span class="text-xs">걸음 수</span>
           </div>
           <div class="flex flex-col items-center justify-center p-1">
@@ -132,7 +162,7 @@ html {
             <span class="text-xs">포인트</span>
           </div>
           <div id="scanButton" class="flex flex-col items-center justify-center p-1">
-            <span class="font-semibold text-lg">128</span>
+            <span class="font-semibold text-lg">0</span>
             <span class="text-xs">영수증 스캔</span>
           </div>
         </div>
