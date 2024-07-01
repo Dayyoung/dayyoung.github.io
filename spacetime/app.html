@@ -75,6 +75,20 @@
 <script type="text/javascript">
   
 
+function goQR(){
+  //var encodedUrl = encodeURIComponent(window.location.href);
+  var QRURL = "https://dayyoung.github.io/spacetime/studio/preview";
+  location.href = QRURL
+}
+
+$(function(){
+
+$(".swiper-slide").click(function(){
+  goQR();
+
+})
+
+})
 
 </script>
 
