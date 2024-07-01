@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8" />
+    <style>
+      iframe {
+        display: block;
+        border: none;
+        height: 90vh;
+        width: 100vw;
+      }
+
+
+    .button {
+      display: inline-block;
+      border-radius: 4px;
+      background-color: #f4511e;
+      border: none;
+      color: #FFFFFF;
+      text-align: center;
+      font-size: 14px;
+      padding: 10px;
+      width: 100px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+
+    .button span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+
+    .button:hover span {
+      padding-right: 25px;
+    }
+
+
+iframe {
+  pointer-events: none;
+}
+
+    </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <script src="
+  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
+  "></script>
+  <link href="
+  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
+  " rel="stylesheet">
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="product">
+        <center>
+<!--         <button class="favorite styled button" type="button" onclick="goPopup('./progress.html')">
+          진도 추가
+        </button>
+        <button class="favorite styled button" type="button" onclick="goPopup('./subject.html')">
+          과제 추가
+        </button>
+        <button class="favorite styled button" type="button" onclick="goPopup('./exam.html')">
+          시험 추가
+        </button> -->
+        <button class="favorite styled button" type="button" onclick="goPrevious()">
+          이전화면
+        </button>
+        <button class="favorite styled button" type="button" onclick="goNext()">
+          다음화면
+        </button>
+        </center>
+      </div>
+    </div>
+
+
+<input type="text" value="https://docs.google.com/presentation/d/e/2PACX-1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58/embedl?rm=minimal#slide=1" id="inputBox" style="width:100%;"> 
+
+
+    <script type="text/javascript">
+
+var NOWINDEX = 1;
+
+function goPrevious(url){
+
+NOWINDEX--;
+
+if(NOWINDEX < 1) {
+  NOWINDEX = 1;
+}
+
+var nowUrl = $('#dataTable').attr("src");
+
+var prevPage = nowUrl.split("#")[1];
+
+nowUrl = nowUrl.replace(prevPage ,"slide="+NOWINDEX);
+
+
+//alert(nowUrl);
+
+$('#dataTable').attr("src",nowUrl);
+
+
+}
+function goNext(url){
+NOWINDEX++;
+
+if(NOWINDEX > 99) {
+  NOWINDEX = 99;
+}
+
+var nowUrl = $('#dataTable').attr("src");
+
+var prevPage = nowUrl.split("#")[1];
+
+nowUrl = nowUrl.replace(prevPage ,"slide="+NOWINDEX);
+
+
+//alert(nowUrl);
+
+$('#dataTable').attr("src",nowUrl);
+
+}
+
+function goPopup(url){
+  var name = "Popup";
+  var option = "width = 500, height = 700, top = 100, left = 200, location = no"
+  window.open(url, name, option);  
+
+}
+
+$("<iframe>", {
+  src: "https://docs.google.com/presentation/d/e/2PACX-1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58/embed?rm=minimal#slide=1",
+  id: "dataTable",
+}).appendTo("body");
+      
+$('#dataTable').on("load", function() {
+    console.log($('#dataTable').attr("src"));
+    $('#inputBox').val($('#dataTable').attr("src"));
+});
+
+$('#inputBox').change(function(){
+  $('#dataTable').attr("src",$(this).val());
+});
+
+
+
+    </script>
+
+
+  </body>
+</html>
+

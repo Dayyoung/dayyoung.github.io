@@ -1,0 +1,400 @@
+<html>
+  <head>
+    <title>Dashboard</title>
+    <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
+    <style>
+      body, html {
+
+        padding: 0;
+        margin: 0;
+      }
+
+      iframe {
+        display: block;
+        border: none;
+        height: 100vh;
+        width: 100vw;
+      }
+
+
+    .button {
+      display: inline-block;
+      border-radius: 4px;
+      background-color: #f4511e;
+      border: none;
+      color: #FFFFFF;
+      text-align: center;
+      font-size:24px;
+      padding: 10px;
+      width: 100px;
+      transition: all 0.5s;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    .button span {
+      cursor: pointer;
+      display: inline-block;
+      position: relative;
+      transition: 0.5s;
+    }
+
+    .button span:after {
+      content: '\00bb';
+      position: absolute;
+      opacity: 0;
+      top: 0;
+      right: -20px;
+      transition: 0.5s;
+    }
+
+    .button:hover span {
+      padding-right: 25px;
+    }
+
+    .previosButton {
+      position: fixed;
+      display : block;
+      height: 70px;
+      width: 400px;
+      left: calc(50% - 200px);
+      top : 10;
+      margin: 0;
+      display: none;
+    }
+
+    .nextButton {
+      position: fixed;
+      display : block;
+      height: 70px;
+      width: 400px;
+      left: calc(50% - 200px);
+      bottom : 10;
+      margin: 0;
+      display: none;
+    }
+
+    .inputButton {
+      position: fixed;
+      display : block;
+      height: 70px;
+      width: 400px;
+      left: calc(50% - 200px);
+      bottom : 90px;
+      margin: 0;
+      display: none;
+    }
+
+    .hintButton {
+      position: fixed;
+      display : block;
+      height: 70px;
+      width: 400px;
+      left: calc(50% - 200px);
+      bottom : 10;
+      margin: 0;
+      display: none;
+    }
+
+
+iframe {
+  pointer-events: none;
+}
+
+    </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+  </script>
+  <script src="
+  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
+  "></script>
+  <link href="
+  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
+  " rel="stylesheet">
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="product">
+        <center>
+<!--         <button class="favorite styled button" type="button" onclick="goPopup('./progress.html')">
+          진도 추가
+        </button>
+        <button class="favorite styled button" type="button" onclick="goPopup('./subject.html')">
+          과제 추가
+        </button>
+        <button class="favorite styled button" type="button" onclick="goPopup('./exam.html')">
+          시험 추가
+        </button> -->
+        <button class="favorite styled button previosButton" type="button" onclick="goPrevious()">
+          이전화면
+        </button>
+        <button class="favorite styled button nextButton" type="button" onclick="goNext()">
+          다음화면
+        </button>
+
+        <button class="favorite styled button inputButton" type="button" onclick="goInput()">
+          정답입력
+        </button>
+        <button class="favorite styled button hintButton" type="button" onclick="goHint()">
+          힌트
+        </button>
+
+
+        </center>
+      </div>
+    </div>
+
+
+<!-- <input type="text" value="https://docs.google.com/presentation/d/e/2PACX-1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58/embedl?rm=minimal#slide=1" id="inputBox" style="width:100%;">  -->
+
+
+    <script type="text/javascript">
+
+
+
+function getJsonList(url) {
+   
+  var isSucess; 
+
+  $.ajax({
+          type: "get",            
+          url: url,         
+          async: false,
+          cache: false,                     
+          success: function(res){  
+            isSucess = res; 
+          }
+    });
+  return isSucess;
+}
+
+
+
+function tsvToJSON(tsv_string) {
+  const rows = tsv_string.split("\r\n");
+  const jsonArray = [];
+  const header = rows[0].split("\t");
+  for (let i = 1; i < rows.length; i++) {
+    let obj = {};
+    let row = rows[i].split("\t");
+    for (let j = 0; j < header.length; j++) {
+      obj[header[j]] = row[j];
+    }
+    jsonArray.push(obj);
+  }
+  return jsonArray;
+}
+
+
+function csvToJSON(csv_string) {
+  const rows = csv_string.split("\r\n");
+  const jsonArray = [];
+  const header = rows[0].split(",");
+  for (let i = 1; i < rows.length; i++) {
+    let obj = {};
+    let row = rows[i].split(",");
+    for (let j = 0; j < header.length; j++) {
+      obj[header[j]] = row[j];
+    }
+    jsonArray.push(obj);
+  }
+  return jsonArray;
+}
+
+var userListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTkUcJUvzpXaThHhleH2W7hCHKIlAC1LbW3sA9UX_1zXnc6-PUlpftsDjgVoC8mXDCBWyfMm5EipSrF/pub?output=csv')
+
+var userList = csvToJSON(userListData)
+
+console.log(userList);
+
+
+var NOWINDEX = 1;
+
+function goPrevious(url){
+
+NOWINDEX--;
+
+if(NOWINDEX < 1) {
+  NOWINDEX = 1;
+}
+
+var nowUrl = $('#dataTable').attr("src");
+
+var prevPage = nowUrl.split("#")[1];
+
+nowUrl = nowUrl.replace(prevPage ,"slide="+NOWINDEX);
+
+
+//alert(nowUrl);
+
+$('#dataTable').attr("src",nowUrl);
+
+
+}
+function goNext(url){
+NOWINDEX++;
+
+if(NOWINDEX > 99) {
+  NOWINDEX = 99;
+}
+
+var nowUrl = $('#dataTable').attr("src");
+
+var prevPage = nowUrl.split("#")[1];
+
+nowUrl = nowUrl.replace(prevPage ,"slide="+NOWINDEX);
+
+
+//alert(nowUrl);
+
+$('#dataTable').attr("src",nowUrl);
+
+}
+
+
+function goInput(){
+//function goNext(){
+
+
+  for(item of userList){
+
+    var pageType = item["페이지타입"];
+
+    console.log(pageType)
+
+    var nowUrl = '';
+
+    if(pageType == "입력"){
+      correct = item["정답"];
+    }
+    if(pageType == "정답"){
+      correctPage = item["페이지링크"];
+    }
+    if(pageType == "오답"){
+      incorrectPage = item["페이지링크"];
+    }
+  }
+
+  var inputValue = prompt("정답을 입력하세요.");
+
+  if(inputValue == correct){
+    nowUrl = correctPage;
+  }else{
+    nowUrl = incorrectPage;
+  }
+
+  $('#dataTable').attr("src",nowUrl);
+
+}
+
+function goHint(){
+
+
+console.log(userList)
+for(item of userList){
+
+    var pageType = item["페이지타입"];
+
+    var nowUrl = '';
+
+    if(pageType == "힌트"){
+      nowUrl = item["페이지링크"];
+
+      console.log("HINT >> " + item["페이지링크"])
+
+    $('#dataTable').attr("src",nowUrl);
+    }
+}
+
+
+
+}
+
+function goPopup(url){
+  var name = "Popup";
+  var option = "width = 500, height = 700, top = 100, left = 200, location = no"
+  window.open(url, name, option);  
+
+}
+
+$("<iframe>", {
+  src: "https://docs.google.com/presentation/d/e/2PACX-1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58/embed?rm=minimal#slide=1",
+  id: "dataTable",
+}).appendTo("body");
+      
+$('#dataTable').on("load", function() {
+
+  var nowURL = $('#dataTable').attr("src");
+
+    console.log($('#dataTable').attr("src"));
+    $('#inputBox').val($('#dataTable').attr("src"));
+
+
+
+      $('.previosButton').hide();
+      $('.nextButton').hide();
+
+
+      $('.inputButton').hide();
+      $('.hintButton').hide();
+
+
+var NOWINDEX = nowURL.split("#slide=")[1];
+
+console.log(NOWINDEX);
+
+//nowURL = "https://docs.google.com/presentation/d/e/2PACX-1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58/embed?rm=minimal#slide=" + NOWINDEX;
+
+for(item of userList){
+
+  if(nowURL==item["페이지링크"]){
+    var pageType = item["페이지타입"];
+
+    console.log(pageType)
+
+    if(pageType == "일반페이지"){
+      $('.previosButton').show();
+      $('.nextButton').show();
+
+    }
+    if(pageType == "입력"){
+      $('.inputButton').show();
+      $('.hintButton').show();
+
+
+    }
+    if(pageType == "힌트"){
+      $('.previosButton').show();
+    }
+    if(pageType == "오답"){
+      $('.previosButton').show();
+    }
+    if(pageType == "정답"){
+      $('.nextButton').show();
+
+    }
+
+  }
+}
+
+
+
+
+});
+
+$('#inputBox').change(function(){
+  $('#dataTable').attr("src",$(this).val());
+});
+
+
+
+
+
+    </script>
+
+
+  </body>
+</html>
+
