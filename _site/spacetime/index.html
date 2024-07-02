@@ -80,22 +80,7 @@ https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.mi
 https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
 " rel="stylesheet">
 
-<script>
 
-$(function(){
-  loading();
-
-});
-
-  function loading() {
-        $('body').loadingModal({text: '불러오는 중...'});
-    setTimeout(function(){
-      
-    $('body').loadingModal('destroy')
-    },1500)
-
-  }
-</script>
 
 <style>
   :root {
@@ -242,24 +227,6 @@ video {
   line-height: 1;
   color: inherit;
 }
-/*.menu-name {
-  display: block;
-  visibility: visible;
-  //display: none;
-  font-family: inherit;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.25;
-  visibility: hidden;
-  text-transform: capitalize;
-}
-
-  .menu-list {
-    justify-content: center;
-    -moz-column-gap: 3rem;
-         column-gap: 3rem;
-  }*/
-
 
  .menu-name {
     display: block !important;
@@ -272,72 +239,129 @@ video {
          column-gap: 3rem  !important;
   }
 
-/*.navbar {
-  display: none;
-}*/
 
-/*@media only screen and (min-width: 360px) {
-  .menu-name {
-    display: block;
-    visibility: visible;
-  }
-}
-@media only screen and (min-width: 576px) {
-
-
-  .menu-list {
-    justify-content: center;
-    -moz-column-gap: 3rem;
-         column-gap: 3rem;
-  }
-}*/
-/*@media only screen and (min-width: 768px) {
-  .header {
-    background: var(--color-white);
-    box-shadow: var(--shadow-medium);
-    transition: all 0.35s ease-in-out;
-  }
-
-  .menu {
-    position: relative;
-    top: 0;
-    right: 0;
-    width: auto;
-    height: auto;
-    background: none;
-    box-shadow: none;
-  }
-  .menu-link.is-active::before {
-    position: absolute;
-    content: "";
-    left: 0;
-    bottom: 0;
-    width: 2rem;
-    height: 2px;
-    border: none;
-    outline: none;
-    background: var(--color-teal-800);
-  }
-  .menu-link:hover {
-    color: var(--color-teal-800);
-    transition: all 0.35s ease;
-  }
-  .menu-icon {
-    display: none;
-    visibility: hidden;
-  }
-  .menu-name {
-    font-size: 1rem;
-    font-weight: 500;
-    line-height: 1.5;
-    margin-bottom: 0.2rem;
-  }
-}*/
 </style>
-     
+   
+ <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: vh;
+        background-color: #0d092f;
+        overflow: hidden;
+      }
+
+
+      #myFrame {
+        display: block;
+        border: none;
+        height: 100vh;
+        width: 100vw;
+        max-width: 500px;
+        background: white;
+        padding-bottom: 100px;
+        overflow-y:hidden;
+        overflow-x:hidden;
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+      }
+
+      .mainFrame {
+        //padding-top: env(safe-area-inset-top);
+      }
+
+  </style>  
   </head>
 
   <body>
+<script>
+
+function loading() {
+$('body').loadingModal({text: '불러오는 중...'});
+setTimeout(function(){
+
+$('body').loadingModal('destroy')
+},1500)
+
+}
+
+function getParameterByName(name, url = window.location.href) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+  results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+var NOWINDEX;
+
+$(function(){
+
+  if(getParameterByName("index")){
+    NOWINDEX = getParameterByName("index");
+    //alert(NOWINDEX)
+    //console.log($("#myFrame"))
+    if(NOWINDEX == 0){
+        $('#myFrame').attr('src',"/spacetime/app.html");
+    }
+    if(NOWINDEX == 1){
+        $('#myFrame').attr('src',"/spacetime/list.html");
+    }
+    if(NOWINDEX == 2){
+        $('#myFrame').attr('src',"/spacetime/map.html");
+    }
+    if(NOWINDEX == 3){
+        console.log($("#myFrame"))
+        $('#myFrame').attr('src',"/spacetime/profile.html");
+    }
+  }
+  else{
+    var url = new URL(window.location.href);
+    url.searchParams.set("index", 0);
+    location.href = url;
+  }
+
+
+  loading();
+
+  $('#goHome').click(function(){
+    var url = new URL(window.location.href);
+    url.searchParams.set("index", 0);
+    location.href = url;
+  });
+
+  $('#goList').click(function(){
+    var url = new URL(window.location.href);
+    url.searchParams.set("index", 1);
+    location.href = url;
+  });
+
+  $('#goMap').click(function(){
+    var url = new URL(window.location.href);
+    url.searchParams.set("index", 2);
+    location.href = url;
+  });
+
+  $('#goProfile').click(function(){
+    var url = new URL(window.location.href);
+    url.searchParams.set("index", 3);
+    location.href = url;
+  });
+
+
+  var QRDATA = getParameterByName('data');
+
+  if(QRDATA){
+      loading()
+      $('iframe').attr('src',"/spacetime/profile.html?data="+QRDATA);
+  }
+
+
+})  
+
+</script>
+
 
 <header class="header" id="header">
   <nav class="navbar container">
@@ -381,94 +405,14 @@ video {
   </nav>
 </header>
 
-<script type="text/javascript">
 
-
-
-function getParameterByName(name, url = window.location.href) {
-  name = name.replace(/[\[\]]/g, '\\$&');
-  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-  results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-
-$(function(){
-
-  $('#goHome').click(function(){
-    loading()
-    $('iframe').attr('src',"/spacetime/app.html")
-  });
-
-  $('#goList').click(function(){
-    loading()
-    $('iframe').attr('src',"/spacetime/list.html")
-    
-  });
-
-  $('#goMap').click(function(){
-    loading()
-    $('iframe').attr('src',"/spacetime/map.html")
-    
-  });
-
-  $('#goProfile').click(function(){
-    loading()
-    $('iframe').attr('src',"/spacetime/profile.html")
-    
-  });
-
-
-  var QRDATA = getParameterByName('data');
-
-  if(QRDATA){
-      loading()
-      $('iframe').attr('src',"/spacetime/profile.html?data="+QRDATA);
-  }
-
-
-})  
-
-</script>
-
- <style>
-      html, body {
-        margin: 0;
-        padding: 0;
-        height: vh;
-        background-color: #0d092f;
-        overflow: hidden;
-      }
-
-
-      iframe {
-        display: block;
-        border: none;
-        height: 100vh;
-        width: 100vw;
-        max-width: 500px;
-        background: white;
-        padding-bottom: 100px;
-        overflow-y:hidden;
-        overflow-x:hidden;
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
-      }
-
-      .mainFrame {
-        //padding-top: env(safe-area-inset-top);
-      }
-
-  </style>
-     
 
 <div class="mainFrame">
 
 <center>
   <iframe
-      src="/spacetime/app.html"
+      id="myFrame"
+      src=""
       frameborder="0"
       allowfullscreen="true"
       mozallowfullscreen="true"
@@ -477,6 +421,10 @@ $(function(){
       />
       </center>
 </div>
+
+
+
+     
     
 
   </body>
