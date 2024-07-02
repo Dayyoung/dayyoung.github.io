@@ -215,6 +215,180 @@ html {
     </section>
   
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css">
+<a href="#" class="float" id="menu-share">
+<i class="fa fa-robot my-float"></i>
+</a>
+<ul>
+<li>
+<a href="#" class="naverButton" onclick="goPopup('https://cafe.naver.com/42siot')">
+<i class="fa fa-google-plus my-float"></i>
+</a></li>
+<li>
+<a href="#" class="kakaoButton" onclick="goPopup('https://pf.kakao.com/_FgcpG/chat')">
+<i class="fa fa-google-plus my-float"></i>
+</a></li>
+<li>
+<!-- <a href="#">
+<i class="fa fa-twitter my-float"></i>
+</a> -->
+</li>
+</ul>
+
+
+<script>
+//https://cafe.naver.com/42siot  
+  //https://pf.kakao.com/_FgcpG/chat
+
+
+function goPopup(url){
+  var name = "Popup";
+  var option = "width = 500, height = 700, top = 100, left = 200, location = no"
+  window.open(url, name, option);  
+
+}
+</script>
+
+<style type="text/css">
+
+
+  
+*{padding:0;margin:0;}
+
+
+
+body{
+  //font-family:Verdana, Geneva, sans-serif;
+  //background-color:#419DE8;
+  //font-size:25px;
+}
+
+.label-container{
+  position:fixed;
+  bottom:48px;
+  right:105px;
+  display:table;
+  visibility: hidden;
+}
+
+.label-text{
+  color:#FFF;
+  background:rgba(51,51,51,0.5);
+  display:table-cell;
+  vertical-align:middle;
+  padding:10px;
+  border-radius:3px;
+}
+
+.label-arrow{
+  display:table-cell;
+  vertical-align:middle;
+  color:#333;
+  opacity:0.5;
+}
+
+.float{
+  //background-image: url("/spacetime/image/kakao.png");
+  //background-size: cover;
+  position:fixed;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background-color: dodgerblue;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  box-shadow: 2px 2px 3px #999;
+  z-index:1000;
+  animation: bot-to-top 2s ease-out;
+}
+
+ul{
+  position:fixed;
+  right:40px;
+  padding-bottom:20px;
+  bottom:80px;
+  z-index:100;
+}
+
+ul li{
+  list-style:none;
+  margin-bottom:10px;
+}
+
+ul li a{
+  //background-color:#F33;
+  //background-image: url("/spacetime/image/kakao.png");
+  //background-size: cover;
+  color:#FFF;
+  border-radius:50px;
+  text-align:center;
+  box-shadow: 2px 2px 3px #999;
+  width:60px;
+  height:60px;
+  display:block;
+}
+
+ul:hover{
+  visibility:visible!important;
+  opacity:1!important;
+}
+
+
+.my-float{
+  font-size:24px;
+  margin-top:18px;
+}
+
+a#menu-share + ul{
+  visibility: hidden;
+}
+
+a#menu-share:hover + ul{
+  visibility: visible;
+  animation: scale-in 0.5s;
+}
+
+a#menu-share i{
+  animation: rotate-in 0.5s;
+}
+
+a#menu-share:hover > i{
+  animation: rotate-out 0.5s;
+}
+
+@keyframes bot-to-top {
+    0%   {bottom:-40px}
+    50%  {bottom:40px}
+}
+
+@keyframes scale-in {
+    from {transform: scale(0);opacity: 0;}
+    to {transform: scale(1);opacity: 1;}
+}
+
+@keyframes rotate-in {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(360deg);}
+}
+
+@keyframes rotate-out {
+    from {transform: rotate(360deg);}
+    to {transform: rotate(0deg);}
+}
+
+.kakaoButton {
+  background-image: url("/spacetime/image/kakao.png");
+  background-size: cover;
+}
+
+.naverButton {
+  background-image: url("/spacetime/image/naver.png");
+  background-size: cover;
+}
+</style>
+
 
 
   </main>
