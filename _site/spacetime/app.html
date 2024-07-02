@@ -75,6 +75,28 @@
 <script type="text/javascript">
   
 
+function goQR(){
+  //var encodedUrl = encodeURIComponent(window.location.href);
+  var QRURL = "https://dayyoung.github.io/spacetime/studio/preview";
+  location.href = QRURL
+}
+
+
+function goPopup(url){
+  var name = "Popup";
+  var option = "width = 500, height = 700, top = 100, left = 200, location = no"
+  window.open(url, name, option);  
+
+}
+
+$(function(){
+
+$(".swiper-slide").click(function(){
+  var goURL = "https://dayyoung.github.io/spacetime/studio/preview";
+  goPopup(goURL);
+})
+
+})
 
 </script>
 

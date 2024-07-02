@@ -96,6 +96,17 @@
       margin: 0;
       display: none;
     }
+    .startButton {
+      position: fixed;
+      display : block;
+      height: 70px;
+      width: 400px;
+      left: calc(50% - 200px);
+      bottom : 10;
+      margin: 0;
+      display: none;
+    }
+
 
 
 iframe {
@@ -104,17 +115,44 @@ iframe {
 
     </style>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js">
-  </script>
-  <script src="
-  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
-  "></script>
-  <link href="
-  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
-  " rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  
   </head>
 
+
+
+
   <body>
+
+
+
+<script src="
+https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
+"></script>
+<link href="
+https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
+" rel="stylesheet">
+
+<script>
+
+$(function(){
+  loading();
+
+});
+
+  function loading() {
+        $('body').loadingModal({text: '불러오는 중...'});
+    setTimeout(function(){
+      
+    $('body').loadingModal('destroy')
+    },1500)
+
+  }
+</script>
+
+
+    <iframe id="myFrame" src=""></iframe>
+
     <div id="app">
       <div class="product">
         <center>
@@ -134,6 +172,10 @@ iframe {
           다음화면
         </button>
 
+        <button class="favorite styled button startButton" type="button" onclick="goFirst()">
+          처음화면
+        </button>
+
         <button class="favorite styled button inputButton" type="button" onclick="goInput()">
           정답입력
         </button>
@@ -145,9 +187,6 @@ iframe {
         </center>
       </div>
     </div>
-
-
-<!-- <input type="text" value="https://docs.google.com/presentation/d/e/2PACX-1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58/embedl?rm=minimal#slide=1" id="inputBox" style="width:100%;">  -->
 
 
     <script type="text/javascript">
@@ -170,7 +209,84 @@ function getJsonList(url) {
   return isSucess;
 }
 
+var globalData;
 
+
+function HTMLtoJSON(requestUrl) {
+
+  var tableList = [];
+  
+  $.ajax({
+          type: "get",            
+          url: requestUrl,         
+          async: false,
+          cache: false,              
+          data: "",                
+          success: function(res){   
+
+          console.log($(res));
+
+          $(res).each(function (i,item) {
+            // body...
+
+            if(item.innerHTML.indexOf("viewerData") != -1 && item.nodeName == "SCRIPT"){
+
+               console.log(item);
+              // console.log(item.innerHTML);
+
+              var excuteScript = item.innerHTML.replace("DOCS_timing['sac'] = new Date().getTime();","");
+              excuteScript = excuteScript.replace("var SK_viewerApp = init_viewer(viewerData, window, _timingInstance); _timingInstance.setTime('eac'); _timingInstance.setTime('al');","");
+              
+              eval(excuteScript);
+
+              var slideData  = $(viewerData.docData).eq(1)[0];
+
+              //console.log(JSON.stringify(tableList));
+
+              var pageIndex = 1;
+              for(slide of slideData) {
+
+                var tableItem = {};
+                var slideParseData = $(slide[9]).html();
+
+                console.log($(slide[9]).html())
+
+                tableItem["번호"] = pageIndex;
+                tableItem["링크"] = "https://docs.google.com/presentation/d/e/2PACX-"+NOWID+"/embed?rm=minimal#slide="+pageIndex;
+
+                if(slideParseData.indexOf("일반화면") != -1){
+                   tableItem["타입"] = "일반";
+                }
+                if(slideParseData.indexOf("입력화면") != -1){
+                   tableItem["타입"] = "입력";
+                   tableItem["정답"] = slideParseData.split("정답")[1].split(":")[1].trim();
+                }
+                if(slideParseData.indexOf("힌트화면") != -1){
+                   tableItem["타입"] = "힌트";
+                }
+                if(slideParseData.indexOf("오답화면") != -1){
+                   tableItem["타입"] = "오답";
+                }
+                if(slideParseData.indexOf("정답화면") != -1){
+                   tableItem["타입"] = "정답";
+                }
+                if(slideParseData.indexOf("부모") != -1){
+                   tableItem["부모"] = slideParseData.split("부모")[1].split(":")[1].trim();
+                }
+                
+                tableList.push(tableItem);
+
+                pageIndex ++;
+              }
+
+
+            }
+            
+          })
+      }
+    });
+  return tableList;
+}
 
 function tsvToJSON(tsv_string) {
   const rows = tsv_string.split("\r\n");
@@ -203,54 +319,90 @@ function csvToJSON(csv_string) {
   return jsonArray;
 }
 
-var userListData = getJsonList('https://docs.google.com/spreadsheets/d/e/2PACX-1vTkUcJUvzpXaThHhleH2W7hCHKIlAC1LbW3sA9UX_1zXnc6-PUlpftsDjgVoC8mXDCBWyfMm5EipSrF/pub?output=csv')
 
-var userList = csvToJSON(userListData)
-
-console.log(userList);
-
-
-var NOWINDEX = 1;
-
-function goPrevious(url){
-
-NOWINDEX--;
-
-if(NOWINDEX < 1) {
-  NOWINDEX = 1;
+function getParameterByName(name, url = window.location.href) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+  results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-var nowUrl = $('#dataTable').attr("src");
 
-var prevPage = nowUrl.split("#")[1];
+var NOWID = "1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58";
+var NOWINDEX = 1;
 
-nowUrl = nowUrl.replace(prevPage ,"slide="+NOWINDEX);
+var NOWTYPE = 1; // 1 일반 / 2 입력 / 3 힌트 / 4 오답 / 5 정답
+var PARENT; // 1 일반 / 2 입력 / 3 힌트 / 4 오답 / 5 정답
+
+if(getParameterByName("id")){
+  NOWID = getParameterByName("id");
+}
+
+var slideData = HTMLtoJSON("https://docs.google.com/presentation/d/e/2PACX-"+NOWID+"/pub?rm=minimal");
+console.log("https://docs.google.com/presentation/d/e/2PACX-"+NOWID+"/pub?rm=minimal")
+console.log(slideData);
+
+var TOTALINDEX = slideData.length;
+
+if(getParameterByName("index")){
+  NOWINDEX = getParameterByName("index");
 
 
-//alert(nowUrl);
+  for(slide of slideData){
+    if(slide["번호"]==NOWINDEX){
+      console.log($('#myFrame'))
+      console.log(slide["링크"])
+      $('#myFrame').attr("src",slide["링크"]);
+      console.log($('#myFrame').attr("src"));
+      NOWTYPE = slide["타입"];
+      PARENT = slide["부모"];
 
-$('#dataTable').attr("src",nowUrl);
+      //alert(PARENT);
+    }
+  }
+}
+else{
+  var url = new URL(window.location.href);
+  url.searchParams.set("index", 1);
+  location.href = url;
+}
 
+function goFirst(){
+  var url = new URL(window.location.href);
+  url.searchParams.set("index", 1);
+  location.href = url;
+}
+function goPrevious(url){
+
+  NOWINDEX--;
+
+  if(NOWINDEX < 1) {
+    NOWINDEX = 1;
+  }
+
+
+  if(PARENT){
+    NOWINDEX = PARENT;
+  }
+
+  var url = new URL(window.location.href);
+  url.searchParams.set("index", NOWINDEX);
+  location.href = url;
 
 }
 function goNext(url){
+
 NOWINDEX++;
 
-if(NOWINDEX > 99) {
-  NOWINDEX = 99;
+if(NOWINDEX > TOTALINDEX) {
+  NOWINDEX = TOTALINDEX;
 }
-
-var nowUrl = $('#dataTable').attr("src");
-
-var prevPage = nowUrl.split("#")[1];
-
-nowUrl = nowUrl.replace(prevPage ,"slide="+NOWINDEX);
-
-
-//alert(nowUrl);
-
-$('#dataTable').attr("src",nowUrl);
-
+  
+  var url = new URL(window.location.href);
+  url.searchParams.set("index", NOWINDEX);
+  location.href = url;
 }
 
 
@@ -258,9 +410,9 @@ function goInput(){
 //function goNext(){
 
 
-  for(item of userList){
+  for(item of slideData){
 
-    var pageType = item["페이지타입"];
+    var pageType = item["타입"];
 
     console.log(pageType)
 
@@ -270,41 +422,50 @@ function goInput(){
       correct = item["정답"];
     }
     if(pageType == "정답"){
-      correctPage = item["페이지링크"];
+      correctPage = item["번호"];
     }
     if(pageType == "오답"){
-      incorrectPage = item["페이지링크"];
+      incorrectPage = item["번호"];
     }
   }
 
   var inputValue = prompt("정답을 입력하세요.");
 
   if(inputValue == correct){
-    nowUrl = correctPage;
+    var url = new URL(window.location.href);
+    url.searchParams.set("index", correctPage);
+    location.href = url;
   }else{
-    nowUrl = incorrectPage;
+    var url = new URL(window.location.href);
+    url.searchParams.set("index", incorrectPage);
+    location.href = url;
   }
 
-  $('#dataTable').attr("src",nowUrl);
+  //$('#dataTable').attr("src",nowUrl);
 
 }
 
 function goHint(){
 
 
-console.log(userList)
-for(item of userList){
+console.log(slideData)
+for(item of slideData){
 
-    var pageType = item["페이지타입"];
+    var pageType = item["타입"];
 
     var nowUrl = '';
 
     if(pageType == "힌트"){
-      nowUrl = item["페이지링크"];
+      nowUrl = item["링크"];
 
-      console.log("HINT >> " + item["페이지링크"])
+      console.log("HINT >> " + item["링크"])
 
-    $('#dataTable').attr("src",nowUrl);
+      NOWINDEX = item["번호"]
+      var url = new URL(window.location.href);
+      url.searchParams.set("index", NOWINDEX);
+      location.href = url;
+
+      //$('#dataTable').attr("src",nowUrl);
     }
 }
 
@@ -319,19 +480,17 @@ function goPopup(url){
 
 }
 
-$("<iframe>", {
-  src: "https://docs.google.com/presentation/d/e/2PACX-1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58/embed?rm=minimal#slide=1",
-  id: "dataTable",
-}).appendTo("body");
+// $("<iframe>", {
+//   src: "",
+//   id: "dataTable",
+// }).appendTo("body");
       
-$('#dataTable').on("load", function() {
+$('#myFrame').on("load", function() {
 
   var nowURL = $('#dataTable').attr("src");
 
     console.log($('#dataTable').attr("src"));
     $('#inputBox').val($('#dataTable').attr("src"));
-
-
 
       $('.previosButton').hide();
       $('.nextButton').hide();
@@ -341,29 +500,24 @@ $('#dataTable').on("load", function() {
       $('.hintButton').hide();
 
 
-var NOWINDEX = nowURL.split("#slide=")[1];
+// var NOWINDEX = nowURL.split("#slide=")[1];
 
-console.log(NOWINDEX);
+// console.log(NOWINDEX);
 
-//nowURL = "https://docs.google.com/presentation/d/e/2PACX-1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58/embed?rm=minimal#slide=" + NOWINDEX;
+for(item of slideData){
 
-for(item of userList){
-
-  if(nowURL==item["페이지링크"]){
-    var pageType = item["페이지타입"];
+  if(NOWINDEX==item["번호"]){
+    var pageType = item["타입"];
 
     console.log(pageType)
 
-    if(pageType == "일반페이지"){
+    if(pageType == "일반"){
       $('.previosButton').show();
       $('.nextButton').show();
-
     }
     if(pageType == "입력"){
       $('.inputButton').show();
       $('.hintButton').show();
-
-
     }
     if(pageType == "힌트"){
       $('.previosButton').show();
@@ -372,14 +526,11 @@ for(item of userList){
       $('.previosButton').show();
     }
     if(pageType == "정답"){
-      $('.nextButton').show();
+      $('.startButton').show();
 
     }
-
   }
 }
-
-
 
 
 });
@@ -393,7 +544,6 @@ $('#inputBox').change(function(){
 
 
     </script>
-
 
   </body>
 </html>
