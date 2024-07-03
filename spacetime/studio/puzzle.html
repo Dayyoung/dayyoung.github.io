@@ -3,8 +3,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
-
-    <canvas id='canvas' width="500" height="500"></canvas>
+    <canvas id='canvas' width="300px" height="300px"></canvas>
      <p id='points'></p>
 
 
@@ -12,11 +11,11 @@
 
 
 var pointList = [];
-var point1 = { "x": 190, "y": 77};
-var point2 = { "x": 332, "y": 77};
-var point3 = { "x": 445, "y": 200};
-var point4 = { "x": 255, "y": 400};
-var point5 = { "x": 80, "y": 200};
+var point1 = { "x": 100, "y": 50};
+var point2 = { "x": 200, "y": 50};
+var point3 = { "x": 250, "y": 130};
+var point4 = { "x": 150, "y": 230};
+var point5 = { "x": 50, "y": 130};
 
 pointList.push(point1);
 pointList.push(point3);
@@ -87,13 +86,13 @@ canvas.addEventListener("mouseup", handleEnd, false);
      if(e.touches){
       console.log("mobile")
      var rect = canvas.getBoundingClientRect();
-     var nowx = e.touches[0].clientX - rect.left;
-     var nowy = e.touches[0].clientY - rect.top;
+     var nowx = e.touches[0].pageX - rect.left;
+     var nowy = e.touches[0].pageY - rect.top;
      }else{
       console.log("pc")
      var rect = canvas.getBoundingClientRect();
-     var nowx = e.clientX - rect.left;
-     var nowy = e.clientY - rect.top;
+     var nowx = e.pageX - rect.left;
+     var nowy = e.pageY - rect.top;
      }
 
 
@@ -151,13 +150,13 @@ canvas.addEventListener("mouseup", handleEnd, false);
      if(e.changedTouches){
       console.log("mobile")       
        var rect = canvas.getBoundingClientRect();
-       var nowx = e.changedTouches[0].clientX - rect.left;
-       var nowy = e.changedTouches[0].clientY - rect.top;
+       var nowx = e.changedTouches[0].pageX - rect.left;
+       var nowy = e.changedTouches[0].pageY - rect.top;
      }else{
       console.log("pc")
        var rect = canvas.getBoundingClientRect();
-       var nowx = e.clientX - rect.left;
-       var nowy = e.clientY - rect.top;
+       var nowx = e.pageX - rect.left;
+       var nowy = e.pageY - rect.top;
      }
 
 
@@ -221,8 +220,8 @@ function getPosition(event){
      var rect = canvas.getBoundingClientRect();
      //console.log(event)
      //console.log(rect)
-     var x = event.clientX - rect.left;
-     var y = event.clientY - rect.top;
+     var x = event.pageX - rect.left;
+     var y = event.pageY - rect.top;
      console.log(x + " : " + y)   
      //drawpointinates(x,y);     
 }
