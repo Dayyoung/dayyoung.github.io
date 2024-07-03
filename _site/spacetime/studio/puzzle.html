@@ -1,5 +1,6 @@
 
   
+  <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 
@@ -23,30 +24,78 @@ pointList.push(point5);
 pointList.push(point2);
 pointList.push(point4);
 
-
 var drawStartPointList = [];
 var drawEndPointList = [];
 
 var canvas = document.getElementById('canvas');
 
-
-document.onmousemove = function(e){
-  cursorX = e.pageX;
-  cursorY = e.pageY;
-};
-
 var startPoint = {};
 var endPoint = {};
 
-$( "#canvas" )
-  .on( "mousedown", function(e) {
-    //$( this ).append( "<span style='color:#f00;'>Mouse up.</span>" );
 
-     getPosition(e); 
+var cursorX;
+var cursorY;
+// var canvas = document.getElementById("canvas"); //canvas, context, other vars etc
+// var ctx = canvas.getContext("2d");
+// var firstClick = [0,0];
+var intervalLoop = null;
+//init();
 
+canvas.addEventListener("touchstart", handleStart,false);
+canvas.addEventListener("touchmove", handleMove,false);
+canvas.addEventListener("touchend", handleEnd, false);
+
+canvas.addEventListener("mousedown", handleStart,false);
+canvas.addEventListener("mousemove", handleMove,false);
+canvas.addEventListener("mouseup", handleEnd, false);
+
+
+  var IsDrawing = false;
+
+  intervalLoop = setInterval(function(){
+
+    var context = canvas.getContext("2d");
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawline();
+
+    drawPoint();
+
+    //ing~
+    // console.log(cursorX)
+    // console.log(cursorY)
+
+    if(IsDrawing && cursorX && cursorY){
+      context.beginPath();
+      context.moveTo(startPoint.x, startPoint.y);
+      context.lineTo(cursorX, cursorY);
+      context.stroke();
+    }
+
+  },10);
+
+
+   function handleStart(e) {
+
+    console.log("START")
+    console.log(e)
+
+     //getPosition(e); 
+     IsDrawing = true;
+
+     if(e.touches){
+      console.log("mobile")
      var rect = canvas.getBoundingClientRect();
-     var nowx = event.clientX - rect.left;
-     var nowy = event.clientY - rect.top;
+     var nowx = e.touches[0].clientX - rect.left;
+     var nowy = e.touches[0].clientY - rect.top;
+     }else{
+      console.log("pc")
+     var rect = canvas.getBoundingClientRect();
+     var nowx = e.clientX - rect.left;
+     var nowy = e.clientY - rect.top;
+     }
+
 
       function distance(p) {
           return Math.sqrt(Math.pow(point.x - p.x, 2) + Math.pow(point.y - p.y, 2))
@@ -56,44 +105,62 @@ $( "#canvas" )
           points = pointList,
           closest = points.reduce((a, b) => distance(a) < distance(b) ? a : b);
 
-      console.log(closest);
-
+      
        startPoint.x = closest.x;
        startPoint.y = closest.y;
 
-        intervalLoop = setInterval(function(){
+    console.log(startPoint)
 
-          var context = canvas.getContext("2d");
-       
-          context.clearRect(0, 0, canvas.width, canvas.height);
+  }
 
-          drawline()
+   function handleMove(e) {
 
-          for (point of pointList){
-            drawpointinates(point.x,point.y);
-          }
+      //console.log(e)
+      //getPosition(e); 
+      if(IsDrawing){
 
+         if(e.changedTouches){
+          console.log("mobile")       
+          cursorX = e.changedTouches[0].pageX;
+          cursorY = e.changedTouches[0].pageY;
+         }else{
+          console.log("pc")
+          cursorX = e.pageX;
+          cursorY = e.pageY;
+         }
 
-          context.beginPath();
-          context.moveTo(startPoint.x, startPoint.y);
-          context.lineTo(cursorX, cursorY);
-          context.stroke();
-        },10);
+      }else{
+        cursorX = null;
+        cursorY = null;
+      }
+   }
 
-     //console.log(startPoint)
+   function handleEnd(e) {
 
-  } )
-  .on( "mouseup", function(e) {
-    //$( this ).append( "<span style='color:#00f;'>Mouse down.</span>" );
+    console.log("END")
+    console.log(e)
 
-
-     clearInterval(intervalLoop);
+    IsDrawing = false;
+    var cursorX = null;
+    var cursorY = null;
+    //alert(e)
+     //clearInterval(intervalLoop);
  
-     getPosition(e); 
+     //getPosition(e); 
+  
+     if(e.changedTouches){
+      console.log("mobile")       
+       var rect = canvas.getBoundingClientRect();
+       var nowx = e.changedTouches[0].clientX - rect.left;
+       var nowy = e.changedTouches[0].clientY - rect.top;
+     }else{
+      console.log("pc")
+       var rect = canvas.getBoundingClientRect();
+       var nowx = e.clientX - rect.left;
+       var nowy = e.clientY - rect.top;
+     }
 
-     var rect = canvas.getBoundingClientRect();
-     var nowx = event.clientX - rect.left;
-     var nowy = event.clientY - rect.top;
+
      
      
       function distance(p) {
@@ -103,30 +170,29 @@ $( "#canvas" )
       var point = { x: nowx, y: nowy },
           points = pointList,
           closest = points.reduce((a, b) => distance(a) < distance(b) ? a : b);
-
-      console.log(closest);
 
 
      endPoint.x = closest.x;
      endPoint.y = closest.y;
 
+     console.log(endPoint)
      //console.log(startPoint)
      //console.log(endPoint)
 
-    var context = canvas.getContext("2d");
+    // var context = canvas.getContext("2d");
 
-    context.clearRect(0, 0, canvas.width, canvas.height);
+    // context.clearRect(0, 0, canvas.width, canvas.height);
      
-     drawline()
+    //  drawline()
 
-    for (point of pointList){
-      drawpointinates(point.x,point.y);
-    }
+    // for (point of pointList){
+    //   drawpointinates(point.x,point.y);
+    // }
 
-    context.beginPath();
-    context.moveTo(startPoint.x, startPoint.y);
-    context.lineTo(endPoint.x, endPoint.y);
-    context.stroke();
+    // context.beginPath();
+    // context.moveTo(startPoint.x, startPoint.y);
+    // context.lineTo(endPoint.x, endPoint.y);
+    // context.stroke();
 
     if(startPoint.x != endPoint.x || startPoint.y != endPoint.y) {
       console.log("matched!")
@@ -134,7 +200,7 @@ $( "#canvas" )
       myPoint.x = startPoint.x;
       myPoint.y = startPoint.y;
       drawStartPointList.push(myPoint)
-      
+
       var myPoint = {}
       myPoint.x = endPoint.x;
       myPoint.y = endPoint.y;
@@ -143,43 +209,42 @@ $( "#canvas" )
     }
 
 
-  } );
+  } 
 
 $("#canvas").click(function(e){
   //alert('test')
      //getPosition(e); 
 });
 
-var pointSize = 10;
 
 function getPosition(event){
      var rect = canvas.getBoundingClientRect();
+     //console.log(event)
+     //console.log(rect)
      var x = event.clientX - rect.left;
      var y = event.clientY - rect.top;
      console.log(x + " : " + y)   
      //drawpointinates(x,y);     
 }
 
+function drawPoint(){    
 
-function drawpointinates(x,y){  
-    var ctx = document.getElementById("canvas").getContext("2d");
+    var pointSize = 10;
 
+    var context = canvas.getContext("2d");
+    
+    for (point of pointList){
+      context.fillStyle = "#ff2626"; // Red color
+      context.beginPath();
+      context.arc(point.x, point.y, pointSize, 0, Math.PI * 2, true);
+      context.fill();
+    }
 
-    ctx.fillStyle = "#ff2626"; // Red color
-
-    ctx.beginPath();
-    ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
-    ctx.fill();
 }
-
-for (point of pointList){
-  drawpointinates(point.x,point.y);
-}
-
 
 function drawline(){    
     var context = canvas.getContext("2d");
-    console.log(drawStartPointList);
+    
     for (i in drawStartPointList){
       //console.log(i)
       context.beginPath();
@@ -221,13 +286,6 @@ function drawline(){
 //     canvas.addEventListener('mouseup', stopDragLine, false);
 // }
 
-// var cursorX;
-// var cursorY;
-// var canvas = document.getElementById("canvas"); //canvas, context, other vars etc
-// var ctx = canvas.getContext("2d");
-// var firstClick = [0,0];
-// var intervalLoop = null;
-// init();
 
 
 
