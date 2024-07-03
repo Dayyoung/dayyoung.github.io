@@ -89,7 +89,6 @@ function getParameterByName(name, url = window.location.href) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-
 $(function(){
 
   $("#scanButton").click(function(){
@@ -98,6 +97,10 @@ $(function(){
 
   $("#qrButton").click(function(){
     window.location.href = "/spacetime/qr.html"
+  });
+
+  $("#nfcButton").click(function(){
+    window.location.href = "/spacetime/nfc.html"
   });
 
 var QRDATA = getParameterByName('data');
@@ -157,7 +160,7 @@ html {
             <span class="font-semibold text-lg" id="stepCount">0</span>
             <span class="text-xs">걸음 수</span>
           </div>
-          <div class="flex flex-col items-center justify-center p-1">
+          <div  id="nfcButton" class="flex flex-col items-center justify-center p-1">
             <span class="font-semibold text-lg">0P</span>
             <span class="text-xs">포인트</span>
           </div>
@@ -222,11 +225,11 @@ html {
 <ul>
 <li>
 <a href="#" class="naverButton" onclick="goPopup('https://cafe.naver.com/42siot')">
-<i class="fa fa-google-plus my-float"></i>
+<!-- <i class="fa fa-google-plus my-float"></i> -->
 </a></li>
 <li>
 <a href="#" class="kakaoButton" onclick="goPopup('https://pf.kakao.com/_FgcpG/chat')">
-<i class="fa fa-google-plus my-float"></i>
+<!-- <i class="fa fa-google-plus my-float"></i> -->
 </a></li>
 <li>
 <!-- <a href="#">

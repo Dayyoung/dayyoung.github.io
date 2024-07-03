@@ -1,7 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>QR리더</title>
+  <title>NFC리더</title>
   <script src="/spacetime/qr.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Ropa+Sans" rel="stylesheet">
 
@@ -105,12 +105,12 @@ ons-input, ons-radio, ons-checkbox, ons-search-input {
 <ons-page id="helloworld-page">
     <ons-toolbar>
       <div class="left"><ons-back-button onClick="goBack()">뒤로</ons-back-button></div>
-      <div class="center">QR코드확인</div>
+      <div class="center">NFC 확인</div>
     </ons-toolbar>
   <div id="loadingMessage">🎥 카메라 권한을 허용해 주세요.</div>
   <canvas id="canvas" hidden></canvas>
   <div id="output" hidden>
-    <div id="outputMessage">QR코드를 보여주세요.</div>
+    <div id="outputMessage">NFC를 보여주세요.</div>
     <div hidden><b>Data:</b> <span id="outputData"></span></div>
   </div>
 
