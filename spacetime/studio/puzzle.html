@@ -1,0 +1,249 @@
+
+  
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+
+    <canvas id='canvas' width="500" height="500"></canvas>
+     <p id='points'></p>
+
+
+<script type="text/javascript">
+
+
+var pointList = [];
+var point1 = { "x": 190, "y": 77};
+var point2 = { "x": 332, "y": 77};
+var point3 = { "x": 445, "y": 200};
+var point4 = { "x": 255, "y": 400};
+var point5 = { "x": 80, "y": 200};
+
+pointList.push(point1);
+pointList.push(point3);
+pointList.push(point5);
+pointList.push(point2);
+pointList.push(point4);
+
+
+var drawStartPointList = [];
+var drawEndPointList = [];
+
+var canvas = document.getElementById('canvas');
+
+
+document.onmousemove = function(e){
+  cursorX = e.pageX;
+  cursorY = e.pageY;
+};
+
+var startPoint = {};
+var endPoint = {};
+
+$( "#canvas" )
+  .on( "mousedown", function(e) {
+    //$( this ).append( "<span style='color:#f00;'>Mouse up.</span>" );
+
+     getPosition(e); 
+
+     var rect = canvas.getBoundingClientRect();
+     var nowx = event.clientX - rect.left;
+     var nowy = event.clientY - rect.top;
+
+      function distance(p) {
+          return Math.sqrt(Math.pow(point.x - p.x, 2) + Math.pow(point.y - p.y, 2))
+      }
+
+      var point = { x: nowx, y: nowy },
+          points = pointList,
+          closest = points.reduce((a, b) => distance(a) < distance(b) ? a : b);
+
+      console.log(closest);
+
+       startPoint.x = closest.x;
+       startPoint.y = closest.y;
+
+        intervalLoop = setInterval(function(){
+
+          var context = canvas.getContext("2d");
+       
+          context.clearRect(0, 0, canvas.width, canvas.height);
+
+          drawline()
+
+          for (point of pointList){
+            drawpointinates(point.x,point.y);
+          }
+
+
+          context.beginPath();
+          context.moveTo(startPoint.x, startPoint.y);
+          context.lineTo(cursorX, cursorY);
+          context.stroke();
+        },10);
+
+     //console.log(startPoint)
+
+  } )
+  .on( "mouseup", function(e) {
+    //$( this ).append( "<span style='color:#00f;'>Mouse down.</span>" );
+
+
+     clearInterval(intervalLoop);
+ 
+     getPosition(e); 
+
+     var rect = canvas.getBoundingClientRect();
+     var nowx = event.clientX - rect.left;
+     var nowy = event.clientY - rect.top;
+     
+     
+      function distance(p) {
+          return Math.sqrt(Math.pow(point.x - p.x, 2) + Math.pow(point.y - p.y, 2))
+      }
+
+      var point = { x: nowx, y: nowy },
+          points = pointList,
+          closest = points.reduce((a, b) => distance(a) < distance(b) ? a : b);
+
+      console.log(closest);
+
+
+     endPoint.x = closest.x;
+     endPoint.y = closest.y;
+
+     //console.log(startPoint)
+     //console.log(endPoint)
+
+    var context = canvas.getContext("2d");
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+     
+     drawline()
+
+    for (point of pointList){
+      drawpointinates(point.x,point.y);
+    }
+
+    context.beginPath();
+    context.moveTo(startPoint.x, startPoint.y);
+    context.lineTo(endPoint.x, endPoint.y);
+    context.stroke();
+
+    if(startPoint.x != endPoint.x || startPoint.y != endPoint.y) {
+      console.log("matched!")
+      var myPoint = {}
+      myPoint.x = startPoint.x;
+      myPoint.y = startPoint.y;
+      drawStartPointList.push(myPoint)
+      
+      var myPoint = {}
+      myPoint.x = endPoint.x;
+      myPoint.y = endPoint.y;
+      drawEndPointList.push(myPoint)
+      console.log(drawStartPointList)
+    }
+
+
+  } );
+
+$("#canvas").click(function(e){
+  //alert('test')
+     //getPosition(e); 
+});
+
+var pointSize = 10;
+
+function getPosition(event){
+     var rect = canvas.getBoundingClientRect();
+     var x = event.clientX - rect.left;
+     var y = event.clientY - rect.top;
+     console.log(x + " : " + y)   
+     //drawpointinates(x,y);     
+}
+
+
+function drawpointinates(x,y){  
+    var ctx = document.getElementById("canvas").getContext("2d");
+
+
+    ctx.fillStyle = "#ff2626"; // Red color
+
+    ctx.beginPath();
+    ctx.arc(x, y, pointSize, 0, Math.PI * 2, true);
+    ctx.fill();
+}
+
+for (point of pointList){
+  drawpointinates(point.x,point.y);
+}
+
+
+function drawline(){    
+    var context = canvas.getContext("2d");
+    console.log(drawStartPointList);
+    for (i in drawStartPointList){
+      //console.log(i)
+      context.beginPath();
+      context.moveTo(drawStartPointList[i].x, drawStartPointList[i].y);
+      context.lineTo(drawEndPointList[i].x, drawEndPointList[i].y);
+      context.stroke();
+    }
+
+}
+
+
+
+//
+
+// function startDragLine(e) {
+//     firstClick = [e.pageX, e.pageY];
+//     //start the loop
+//     intervalLoop = setInterval(function(){
+//         ctx.clearRect(0, 0, canvas.width, canvas.height);
+       
+//         ctx.beginPath();
+//         ctx.moveTo(firstClick[0], firstClick[1]);
+//         ctx.lineTo(cursorX, cursorY, 6);
+
+//         ctx.strokeStyle = '#000000';
+//         ctx.stroke();
+//     },10);
+// }
+// function stopDragLine(){
+//     clearInterval(intervalLoop);
+// }
+
+// function init() {
+//     document.onmousemove = function(e){
+//         cursorX = e.pageX;
+//         cursorY = e.pageY;
+//     };
+//     canvas.addEventListener('mousedown', startDragLine, false);
+//     canvas.addEventListener('mouseup', stopDragLine, false);
+// }
+
+// var cursorX;
+// var cursorY;
+// var canvas = document.getElementById("canvas"); //canvas, context, other vars etc
+// var ctx = canvas.getContext("2d");
+// var firstClick = [0,0];
+// var intervalLoop = null;
+// init();
+
+
+
+</script>
+<script>
+</script>
+
+    <style>
+        canvas {     
+            border: 1px solid black;
+            border-radius: 0px;
+        }
+        body {
+          margin: 0;
+          padding: 0;
+        }
+    </style>
+
+   
