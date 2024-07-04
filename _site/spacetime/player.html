@@ -5,18 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
     <style>
       body, html {
-
+        background-color: black;
         padding: 0;
         margin: 0;
       }
 
       iframe {
+        background-color: black;
         display: block;
         border: none;
-        height: 90vh;
+        height: 100vh;
         width: 100vw;
-        padding-top: env(safe-area-inset-top);
-        padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+        //padding-top: env(safe-area-inset-top);
+        //padding-bottom: env(safe-area-inset-bottom)
       }
 
 
@@ -174,7 +175,7 @@ $(function(){
         </button>
 
         <button class="favorite styled button startButton" type="button" onclick="goFirst()">
-          처음화면
+          다음챕터
         </button>
 
         <button class="favorite styled button inputButton" type="button" onclick="goInput()">
@@ -250,35 +251,41 @@ function HTMLtoJSON(requestUrl) {
                 var tableItem = {};
                 var slideParseData = $(slide[9]).html();
 
-                console.log($(slide[9]).html())
+                console.log(slideParseData)
 
                 tableItem["번호"] = pageIndex;
                 tableItem["링크"] = "https://docs.google.com/presentation/d/e/2PACX-"+NOWID+"/embed?rm=minimal#slide="+pageIndex;
 
+
                 if(slideParseData.indexOf("일반화면") != -1){
                    tableItem["타입"] = "일반";
                 }
-                else if(slideParseData.indexOf("입력화면") != -1){
+                
+                if(slideParseData.indexOf("입력화면") != -1){
                    tableItem["타입"] = "입력";
                    tableItem["정답"] = slideParseData.split("정답")[1].split(",")[0].split(":")[1].trim();
                 }
-                else if(slideParseData.indexOf("힌트화면") != -1){
+                
+                if(slideParseData.indexOf("힌트화면") != -1){
                    tableItem["타입"] = "힌트";
                 }
-                else if(slideParseData.indexOf("오답화면") != -1){
+                
+                if(slideParseData.indexOf("오답화면") != -1){
                    tableItem["타입"] = "오답";
                 }
-                else if(slideParseData.indexOf("정답화면") != -1){
+                
+                if(slideParseData.indexOf("정답화면") != -1){
                    tableItem["타입"] = "정답";
                 }
-                else if(slideParseData.indexOf("부모") != -1){
+                
+                if(slideParseData.indexOf("부모") != -1){
+                   //alert(slideParseData)
                    tableItem["부모"] = slideParseData.split("부모")[1].split(":")[1].trim();
                 }
-                else if(slideParseData.indexOf("외부화면") != -1){
+                
+                if(slideParseData.indexOf("외부화면") != -1){
                    tableItem["타입"] = "외부";
                    tableItem["링크"] = slideParseData.split("링크")[1].split(":")[1].trim();
-                }else{
-                   tableItem["타입"] = "일반";
                 }
                 
                 tableList.push(tableItem);
@@ -385,9 +392,10 @@ else{
 }
 
 function goFirst(){
-  var url = new URL(window.location.href);
-  url.searchParams.set("index", 1);
-  location.href = url;
+  // var url = new URL(window.location.href);
+  // url.searchParams.set("index", 1);
+  // location.href = url;
+  this.close();
 }
 function goPrevious(url){
 
@@ -549,6 +557,7 @@ for(item of slideData){
       $('.nextButton').show();
     }
     if(pageType == "입력"){
+      $('.previosButton').show();
       $('.inputButton').show();
       $('.hintButton').show();
     }
@@ -559,9 +568,9 @@ for(item of slideData){
       $('.previosButton').show();
     }
     if(pageType == "정답"){
-      //$('.startButton').show();
+      $('.startButton').show();
       $('.previosButton').show();
-      $('.nextButton').show();
+      //$('.nextButton').show();
     }
     if(pageType == "외부"){
       //$('.startButton').show();
