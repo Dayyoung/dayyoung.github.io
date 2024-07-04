@@ -1,0 +1,432 @@
+<body>
+
+<style type="text/css">
+  
+
+      iframe {
+        display: block;
+        border: none;
+        height: 100vh;
+        width: 100vw;
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: calc(env(safe-area-inset-bottom) + 60px);
+      }
+
+
+</style>  
+  <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
+  <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <canvas id='canvas' width="300px" height="300px"></canvas>
+     <p id='points'></p>
+
+
+    <iframe id="myFrame" src="https://docs.google.com/presentation/d/e/2PACX-1vShNd7glHb2a6-LPHFPIHrPR8k5gZfQe8mAwzUyaVjmdN2aSS7kZKu9m3fdp7rpIAnWGYrhNFreqeos/embed?rm=minimal#slide=71"></iframe>
+
+<script type="text/javascript">
+
+
+var pointList = [];
+var point1 = { "x": 50, "y": 50};
+var point2 = { "x": 250, "y": 50};
+var point3 = { "x": 20, "y": 130};
+var point4 = { "x": 70, "y": 130};
+var point5 = { "x": 230, "y": 130};
+var point6 = { "x": 280, "y": 130};
+var point7 = { "x": 70, "y": 250};
+var point8 = { "x": 230, "y": 250};
+
+pointList.push(point1);
+pointList.push(point2);
+pointList.push(point3);
+pointList.push(point4);
+pointList.push(point5);
+pointList.push(point6);
+pointList.push(point7);
+pointList.push(point8);
+
+
+var defalutStartPointList = [];
+var defalutEndPointList = [];
+
+defalutStartPointList.push(point1);
+defalutEndPointList.push(point2)
+
+defalutStartPointList.push(point2);
+defalutEndPointList.push(point6)
+
+defalutStartPointList.push(point6);
+defalutEndPointList.push(point5)
+
+defalutStartPointList.push(point5);
+defalutEndPointList.push(point8)
+
+defalutStartPointList.push(point8);
+defalutEndPointList.push(point7)
+
+defalutStartPointList.push(point7);
+defalutEndPointList.push(point4)
+
+
+defalutStartPointList.push(point4);
+defalutEndPointList.push(point3)
+
+defalutStartPointList.push(point3);
+defalutEndPointList.push(point1)
+
+defalutStartPointList.push(point4);
+defalutEndPointList.push(point5)
+
+defalutStartPointList.push(point4);
+defalutEndPointList.push(point8)
+
+defalutStartPointList.push(point7);
+defalutEndPointList.push(point5)
+
+// defalutStartPointList.push(point5);
+// defalutEndPointList.push(point8)
+
+var drawStartPointList = [];
+var drawEndPointList = [];
+
+var canvas = document.getElementById('canvas');
+
+var startPoint = {};
+var endPoint = {};
+
+
+var cursorX;
+var cursorY;
+// var canvas = document.getElementById("canvas"); //canvas, context, other vars etc
+// var ctx = canvas.getContext("2d");
+// var firstClick = [0,0];
+var intervalLoop = null;
+//init();
+
+canvas.addEventListener("touchstart", handleStart,false);
+canvas.addEventListener("touchmove", handleMove,false);
+canvas.addEventListener("touchend", handleEnd, false);
+
+canvas.addEventListener("mousedown", handleStart,false);
+canvas.addEventListener("mousemove", handleMove,false);
+canvas.addEventListener("mouseup", handleEnd, false);
+
+
+  var IsDrawing = false;
+
+  intervalLoop = setInterval(function(){
+
+    var context = canvas.getContext("2d");
+
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    drawline();
+    
+    drawDefaultline();
+
+    drawPoint();
+
+    //ing~
+    // console.log(cursorX)
+    // console.log(cursorY)
+
+    if(IsDrawing && cursorX && cursorY){
+      context.beginPath();
+      context.moveTo(startPoint.x, startPoint.y);
+      context.lineTo(cursorX, cursorY);
+      context.strokeStyle = "#000000"; // blck color
+      context.stroke();
+    }
+
+  },10);
+
+
+   function handleStart(e) {
+
+    console.log("START")
+
+      getPosition(e); 
+    // console.log(e)
+
+     //getPosition(e); 
+     IsDrawing = true;
+
+     if(e.touches){
+     console.log("mobile")
+     var rect = canvas.getBoundingClientRect();
+     var nowx = e.touches[0].pageX - rect.left;
+     var nowy = e.touches[0].pageY - rect.top;
+     }else{
+      console.log("pc")
+     var rect = canvas.getBoundingClientRect();
+     var nowx = e.pageX - rect.left;
+     var nowy = e.pageY - rect.top;
+     }
+
+
+      function distance(p) {
+          return Math.sqrt(Math.pow(point.x - p.x, 2) + Math.pow(point.y - p.y, 2))
+      }
+
+      var point = { x: nowx, y: nowy },
+          points = pointList,
+          closest = points.reduce((a, b) => distance(a) < distance(b) ? a : b);
+
+      
+       startPoint.x = closest.x;
+       startPoint.y = closest.y;
+
+    //console.log(startPoint)
+
+
+  }
+
+   function handleMove(e) {
+
+      //console.log(e)
+      //getPosition(e); 
+      if(IsDrawing){
+
+         if(e.changedTouches){
+          //console.log("mobile")       
+          var rect = canvas.getBoundingClientRect();
+           cursorX = e.changedTouches[0].pageX - rect.left;
+           cursorY = e.changedTouches[0].pageY - rect.top;
+
+          //cursorX = e.changedTouches[0].pageX;
+          //cursorY = e.changedTouches[0].pageY;
+
+         }else{
+          //console.log("pc")
+          var rect = canvas.getBoundingClientRect();
+           cursorX = e.pageX - rect.left;
+           cursorY = e.pageY - rect.top;
+
+          //alert(rect.left)
+          //alert(rect.top)
+          // cursorX = e.pageX;
+          // cursorY = e.pageY;
+         }
+
+      }else{
+        cursorX = null;
+        cursorY = null;
+      }
+   }
+
+   function handleEnd(e) {
+
+    console.log("END")
+    getPosition(e); 
+    //console.log(e)
+
+    IsDrawing = false;
+    var cursorX = null;
+    var cursorY = null;
+    //alert(e)
+     //clearInterval(intervalLoop);
+ 
+     //getPosition(e); 
+  
+     if(e.changedTouches){
+      console.log("mobile")       
+       var rect = canvas.getBoundingClientRect();
+       var nowx = e.changedTouches[0].pageX - rect.left;
+       var nowy = e.changedTouches[0].pageY - rect.top;
+     }else{
+      console.log("pc")
+       var rect = canvas.getBoundingClientRect();
+       var nowx = e.pageX - rect.left;
+       var nowy = e.pageY - rect.top;
+     }
+
+
+     
+     
+      function distance(p) {
+          return Math.sqrt(Math.pow(point.x - p.x, 2) + Math.pow(point.y - p.y, 2))
+      }
+
+      var point = { x: nowx, y: nowy },
+          points = pointList,
+          closest = points.reduce((a, b) => distance(a) < distance(b) ? a : b);
+
+
+     endPoint.x = closest.x;
+     endPoint.y = closest.y;
+
+     console.log(endPoint)
+     //console.log(startPoint)
+     //console.log(endPoint)
+
+    // var context = canvas.getContext("2d");
+
+    // context.clearRect(0, 0, canvas.width, canvas.height);
+     
+    //  drawline()
+
+    // for (point of pointList){
+    //   drawpointinates(point.x,point.y);
+    // }
+
+    // context.beginPath();
+    // context.moveTo(startPoint.x, startPoint.y);
+    // context.lineTo(endPoint.x, endPoint.y);
+    // context.stroke();
+
+    if(startPoint.x != endPoint.x || startPoint.y != endPoint.y) {
+      console.log("matched!")
+      var myPoint = {}
+      myPoint.x = startPoint.x;
+      myPoint.y = startPoint.y;
+      drawStartPointList.push(myPoint)
+
+      var myPoint = {}
+      myPoint.x = endPoint.x;
+      myPoint.y = endPoint.y;
+      drawEndPointList.push(myPoint)
+      console.log(drawStartPointList)
+
+      if(drawStartPointList.length >= defalutStartPointList.length ) {
+        alert('성공.')
+        window.location.href='/spacetime/player?id=1vShNd7glHb2a6-LPHFPIHrPR8k5gZfQe8mAwzUyaVjmdN2aSS7kZKu9m3fdp7rpIAnWGYrhNFreqeos&index=72'
+
+      }
+
+    }
+
+
+  } 
+
+$("#canvas").click(function(e){
+  //alert('test')
+     //getPosition(e); 
+});
+
+
+function getPosition(event){
+     var rect = canvas.getBoundingClientRect();
+     //console.log(event)
+     //console.log(rect)
+     var x = event.pageX - rect.left;
+     var y = event.pageY - rect.top;
+     console.log("X " + x + " : " + "Y " + y )  
+     console.log("pageX " + event.pageX + " : " + "pageY " + event.pageY )  
+     console.log("clinetX " + event.clinetX + " : " + "pageY " + event.clinetY )   
+     //drawpointinates(x,y);     
+}
+
+function drawPoint(){    
+
+    var pointSize = 10;
+
+    var context = canvas.getContext("2d");
+    
+    var i = 1;
+
+    for (point of pointList){
+      context.fillStyle = "#ff2626"; // Red color
+      context.beginPath();
+      context.arc(point.x, point.y, pointSize, 0, Math.PI * 2, true);
+      context.fill();
+
+
+      context.font = "15px Arial";
+      context.fillStyle = "#FFFFFF"; // White color
+      context.fillText(i ,point.x -4 ,point.y + 5);
+      i++;
+    }
+
+}
+
+// defalutStartPointList.push(point5);
+// defalutEndPointList.push(point8)
+
+function drawDefaultline(){    
+    var context = canvas.getContext("2d");
+    
+    for (i in defalutStartPointList){
+      //console.log(i)
+      context.beginPath();
+      context.moveTo(defalutStartPointList[i].x, defalutStartPointList[i].y);
+      context.lineTo(defalutEndPointList[i].x, defalutEndPointList[i].y);
+      context.strokeStyle = "#808080"; // Gray color
+      context.stroke();
+    }
+}
+
+function drawline(){    
+    var context = canvas.getContext("2d");
+    
+    for (i in drawStartPointList){
+      //console.log(i)
+      context.beginPath();
+      context.moveTo(drawStartPointList[i].x, drawStartPointList[i].y);
+      context.lineTo(drawEndPointList[i].x, drawEndPointList[i].y);
+      context.strokeStyle = "#000000"; // blck color
+      context.stroke();
+    }
+}
+
+
+
+
+//
+
+// function startDragLine(e) {
+//     firstClick = [e.pageX, e.pageY];
+//     //start the loop
+//     intervalLoop = setInterval(function(){
+//         ctx.clearRect(0, 0, canvas.width, canvas.height);
+       
+//         ctx.beginPath();
+//         ctx.moveTo(firstClick[0], firstClick[1]);
+//         ctx.lineTo(cursorX, cursorY, 6);
+
+//         ctx.strokeStyle = '#000000';
+//         ctx.stroke();
+//     },10);
+// }
+// function stopDragLine(){
+//     clearInterval(intervalLoop);
+// }
+
+// function init() {
+//     document.onmousemove = function(e){
+//         cursorX = e.pageX;
+//         cursorY = e.pageY;
+//     };
+//     canvas.addEventListener('mousedown', startDragLine, false);
+//     canvas.addEventListener('mouseup', stopDragLine, false);
+// }
+
+
+
+
+</script>
+<script>
+</script>
+
+    <style>
+        canvas {     
+            border: 1px solid black;
+            border-radius: 0px;
+            display: block;
+            position: fixed;
+            height: 300px;
+            width: 300px;
+            left: calc(50% - 150px);
+            top: 400;
+            margin: 0;
+        }
+        body {
+          margin: 0;
+          padding: 0;
+
+        }
+        body { overflow: hidden; }
+        body * { touch-action: none; }
+    </style>
+  </body>
+
+   

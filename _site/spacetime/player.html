@@ -55,23 +55,25 @@
       padding-right: 25px;
     }
 
-    .previosButton {
+    .previosButton {    
+      opacity: 0; /* 80% 불투명도 */
       position: fixed;
       display : block;
       height: 70px;
-      width: 400px;
-      left: calc(50% - 200px);
-      top : 10;
+      width: 500px;
+      left: calc(50% - 250px);
+      top : 0;
       margin: 0;
       display: none;
     }
 
     .nextButton {
+      opacity: 0; /* 80% 불투명도 */
       position: fixed;
       display : block;
-      height: 70px;
-      width: 400px;
-      left: calc(50% - 200px);
+      height: calc(100vh - 80px); 
+      width: 500px;
+      left: calc(50% - 250px);
       bottom : 10;
       margin: 0;
       display: none;
@@ -111,9 +113,6 @@
 
 
 
-iframe {
-  pointer-events: none;
-}
 
     </style>
 
@@ -259,21 +258,27 @@ function HTMLtoJSON(requestUrl) {
                 if(slideParseData.indexOf("일반화면") != -1){
                    tableItem["타입"] = "일반";
                 }
-                if(slideParseData.indexOf("입력화면") != -1){
+                else if(slideParseData.indexOf("입력화면") != -1){
                    tableItem["타입"] = "입력";
                    tableItem["정답"] = slideParseData.split("정답")[1].split(",")[0].split(":")[1].trim();
                 }
-                if(slideParseData.indexOf("힌트화면") != -1){
+                else if(slideParseData.indexOf("힌트화면") != -1){
                    tableItem["타입"] = "힌트";
                 }
-                if(slideParseData.indexOf("오답화면") != -1){
+                else if(slideParseData.indexOf("오답화면") != -1){
                    tableItem["타입"] = "오답";
                 }
-                if(slideParseData.indexOf("정답화면") != -1){
+                else if(slideParseData.indexOf("정답화면") != -1){
                    tableItem["타입"] = "정답";
                 }
-                if(slideParseData.indexOf("부모") != -1){
+                else if(slideParseData.indexOf("부모") != -1){
                    tableItem["부모"] = slideParseData.split("부모")[1].split(":")[1].trim();
+                }
+                else if(slideParseData.indexOf("외부화면") != -1){
+                   tableItem["타입"] = "외부";
+                   tableItem["링크"] = slideParseData.split("링크")[1].split(":")[1].trim();
+                }else{
+                   tableItem["타입"] = "일반";
                 }
                 
                 tableList.push(tableItem);
@@ -354,10 +359,18 @@ if(getParameterByName("index")){
 
   for(slide of slideData){
     if(slide["번호"]==NOWINDEX){
-      console.log($('#myFrame'))
-      console.log(slide["링크"])
+
+      // iframe {
+      //   pointer-events: none;
+      // }
       $('#myFrame').attr("src",slide["링크"]);
-      console.log($('#myFrame').attr("src"));
+
+      if(slide["타입"] == "외부"){
+        $('#myFrame').css("pointer-events","auto");
+      }else{
+        $('#myFrame').css("pointer-events","none");
+      }
+
       NOWTYPE = slide["타입"];
       PARENT = slide["부모"];
 
@@ -549,7 +562,11 @@ for(item of slideData){
       //$('.startButton').show();
       $('.previosButton').show();
       $('.nextButton').show();
-
+    }
+    if(pageType == "외부"){
+      //$('.startButton').show();
+      $('.previosButton').show();
+      //$('.nextButton').show();
     }
   }
 }

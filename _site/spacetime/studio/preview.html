@@ -261,7 +261,7 @@ function HTMLtoJSON(requestUrl) {
                 }
                 if(slideParseData.indexOf("입력화면") != -1){
                    tableItem["타입"] = "입력";
-                   tableItem["정답"] = slideParseData.split("정답")[1].split(":")[1].trim();
+                   tableItem["정답"] = slideParseData.split("정답")[1].split(",")[0].split(":")[1].trim();
                 }
                 if(slideParseData.indexOf("힌트화면") != -1){
                    tableItem["타입"] = "힌트";
@@ -415,25 +415,41 @@ function goInput(){
   for(item of slideData){
 
     var pageType = item["타입"];
+    var parent = parseInt(item["부모"]);
+
+    //alert(parent)
 
     console.log(pageType)
 
     var nowUrl = '';
 
-    if(pageType == "입력"){
+    var nowPage = parseInt(NOWINDEX);
+
+    //alert(NOWINDEX)
+    console.log(parent)
+    console.log(nowPage)
+
+    if(parent == nowPage && pageType == "입력"){
       correct = item["정답"];
     }
-    if(pageType == "정답"){
+    if(parent == nowPage && pageType == "정답"){
       correctPage = item["번호"];
     }
-    if(pageType == "오답"){
+    if(parent == nowPage && pageType == "오답"){
       incorrectPage = item["번호"];
     }
   }
 
   var inputValue = prompt("정답을 입력하세요.");
 
-  if(inputValue == correct){
+  //alert(inputValue)
+  //alert(correct)
+
+  if(!inputValue || inputValue == '') {
+    return;
+  }
+
+  if(inputValue.indexOf(correct) != -1){
     var url = new URL(window.location.href);
     url.searchParams.set("index", correctPage);
     location.href = url;
@@ -454,10 +470,12 @@ console.log(slideData)
 for(item of slideData){
 
     var pageType = item["타입"];
+    var parent = parseInt(item["부모"]);
+    var nowPage = parseInt(NOWINDEX);
 
     var nowUrl = '';
 
-    if(pageType == "힌트"){
+    if(parent == nowPage && pageType == "힌트"){
       nowUrl = item["링크"];
 
       console.log("HINT >> " + item["링크"])
@@ -528,7 +546,9 @@ for(item of slideData){
       $('.previosButton').show();
     }
     if(pageType == "정답"){
-      $('.startButton').show();
+      //$('.startButton').show();
+      $('.previosButton').show();
+      $('.nextButton').show();
 
     }
   }
