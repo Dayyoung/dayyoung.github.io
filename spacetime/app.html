@@ -77,7 +77,9 @@
 
 function goQR(){
   //var encodedUrl = encodeURIComponent(window.location.href);
-  var QRURL = "https://dayyoung.github.io/spacetime/studio/preview";
+
+  alert('test')
+  var QRURL = "/spacetime//player";
   location.href = QRURL
 }
 
@@ -92,7 +94,7 @@ function goPopup(url){
 $(function(){
 
 $(".swiper-slide").click(function(){
-  var goURL = "/spacetime/studio/preview";
+  var goURL = "/spacetime/player?id=1vShNd7glHb2a6-LPHFPIHrPR8k5gZfQe8mAwzUyaVjmdN2aSS7kZKu9m3fdp7rpIAnWGYrhNFreqeos";
   goPopup(goURL);
 })
 
