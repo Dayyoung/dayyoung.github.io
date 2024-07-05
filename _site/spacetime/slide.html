@@ -714,6 +714,19 @@
 }
  
 
+    .previosButton {    
+      opacity: 0; /* 80% 불투명도 */
+      position: fixed;
+      display : block;
+      height: 70px;
+      width: 500px;
+      left: calc(50% - 250px);
+      top : 0;
+      margin: 0;
+      //display: none;
+      z-index: 9999;
+    }
+
   </style>
    <style>
       body, html {
@@ -736,16 +749,28 @@
          pointer-events: none;
       }
 
+        body {
+          margin: 0;
+          padding: 0;
+
+        }
+        body { overflow: hidden; }
+        body * { touch-action: none; }
+
       </style>
 
   </head>
 
   <body>
 
-  <div class="swiper mySwiper" id="mainLayout">
-    <div class="swiper-wrapper">
+        <button class="favorite styled button previosButton" type="button" onclick="goPrevious()">
+          이전화면
+        </button>
 
-      <div class="swiper-slide">
+  <div class="swiper mySwiper" id="mainLayout">
+    <div class="swiper-wrapper" id="slideAdapter">
+
+<!--       <div class="swiper-slide">
         <iframe id="myFrame" src="https://docs.google.com/presentation/d/e/2PACX-1vShNd7glHb2a6-LPHFPIHrPR8k5gZfQe8mAwzUyaVjmdN2aSS7kZKu9m3fdp7rpIAnWGYrhNFreqeos/embed?rm=minimal#slide=1"></iframe>
       </div>
       <div class="swiper-slide">
@@ -779,7 +804,7 @@
       <div class="swiper-slide">
         <iframe id="myFrame" src="https://docs.google.com/presentation/d/e/2PACX-1vShNd7glHb2a6-LPHFPIHrPR8k5gZfQe8mAwzUyaVjmdN2aSS7kZKu9m3fdp7rpIAnWGYrhNFreqeos/embed?rm=minimal#slide=65"></iframe>
 
-      </div>
+      </div> -->
 
 
     </div>
@@ -792,11 +817,208 @@
 
 
 
+
+  <script src="
+  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
+  "></script>
+  <link href="
+  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
+  " rel="stylesheet">
+
+  <script>
+
+  $(function(){
+    loading();
+
+  });
+
+    function loading() {
+          $('body').loadingModal({text: '불러오는 중...'});
+      setTimeout(function(){
+        
+      $('body').loadingModal('destroy')
+      },1500)
+
+    }
+  </script>
+
+
   <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
 
   <!-- Initialize Swiper -->
   <script>
+
+function getParameterByName(name, url = window.location.href) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+  results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+function goPrevious(){
+  if(window.opener){
+    self.close()
+  }else{
+        var goURL = "/spacetime";
+        window.location.href = goURL;
+  }
+}
+
+function HTMLtoJSON(requestUrl) {
+
+  var tableList = [];
+  
+  $.ajax({
+          type: "get",            
+          url: requestUrl,         
+          async: false,
+          cache: false,              
+          data: "",                
+          success: function(res){   
+
+          console.log($(res));
+
+          $(res).each(function (i,item) {
+            // body...
+
+            if(item.innerHTML.indexOf("viewerData") != -1 && item.nodeName == "SCRIPT"){
+
+               console.log(item);
+              // console.log(item.innerHTML);
+
+              var excuteScript = item.innerHTML.replace("DOCS_timing['sac'] = new Date().getTime();","");
+              excuteScript = excuteScript.replace("var SK_viewerApp = init_viewer(viewerData, window, _timingInstance); _timingInstance.setTime('eac'); _timingInstance.setTime('al');","");
+              
+              eval(excuteScript);
+
+              var slideData  = $(viewerData.docData).eq(1)[0];
+
+              //console.log(JSON.stringify(tableList));
+
+              var pageIndex = 1;
+              var nowChapter = 0;
+
+              for(slide of slideData) {
+
+                var tableItem = {};
+                var slideParseData = $(slide[9]).html();
+
+               
+
+                tableItem["번호"] = pageIndex;
+                tableItem["링크"] = "https://docs.google.com/presentation/d/e/2PACX-"+NOWID+"/embed?rm=minimal#slide="+pageIndex;
+
+
+                if(slideParseData.indexOf("챕터화면") != -1){
+                   tableItem["타입"] = "챕터";
+                   nowChapter ++;
+                   tableItem["챕터"] = nowChapter;
+                }
+                
+                if(slideParseData.indexOf("일반화면") != -1){
+                   tableItem["타입"] = "일반";
+                   tableItem["챕터"] = nowChapter;
+                }
+                
+                if(slideParseData.indexOf("입력화면") != -1){
+                   tableItem["타입"] = "입력";
+                   tableItem["챕터"] = nowChapter;
+                   tableItem["정답"] = slideParseData.split("정답")[1].split(",")[0].split(":")[1].trim();
+                }
+                
+                if(slideParseData.indexOf("힌트화면") != -1){
+                   tableItem["타입"] = "힌트";
+                   tableItem["챕터"] = nowChapter;
+                }
+                
+                if(slideParseData.indexOf("오답화면") != -1){
+                   tableItem["타입"] = "오답";
+                   tableItem["챕터"] = nowChapter;
+                }
+                
+                if(slideParseData.indexOf("정답화면") != -1){
+                   tableItem["타입"] = "정답";
+                   tableItem["챕터"] = nowChapter;
+                }
+                
+                if(slideParseData.indexOf("부모") != -1){
+                   //alert(slideParseData)
+                   tableItem["부모"] = slideParseData.split("부모")[1].split(":")[1].trim();
+                }
+                
+                if(slideParseData.indexOf("외부화면") != -1){
+                   tableItem["타입"] = "외부";
+                   tableItem["챕터"] = nowChapter;
+                   tableItem["링크"] = slideParseData.split("링크")[1].split(":")[1].trim();
+                }
+                
+                tableList.push(tableItem);
+
+                pageIndex ++;
+              }
+
+
+            }
+            
+          })
+      }
+    });
+  return tableList;
+}
+
+
+var NOWID = "1vSdynZaZUFfWyXbngHQSd249j5J5ZHFI4ohcF5ZfCwvQNqC9W7lyw5Fb1ZQkBuucQmdgKpcUriD4_58";
+
+if(getParameterByName("id")){
+  NOWID = getParameterByName("id");
+}
+
+
+var slideData = HTMLtoJSON("https://docs.google.com/presentation/d/e/2PACX-"+NOWID+"/pub?rm=minimal");
+
+function goNowChapter(){
+  //alert('click')
+  for(slide of slideData){
+    console.log(slide)
+    if(slide["타입"] == "챕터" && NOWCHAPTER == slide["챕터"]){
+        var goURL = "/spacetime/player?id="+NOWID+"&index=" + slide["번호"]
+        
+
+        //alert(goURL)
+
+        window.location.href = goURL;
+    }
+  }
+}
+
+for(slide of slideData){
+   // console.log("Added." + slide["타입"])
+  if(slide["타입"] == "챕터"){
+    //console.log("Added.")
+    var slideAdapter = $("#slideAdapter");
+    var slideItem = $('<div class="swiper-slide"><iframe id="myFrame" src="'+slide["링크"]+'"></iframe>');
+    
+    slideItem.click(function(){
+        goNowChapter();
+    })
+
+    slideAdapter.append(slideItem)
+
+     
+  }
+}
+
+
+setTimeout(function(){
+    var nowChapter = localStorage.getItem("nowChapter");
+    nowChapter = parseInt(nowChapter);
+    if(nowChapter && nowChapter > 0){
+      swiper.slideTo(nowChapter-1);
+    }
+},1500)
 
 
 function goPopup(url){
@@ -806,31 +1028,45 @@ function goPopup(url){
 
 }
 
+var NOWCHAPTER = 1;
+
 $(function(){
 
-  $(".swiper-slide").click(function(){
+//   $(".swiper-slide").click(function(){
 
-    var goURL = "/spacetime/player?id=1vShNd7glHb2a6-LPHFPIHrPR8k5gZfQe8mAwzUyaVjmdN2aSS7kZKu9m3fdp7rpIAnWGYrhNFreqeos&index=2";
-    goPopup(goURL);
-  })
+//     var goURL = "/spacetime/player?id=1vShNd7glHb2a6-LPHFPIHrPR8k5gZfQe8mAwzUyaVjmdN2aSS7kZKu9m3fdp7rpIAnWGYrhNFreqeos&index=2";
+//     window.location.href = goURL;
+
+// //
+//     //goPopup(goURL);
+//   })
 
 })
 
-    var swiper = new Swiper(".mySwiper", {
-      pagination: {
-        el: ".swiper-pagination",
-      },
-      keyboard: {
-        enabled: true,
-      },
-    });
+var swiper = new Swiper(".mySwiper", {
+  pagination: {
+    el: ".swiper-pagination",
+  },
+  keyboard: {
+    enabled: true,
+  },
+  on: {
+        slideChange : function() {
+          console.log("changed.")
 
-    swiper.slideTo(0);
+          const index_currentSlide  = this.realIndex;
+          NOWCHAPTER = index_currentSlide + 1;
+          console.log("NOWCHAPTER." + NOWCHAPTER);
+        },
+    },
+});
 
-    function goScreen(index){
-      console.log(index);
-      swiper.slideTo(index);
-    }
+//swiper.slideTo(0);
+
+function goScreen(index){
+  console.log(index);
+  swiper.slideTo(index);
+}
 
 
   </script>

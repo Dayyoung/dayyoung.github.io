@@ -175,7 +175,7 @@ $(function(){
         </button>
 
         <button class="favorite styled button startButton" type="button" onclick="goFirst()">
-          다음챕터
+          다음챕터 
         </button>
 
         <button class="favorite styled button inputButton" type="button" onclick="goInput()">
@@ -213,7 +213,6 @@ function getJsonList(url) {
 
 var globalData;
 
-
 function HTMLtoJSON(requestUrl) {
 
   var tableList = [];
@@ -246,6 +245,8 @@ function HTMLtoJSON(requestUrl) {
               //console.log(JSON.stringify(tableList));
 
               var pageIndex = 1;
+              var nowChapter = 0;
+
               for(slide of slideData) {
 
                 var tableItem = {};
@@ -253,29 +254,40 @@ function HTMLtoJSON(requestUrl) {
 
                 console.log(slideParseData)
 
+
                 tableItem["번호"] = pageIndex;
                 tableItem["링크"] = "https://docs.google.com/presentation/d/e/2PACX-"+NOWID+"/embed?rm=minimal#slide="+pageIndex;
 
 
+                if(slideParseData.indexOf("챕터화면") != -1){
+                   tableItem["타입"] = "챕터";
+                   nowChapter ++;
+                }
+                
                 if(slideParseData.indexOf("일반화면") != -1){
                    tableItem["타입"] = "일반";
+                   tableItem["챕터"] = nowChapter;
                 }
                 
                 if(slideParseData.indexOf("입력화면") != -1){
                    tableItem["타입"] = "입력";
+                   tableItem["챕터"] = nowChapter;
                    tableItem["정답"] = slideParseData.split("정답")[1].split(",")[0].split(":")[1].trim();
                 }
                 
                 if(slideParseData.indexOf("힌트화면") != -1){
                    tableItem["타입"] = "힌트";
+                   tableItem["챕터"] = nowChapter;
                 }
                 
                 if(slideParseData.indexOf("오답화면") != -1){
                    tableItem["타입"] = "오답";
+                   tableItem["챕터"] = nowChapter;
                 }
                 
                 if(slideParseData.indexOf("정답화면") != -1){
                    tableItem["타입"] = "정답";
+                   tableItem["챕터"] = nowChapter;
                 }
                 
                 if(slideParseData.indexOf("부모") != -1){
@@ -285,6 +297,7 @@ function HTMLtoJSON(requestUrl) {
                 
                 if(slideParseData.indexOf("외부화면") != -1){
                    tableItem["타입"] = "외부";
+                   tableItem["챕터"] = nowChapter;
                    tableItem["링크"] = slideParseData.split("링크")[1].split(":")[1].trim();
                 }
                 
@@ -374,6 +387,13 @@ if(getParameterByName("index")){
 
       if(slide["타입"] == "외부"){
         $('#myFrame').css("pointer-events","auto");
+      }
+      else if(slide["타입"] == "챕터"){
+        var nowIndex = parseInt(NOWINDEX);
+        nowIndex++;
+        var url = new URL(window.location.href);
+        url.searchParams.set("index", nowIndex);
+        location.href = url;
       }else{
         $('#myFrame').css("pointer-events","none");
       }
@@ -395,9 +415,32 @@ function goFirst(){
   // var url = new URL(window.location.href);
   // url.searchParams.set("index", 1);
   // location.href = url;
-  this.close();
+  //this.close();
+
+  for(slide of slideData){
+    if(slide["번호"]==NOWINDEX){
+    alert(slide["챕터"]);
+    localStorage.setItem("nowChapter",slide["챕터"]);
+    location.href = "/spacetime/slide";
+    }
+  }
+
 }
 function goPrevious(url){
+
+  var previous;
+
+  for(slide of slideData){
+    if(slide["번호"]==NOWINDEX-1){
+    previous = slide;
+    }
+  }
+
+  if(previous["타입"]=="챕터"){
+    var goURL = "/spacetime/slide?id="+NOWID;
+    location.href = goURL;
+    return;
+  }
 
   NOWINDEX--;
 
