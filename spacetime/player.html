@@ -419,9 +419,10 @@ function goFirst(){
 
   for(slide of slideData){
     if(slide["번호"]==NOWINDEX){
-    alert(slide["챕터"]);
-    localStorage.setItem("nowChapter",slide["챕터"]);
-    location.href = "/spacetime/slide";
+    //alert(slide["챕터"]);
+    var nextChapter = parseInt(slide["챕터"]) + 1;
+    localStorage.setItem("nowChapter",nextChapter);
+    location.href = "/spacetime/slide?id="+NOWID;
     }
   }
 
