@@ -1,10 +1,27 @@
 
-<a id="goRed" href="intent://goCard#Intent;scheme=s1card;package=kr.co.squarenet.smartq.SA0000000001;end" target="blank"> 클릭 </a>
+<a id="goAndroid" href="intent://goCard#Intent;scheme=jnucard;package=kr.co.squarenet.smartq.SA0000000001;end" target="blank">안드로이드시작</a>
+
+<a id="goiOS" href="jnucard://goCard" target="blank">iOS시작</a>
 
 <script type="text/javascript">
   
   setTimeout(function(){
-    document.getElementById('goRed').click();
+  try{
+     document.getElementById('goAndroid').click();
+  }catch(e){
+
+  }
+
   },50)
+
+  setTimeout(function(){
+  try{
+     document.getElementById('goiOS').click();
+  }catch(e){
+
+  }
+
+  },50)
+
 
 </script>
