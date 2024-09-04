@@ -1,39 +1,24 @@
 
 
-<br>
-<br>
-<br>
+  <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
 
+<br>
+<br>
+<br>
+<a id="goCard" href="jnucard://goCard" target="blank">카드화면 이동</a>
+<br>
+<br>
+<br>
+<a id="setCard" href="jnucard://setCard=1234" target="blank">카드설정</a>
+<br>
+<br>
+<br>
+<a id="deleteCard" href="jnucard://deleteCard" target="blank">카드설정 삭제</a>
 
-<a id="goAndroid" href="intent://goCard#Intent;scheme=jnucard;package=kr.co.squarenet.smartq.SA0000000001;end" target="blank">안드로이드시작</a>
-<br>
-<br>
-<br>
-
-<a id="goiOS" href="jnucard://goCard" target="blank">iOS시작</a>
-<br>
-<br>
-<br>
-
-
-<a id="goAndroid" href="intent://setCard?id=12345#Intent;scheme=jnucard;package=kr.co.squarenet.smartq.SA0000000001;end" target="blank">안드로이드 카드설정</a>
-<br>
-<br>
-<br>
-
-<a id="goiOS" href="jnucard://setCard?id=12345" target="blank">iOS 카드설정</a>
 
 <script type="text/javascript">
   
-  setTimeout(function(){
-  try{
-     document.getElementById('goAndroid').click();
-  }catch(e){
-
-  }
-
-  },50)
-
+  //for NFC
   setTimeout(function(){
   try{
      //document.getElementById('goiOS').click();
