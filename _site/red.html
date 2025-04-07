@@ -1,0 +1,33 @@
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
+
+<br>
+<br>
+<br>
+<a id="goCard" href="jnucard://goCard" target="blank">카드화면 이동</a>
+<br>
+<br>
+<br>
+<a id="setCard" href="jnucard://setCard?id=1234" target="blank">카드설정</a>
+<br>
+<br>
+<br>
+<a id="deleteCard" href="jnucard://deleteCard" target="blank">카드설정 삭제</a>
+
+
+<script type="text/javascript">
+  
+  //for NFC
+  setTimeout(function(){
+  try{
+     //document.getElementById('goiOS').click();
+    window.location.href = "jnucard://goCard"
+  }catch(e){
+
+  }
+
+  },50)
+
+
+</script>
