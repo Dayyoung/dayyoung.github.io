@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>Sandbox Test</title>
+    <meta charset="UTF-8" />
+    <style>
+      iframe {
+        display: block;
+        border: none;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      body{
+        margin: 0;
+        padding: 0;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <!-- <iframe
+      src="https://docs.google.com/presentation/d/e/2PACX-1vQtatC0SnnOUvqKU95stLI0NrgAq0WwHlZNbqYKdROg8xIacB1RU1IAhZ_oOuKktwb04rTxY2JWIN7h/embed?start=true&loop=true&delayms=3000"
+      frameborder="0"
+      width="960"
+      height="569"
+      allowfullscreen="true"
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+    ></iframe> -->
+
+    <iframe src="https://www.youtube.com/embed/nqye02H_H6I?autoplay=1&mute=1&controls=0&loop=1&playlist=nqye02H_H6I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous">
+    </script>
+    <script>
+      setTimeout(
+        () => {
+          //clearInterval(timerId);
+          //alert("정지");
+          var iframeSrc =
+            "https://docs.google.com/presentation/d/e/2PACX-1vQtatC0SnnOUvqKU95stLI0NrgAq0WwHlZNbqYKdROg8xIacB1RU1IAhZ_oOuKktwb04rTxY2JWIN7h/embed?start=true&loop=true&delayms=3000";
+          $("iframe").attr("src", iframeSrc);
+          //location.href = "https://32dmg2-1234.csb.app/";
+
+          setTimeout(
+            () => {
+            
+              window.location.reload()
+
+            },
+            //5000
+            1000 * 60 * 1,
+          );
+        },
+        //5000
+        1000 * 60 * 1,
+      );
+    </script>
+  </body>
+</html>

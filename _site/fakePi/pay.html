@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+  <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
+
+</head>
+
+<body onload=onCreate()>
+
+<style>
+
+body {
+  background-color: #A9A9A9;
+}  
+.page {
+max-width: 500px;
+margin:0 auto;
+}
+
+.dialog{
+    width: auto;
+    max-width: 90%;
+}
+
+.dialog {//min-height:350px;}
+#iput-dialog {min-height:200px;}
+#inform-dialog {min-height:100px;}
+
+ons-input, ons-radio, ons-checkbox, ons-search-input {
+    display: block;
+}
+
+.speed-dial.fab--bottom__right, button.fab--bottom__right, ons-fab.fab--bottom__right {
+  bottom: 60px;
+}
+
+</style>
+
+<script>
+
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyC66wDn6qRnk3woFJsrhJnM3XJXhyoJ-G4",
+    authDomain: "dogebell-72965.firebaseapp.com",
+    databaseURL: "https://dogebell-72965-default-rtdb.firebaseio.com",
+    projectId: "dogebell-72965",
+    storageBucket: "dogebell-72965.appspot.com",
+    messagingSenderId: "873794835835",
+    appId: "1:873794835835:web:bc1822fad59414eb15d9de",
+    measurementId: "G-XVZHHH4CE6"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+
+  var db = firebase.firestore();
+
+function createTransaction(item) {
+
+  showModal()
+
+  db.collection("transaction").add(item)
+  .then((docRef) => {
+      hideModal()
+      console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+      console.error("Error adding document: ", error);
+  });
+}
+
+//Override
+function onCreate() {
+  //showModal()
+  //showToast("hello")
+
+}
+
+function showToast(message){
+    ons.notification.toast(message, { timeout: 1000, animation: 'ascend' })
+}
+
+function showModal() {
+  var modal = document.querySelector('ons-modal');
+  modal.show();
+  setTimeout(function() {
+    modal.hide();
+  }, 10000);
+}
+
+function hideModal() {
+  var modal = document.querySelector('ons-modal');
+  modal.hide();
+}
+
+var showPopover = function(target) {
+  document
+    .getElementById('popover')
+    .show(target);
+};
+
+function requestPayment(){
+  var isEmpty = false
+  var insertItem = {}
+
+  $("input").each(function(i,item){
+    var id = $(item).parent().attr('id')
+    var value = $(item).val()
+    console.log(value)
+    if (value==""){
+      isEmpty = true
+    }else{
+      insertItem[id] = value;
+    }
+  });
+
+  if (isEmpty) {
+    showToast("Please fill in all fields");
+  }else{
+    insertItem["productCurrency"] = $("#productCurrency").val()
+    createTransaction(insertItem)
+  }
+}
+</script>
+
+
+<ons-page>  
+    <ons-toolbar inline>
+      <div class="left"><ons-back-button>Home</ons-back-button></div>
+      <div class="center">
+     <a href="/" >
+       <img src="/paypalXdoge.png" style="width:80%">
+     </a>
+      </div>
+   
+    <div class="right">
+    </div>
+   
+    </ons-toolbar>
+    
+    <div style="margin:15px">
+      <p>
+      <label>Product Name * : </label>
+      <ons-input modifier="underbar" placeholder="Selling product name." id="productId"></ons-input>
+      </p>
+      
+      <p>
+      <label>Product Price * : </label>
+      <ons-input modifier="underbar" 
+        type="number" placeholder="Selling product price." id="productPrice"></ons-input>
+      </p>
+
+      <p>
+      <label for="choose-sel" >Currency * : </label> <br>
+        <ons-select  id="productCurrency" modifier="underbar">
+          <option value="USD">USD</option>
+          <option value="KRW">KRW</option>
+        </ons-select>
+      </p>
+
+      <p>
+      <label>PayPal ID * : </label>
+      <ons-input modifier="underbar" placeholder="PayPal ID to receive the deposit." id="paypalId" ></ons-input>
+      </p>
+
+    </div>
+  
+      <ons-bottom-toolbar>
+        <ons-button modifier="large" onClick="requestPayment()">Request Payment</ons-button> 
+      </ons-bottom-toolbar>
+
+  <ons-fab position="bottom right" onClick="showPopover(this)" cancelable>
+    <ons-icon>?</ons-icon>
+  </ons-fab>
+
+</ons-page>
+
+
+<ons-popover direction="up" id="popover" cancelable>
+  <div style="padding: 10px; text-align: center;">
+    <p>
+      This is a tip!
+    </p>
+  </div>
+</ons-popover>
+
+
+<ons-toast id="myToast" animation="ascend">
+  FABs up!
+  <button onclick="myToast.hide()">ok</button>
+</ons-toast>
+
+<ons-modal direction="up">
+  <div style="text-align: center">
+    <p>
+      <ons-icon icon="md-spinner" size="28px" spin></ons-icon> Loading...
+    </p>
+  </div>
+</ons-modal>
+</body>
+</html>
+
+
+

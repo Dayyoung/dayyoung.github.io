@@ -1,0 +1,187 @@
+
+<html>
+  <head>
+    <title>Web Push Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1 , viewport-fit=cover">
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="manifest" href="/manifest.json">
+
+  </head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="
+  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/js/jquery.loadingModal.min.js
+  "></script>
+  <link href="
+  https://cdn.jsdelivr.net/npm/jquery-loadingModal@1.0.2/css/jquery.loadingModal.min.css
+  " rel="stylesheet">
+
+    <script src="/js/webpush-client.js"></script>
+    <script>
+
+
+function chkHeyoungCallback(data){
+   console.log(data);
+   data = JSON.parse(data);
+   $(".wrap").attr("class","wrap full");
+   $(".wrap").hide();
+   location.href = "smartq-ewha://ewha?action=hideBottomMenu";
+   if(mobile.isIos() && !mobile.isAndroid()){
+      /*if(data.isSuccess == "Y"){
+         location.href = "smartq-ewha://ewha?action=runApp&id=" + urlencode("heyoung://");
+      }else{
+         alert('헤이영 앱이 설치되지 않았습니다. 헤이영 설치 화면으로 이동합니다.', function(){
+            location.href = "
+https://apps.apple.com/kr/app/%ED%97%A4%EC%9D%B4%EC%98%81-%EC%BA%A0%ED%8D%BC%EC%8A%A4-%EB%8C%80%ED%95%99%EC%83%9D%ED%99%9C-%ED%95%84%EC%88%98-%ED%86%B5%ED%95%A9-%EC%95%B1/id1605688685";
+         });
+      }*/
+      location.href = "smartq-ewha://ewha?action=runApp&id=heyoung://&fallbackUrl=https://apps.apple.com/kr/app/%ED%97%A4%EC%9D%B4%EC%98%81-%EC%BA%A0%ED%8D%BC%EC%8A%A4-%EB%8C%80%ED%95%99%EC%83%9D%ED%99%9C-%ED%95%84%EC%88%98-%ED%86%B5%ED%95%A9-%EC%95%B1/id1605688685";
+   }
+   else if(mobile.isAndroid() && !mobile.isIos()){
+      //location.href = "smartq-ewha://ewha?action=checkApp&id=com.shinhan.heyoung&cbfn=chkHeyoungCallback";
+      /*if(data.isSuccess == "Y"){
+         location.href = "smartq-ewha://ewha?action=runApp&id=com.shinhan.heyoung";
+      }else{
+         alert('헤이영 앱이 설치되지 않았습니다. 헤이영 설치 화면으로 이동합니다.', function(){
+            location.href = "
+https://play.google.com/store/apps/details?id=com.shinhan.heyoung&hl=ko-KR";
+         });
+      }*/
+      location.href = "smartq-ewha://ewha?action=runApp&id=com.shinhan.heyoung&fallbackUrl=https://play.google.com/store/apps/details?id=com.shinhan.heyoung&hl=ko-KR";
+   }
+}
+
+
+var _openiOSSchemeUrl_ = "";
+var _openiOSDownUrl_ = "";
+
+checkApplicationInstall();
+
+function checkApplicationInstall() {
+    var reqUrlInco = window.location.href;
+    var transParamValue = "";
+    try {
+      var reqIUrlInfos = reqUrlInco.split('?');
+      var reqParam = reqIUrlInfos[1].split('&');
+      var vIdx = 0;
+
+      for (var i = 0; i < reqParam.length; i++) {
+        vIdx = reqParam[i].indexOf("=");
+        var paramName = "";
+        var paramValue = "";
+
+        if (vIdx >= 1) {
+          paramName = reqParam[i].substr(0, vIdx);
+          paramValue = reqParam[i].substr(vIdx + 1);
+        } else {
+          paramName = reqParam[i];
+        }
+        transParamValue += paramName + "=" + paramValue + "&";
+      }
+      transParamValue = transParamValue.substr(0, transParamValue.length - 1);
+    }catch(e){
+      transParamValue = ""
+    }
+    var pkg = "com.shinhan.heyoung";
+    var scheme = "heyoung://";
+    var and_scheme = "heyoung";
+    var openAt = (new Date()).getTime();
+    var sQuery = "event?" + transParamValue + "&openAt=" + openAt ;
+    var downUrl = "https://itunes.apple.com/app/id1605688685";
+
+    var uagentLow = navigator.userAgent.toLocaleLowerCase();
+
+    if (uagentLow.indexOf("android") > -1) {
+      //document.location.href = "smartq-ewha://ewha?action=goBrowser&url=https://dayyoung.github.io/checkApp.html"
+      document.location.href = "intent://" + sQuery + "#Intent;scheme=" + and_scheme + ";package=" + pkg + ";S.market_referrer=" + sQuery + ";end";
+    } else if (uagentLow.indexOf("ipad") > -1 || uagentLow.indexOf("iphone") > -1 || uagentLow.indexOf("ipod") > -1) {
+
+      var iosVersion = uagentLow.substr(uagentLow.search(/ipad|iphone/), 30).match(/\d+\_+\d+/)[0].replace('_', '.');
+
+      function runApp(appScheme, appUrl) {
+        _openiOSSchemeUrl_ = appScheme;
+        _openiOSDownUrl_ = appUrl;
+
+        //alert("1")
+        
+        //window.open("../events/iosError.html", "_blank", "", false);
+        //window.open("https://campus.heyoung.co.kr/events/iosError.html", "_blank", "", false);
+        window.open("./runApp.html", "_blank", "", false);
+      }
+      function runApp2(appScheme, appUrl) {
+        _openiOSSchemeUrl_ = appScheme;
+        _openiOSDownUrl_ = appUrl;
+        
+        //alert("2")
+
+        //window.open("../events/iosError2.html", "_blank", "", false);
+        //window.open("https://campus.heyoung.co.kr/events/iosError2.html", "_blank", "", false);
+        //
+        window.open("./runApp2.html", "_blank", "", false);
+      }
+      if (iosVersion >= 9) {
+        scheme = scheme + sQuery;
+        if(sQuery.indexOf("luckyBox") > -1){
+          runApp2(scheme, downUrl);
+        } else {
+          runApp(scheme, downUrl);
+        }
+      } else {
+        window.location = scheme;
+      }
+
+    } else {
+      console.log("PC - 아이폰/안드로이드 둘다 아님.")
+      //window.close();
+    }
+  }
+    </script>
+  <body>
+    <center>
+    <h1>Test</h1><br><br><br>
+<p>헤이영 설치 또는 실행 (Android / iOS) :</p>    
+<button class="button" onclick="checkApplicationInstall()"><span>Go</span></button>
+
+</center>
+<style>
+
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+</stle>  
+
+  </center>
+  </body>
+</html>
+

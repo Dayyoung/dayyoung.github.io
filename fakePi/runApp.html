@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<title>헤이영캠퍼스 설치 안내 hey young</title>
+
+		<script>
+			var uAgent = window.navigator.userAgent;
+			var vIndex = uAgent.search(/OS\s\d/gm);
+			var version = uAgent.charAt(vIndex+3);
+
+			var executeCount = 0;
+
+			var executeFuncName = function onExecuteApp() {
+				if ( executeCount <= 0 ) {
+					callExecuteApp();
+					executeCount++;
+				}else{
+					var intervalld = setInterval( function () {
+						window.close();
+						clearInterval(intervalld);
+					},10000);
+					clearInterval(executeFuncName);
+					//executeCount = 0;
+				}
+			};
+
+			function executeFunc() {
+				setInterval(executeFuncName, 500);
+			}
+
+			function callExecuteApp() {
+				var clickedAt = +new Date;
+
+				var iOSRunURL = window.opener._openiOSSchemeUrl_;
+
+				location.href = iOSRunURL;
+			}
+
+			function executeAppStore() {
+				var iOSDownUrl = window.opener._openiOSDownUrl_;
+				location.href = iOSDownUrl;
+			}
+		</script>
+	</head>
+<body Onload="executeFunc();">
+    <!-- wrapper -->
+	<div class="wrapper bg-white" id="wrapper"> 
+		<!-- contents -->
+		<div class="contents fixed-bottom" id="contents"> 
+			<div class="vertical-center">
+				<div class="request-area update">
+					<i class="icon"></i>
+					<p class="head-copy">앱이 설치되지 않았어요</p>
+					<p class="request-desc">앱 스토어에서 헤이영 캠퍼스 앱을 설치해 주세요.</p> 
+				</div>
+			</div>
+
+			<div class="page-btns fixed">
+				<button type="button" class="btn-lg-primary" onclick="executeAppStore();">App Store 이동</button>
+			</div>
+			
+        </div><!-- //contents -->
+              
+	</div><!-- // wrapper -->
+</body>
+
+<style>
+	/* reset */
+	*,
+	*:before,
+	*:after{box-sizing: border-box;flex-shrink: 1;}
+	:root {-webkit-tap-highlight-color:transparent;-webkit-text-size-adjust:100%;text-size-adjust:100%;cursor:default;line-height:1.5;overflow-wrap:break-word;-moz-tab-size:4;tab-size:4}
+	html,body,div,span,iframe,object,embed,h1,h2,h3,h4,h5,h6,dl,dt,dd,ul,ol,li,a,abbr,address,b,bdo,blockquote,cite,code,del,dfn,p,pre,em,i,ins,kbd,q,s,samp,strong,sub,sup,u,var,img,map,area,form,fieldset,legend,input,textarea,select,button,label,keygen,table,caption,thead,tbody,tfoot,tr,th,td,article,aside,audio,bdi,canvas,datalist,details,dialog,figcaption,figure,footer,header,main,mark,menu,menuitem,meter,nav,output,progress,section,rp,rt,ruby,summary,time,video,wbr,hr{margin: 0; padding: 0;}
+	html,body{width: 100%; min-height: 100%;-webkit-overflow-scrolling: touch;}
+	body{font: 1rem/1 'Noto Sans KR', '.SFNSText-Regular','San Francisco','Segoe UI','Helvetica Neue','Lucida Grande',sans-serif;font-weight: normal;color: #272D37;letter-spacing: -0.03rem;-webkit-text-size-adjust: 100%;-ms-text-size-adjust: 100%;-webkit-font-smoothing: antialiased;}
+	article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary{display:block;}
+	h1,h2,h3,h4,h5,pre,input,button,select,textarea{font: inherit;}
+	input,button,select,textarea{color: inherit;-webkit-appearance: none; border-radius: 0;}
+	a{color: inherit; text-decoration: none;}
+
+	/* font */
+	@font-face {
+			font-family:'Noto Sans KR';
+			font-style:normal;
+			font-weight:normal;
+			src:url(../resources/css/fonts/NotoSansKR-Regular.woff2) format('woff2'),
+			url(../resources/css/fonts/NotoSansKR-Regular.woff) format('woff'),
+			url(../resources/css/fonts/NotoSansKR-Regular.otf) format('opentype');
+		}
+	@font-face {
+		font-family:'Noto Sans KR';
+		font-style:normal;
+		font-weight:500;
+		src:url(../resources/css/fonts/NotoSansKR-Medium.woff2) format('woff2'),
+		url(../resources/css/fonts/NotoSansKR-Medium.woff) format('woff'),
+		url(../resources/css/fonts/NotoSansKR-Medium.otf) format('opentype');
+	}
+
+	/* layout */
+	.wrapper {width: 100%;min-height: 100vh;background-color: #FAFAFF;}
+	.bg-white {background-color: #fff!important;}
+
+	button{background: transparent;	border: 0;}
+	.fixed-bottom .vertical-center {bottom: 3.5rem;}
+	.vertical-center {position: absolute;left: 0;top:0;bottom:0;width: 100%;display: flex;align-items: center;}
+	.vertical-center .request-area{padding: 0 1.5rem;}
+	.request-area{width: 100%;text-align: center;}
+	.request-area .icon{display:inline-block;width: 5rem;height: 5rem;margin: 0 auto 1rem;background-size: contain;background-repeat: no-repeat;background-position: center center;background-image: url(../images/icon_complete.svg);}
+	.request-area .head-copy{font-size: 1rem;line-height: 1.5rem;font-weight: 500;}
+	.request-area .request-desc{font-size: 0.875rem;line-height: 1.25rem;color: #66737F;word-break: break-all;}
+	.request-area .head-copy + .request-desc {margin-top:0.5rem;}
+	.request-area.update .icon {background-image: url(../resources/img/logo_ap_heyoung.svg);width: 5.75rem;height: 5.75rem;margin-bottom: 0.25rem;}
+
+	.fixed{position:fixed; bottom:0; left:0; right: 0; z-index: 98;width: 100%;}
+	[class*="-btns"].fixed>*{flex: 1;border-radius: 0;}
+	[class*="-btns"]{display:flex; justify-content: space-between;}
+	[class*="-btns"]>*:only-child{width: 100%;}
+	button[class^="btn-"]{padding:0 0.5rem; white-space: nowrap; text-align: center;}
+	[class^="btn"][class*="-lg"]{height:3.5rem;}
+	[class^="btn"][class*="-primary"]{background-color: #6F77E4; color: #fff;}
+</style>
+
+
+</html>

@@ -1,0 +1,11 @@
+title: DogeBell.com
+description: Doge Everywhere.
+google_analytics: 
+theme: jekyll-theme-minimal
+repository: 'Dayyoung/dogebell'
+github: https://github.com/Dayyoung/dogebell
+//repository_url: https://github.com/Dayyoung/dogebell
+//repository_name : https://dogechain.info/address/DN7WNoyLx6DRoQpuzpcLhV95vLARFdbZ9A?__cf_chl_jschl_tk__=7dea86c903074a1a2be10dfad1083a6269d372c2-1620785035-0-ATaGzqUyD4NhwQ9oJo7sl1LvHi9-g-VtQZzdn_xbrzWjPoCZNX0mWqKyfkPsMgNYMzmro2fmR8TnbCciezP0-gUln51VvmsbUDZCLdlGZNoBZcBfK9trPjT4Ab_2SL0EzaHX7M6E9JSgUO_A1uRlViiwRP8gR-eP_6xjdmAC9I7ieiMljQzWrCtt8aFyMPN_a_Q8M-mKadyUCDDpufJM1jFHtMbeJJPjtpcHSPvQzIoMNxfEKLcWA0GGQQzHSoEpPqHbZBhLuW5r_ae_3_yYsegSH6uhyRB09lVYzuzvIp9gnirQSpPq-N9iygdCJ3OvKJKJjiA4UY6EPK--tY3wpmjbAGE2KxEAQknkD9qChuYj9e6A7rQjE09bcqIDySg9oHbl_V3RCUJlOBw296s5kAr1Fs0zOZ1YFwFSekrDlaS0ENBib0_AHVeBtv6P43fZ6VLSGBGK9Ky1mw70AJaOVnQ
+show_downloads: false
+port: 80
+logo: https://dogebell.com/assets/img/dogebell-title.png

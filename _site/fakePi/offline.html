@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Sandbox Test</title>
+    <meta charset="UTF-8" />
+    <style>
+      video {
+        display: block;
+        border: none;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      body{
+        background-color: black;
+        margin: 0;
+        padding: 0;
+
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <!-- <iframe
+      src="https://docs.google.com/presentation/d/e/2PACX-1vQtatC0SnnOUvqKU95stLI0NrgAq0WwHlZNbqYKdROg8xIacB1RU1IAhZ_oOuKktwb04rTxY2JWIN7h/embed?start=true&loop=true&delayms=3000"
+      frameborder="0"
+      width="960"
+      height="569"
+      allowfullscreen="true"
+      mozallowfullscreen="true"
+      webkitallowfullscreen="true"
+    ></iframe> -->
+
+
+<video loop="" autoplay="" muted="">
+    <source src="file:///Users/mogi/diabloapp/zaksim.mp4" type="video/ogg">
+    <source src="video/ex1.ogv" type="video/ogg; codecs='theora, vorbis'">
+</video>
+
+
+
+    <!-- <iframe src="file:///Users/mogi/diabloapp/zaksim.mp4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+
+
+    <!-- <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous">
+    </script>
+ -->
+
+    <script>
+         
+setInterval(function() {
+  if (navigator.onLine){
+        location.href = "file:///Users/mogi/diabloapp/zaksim.html";
+  }
+}, 1000);
+     
+    </script>
+  </body>
+</html>

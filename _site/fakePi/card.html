@@ -1,0 +1,206 @@
+<div id="card">
+  <header>
+    <h1>Dr. Yolks' Massage Service</h1>
+  </header>
+  <div id="content">
+    <table>
+      <tr>
+        <td class="border">Gentle</td>
+        <td class="border">Professional</td>
+        <td>Talented</td>
+      </tr>
+    </table>  
+    <p>I've been rubbing lotion on chests now for a long time.<br><span>Pick me as your next massage technician.</span></p>
+    <h3>-yolks</h3>
+  </div>
+  <div id="buttons">
+    <div id="avatar">
+    <img src="http://i66.tinypic.com/dqm07n.jpg"></div>
+    <div id="button1">
+      <a href="#"><img src="http://vignette4.wikia.nocookie.net/simpsons/images/1/11/Twitter_bird_icon.png/revision/latest?cb=20111228065136"></a>
+    </div>
+    <div id="button2">
+    <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Skype-icon-new.png"></a></div>
+  </div>
+</div>
+
+<style>
+@import url(https://fonts.googleapis.com/css?family=Josefin+Sans);
+body {
+  height: 400px;
+  background: url('https://www.planwallpaper.com/static/images/518164-backgrounds.jpg');
+  font-family: 'Josefin Sans', sans-serif;
+}
+#card {
+  -webkit-perspective: 100%;
+  perspective: 100%;
+  -webkit-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: rotateX(55deg) rotateY(9deg) rotateZ(-40deg);
+  transform: rotateX(55deg) rotateY(9deg) rotateZ(-40deg);
+  height: 250px;
+  width: 500px;
+  background: #505050;
+  margin: 90px auto 0 auto;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  transition: transform .5s ease-in;
+}
+#card:hover {
+  transform: rotate(3deg);
+}
+h1 {
+  position: absolute;
+  color: #909090;
+  margin-left: 30px;
+  margin-top: 18px;
+}
+h3 {
+  position: absolute;
+  bottom: 10px;
+  left: 167px;
+  color: #101010;
+}
+span {
+  position: absolute;
+  left: 45px;
+}
+p {
+  position: absolute;
+  left: 20px;
+  bottom: 80px;
+  color: #fff;
+  font-size: 17px;
+}
+header {
+  width: 100%;
+  height: 33.33%;
+  background: #303030;
+}
+
+#content {
+  width: 80%;
+  height: 70%;
+  transform-style: preserve-3d;
+}
+table {
+  position: absolute;
+  top: 10px;
+  left: 30px;
+}
+tr {
+}
+td {
+  color: #fff;
+  font-size: 19px;
+  padding: 4px 20px 4px 20px;
+}
+.border {
+  border-right: 1px solid;
+}
+#button2:before {
+  position: absolute;
+  bottom: 1px;
+  content: '';
+  height: 11px;
+  width: 100%;
+  background: magenta;
+  -webkit-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  -webkit-transform-origin: 0 100% 0;
+  -ms-transform-origin: 0 100% 0;
+  transform-origin: 0 100% 0;
+  background: #F305F3;
+}
+
+#content:before {
+  position: absolute;
+  bottom: 9px;
+  height: 11px;
+  width: 100%;
+  content: '';
+  background-color: #404040;
+  -webkit-transform: rotateX(90deg);
+  transform: rotateX(90deg);
+  -webkit-transform-origin: 0 100% 0;
+  -ms-transform-origin: 0 100% 0;
+  transform-origin: 0 100% 0;
+}
+
+header:before {
+  position: absolute;
+  content: '';
+  height: 33%;
+  width: 11px;
+  -webkit-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: #202020;
+}
+
+#card:before {
+  position: absolute;
+  content: '';
+  height: 100%;
+  width: 11px;
+  -webkit-transform: rotateY(90deg);
+  transform: rotateY(90deg);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: #404040;
+}
+
+#buttons {
+  float: right;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+}
+
+#avatar {
+  width: 100%;
+  height: 33.33%;
+  background: #505050;
+}
+#avatar:hover {
+  opacity: .9;
+  transition: opacity .3s ease;
+}
+#avatar img {
+  display: block;
+  margin: auto;
+  padding-top: 4px;
+  width: 90%;
+  height: 90%;
+}
+#button1 img {
+  width: 95%;
+  height: 95%;
+}
+#button2 img {
+  width: 75%;
+  height: 75%;
+  display: block;
+  padding-top: 9px;
+  margin: auto;
+}
+#button1 {
+  width: 100%;
+  height: 33.33%;
+  background: skyblue;
+}
+
+#button2 {
+  width: 100%;
+  height: 33.33%;
+  background: magenta;
+}
+ </style> 
