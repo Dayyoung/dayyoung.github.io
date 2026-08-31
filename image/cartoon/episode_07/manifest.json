@@ -1,0 +1,113 @@
+{
+  "episodeNumber": 7,
+  "episodeTitle": "The Traitors Camp",
+  "totalImages": 21,
+  "indices": "00..20",
+  "images": [
+    {
+      "index": 0,
+      "fileName": "00_SNSHERO_Episode_07_title_card_202608311350.jpeg",
+      "type": "title_card"
+    },
+    {
+      "index": 1,
+      "fileName": "01_Medusa_Gorgo_leaves_fantasy_coast_202608311325.jpeg",
+      "type": "scene_1"
+    },
+    {
+      "index": 2,
+      "fileName": "02_Fenrir_planning_continental_unif…_202608311325.jpeg",
+      "type": "scene_2"
+    },
+    {
+      "index": 3,
+      "fileName": "03_Characters_framed_at_fantasy_camp_202608311325.jpeg",
+      "type": "scene_3"
+    },
+    {
+      "index": 4,
+      "fileName": "04_Fenrir_planning_continental_unif…_202608311325_2.jpeg",
+      "type": "scene_4"
+    },
+    {
+      "index": 5,
+      "fileName": "05_Malfuon_tied_up_in_camp_202608311325_2.jpeg",
+      "type": "scene_5"
+    },
+    {
+      "index": 6,
+      "fileName": "06_Character_found_in_northern_snow_202608311325.jpeg",
+      "type": "scene_6"
+    },
+    {
+      "index": 7,
+      "fileName": "07_Barghest_climbs_hill_alone_202608311325.jpeg",
+      "type": "scene_7"
+    },
+    {
+      "index": 8,
+      "fileName": "08_Fenrir_burying_necklace_in_ground_202608311325.jpeg",
+      "type": "scene_8"
+    },
+    {
+      "index": 9,
+      "fileName": "09_Fenrir_buries_necklace_in_ground_202608311325.jpeg",
+      "type": "scene_9"
+    },
+    {
+      "index": 10,
+      "fileName": "10_Kadan_combining_combat_movements…_202608311325.jpeg",
+      "type": "scene_10"
+    },
+    {
+      "index": 11,
+      "fileName": "11_Man_treating_wounded_enemy_son_202608311325.jpeg",
+      "type": "scene_11"
+    },
+    {
+      "index": 12,
+      "fileName": "12_Characters_gathering_young_warriors_202608311325.jpeg",
+      "type": "scene_12"
+    },
+    {
+      "index": 13,
+      "fileName": "13_Fenrir_escapes_and_raids_headqua…_202608311325_2.jpeg",
+      "type": "scene_13"
+    },
+    {
+      "index": 14,
+      "fileName": "14_Fenrir_escapes_and_raids_headqua…_202608311325.jpeg",
+      "type": "scene_14"
+    },
+    {
+      "index": 15,
+      "fileName": "15_Tribes_elected_Fenrir_conquering…_202608311325.jpeg",
+      "type": "scene_15"
+    },
+    {
+      "index": 16,
+      "fileName": "16_Kadan_combines_combat_movements_…_202608311325.jpeg",
+      "type": "scene_16"
+    },
+    {
+      "index": 17,
+      "fileName": "17_Fenrir_hands_hand_to_Kadan_202608311325.jpeg",
+      "type": "scene_17"
+    },
+    {
+      "index": 18,
+      "fileName": "18_Elwin_and_Balian_discuss_promise_202608311325.jpeg",
+      "type": "scene_18"
+    },
+    {
+      "index": 19,
+      "fileName": "19_Kadan_and_Ignis_talking_202608311325.jpeg",
+      "type": "scene_19"
+    },
+    {
+      "index": 20,
+      "fileName": "20_Kadan_leading_southern_expeditio…_202608311325.jpeg",
+      "type": "scene_20"
+    }
+  ]
+}

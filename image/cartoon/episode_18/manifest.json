@@ -1,0 +1,113 @@
+{
+  "episodeNumber": 18,
+  "episodeTitle": "Secret of the Black Sanctum",
+  "totalImages": 21,
+  "indices": "00..20",
+  "images": [
+    {
+      "index": 0,
+      "fileName": "00_SNSHERO_Episode_18_title_card_202608311350.jpeg",
+      "type": "title_card"
+    },
+    {
+      "index": 1,
+      "fileName": "01_Characters_dividing_memory_device_202608311325.jpeg",
+      "type": "scene_1"
+    },
+    {
+      "index": 2,
+      "fileName": "02_Sylphid_and_Celia_talking_research_202608311325.jpeg",
+      "type": "scene_2"
+    },
+    {
+      "index": 3,
+      "fileName": "03_Characters_reading_secret_messag…_202608311325.jpeg",
+      "type": "scene_3"
+    },
+    {
+      "index": 4,
+      "fileName": "04_Characters_escape_underground_la…_202608311325.jpeg",
+      "type": "scene_4"
+    },
+    {
+      "index": 5,
+      "fileName": "05_Gandar_asking_Kadan_for_brotherhood_202608311325.jpeg",
+      "type": "scene_5"
+    },
+    {
+      "index": 6,
+      "fileName": "06_Golem_opening_temple_door_202608311325.jpeg",
+      "type": "scene_6"
+    },
+    {
+      "index": 7,
+      "fileName": "07_Characters_taking_away_hometowns_202608311325.jpeg",
+      "type": "scene_7"
+    },
+    {
+      "index": 8,
+      "fileName": "08_Celia_writing_in_notebook_202608311325.jpeg",
+      "type": "scene_8"
+    },
+    {
+      "index": 9,
+      "fileName": "09_Character_giving_back_strength_202608311325.jpeg",
+      "type": "scene_9"
+    },
+    {
+      "index": 10,
+      "fileName": "10_Celia_feeling_anxious_about_atti…_202608311325.jpeg",
+      "type": "scene_10"
+    },
+    {
+      "index": 11,
+      "fileName": "11_Celia_reminding_Ignis_on_stage_202608311325.jpeg",
+      "type": "scene_11"
+    },
+    {
+      "index": 12,
+      "fileName": "12_Grimli_sharing_mana_with_Ignis_202608311325.jpeg",
+      "type": "scene_12"
+    },
+    {
+      "index": 13,
+      "fileName": "13_Gandar_giving_back_strength_202608311325.jpeg",
+      "type": "scene_13"
+    },
+    {
+      "index": 14,
+      "fileName": "14_Gandar_reading_letter_with_Naiad_202608311325.jpeg",
+      "type": "scene_14"
+    },
+    {
+      "index": 15,
+      "fileName": "15_Golem_opening_temple_door_202608311325_2.jpeg",
+      "type": "scene_15"
+    },
+    {
+      "index": 16,
+      "fileName": "16_Medusa_Gorgo_cuts_fan_with_202608311325.jpeg",
+      "type": "scene_16"
+    },
+    {
+      "index": 17,
+      "fileName": "17_Kadan_and_Gandar_in_room_202608311325.jpeg",
+      "type": "scene_17"
+    },
+    {
+      "index": 18,
+      "fileName": "18_Gandar_teaching_Kadan_a_shortcut_202608311325.jpeg",
+      "type": "scene_18"
+    },
+    {
+      "index": 19,
+      "fileName": "19_Kadan_writing_reply_to_Titania_202608311325.jpeg",
+      "type": "scene_19"
+    },
+    {
+      "index": 20,
+      "fileName": "20_Kadan_and_Celia_solving_trial_202608311325.jpeg",
+      "type": "scene_20"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "episodeNumber": 30,
+  "episodeTitle": "Poison at the Four Gates",
+  "totalImages": 21,
+  "indices": "00..20",
+  "images": [
+    {
+      "index": 0,
+      "fileName": "00_SNSHERO_Episode_30_title_card_202608311350.jpeg",
+      "type": "title_card"
+    },
+    {
+      "index": 1,
+      "fileName": "01_Fisherman_guarding_sanctuary_gate_202608311325.jpeg",
+      "type": "scene_1"
+    },
+    {
+      "index": 2,
+      "fileName": "02_Pursuers_blocking_Celia_in_forest_202608311325.jpeg",
+      "type": "scene_2"
+    },
+    {
+      "index": 3,
+      "fileName": "03_Fisherman_releasing_fish_202608311325.jpeg",
+      "type": "scene_3"
+    },
+    {
+      "index": 4,
+      "fileName": "04_Characters_waiting_near_gateway_202608311325.jpeg",
+      "type": "scene_4"
+    },
+    {
+      "index": 5,
+      "fileName": "05_Celia_grabbed_collar_and_muttered_202608311325.jpeg",
+      "type": "scene_5"
+    },
+    {
+      "index": 6,
+      "fileName": "06_Characters_helping_trapped_spirit_202608311325.jpeg",
+      "type": "scene_6"
+    },
+    {
+      "index": 7,
+      "fileName": "07_Farmer_showing_dry_field_to_202608311325.jpeg",
+      "type": "scene_7"
+    },
+    {
+      "index": 8,
+      "fileName": "08_Characters_quenching_thirst_with…_202608311325.jpeg",
+      "type": "scene_8"
+    },
+    {
+      "index": 9,
+      "fileName": "09_Characters_checking_cavern_moisture_202608311325.jpeg",
+      "type": "scene_9"
+    },
+    {
+      "index": 10,
+      "fileName": "10_Scholar_Sylvania_waiting_at_gate_202608311325.jpeg",
+      "type": "scene_10"
+    },
+    {
+      "index": 11,
+      "fileName": "11_Character_at_four_gates_river_202608311325.jpeg",
+      "type": "scene_11"
+    },
+    {
+      "index": 12,
+      "fileName": "12_Scholar_Sylvania_waiting_at_gate_202608311325_2.jpeg",
+      "type": "scene_12"
+    },
+    {
+      "index": 13,
+      "fileName": "13_Aqualord_abandoning_the_throne_202608311325.jpeg",
+      "type": "scene_13"
+    },
+    {
+      "index": 14,
+      "fileName": "14_Pursuers_blocking_road_for_Celia_202608311325.jpeg",
+      "type": "scene_14"
+    },
+    {
+      "index": 15,
+      "fileName": "15_Celia_pointing_while_unconscious_202608311325.jpeg",
+      "type": "scene_15"
+    },
+    {
+      "index": 16,
+      "fileName": "16_Celia_moving_fingers_202608311325.jpeg",
+      "type": "scene_16"
+    },
+    {
+      "index": 17,
+      "fileName": "17_Characters_waiting_at_gateway_202608311325.jpeg",
+      "type": "scene_17"
+    },
+    {
+      "index": 18,
+      "fileName": "18_Kadan_answers_without_embellishment_202608311325.jpeg",
+      "type": "scene_18"
+    },
+    {
+      "index": 19,
+      "fileName": "19_Celia_moves_fingers_without_opening_202608311325.jpeg",
+      "type": "scene_19"
+    },
+    {
+      "index": 20,
+      "fileName": "20_Aqualord_opens_white_door_202608311325.jpeg",
+      "type": "scene_20"
+    }
+  ]
+}

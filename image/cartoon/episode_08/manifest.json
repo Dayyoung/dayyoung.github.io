@@ -1,0 +1,113 @@
+{
+  "episodeNumber": 8,
+  "episodeTitle": "Rider of the Crimson Mane",
+  "totalImages": 21,
+  "indices": "00..20",
+  "images": [
+    {
+      "index": 0,
+      "fileName": "00_SNSHERO_Episode_08_title_card_202608311350.jpeg",
+      "type": "title_card"
+    },
+    {
+      "index": 1,
+      "fileName": "01_Character_encounters_red-maned_h…_202608311325.jpeg",
+      "type": "scene_1"
+    },
+    {
+      "index": 2,
+      "fileName": "02_Man_stopping_with_wild_horse_202608311325.jpeg",
+      "type": "scene_2"
+    },
+    {
+      "index": 3,
+      "fileName": "03_Kadan_calling_horse_Pegasus_202608311325.jpeg",
+      "type": "scene_3"
+    },
+    {
+      "index": 4,
+      "fileName": "04_Kadan_and_Celia_working_together_202608311325.jpeg",
+      "type": "scene_4"
+    },
+    {
+      "index": 5,
+      "fileName": "05_Character_buying_bread_and_soup_202608311325.jpeg",
+      "type": "scene_5"
+    },
+    {
+      "index": 6,
+      "fileName": "06_Character_gives_coat_to_beggar_202608311325.jpeg",
+      "type": "scene_6"
+    },
+    {
+      "index": 7,
+      "fileName": "07_Ignis_questioning_Kadan_in_blizzard_202608311325.jpeg",
+      "type": "scene_7"
+    },
+    {
+      "index": 8,
+      "fileName": "08_Ignis_confronting_Kadan_in_blizzard_202608311325.jpeg",
+      "type": "scene_8"
+    },
+    {
+      "index": 9,
+      "fileName": "09_Characters_facing_white_flames_i…_202608311325.jpeg",
+      "type": "scene_9"
+    },
+    {
+      "index": 10,
+      "fileName": "10_Ignis_tests_public_royal_perception_202608311325.jpeg",
+      "type": "scene_10"
+    },
+    {
+      "index": 11,
+      "fileName": "11_Man_hesitating_before_Celia_202608311325.jpeg",
+      "type": "scene_11"
+    },
+    {
+      "index": 12,
+      "fileName": "12_Celia_and_Kadan_sitting_together_202608311325.jpeg",
+      "type": "scene_12"
+    },
+    {
+      "index": 13,
+      "fileName": "13_Characters_laying_out_weapons_se…_202608311325.jpeg",
+      "type": "scene_13"
+    },
+    {
+      "index": 14,
+      "fileName": "14_Eliana_defeats_challengers_with_bow_202608311325.jpeg",
+      "type": "scene_14"
+    },
+    {
+      "index": 15,
+      "fileName": "15_Ignis_reduces_vines_to_ash_202608311325.jpeg",
+      "type": "scene_15"
+    },
+    {
+      "index": 16,
+      "fileName": "16_Eliana_shooting_bow_at_Ignis_202608311325.jpeg",
+      "type": "scene_16"
+    },
+    {
+      "index": 17,
+      "fileName": "17_Prince_Ignis_confronting_Celia_202608311325.jpeg",
+      "type": "scene_17"
+    },
+    {
+      "index": 18,
+      "fileName": "18_Ignis_defeating_Eliana_in_arena_202608311325.jpeg",
+      "type": "scene_18"
+    },
+    {
+      "index": 19,
+      "fileName": "19_Character_enters_duel_and_return…_202608311325.jpeg",
+      "type": "scene_19"
+    },
+    {
+      "index": 20,
+      "fileName": "20_Kadan_and_Ignis_facing_each_202608311325.jpeg",
+      "type": "scene_20"
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+{
+  "episodeNumber": 3,
+  "episodeTitle": "Blood on the Mist Cliff",
+  "totalImages": 21,
+  "indices": "00..20",
+  "images": [
+    {
+      "index": 0,
+      "fileName": "00_SNSHERO_Episode_03_title_card_202608311350.jpeg",
+      "type": "title_card"
+    },
+    {
+      "index": 1,
+      "fileName": "01_Pursuers_lost_at_Mistfall_Cliffs_202608311325.jpeg",
+      "type": "scene_1"
+    },
+    {
+      "index": 2,
+      "fileName": "02_Eliana_dropping_medicine_on_hand…_202608311325.jpeg",
+      "type": "scene_2"
+    },
+    {
+      "index": 3,
+      "fileName": "03_Medusa_characters_enter_enchante…_202608311325.jpeg",
+      "type": "scene_3"
+    },
+    {
+      "index": 4,
+      "fileName": "04_Seven_pursuers_lost_at_cliff_202608311325.jpeg",
+      "type": "scene_4"
+    },
+    {
+      "index": 5,
+      "fileName": "05_Medusa_Gorgo_confronts_Robinyard_202608311325.jpeg",
+      "type": "scene_5"
+    },
+    {
+      "index": 6,
+      "fileName": "06_Hunters_blocking_path_in_alley_202608311325.jpeg",
+      "type": "scene_6"
+    },
+    {
+      "index": 7,
+      "fileName": "07_Characters_spreading_mist_to_escape_202608311325.jpeg",
+      "type": "scene_7"
+    },
+    {
+      "index": 8,
+      "fileName": "08_Characters_fighting_on_mist_cliff_202608311325.jpeg",
+      "type": "scene_8"
+    },
+    {
+      "index": 9,
+      "fileName": "09_Characters_looking_at_each_other_202608311325_2.jpeg",
+      "type": "scene_9"
+    },
+    {
+      "index": 10,
+      "fileName": "10_Characters_fighting_on_mist_cliff_202608311325_2.jpeg",
+      "type": "scene_10"
+    },
+    {
+      "index": 11,
+      "fileName": "11_Eliana_and_Belphegor_shaking_hands_202608311325.jpeg",
+      "type": "scene_11"
+    },
+    {
+      "index": 12,
+      "fileName": "12_Characters_flee_beneath_fog_202608311325.jpeg",
+      "type": "scene_12"
+    },
+    {
+      "index": 13,
+      "fileName": "13_Characters_reacting_on_mist_cliff_202608311325.jpeg",
+      "type": "scene_13"
+    },
+    {
+      "index": 14,
+      "fileName": "14_Character_attaching_silver_bells…_202608311325.jpeg",
+      "type": "scene_14"
+    },
+    {
+      "index": 15,
+      "fileName": "15_Character_opening_the_way_202608311325.jpeg",
+      "type": "scene_15"
+    },
+    {
+      "index": 16,
+      "fileName": "16_Eliana_dividing_ashes_into_bottles_202608311325.jpeg",
+      "type": "scene_16"
+    },
+    {
+      "index": 17,
+      "fileName": "17_Teachers_guiding_Kadan_in_fantasy_202608311325.jpeg",
+      "type": "scene_17"
+    },
+    {
+      "index": 18,
+      "fileName": "18_Grimli_writes_letter_to_Hercul_202608311325.jpeg",
+      "type": "scene_18"
+    },
+    {
+      "index": 19,
+      "fileName": "19_Kadan_writing_on_silk_202608311325.jpeg",
+      "type": "scene_19"
+    },
+    {
+      "index": 20,
+      "fileName": "20_Kadan_holding_silver_bell_202608311325_2.jpeg",
+      "type": "scene_20"
+    }
+  ]
+}
