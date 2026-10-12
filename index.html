@@ -1,2070 +1,1683 @@
 <!DOCTYPE html>
-<html lang="ko">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<meta name="generator" content="Hugo 0.59.1" />
-<title>모두의 기술 연구소</title>
+<html lang="ko" class="dark scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+  <title>유대영 (Greg Yoo) | 시니어 풀스택 & AI 업무자동화 · 3D/Spatial 엔지니어</title>
+  
+  <link rel="canonical" href="https://dayyoung.github.io">
+  <meta name="title" content="유대영 (Greg Yoo) - 12년+ 시니어 풀스택 & AI/3D 개발자 포트폴리오">
+  <meta name="description" content="12년 6개월 경력의 시니어 개발자 유대영의 프로필입니다. 모바일·웹·백엔드 아키텍처부터 SaaS 솔루션, Unity 3D/AR/VR 공간체험, 구글 Antigravity & Claude Code 기반 AI 업무자동화까지 아우르는 올라운더 엔지니어입니다.">
+  <meta name="keywords" content="유대영, 개발자 포트폴리오, 시니어 개발자, AI 업무자동화, Antigravity, Claude Code, Unity 3D, WebGL, SaaS 아키텍트, Medallia, Spring Boot, React, Android, iOS, 백엔드, 풀스택">
+  
+  <!-- Open Graph / SNS -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dayyoung.github.io/">
+  <meta property="og:title" content="유대영 (Greg Yoo) | 12년+ 시니어 풀스택 & AI/3D 개발자">
+  <meta property="og:description" content="모바일에서 엔터프라이즈 SaaS 아키텍처, Unity 3D 공간체험, AI 업무자동화까지 완성하는 12년차 시니어 개발자 유대영의 포트폴리오입니다.">
+  <meta property="og:image" content="https://dayyoung.github.io/images/portfolio/profile1.jpg">
+  
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="/favicons/favicon.ico">
+  <link rel="apple-touch-icon" href="/favicons/apple-icon-180x180.png" sizes="180x180">
+  <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEWCLTK1HF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-FEWCLTK1HF');
+  </script>
 
+  <!-- Pretendard & Inter & JetBrains Mono Fonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Pretendard', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+              950: '#1e1b4b',
+            },
+            accent: {
+              cyan: '#06b6d4',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+              purple: '#a855f7',
+              rose: '#f43f5e',
+            },
+            dark: {
+              bg: '#090d16',
+              card: '#0f172a',
+              cardHover: '#17223b',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderHover: 'rgba(99, 102, 241, 0.4)',
+            }
+          },
+          animation: {
+            'gradient-x': 'gradient-x 15s ease infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+          },
+          keyframes: {
+            'gradient-x': {
+              '0%, 100%': {
+                'background-size': '200% 200%',
+                'background-position': 'left center'
+              },
+              '50%': {
+                'background-size': '200% 200%',
+                'background-position': 'right center'
+              },
+            },
+            'float': {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
 
-<link rel="canonical" href="http://dayyoung.github.io">
-<meta name="title" content="모두의 기술 연구소">
-<meta name="keywords" content="앱, 웹, 서버, 프론트엔드, 백엔드, DB 등 IT 개발 블로그/Docs">
-<meta name="description" content="모두의 기술 연구소는 IT 개발 지식과 경험을 토대로 작성된 가이드 문서를 제공합니다.">
-<meta property="og:image" content="https://dayyoung.github.io/images/logo_white.png">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- FontAwesome 6 for Social Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 
+  <style>
+    /* Custom Styling & Gradients */
+    body {
+      word-break: keep-all;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
+    .grid-bg {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    html:not(.dark) .grid-bg {
+      background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    }
 
-<link rel="shortcut icon" href="/favicons/favicon.ico">
-<link rel="apple-touch-icon" href="/favicons/apple-icon-180x180.png" sizes="180x180">
-<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
-<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
-<link rel="icon" type="image/png" href="/favicons/android-icon-36x36" sizes="36x36">
-<link rel="icon" type="image/png" href="/favicons/android-icon-48x48.png" sizes="48x48">
-<link rel="icon" type="image/png" href="/favicons/android-icon-72x72.png" sizes="72x72">
-<link rel="icon" type="image/png" href="/favicons/android-icon-96x96.png" sizes="96x96">
-<link rel="icon" type="image/png" href="/favicons/android-icon-144x144.png" sizes="144x144">
-<link rel="icon" type="image/png" href="/favicons/android-icon-192x192.png" sizes="192x192">
+    .glass-panel {
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
 
-<link type="text/css" rel="stylesheet" href="/css/fonts.css" />
-<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700">
+    /* Glow Effects */
+    .glow-indigo {
+      box-shadow: 0 0 50px -10px rgba(99, 102, 241, 0.25);
+    }
+    .glow-cyan {
+      box-shadow: 0 0 50px -10px rgba(6, 182, 212, 0.25);
+    }
 
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+    }
+    html:not(.dark) ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6366f1;
+    }
 
+    /* Print Stylesheet for Resume PDF export */
+    @media print {
+      body {
+        background: white !important;
+        color: #111827 !important;
+      }
+      nav, #floating-dock, #toast-box, #scroll-top-btn, .no-print {
+        display: none !important;
+      }
+      .print-page-break {
+        page-break-before: always;
+      }
+      .card-item {
+        break-inside: avoid;
+        box-shadow: none !important;
+        border: 1px solid #e5e7eb !important;
+      }
+      .print-black {
+        color: black !important;
+      }
+    }
 
-<link rel="stylesheet" type="text/css" href="/common.css">
-
-
-<!-- <link rel="stylesheet" type="text/css" href="https://dayyoung.github.io/styles.5a77e4490684e8be54980d1a17667ec16f3a490202e7759fda9f3c83985943bb.css" integrity="sha256-WnfkSQaE6L5UmA0aF2Z&#43;wW86SQIC53Wf2p88g5hZQ7s="> -->
-
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-  integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-
-
-<link type="text/css" rel="stylesheet" href="/css/monokai-sublime.css" />
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEWCLTK1HF"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FEWCLTK1HF');
-</script>
-
-<!-- <script data-ad-client="ca-pub-3588286886332636" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css">
+    /* Light Mode Overrides for Perfect Visual Balance */
+    html:not(.dark) body {
+      background-color: #f8fafc !important;
+      color: #1e293b !important;
+    }
+    html:not(.dark) header {
+      background-color: rgba(255, 255, 255, 0.85) !important;
+      border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+    }
+    html:not(.dark) h1, 
+    html:not(.dark) h2, 
+    html:not(.dark) h3,
+    html:not(.dark) .text-white {
+      color: #0f172a !important;
+    }
+    html:not(.dark) .text-slate-300,
+    html:not(.dark) .text-slate-200 {
+      color: #334155 !important;
+    }
+    html:not(.dark) .text-slate-400 {
+      color: #64748b !important;
+    }
+    html:not(.dark) .card-item,
+    html:not(.dark) .skill-card,
+    html:not(.dark) .glass-panel {
+      background-color: rgba(255, 255, 255, 0.9) !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
+    }
+    html:not(.dark) .bg-slate-900\/80,
+    html:not(.dark) .bg-slate-900\/70,
+    html:not(.dark) .bg-slate-900\/60,
+    html:not(.dark) .bg-slate-900\/40,
+    html:not(.dark) .bg-\[\#0f172a\]\/90 {
+      background-color: #ffffff !important;
+      border-color: rgba(0, 0, 0, 0.08) !important;
+    }
+    html:not(.dark) .bg-white\/\[0\.02\],
+    html:not(.dark) .bg-white\/\[0\.015\],
+    html:not(.dark) .bg-white\/\[0\.04\] {
+      background-color: rgba(0, 0, 0, 0.02) !important;
+      border-color: rgba(0, 0, 0, 0.06) !important;
+    }
+    html:not(.dark) .border-white\/10,
+    html:not(.dark) .border-white\/5 {
+      border-color: rgba(0, 0, 0, 0.08) !important;
+    }
+    html:not(.dark) .bg-slate-800 {
+      background-color: #e2e8f0 !important;
+      color: #334155 !important;
+    }
+    html:not(.dark) footer {
+      background-color: #f1f5f9 !important;
+      color: #64748b !important;
+      border-top-color: #e2e8f0 !important;
+    }
+    html:not(.dark) #mobile-menu {
+      background-color: rgba(255, 255, 255, 0.95) !important;
+    }
+  </style>
 </head>
 
-<body class="has-navbar-fixed-top">
-  <section class="wrap">
-    <header>
-  <nav class="navbar is-fixed-top is-transparent">
-    <div class="container is-fluid">
-      <div class="navbar-brand">
-        <div class="logo-area">
-          <a class="navbar-item logo" href="/" >
-          <a href="/" ><h1 class="logo-text">모두의 기술 연구소</h1></a>
+<body class="bg-[#090d16] text-slate-200 antialiased selection:bg-brand-500 selection:text-white dark:bg-[#090d16] min-h-screen">
+
+  <!-- Background Ambient Glows -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden grid-bg">
+    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-gradient-to-tr from-brand-600/20 to-purple-600/20 blur-[130px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-[40%] -left-32 w-[500px] h-[500px] bg-cyan-600/10 blur-[140px] rounded-full pointer-events-none"></div>
+    <div class="absolute top-[70%] -right-32 w-[550px] h-[550px] bg-indigo-600/15 blur-[150px] rounded-full pointer-events-none"></div>
+  </div>
+
+  <!-- Toast Notification Box -->
+  <div id="toast-box" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="flex items-center gap-3 px-5 py-3.5 bg-slate-900/90 text-white border border-brand-500/40 rounded-xl shadow-2xl glass-panel">
+      <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+      <span id="toast-msg" class="text-sm font-medium">복사되었습니다!</span>
+    </div>
+  </div>
+
+  <!-- Floating Scroll To Top Button -->
+  <button id="scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 left-6 z-40 p-3 rounded-2xl bg-slate-900/80 text-white border border-white/10 glass-panel shadow-xl opacity-0 translate-y-10 pointer-events-none hover:bg-brand-600 hover:border-brand-500 transition-all duration-300 group" title="맨 위로 가기">
+    <i data-lucide="arrow-up" class="w-5 h-5 text-slate-300 group-hover:text-white"></i>
+  </button>
+
+  <!-- Navigation Bar -->
+  <header class="sticky top-0 z-40 w-full transition-all duration-300 border-b border-white/5 bg-[#090d16]/80 glass-panel">
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress" class="absolute bottom-0 left-0 h-[2.5px] bg-gradient-to-r from-brand-500 via-cyan-400 to-indigo-500 w-0 transition-all duration-75"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        
+        <!-- Logo / Name -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="relative w-10 h-10 rounded-xl overflow-hidden ring-2 ring-brand-500/30 group-hover:ring-brand-500 transition-all">
+            <img src="/images/portfolio/profile1.jpg" alt="유대영 프로필" class="w-full h-full object-cover">
+          </div>
+          <div class="flex flex-col">
+            <span class="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-2 group-hover:text-brand-400 transition-colors">
+              유대영
+              <span class="text-xs font-mono font-normal text-slate-400">Greg Yoo</span>
+            </span>
+            <span class="text-[11px] text-slate-400 flex items-center gap-1.5 font-medium">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              총 12년 6개월+ · Tech Lead
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-1 bg-white/[0.03] p-1.5 rounded-full border border-white/5 text-sm font-medium">
+          <a href="#about" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-all">소개</a>
+          <a href="#experience" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-all">경력 (12년+)</a>
+          <a href="#projects" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-all">프로젝트 & 데모</a>
+          <a href="#skills" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-all">기술 스택</a>
+          <a href="#education" class="px-3.5 py-1.5 rounded-full text-slate-300 hover:text-white hover:bg-white/10 transition-all">학력 & 수상</a>
+          <a href="/docs" target="_blank" class="px-3.5 py-1.5 rounded-full text-brand-300 hover:text-brand-200 hover:bg-brand-500/20 flex items-center gap-1.5 transition-all">
+            <i data-lucide="book-open" class="w-3.5 h-3.5"></i>
+            Docs
+          </a>
+        </nav>
+
+        <!-- Header Actions: Contact Modal, Print & Theme Toggle -->
+        <div class="flex items-center gap-2.5 sm:gap-3">
+          
+          <!-- Contact Direct Button -->
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold rounded-xl bg-gradient-to-r from-brand-600 to-indigo-600 text-white hover:from-brand-500 hover:to-indigo-500 shadow-lg shadow-brand-500/20 hover:shadow-brand-500/40 transition-all">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            <span>연락하기</span>
+          </a>
+
+          <!-- Print / PDF Button -->
+          <button onclick="window.print()" title="이력서 인쇄 / PDF 저장" class="p-2 sm:px-3 sm:py-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/5 transition-all flex items-center gap-1.5 text-xs">
+            <i data-lucide="printer" class="w-4 h-4 text-slate-400"></i>
+            <span class="hidden sm:inline">인쇄</span>
+          </button>
+
+          <!-- Theme Toggle Button -->
+          <button id="theme-toggle" class="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/5 transition-all" title="테마 전환">
+            <i id="theme-icon" data-lucide="sun" class="w-4 h-4"></i>
+          </button>
+
+          <!-- Mobile Hamburger Menu Button -->
+          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
         </div>
-        <span class="navbar-burger burger" data-target="navbarMenu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-      </div>
-      <div id="navbarMenu" class="navbar-menu">
-        <div class="navbar-end">
-          
-          <span class="navbar-item">
-            <a href="/" class="is-active">PORTFOLIO</a>
-          </span>
-          
-          <span class="navbar-item">
-            <a href="/docs" >DOCS</a>
-          </span>
-          
-          
-          
-          
-          
-        </div>
+
       </div>
     </div>
-  </nav>
 
-</header>
-    
-    <div class="container main">
-      <div class="portfolio">
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/5 bg-[#090d16]/95 glass-panel px-4 py-4 space-y-2">
+      <a href="#about" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-white/5">소개 (About)</a>
+      <a href="#experience" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-white/5">경력 히스토리 (12년+)</a>
+      <a href="#projects" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-white/5">주요 프로젝트 & 3D 데모</a>
+      <a href="#skills" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-white/5">기술 스택 (Tech Stack)</a>
+      <a href="#education" class="block px-3 py-2 rounded-lg text-slate-300 hover:bg-white/5">학력 · 수상 · 교육</a>
+      <a href="/docs" target="_blank" class="block px-3 py-2 rounded-lg text-brand-400 hover:bg-brand-500/10 flex items-center gap-2">
+        <i data-lucide="book-open" class="w-4 h-4"></i> 기술 블로그 / Docs
+      </a>
+      <a href="#contact" class="block px-3 py-2 rounded-lg bg-brand-600 text-white font-medium text-center mt-3">
+        연락하기 / 연락처 복사
+      </a>
+    </div>
+  </header>
+
+  <!-- Main Content Wrapper -->
+  <main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-24 sm:space-y-32">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="pt-6 sm:pt-14 pb-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
         
-        <div class="title-section">
-            <div class="text">모두의 기술, <span class="nickname">Yoo Dae Young</span></div>
-        </div>
-        
-        <div class="portfolio-content-section">
+        <!-- Left: Headline & Bio -->
+        <div class="lg:col-span-8 space-y-6 sm:space-y-8">
           
-          <div class="first-section division-section">
+          <!-- Badges Bar -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-brand-500/10 text-brand-400 border border-brand-500/20">
+              <span class="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
+              AI-Native & Spatial Computing
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
+              총 12년 6개월 경력 · 현재 사이시옷 매니저
+            </span>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium bg-purple-500/10 text-purple-400 border border-purple-500/20">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+              솔루션스 아키텍트
+            </span>
+          </div>
+
+          <!-- Main Title -->
+          <div class="space-y-4">
+            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
+              12년의 기술 깊이에<br class="hidden sm:inline">
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 via-indigo-300 to-cyan-400">AI와 3D 공간을 더해</span><br>
+              비즈니스의 가치를 구현합니다.
+            </h1>
+            <p class="text-base sm:text-xl text-slate-300 leading-relaxed font-normal max-w-3xl">
+              안녕하세요, <strong class="text-white font-semibold">유대영 (Greg Yoo)</strong>입니다.
+              초기 모바일 네이티브 앱에서 출발해 대규모 백엔드·엔터프라이즈 SaaS 아키텍처를 주도했으며, 
+              현재는 <span class="text-cyan-300 font-medium">Unity 3D/AR/VR 공간체험</span>과 
+              <span class="text-brand-300 font-medium">Google Antigravity & Claude Code 기반 AI 업무자동화</span>까지 
+              현장 중심의 올라운더 시니어 개발자로 활약하고 있습니다.
+            </p>
+          </div>
+
+          <!-- Action CTA Buttons -->
+          <div class="flex flex-wrap items-center gap-3 pt-2">
+            <a href="#projects" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 text-white font-semibold shadow-lg shadow-brand-500/25 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all text-sm sm:text-base">
+              <i data-lucide="play" class="w-4 h-4 fill-white"></i>
+              <span>포트폴리오 & 3D 데모 둘러보기</span>
+            </a>
             
-            <div class="profile-section area-section">
-              <div class="title">
-                PROFILE
-                <span class="resume"><a href="/Greg_You_Portfolio.pdf">포트폴리오.pdf</a></span>
+            <a href="/Greg_You_Portfolio.pdf" target="_blank" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 hover:border-white/20 transition-all font-medium text-sm sm:text-base">
+              <i data-lucide="file-text" class="w-4 h-4 text-brand-400"></i>
+              <span>기존 포트폴리오 PDF</span>
+            </a>
+
+            <button onclick="copyToClipboard('dryudryu@naver.com', '이메일 주소(dryudryu@naver.com)가 복사되었습니다!')" class="inline-flex items-center gap-2 px-4 py-3.5 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-all text-sm font-medium" title="이메일 복사">
+              <i data-lucide="copy" class="w-4 h-4"></i>
+              <span>dryudryu@naver.com</span>
+            </button>
+          </div>
+
+          <!-- Key Metrics Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 border-t border-white/5">
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl sm:text-3xl font-bold font-mono text-brand-400">12.5<span class="text-sm font-sans font-normal text-slate-400">년</span></div>
+              <div class="text-xs text-slate-400 mt-1">총 개발 경력</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl sm:text-3xl font-bold font-mono text-cyan-400">20<span class="text-sm font-sans font-normal text-slate-400">+</span></div>
+              <div class="text-xs text-slate-400 mt-1">대기업·공공 솔루션</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl sm:text-3xl font-bold font-mono text-emerald-400">AI<span class="text-sm font-sans font-normal text-slate-400"> 파이프라인</span></div>
+              <div class="text-xs text-slate-400 mt-1">업무자동화 극대화</div>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div class="text-2xl sm:text-3xl font-bold font-mono text-purple-400">100<span class="text-sm font-sans font-normal text-slate-400">%</span></div>
+              <div class="text-xs text-slate-400 mt-1">일정 및 납기 준수율</div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Profile Card & Quick Info -->
+        <div class="lg:col-span-4">
+          <div class="relative group">
+            
+            <!-- Ambient Card Backing -->
+            <div class="absolute -inset-1 bg-gradient-to-r from-brand-500 to-cyan-500 rounded-3xl blur-xl opacity-30 group-hover:opacity-50 transition duration-1000"></div>
+            
+            <!-- Main Glass Card -->
+            <div class="relative p-6 sm:p-7 rounded-3xl bg-[#0f172a]/90 border border-white/10 glass-panel shadow-2xl space-y-6">
+              
+              <!-- Avatar & Status -->
+              <div class="flex items-center gap-4">
+                <div class="relative w-20 h-20 rounded-2xl overflow-hidden ring-4 ring-brand-500/20 shadow-xl flex-shrink-0">
+                  <img src="/images/portfolio/profile1.jpg" alt="유대영 증명사진" class="w-full h-full object-cover">
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                    유대영
+                    <span class="text-xs px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 font-mono">1983년생</span>
+                  </h3>
+                  <p class="text-xs font-medium text-slate-300 mt-0.5">시공간 3D 웹 & AI 솔루션스 아키텍트</p>
+                  <p class="text-xs text-emerald-400 flex items-center gap-1.5 mt-2 font-medium">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    사이시옷 재직 중 (웹서비스개발 매니저)
+                  </p>
+                </div>
               </div>
-              <div class="content-section">
-                <div class="left-section">
-                  <div class="profile-img">
-                    <div class="img"><img src="/images/portfolio/profile1.jpg" /></div>
-                    <div class="img"><img src="/images/portfolio/profile2.jpg" /></div>
-                  </div>
+
+              <!-- Quick Info List -->
+              <div class="space-y-3 pt-3 border-t border-white/5 text-xs text-slate-300 font-mono">
+                
+                <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.02]">
+                  <span class="text-slate-400 flex items-center gap-2 font-sans">
+                    <i data-lucide="mail" class="w-3.5 h-3.5 text-slate-400"></i> 이메일
+                  </span>
+                  <button onclick="copyToClipboard('dryudryu@naver.com', '이메일 주소가 복사되었습니다!')" class="text-brand-300 hover:text-white flex items-center gap-1 font-mono transition-colors">
+                    dryudryu@naver.com
+                    <i data-lucide="copy" class="w-3 h-3"></i>
+                  </button>
                 </div>
-                <div class="right-section">
-                  <div class="profile-desc">
-                    <p>
-                      모바일앱 개발로 처음 시작하여<br>
-                      지금은 풀스택 개발자를 목표로 하고 있습니다.<br>
-                      새로운 것을 두러워 하지 않고 즐기는,<br>
-                      다양한 것에 관심이 많은 개발을 하고 있습니다.
-                    </p>
-                  </div>
-                  <div class="profile-privacy">
-                    <span>유대영</span>
-                    <span>1983.02.28</span>
-                    <span>dryudryu@gmail.com</span>
-                  </div>
+
+                <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.02]">
+                  <span class="text-slate-400 flex items-center gap-2 font-sans">
+                    <i data-lucide="phone" class="w-3.5 h-3.5 text-slate-400"></i> 연락처
+                  </span>
+                  <button onclick="copyToClipboard('010-9067-4011', '전화번호가 복사되었습니다!')" class="text-brand-300 hover:text-white flex items-center gap-1 font-mono transition-colors">
+                    010-9067-4011
+                    <i data-lucide="copy" class="w-3 h-3"></i>
+                  </button>
                 </div>
+
+                <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.02]">
+                  <span class="text-slate-400 flex items-center gap-2 font-sans">
+                    <i data-lucide="map-pin" class="w-3.5 h-3.5 text-slate-400"></i> 거주지
+                  </span>
+                  <span class="text-slate-200 font-sans">경기 남양주시 별내동</span>
+                </div>
+
+                <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.02]">
+                  <span class="text-slate-400 flex items-center gap-2 font-sans">
+                    <i data-lucide="graduation-cap" class="w-3.5 h-3.5 text-slate-400"></i> 학력
+                  </span>
+                  <span class="text-slate-200 font-sans">홍익대(세종) 컴퓨터정보통신</span>
+                </div>
+
+                <div class="flex items-center justify-between p-2 rounded-xl bg-white/[0.02]">
+                  <span class="text-slate-400 flex items-center gap-2 font-sans">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-slate-400"></i> 병역
+                  </span>
+                  <span class="text-slate-200 font-sans">군필 (공익 이병 소집해제)</span>
+                </div>
+
+              </div>
+
+              <!-- Top Competencies Tags -->
+              <div class="space-y-2 pt-2 border-t border-white/5">
+                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">Specialized Focus</div>
+                <div class="flex flex-wrap gap-1.5">
+                  <span class="px-2 py-1 rounded-md text-[11px] bg-brand-500/10 text-brand-300 border border-brand-500/20">Google Antigravity</span>
+                  <span class="px-2 py-1 rounded-md text-[11px] bg-purple-500/10 text-purple-300 border border-purple-500/20">Claude Code IDE</span>
+                  <span class="px-2 py-1 rounded-md text-[11px] bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">Unity 3D / WebGL</span>
+                  <span class="px-2 py-1 rounded-md text-[11px] bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">Medallia SaaS</span>
+                  <span class="px-2 py-1 rounded-md text-[11px] bg-amber-500/10 text-amber-300 border border-amber-500/20">Spring Boot / Java</span>
+                  <span class="px-2 py-1 rounded-md text-[11px] bg-blue-500/10 text-blue-300 border border-blue-500/20">Android & iOS Hybrid</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 1: ABOUT & PHILOSOPHY (자기소개 및 개발 철학) -->
+    <section id="about" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-brand-400">About Me</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">소개 및 엔지니어링 철학</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-md">
+          12년의 현장 경험에서 체득한 "완성도와 일정 준수"에 대한 확고한 책임감
+        </p>
+      </div>
+
+      <!-- About Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1: 12년 올라운더 역량 -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-white/10 glass-panel hover:border-brand-500/30 transition-all space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+            <i data-lucide="layers" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">모바일에서 클라우드 & 3D까지</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            모바일(Android/iOS) 개발자로 커리어를 시작해 PHP, .NET, Java/Spring Boot, 전자정부프레임워크 기반 엔터프라이즈 서버와 AWS 클라우드로 지평을 넓혔습니다. 최근에는 Unity 엔진 기반의 3D 공간체험 및 WebGL 인터랙티브 웹 개발까지 전방위로 영역을 확장했습니다.
+          </p>
+          <div class="pt-2 text-xs text-brand-400 font-mono font-medium flex items-center gap-1">
+            <span>Mobile ➔ Backend ➔ SaaS ➔ Unity 3D</span>
+          </div>
+        </div>
+
+        <!-- Card 2: AI 네이티브 개발 생산성 -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-white/10 glass-panel hover:border-cyan-500/30 transition-all space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+            <i data-lucide="bot" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">AI 에이전트 & 업무자동화 파이프라인</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            구글 <strong>Antigravity</strong>와 <strong>Claude Code</strong> IDE, <strong>Android Studio Gemini 3.0</strong>, <strong>Xcode ChatGPT</strong>를 업무 파이프라인에 적극 도입하여 코드 설계, 디버깅, 테스트, 배포 전 과정의 개발 속도와 생산성을 획기적으로 극대화하고 있습니다.
+          </p>
+          <div class="pt-2 text-xs text-cyan-400 font-mono font-medium flex items-center gap-1">
+            <span>Antigravity · Claude Code · Gemini 3.0</span>
+          </div>
+        </div>
+
+        <!-- Card 3: 납기와 커뮤니케이션 책임감 -->
+        <div class="p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-white/10 glass-panel hover:border-emerald-500/30 transition-all space-y-4">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="check-check" class="w-6 h-6"></i>
+          </div>
+          <h3 class="text-lg font-bold text-white">철저한 일정 준수와 유연한 협업</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            삼성전자, 신세계, 대한항공 등 유수의 대기업 프로젝트를 완수하며 고객이 가장 중요시하는 것은 <strong class="text-white">"완성도와 납기 준수"</strong>임을 깊이 체감했습니다. 선배 개발자와는 예의와 적극적 소통으로 조율하고, 후배 개발자에게는 일정과 업무 이해를 돕는 신뢰받는 동료입니다.
+          </p>
+          <div class="pt-2 text-xs text-emerald-400 font-mono font-medium flex items-center gap-1">
+            <span>요구사항 명확화 · 리스크 예측 · 100% 납기</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Self-Introduction Full Text Quote Box -->
+      <div class="p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-brand-950/40 via-slate-900/80 to-slate-900/40 border border-white/10 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="space-y-4">
+          <div class="flex items-center gap-2 text-brand-400 text-xs font-mono uppercase tracking-wider font-semibold">
+            <i data-lucide="quote" class="w-4 h-4"></i>
+            <span>Resume Statement (자기소개서 발췌)</span>
+          </div>
+          <blockquote class="text-sm sm:text-base text-slate-200 leading-relaxed italic">
+            "저는 모바일 개발자로 커리어를 시작해 프론트엔드, 백엔드, 서버, 그리고 최근에는 AR/VR 게임 개발까지 폭넓은 경험을 쌓아온 개발자입니다. 
+            고객의 요구사항을 명확히 정의하고 개발 일정 수립과 업무 분장을 체계적으로 수행할 수 있습니다. 
+            그동안 쌓아온 다양한 경험과 기술을 바탕으로, 회사의 필요에 맞는 위치에서 빠르게 기여하며 성과를 만들어가겠습니다."
+          </blockquote>
+          <div class="text-xs text-slate-400 text-right font-medium">
+            — 지원자 유대영 드림
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: WORK EXPERIENCE (경력 히스토리 12년+) -->
+    <section id="experience" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-brand-400">Career History</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">경력 상세 이력 (총 12년 6개월)</h2>
+        </div>
+        <div class="flex items-center gap-2 text-xs">
+          <span class="px-2.5 py-1 rounded-md bg-white/5 text-slate-300 font-mono">2009.06 ~ 2026.현재</span>
+        </div>
+      </div>
+
+      <!-- Experience Cards Timeline -->
+      <div class="space-y-6">
+
+        <!-- 1. 사이시옷 (Current) -->
+        <div class="card-item p-6 sm:p-8 rounded-3xl bg-slate-900/80 border border-brand-500/30 hover:border-brand-500/60 transition-all shadow-xl shadow-brand-500/5 relative overflow-hidden group">
+          <div class="absolute top-0 left-0 w-2 h-full bg-gradient-to-b from-brand-500 to-cyan-500"></div>
+          
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/5 pb-4">
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-brand-500/10 text-brand-400 flex items-center justify-center font-bold text-lg border border-brand-500/20">
+                시
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 class="text-xl font-bold text-white">사이시옷</h3>
+                  <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                    재직 중 (Current)
+                  </span>
+                  <span class="px-2 py-0.5 rounded-md text-xs bg-white/5 text-slate-300 font-mono">웹서비스개발 매니저</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-1">3D 웹서비스, Unity 모바일/웹 게임 개발, AI 업무자동화 및 웹서비스 총괄</p>
               </div>
             </div>
             
-            <div class="company-section area-section">
-              <div class="title">COMPANY</div>
-              <div class="content">
-                <ul>
-                  <li>
-                    <span class="date">2024.05 - 현재</span>
-                    <span class="text">사이시옷</span>
-                  </li>
-                  <li>
-                    <span class="date">2023.05 - 2024.02</span>
-                    <span class="text">coreflex</span>
-                  </li>
-                  <li>
-                    <span class="date">2018.12 - 2022.05</span>
-                    <span class="text">Squarenet</span>
-                  </li>
-                  <li>
-                    <span class="date">2016.05 - 2017.07</span>
-                    <span class="text">Journey&Joy</span>
-                  </li>
-                  <li>
-                    <span class="date">2014.10 - 2016.02</span>
-                    <span class="text">Mbookmedia</span>
-                  </li>
-                  <li>
-                    <span class="date">2012.01 - 2013.03</span>
-                    <span class="text">Vissel</span>
-                  </li>
-                  <li>
-                    <span class="date">2010.02 - 2011.06</span>
-                    <span class="text">NEOMTECH</span>
-                  </li>
+            <div class="text-left md:text-right font-mono text-xs text-slate-400 flex md:flex-col items-center md:items-end gap-2 md:gap-1">
+              <span class="text-brand-300 font-semibold text-sm">2024.06 ~ 현재</span>
+              <span>가상현실, 증강현실, 풀스택</span>
+            </div>
+          </div>
+
+          <!-- Detailed Projects inside 사이시옷 -->
+          <div class="mt-6 space-y-4 text-sm text-slate-300">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              
+              <!-- Sub item 1: 3D 웹 & Unity 게임 -->
+              <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+                <div class="font-semibold text-white flex items-center gap-2">
+                  <i data-lucide="box" class="w-4 h-4 text-cyan-400"></i>
+                  <span>시공간 3D 웹서비스 & Unity Game 개발</span>
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                  <li>3D (AR/VR/QR/NFC) 인터랙티브 웹서비스 및 WebGL 개발</li>
+                  <li>Android, iOS Unity 게임 개발 및 WebAssembly 웹포팅 배포</li>
+                  <li><strong>경주월드 공간체험 인터랙티브 게임</strong> 제작 및 서비스 론칭</li>
+                  <li>Three.js / WebGL 기반 경량화 렌더링 최적화</li>
                 </ul>
+                <div class="pt-2 flex flex-wrap gap-1">
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-cyan-500/10 text-cyan-300 font-mono">Unity 3D</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-cyan-500/10 text-cyan-300 font-mono">WebGL</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-cyan-500/10 text-cyan-300 font-mono">AR/VR</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-cyan-500/10 text-cyan-300 font-mono">C#</span>
+                </div>
+              </div>
+
+              <!-- Sub item 2: AI 업무자동화 & 차세대 IDE 개발 -->
+              <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+                <div class="font-semibold text-white flex items-center gap-2">
+                  <i data-lucide="cpu" class="w-4 h-4 text-brand-400"></i>
+                  <span>AI 업무자동화 & 차세대 개발 파이프라인</span>
+                </div>
+                <ul class="text-xs text-slate-300 space-y-1.5 list-disc list-inside">
+                  <li><strong>Google Antigravity & Claude Code</strong>를 통한 개발 업무 자동화 파이프라인 구축</li>
+                  <li>Android Studio Gemini 3.0을 활용한 신속한 Android 앱 개발</li>
+                  <li>Xcode ChatGPT 어시스턴트를 활용한 iOS 네이티브 기능 구현</li>
+                  <li>Claude Code & Codex 기반 웹서비스 풀스택 고속 개발</li>
+                </ul>
+                <div class="pt-2 flex flex-wrap gap-1">
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-brand-500/10 text-brand-300 font-mono">Antigravity</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-brand-500/10 text-brand-300 font-mono">Claude Code</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-brand-500/10 text-brand-300 font-mono">Gemini 3.0</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] bg-brand-500/10 text-brand-300 font-mono">PHP REST API</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 코어플렉스 (2022.05 ~ 2024.01 / 1년 9개월) -->
+        <div class="card-item p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-brand-500/30 transition-all relative overflow-hidden group">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/5 pb-4">
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center font-bold text-lg border border-indigo-500/20">
+                CF
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 class="text-xl font-bold text-white">코어플렉스</h3>
+                  <span class="px-2 py-0.5 rounded-md text-xs bg-white/5 text-slate-300 font-mono">SaaS솔루션팀 차장 · 솔루션스 아키텍트</span>
+                  <span class="text-xs text-slate-400 font-mono">(1년 9개월)</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-1">글로벌 SaaS 솔루션(Medallia) 국내 엔터프라이즈 도입 아키텍처 및 구현 총괄</p>
               </div>
             </div>
             
-            <div class="education-section area-section">
-              <div class="title">EDUCATION</div>
-              <ul>
-                <li>
-                  <span class="date">2002.03 - 2008.02</span>
-                  <span class="text">홍익대학교 컴공과 졸업</span>
-                </li>
-                <li>
-                  <span class="date">1998.03 - 2001.02</span>
-                  <span class="text">신일고등학교 졸업</span>
-                </li>
-              </ul>
+            <div class="text-left md:text-right font-mono text-xs text-slate-400">
+              <span class="text-slate-300 font-semibold text-sm">2022.05 ~ 2024.01</span>
+              <div>클라우드 SaaS, 하이브리드 앱</div>
             </div>
           </div>
-          
-          <div class="second-section division-section">
+
+          <!-- Enterprise Projects -->
+          <div class="mt-6 space-y-3">
+            <div class="p-4 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+              <div class="font-semibold text-white text-sm flex items-center gap-2">
+                <i data-lucide="cloud" class="w-4 h-4 text-indigo-400"></i>
+                <span>삼성전자 Medallia DXA SaaS 솔루션 연동 및 운영</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                삼성전자 글로벌 Samsung.com 및 Android/iOS 하이브리드 앱에 Medallia DXA 솔루션 연동 아키텍처 설계, 고객 디지털 경험 데이터 수집 및 분석 파이프라인 안정적 운영.
+              </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div class="p-3.5 rounded-xl bg-white/[0.015] border border-white/5">
+                <div class="font-semibold text-slate-200">신세계쇼핑몰 Medallia DXA</div>
+                <p class="text-slate-400 mt-1">Android, iOS 하이브리드 앱 SaaS 솔루션 연동 및 실시간 트래픽 대응 유지관리</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-white/[0.015] border border-white/5">
+                <div class="font-semibold text-slate-200">대한항공 Medallia MEC</div>
+                <p class="text-slate-400 mt-1">항공사 승객 경험 Survey SaaS 솔루션 연동, 보안 인증 및 연간 안정 운영</p>
+              </div>
+            </div>
+
+            <div class="pt-2 flex flex-wrap gap-1.5">
+              <span class="px-2 py-0.5 rounded text-[11px] bg-indigo-500/10 text-indigo-300 font-mono">Medallia DXA/MEC</span>
+              <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">SaaS Architecture</span>
+              <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">Android & iOS Hybrid</span>
+              <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">AWS Cloud</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 스퀘어네트 (2020.01 ~ 2022.05 / 2년 5개월) -->
+        <div class="card-item p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-white/10 hover:border-brand-500/30 transition-all relative overflow-hidden group">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/5 pb-4">
+            <div class="flex items-start sm:items-center gap-3">
+              <div class="w-12 h-12 rounded-2xl bg-blue-500/10 text-blue-400 flex items-center justify-center font-bold text-lg border border-blue-500/20">
+                SN
+              </div>
+              <div>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <h3 class="text-xl font-bold text-white">스퀘어네트</h3>
+                  <span class="px-2 py-0.5 rounded-md text-xs bg-white/5 text-slate-300 font-mono">컨버전스사업본부 차장</span>
+                  <span class="text-xs text-slate-400 font-mono">(2년 5개월)</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-1">전국 주요 국공립/사립 대학교 종합정보 웹서비스 및 LMS 서비스 구축/운영</p>
+              </div>
+            </div>
             
-            <div class="skill-section area-section">
-              <div class="title">SKILL</div>
-              <div class="skill-content-section">
-                
-                <div class="skill-cate-section">
-                  <ul class="skill-cate">
-                    <li class="active"><span>· Frontend</span></li>
-                    <li><span>· Backend</span></li>
-                    <li><span>· DB</span></li>
-                    <li><span>· Server & OS</span></li>
-                    <li><span>· DevOps</span></li>
-                    <li><span>· APP</span></li>
-                    <li><span>· ETC</span></li>
-                  </ul>
-                </div>
-                
-                <div class="skill-chart-section">
-                  <div class="chart-section">
-                    <canvas id="skillChart"></canvas>
-                  </div>
-                </div>
-                
-                <div class="skill-desc-section">
-                  
-                  <div class="front-section desc-section active">
-                    <div class="item">
-                      <div class="tit">React</div>
-                      <ul>
-                        <li>- next.js를 기반으로 React 설계 및 개발 가능</li>
-                        <li>- redux, axios 등 다양한 React 플러그인 사용 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">JS</div>
-                      <ul>
-                        <li>- Jquery, map, sns 등 다양한 JS 라이브러리 사용 경험</li>
-                        <li>- JS를 활용한 web 화면 인터렉션 구현 경험</li>
-                        <li>- node, express 등 구조적 이해</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">Html</div>
-                      <ul>
-                        <li>- 웹, 모바일 사이트 퍼블리싱(반응형) 가능</li>
-                        <li>- css등을 활용한 web 화면 인터렉션 구현 경험</li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div class="backend-section desc-section">
-                    <div class="item">
-                      <div class="tit">Java, Spring, JSP, Mybatis</div>
-                      <ul>
-                        <li>- spring, Spring boot 환경에서의 설계 및 개발 경험</li>
-                        <li>- spring 시큐리티, 캐시, 롬복 등 다양한 Spring 라이브러리 사용 경험</li>
-                        <li>- API 형태의 프로젝트 구성 개발 경험(ResponseEntity)</li>
-                        <li>- Mybatis 사용 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">PHP, CodeIgniter</div>
-                      <ul>
-                        <li>- PHP codeigniter를 환경에서 설계 및 개발 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">APS, C#.net</div>
-                      <ul>
-                        <li>- ASP, C#.net 언어로 설계 및 개발 경험</li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div class="db-section desc-section">
-                    <div class="item">
-                      <div class="tit">MYSQL</div>
-                      <ul>
-                        <li>- DB 설계 경험</li>
-                        <li>- 기본적인 CRUD 외 뷰, 프로시저, 스케줄 등 사용 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">MSSQL, Oracle</div>
-                      <ul>
-                        <li>- 기본적인 CRUD 외 뷰, 프로시저, 스케줄 등 사용 경험</li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div class="serverOs-section desc-section">
-                    <div class="item">
-                      <div class="tit">Apache, Tomcat, IIS</div>
-                      <ul>
-                        <li>- apache, IIS 서버 셋팅 경험</li>
-                        <li>- tomcat 서버 셋팅 경험 및 modjk를 통한 apache와 연동 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">Window, Linux</div>
-                      <ul>
-                        <li>- Window Server 셍팅 및 사용 경험</li>
-                        <li>- Linux 셋팅 및 사용 경험</li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div class="devOps-section desc-section">
-                    <div class="item">
-                      <div class="tit">AWS</div>
-                      <ul>
-                        <li>- AWS 환경에서 EC2, Route 등 셋팅 경험 및 사용 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">Jenkins, Ansiable</div>
-                      <ul>
-                        <li>- Jenkins, ansible 설정 및 사용 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">GIT, SVN</div>
-                      <ul>
-                        <li>- GitHub, GitLab, gerrit 등 사용 경험</li>
-                        <li>- SVN 설정 및 사용 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">DevOps</div>
-                      <ul>
-                        <li>- Jira, Redmine, wiki 등 사용 경험</li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div class="app-section desc-section">
-                    <div class="item">
-                      <div class="tit">ReactNative</div>
-                      <ul>
-                        <li>- ReactNative 설계 및 사용 경험</li>
-                        <li>- 앱 개발 및 Android, IOS디바이스로 배포 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">Android, IOS</div>
-                      <ul>
-                        <li>- Android 개발 및 유지보수 경험</li>
-                        <li>- IOS 유지보수 경험</li>
-                      </ul>
-                    </div>
-                  </div>
-                  
-                  <div class="etc-section desc-section">
-                    <div class="item">
-                      <div class="tit">설계</div>
-                      <ul>
-                        <li>- 프레임워크를 이용한 개발 설계 경험(Spring, CodeIgniter)</li>
-                        <li>- 프레임워크 설계 경험(asp, C#.NET)</li>
-                        <li>- AWS를 이용한 스테이지, 배포, 운영 등 서버와 jenkins 셋팅 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">장애대응</div>
-                      <ul>
-                        <li>- 모니터링 시스템, 문자, 카톡, 메일 등 알람 등으로 24시간 장애 대응 경험</li>
-                      </ul>
-                    </div>
-                    <div class="item">
-                      <div class="tit">ETC</div>
-                      <ul>
-                        <li>- MSA 환경에서 개발 경험</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                
-                <div class="skill-cate-chart-section">
-                  <div class="chart-section">
-                    <canvas id="skillCateChart"></canvas>
-                  </div>
-                </div>
-              </div>
+            <div class="text-left md:text-right font-mono text-xs text-slate-400">
+              <span class="text-slate-300 font-semibold text-sm">2020.01 ~ 2022.05</span>
+              <div>Spring, 전자정부, JEUS, Django</div>
             </div>
           </div>
-          
-          <div class="third-section division-section" style="display: none;">
-            <div class="work-section area-section">
-              <div class="title">WORK EXPERIENCE</div>
-              <div class="timeline-section">
-                <section class="timeline">
-                  <button class="arrow arrow__prev disabled" disabled>&lt;</button>
-                  <button class="arrow arrow__next">></button>
-                  <ol>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2022.08 - 2023.02</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">웅진책방</div>
-                              <span>- 하이브리드 웹/앱 개발 및 운영</span>
-                              <span>- 관리자 웹 개발/운영</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="frontend skill">HTML & CSS</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Jsp</span>
-                              <span class="backend skill">Mybatis</span>
-                            </div>
-                            <div class="li">
-                              <span class="db skill">MYSQL</span>
-                              <span class="devops skill">SVN</span>
-                              <span class="devops skill">JIRA</span>
-                              <span class="devops skill">Jenkins</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type4">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2021.05 - 현재</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">Story24 APP 개발/운영</div>
-                              <span>- 하이브리드 웹 개발/운영</span>
-                              <span>- 관리자 웹 개발/운영</span>
-                              <span>- 배치 서비스(웹, 배치) 운영</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">React</span>
-                              <span class="frontend skill">Jquery</span>
-                              <span class="frontend skill">HTML & CSS</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                            </div>
-                            <div class="li">
-                              <span class="db skill">MYSQL</span>
-                              <span class="db skill">MSSQL</span>
-                              <span class="serveros skill">Express</span>
-                            </div>
-                            <div class="li">
-                              <span class="devops skill">GIT</span>
-                              <span class="devops skill">JIRA</span>
-                              <span class="devops skill">Jenkins</span>
-                              <span class="etc skill">MSA</span>
-                              <span class="etc skill">장애대응</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type4">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2018.03 - 2020.05</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">LG 콘텐츠 스토어 구축/운영</div>
-                              <span>- 하이브리드 웹 구축/운영</span>
-                              <span>- 배포, 서버 운영</span>
-                              <span>- 모니터링 시스템, 운영시스템(자동 마운트) 구축</span>
-                              <span>- 200여개 국가 24시간 장애 대응</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">AngularJS 1.X</span>
-                              <span class="frontend skill">Node.js</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="serveros skill">Linux</span>
-                            </div>
-                            <div class="li">
-                              <span class="devops skill">GIT</span>
-                              <span class="devops skill">AWS</span>
-                              <span class="devops skill">Jenkins</span>
-                              <span class="devops skill">JIRA</span>
-                              <span class="etc skill">브라우저</span>
-                              <span class="etc skill">장애대응</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2017.05 - 07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">숲픈날 프로모션 APP 구축/운영</div>
-                              <span>- 하이브리드 웹 개발</span>
-                              <span>- IOS 유지보수</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                            </div>
-                            <div class="li">
-                              <span class="devops skill">SVN</span>
-                              <span class="app skill">IOS</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2017.05</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">휴비스 워터 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">ASP</span>
-                              <span class="db skill">MSSQL</span>
-                              <span class="serveros skill">IIS</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2017.04</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">숨37도 프로모션 모바일 구축</div>
-                              <span>- 모바일 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2017.03</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">스마트교복 2017 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축/운영</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2017.02 - 07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">휴비스 공개구매 웹 유지보수</div>
-                              <span>- 관리자 웹 개발/운영</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">ASP</span>
-                              <span class="db skill">MSSQL</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2017.02 - 07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">휴비스 웹/모바일 유지보수</div>
-                              <span>- 웹/모바일 개발/운영</span>
-                              <span>- 관리자 웹 개발/운영</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">ASP</span>
-                              <span class="db skill">MSSQL</span>
-                              <span class="serveros skill">IIS</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.11 – 2017.01</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">휴비스 웹/모바일 구축</div>
-                              <span>- 웹/모바일 개발/운영</span>
-                              <span>- 관리자 웹 개발/운영</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">ASP</span>
-                              <span class="db skill">MSSQL</span>
-                              <span class="serveros skill">IIS</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.11</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">화이트 스타일 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축/운영</span>
-                              <span>- 관리자 웹 구축/운영</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.11</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">디펜드 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축/운영</span>
-                              <span>- 관리자 웹 구축/운영</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.10 – 2017.02</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">고려해운 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">ORACLE</span>
-                              <span class="serveros skill">JEUS</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.09</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">허니오즈 프로모션 웹/모바일 퍼블리싱</div>
-                              <span>- 웹/모바일 퍼블리싱</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">HTML & CSS</span>
-                              <span class="frontend skill">Jquery</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.09</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">오레오오즈 프로모션 웹/모바일 퍼블리싱</div>
-                              <span>- 웹/모바일 퍼블리싱</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">HTML & CSS</span>
-                              <span class="frontend skill">Jquery</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.09</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">라이트업 프로모션 웹/모바일 퍼블리싱</div>
-                              <span>- 웹/모바일 퍼블리싱</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">HTML & CSS</span>
-                              <span class="frontend skill">Jquery</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.09</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">한화 불꽃축제 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 개발</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">ORACLE</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.07 – 09</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">나뚜찌 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">스쿨팅 App 유지보수</div>
-                              <span>- 모바일 퍼블리싱</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">HTML & CSS</span>
-                              <span class="frontend skill">Jquery</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.06 – 07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">로얄파빌리온 웹 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.05 – 09</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">우리들교회 반응형 웹 퍼블리싱</div>
-                              <span>- 웹/태블릿/모바일 반응형 퍼블리싱</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">HTML & CSS</span>
-                              <span class="frontend skill">Jquery</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.04 – 2017.05</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">더블하트 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">C#.NET</span>
-                              <span class="db skill">MSSQL</span>
-                              <span class="serveros skill">IIS</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.04 – 2017.05</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">스마트교복 가족사랑 캠페인 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type4">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.03 – 2017.07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">브라운교육 T4U 국책사업 반응형 웹 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                              <span>- UX 설계 및 문서 작업</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                            </div>
-                            <div class="li">
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="backend skill">Elasticsearch</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                            <div class="li">
-                              <span class="devops skill">jenkins</span>
-                              <span class="etc skill">UX</span>
-                              <span class="etc skill">문서작업</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.02 – 06</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">컬쳐 스토어 앱/웹/모바일 유지보수</div>
-                              <span>- CP, MCP, 관리자 유지보수</span>
-                              <span>- APP/WEB 개발 유지보수</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">MSSQL</span>
-                            </div>
-                            <div class="li">
-                              <span class="serveros skill">Apache</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="app skill">Android</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2016.02 – 04</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">스마트교복 2016 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축/운영</span>
-                              <span>- 관리자 웹 구축/운영</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.11 – 12</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">삼성페이 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.09 – 10</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">골든블루 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.09 – 10</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">컬쳐 스토어 앱/웹/모바일 구축</div>
-                              <span>- CP, MCP, 관리자 유지보수</span>
-                              <span>- APP/WEB 개발 유지보수</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">MSSQL</span>
-                            </div>
-                            <div class="li">
-                              <span class="serveros skill">Apache</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="app skill">Android</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.07 – 09</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">SK텔레콤 연결의 신곡발표 프로모션<br>웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type4">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.06 – 12</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">스마트광고 플랫폼 국책사업(2차)<br>웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.04 – 06</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">폭스바겐 테이스티로드 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.04</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">노비아갈라 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.04</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">레드불 킥잇 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.03 – 04</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">레드불 쓰리스타일 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.03</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">컨버스 메이드 바이유 프로모션<br>웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">JSP</span>
-                              <span class="db skill">ORACLE</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.02 – 03</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">반도건설 웹/모바일 사이트 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">ASP</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">IIS</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.02 – 03</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">하이갤럭시! 하이 배.프! 프로모션<br>웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">JSP</span>
-                              <span class="db skill">ORACLE</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2015.01 – 02</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">아쿠아ICL 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">ASP</span>
-                              <span class="db skill">MSSQL</span>
-                              <span class="serveros skill">IIS</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type4">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.12 – 2015.02</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">스마트광고 플랫폼 국책사업(1차)<br>웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type4">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.12 – 2015.04</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">티켓베이 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">MSSQL</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.11 – 2017.12</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">브라운교육 지사 쇼핑몰 웹 유지보수</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.07 – 08</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">브라운교육 지사 쇼핑몰 웹 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.07 – 08</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">삼성 S-아몰레드 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">JSP</span>
-                              <span class="db skill">ORACLE</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">THE K FESTIVAL 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.06 – 07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">동구바이오 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.06 – 2015.01/div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">H-LINE 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.06</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">머니라이프 웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type3">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.05</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">삼성 굿스위칭 프로모션<br>웹/모바일 구축</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">JSP</span>
-                              <span class="db skill">ORACLE</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i class="triangle"></i>
-                        <i class="circle"></i>
-                        <div class="content">
-                          <div class="period">2014.04 - 05</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">포토리아 웹/모바일 구축/운영</div>
-                              <span>- 웹/모바일 구축</span>
-                              <span>- 관리자 웹 구축</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i></i>
-                        <div class="content">
-                          <div class="period">2014.05 - 04</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">포토리아 웹/모바일 구축/운영</div>
-                              <span>- 웹 프론트, 관리자 사이트 개발</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i></i>
-                        <div class="content">
-                          <div class="period">2014.04</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">인간중독 프로모션 웹/모바일 구축/운영</div>
-                              <span>- 웹 프론트, 관리자 사이트 개발</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i></i>
-                        <div class="content">
-                          <div class="period">2014.01 – 03</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">브라운교육 반응형 웹 구축</div>
-                              <span>- 반응형 웹 프론트, 관리자 사이트 개발</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">CodeIgniter</span>
-                              <span class="db skill">MYSQL</span>
-                              <span class="serveros skill">Apache</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i></i>
-                        <div class="content">
-                          <div class="period">2013.09 – 10</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">생명의 다리 웹/모바일 구축</div>
-                              <span>웹, 모바일 프론트 사이트 개발 지원</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">Spring</span>
-                              <span class="backend skill">Mybatis</span>
-                              <span class="db skill">ORACLE</span>
-                              <span class="serveros skill">Tomcat</span>
-                              <span class="devops skill">SVN</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type2">
-                        <i></i>
-                        <div class="content">
-                          <div class="period">2013.02 – 07</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">금호타이어 웹/모바일 구축</div>
-                              <span>웹 프론트 사이트 개발 지원</span>
-                            </div>
-                          </div>
-                          <div class="skill-section">
-                            <div class="li">
-                              <span class="frontend skill">Jquery</span>
-                              <span class="backend skill">ASP</span>
-                              <span class="db skill">MSSQL</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type1">
-                        <i></i>
-                        <div class="content">
-                          <div class="period">2014.03 - 2019.08</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">서울디지털 대학교 졸업</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li>
-                      <div class="content-section type1">
-                        <i></i>
-                        <div class="content">
-                          <div class="period">2007.03 - 2010.02</div>
-                          <div>
-                            <div class="desc">
-                              <div class="tit">서울공업 고등학교 졸업</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                    <li></li>
-                  </ol>
-                </section>
-              </div>
+
+          <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="font-semibold text-white">폴리텍대학교 종합정보 웹서비스</div>
+              <p class="text-slate-400">사용자 IAM(통합계정관리) 및 Android/iOS 하이브리드 앱 개발</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="font-semibold text-white">선문대학교 LMS 교육 서비스</div>
+              <p class="text-slate-400">OpenEdx Django 기반 글로벌 LMS/CMS 커스터마이징 및 구축</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="font-semibold text-white">전남대학교 종합정보 웹서비스</div>
+              <p class="text-slate-400">FCM 기반 대용량 푸시 API 서버 개발 및 하이브리드 앱 연동</p>
+            </div>
+            <div class="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="font-semibold text-white">이화여자대학교 종합정보 웹서비스</div>
+              <p class="text-slate-400">사용자 생체정보(FIDO) 인증 API 개발 및 하이브리드 앱 배포</p>
             </div>
           </div>
+
+          <div class="mt-4 pt-3 border-t border-white/5 flex flex-wrap gap-1.5">
+            <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">eGovFrame</span>
+            <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">Spring JSON API</span>
+            <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">JEUS / WebtoB</span>
+            <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">OpenEdx Django</span>
+            <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">FCM Push</span>
+            <span class="px-2 py-0.5 rounded text-[11px] bg-slate-800 text-slate-300 font-mono">FIDO Bio API</span>
+          </div>
+        </div>
+
+        <!-- 4. 이전 초기/성장기 경력 (아코디언 또는 정갈한 그리드) -->
+        <div class="space-y-4">
+          <div class="text-xs font-mono font-semibold uppercase tracking-wider text-slate-400 pt-4">
+            Early Career & Startup Engineering (2009 ~ 2017)
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <!-- 저니앤조이트래블 -->
+            <div class="card-item p-5 rounded-2xl bg-slate-900/40 border border-white/5 hover:border-white/20 transition-all space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-sm">저니앤조이트래블</span>
+                <span class="font-mono text-slate-400">2016.05 ~ 2017.07</span>
+              </div>
+              <div class="text-brand-300 font-mono">모바일개발팀 과장 / 팀장 (1년 3개월)</div>
+              <p class="text-slate-400 leading-relaxed">
+                Spring JSON 서버 개발, 아이폰/안드로이드/HTML5 하이브리드 여행 플랫폼 앱 개발 및 스토어 론칭/배포 총괄.
+              </p>
+            </div>
+
+            <!-- 엠북미디어 -->
+            <div class="card-item p-5 rounded-2xl bg-slate-900/40 border border-white/5 hover:border-white/20 transition-all space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-sm">엠북미디어</span>
+                <span class="font-mono text-slate-400">2014.10 ~ 2016.02</span>
+              </div>
+              <div class="text-brand-300 font-mono">서버개발팀 대리 / 주임연구원 (1년 5개월)</div>
+              <p class="text-slate-400 leading-relaxed">
+                동영상 미디어 스트리밍 JSON 서버 개발, WebSocket 실시간 반응형 서비스, iOS/Android 하이브리드 앱 구축.
+              </p>
+            </div>
+
+            <!-- 비쎌 -->
+            <div class="card-item p-5 rounded-2xl bg-slate-900/40 border border-white/5 hover:border-white/20 transition-all space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-sm">비쎌</span>
+                <span class="font-mono text-slate-400">2012.01 ~ 2013.03</span>
+              </div>
+              <div class="text-brand-300 font-mono">모바일개발팀 연구원 (1년 3개월)</div>
+              <p class="text-slate-400 leading-relaxed">
+                PHP/Node.js API 서버 구축, 모바일 웹게임 '블레이드앤히어로' DB설계, LG전자 XMPP 메신저 앱, KT 홈패드 추천앱 등 개발.
+              </p>
+            </div>
+
+            <!-- 네오엠텍 -->
+            <div class="card-item p-5 rounded-2xl bg-slate-900/40 border border-white/5 hover:border-white/20 transition-all space-y-2 text-xs">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-sm">네오엠텍</span>
+                <span class="font-mono text-slate-400">2010.02 ~ 2011.06</span>
+              </div>
+              <div class="text-brand-300 font-mono">모바일개발팀 연구원 (1년 5개월)</div>
+              <p class="text-slate-400 leading-relaxed">
+                삼성전자 연계 휴대용 심전도 RF 시리얼 통신 앱, UCN 국가과제 U-라이프케어 앱, LG전자 R&D 블루투스 LSM 서비스 개발.
+              </p>
+            </div>
+
+            <!-- KISTI (인턴) -->
+            <div class="card-item p-5 rounded-2xl bg-slate-900/40 border border-white/5 hover:border-white/20 transition-all space-y-2 text-xs md:col-span-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-white text-sm">한국과학기술정보연구원 (KISTI)</span>
+                <span class="font-mono text-slate-400">2009.06 ~ 2010.02</span>
+              </div>
+              <div class="text-brand-300 font-mono">NTIS사업단 인턴/연구원 (9개월)</div>
+              <p class="text-slate-400 leading-relaxed">
+                국가과학기술지식정보서비스(NTIS) 국가 R&D 정보 웹서비스 테스트 및 Java, JSP 기반 컴포넌트 개발.
+              </p>
+            </div>
+
+          </div>
+        </div>
 
       </div>
+    </section>
+
+    <!-- SECTION 3: FEATURED PROJECTS & LIVE DEMOS (주요 프로젝트 & 데모) -->
+    <section id="projects" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-cyan-400">Portfolio & Demos</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">주요 프로젝트 & 인터랙티브 쇼케이스</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-slate-400 max-w-md">
+          실제 호스팅 중인 Unity 3D 웹게임 및 엔터프라이즈 솔루션 하이라이트
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Project 1: 사이시옷 시공간 3D/Unity WebGL (LIVE DEMO 링크 포함) -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/70 border border-cyan-500/30 hover:border-cyan-400 transition-all flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                Live WebGL Demo
+              </span>
+              <span class="text-xs font-mono text-slate-400">2024 ~ 현재</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors">
+              사이시옷 시공간 Unity 3D 웹게임 & 공간체험
+            </h3>
+            
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Unity 엔진으로 개발된 3D 게임 및 인터랙티브 공간체험 콘텐츠를 WebAssembly/WebGL로 웹 환경에 포팅·최적화하여 배포한 프로젝트입니다. (경주월드 공간체험 론칭)
+            </p>
+
+            <div class="space-y-2 pt-2 border-t border-white/5 text-xs text-slate-400">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>Unity WebGL 빌드 및 모바일/웹 크로스플랫폼 최적화</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <span>AR/VR/QR/NFC 공간체험 인터랙션 연동</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 space-y-3">
+            <div class="flex flex-wrap gap-1">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Unity</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">WebGL</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">C#</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Three.js</span>
+            </div>
+            <div class="flex items-center gap-2 pt-1">
+              <a href="/spacetime_web/" target="_blank" class="flex-1 text-center py-2.5 px-3 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-200 border border-cyan-500/40 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all">
+                <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                <span>시공간 웹 데모 열기</span>
+              </a>
+              <a href="/webgl/" target="_blank" class="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/10 text-slate-300 text-xs font-medium transition-all" title="서브 3D 데모">
+                <span>데모 2</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2: AI 자동화 파이프라인 (Google Antigravity & Claude Code) -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/70 border border-brand-500/30 hover:border-brand-400 transition-all flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-brand-500/15 text-brand-300 border border-brand-500/30 flex items-center gap-1">
+                <i data-lucide="sparkles" class="w-3 h-3 text-brand-400"></i>
+                AI Automation
+              </span>
+              <span class="text-xs font-mono text-slate-400">2025 ~ 현재</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white group-hover:text-brand-300 transition-colors">
+              차세대 AI 에이전트 개발 파이프라인
+            </h3>
+            
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              Google Antigravity와 Anthropic Claude Code IDE를 심층 결합하여 프로젝트 기획, 코드 생성, 유닛 테스트, CI/CD 자동화까지 고속 수행하는 AI-Native 개발 환경을 선도적으로 구축했습니다.
+            </p>
+
+            <div class="space-y-2 pt-2 border-t border-white/5 text-xs text-slate-400">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-brand-400"></i>
+                <span>Antigravity / Claude Code 기반 서브에이전트 조율</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-brand-400"></i>
+                <span>Android Studio Gemini 3.0 & Xcode ChatGPT 활용</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 space-y-3">
+            <div class="flex flex-wrap gap-1">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Antigravity</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Claude Code</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Gemini 3.0</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">DevOps AI</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] text-slate-400 text-center font-mono">
+              개발 주기 단축 및 품질 혁신 실현
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3: 삼성전자 · 신세계 · 대한항공 Medallia SaaS 아키텍처 -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/70 border border-indigo-500/30 hover:border-indigo-400 transition-all flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-indigo-500/15 text-indigo-300 border border-indigo-500/30 flex items-center gap-1">
+                <i data-lucide="globe" class="w-3 h-3 text-indigo-400"></i>
+                Enterprise SaaS
+              </span>
+              <span class="text-xs font-mono text-slate-400">2022 ~ 2024</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white group-hover:text-indigo-300 transition-colors">
+              삼성전자 / 대한항공 Medallia SaaS 연동
+            </h3>
+            
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              삼성전자 글로벌 포털(Samsung.com) 및 모바일 하이브리드 앱 대상 Medallia DXA 연동, 신세계쇼핑몰 및 대한항공 MEC Survey 솔루션 안정 구현 및 유지관리.
+            </p>
+
+            <div class="space-y-2 pt-2 border-t border-white/5 text-xs text-slate-400">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span>글로벌 대규모 트래픽 데이터 수집 & 세션 재생 최적화</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-indigo-400"></i>
+                <span>하이브리드 앱 브릿지 통신 및 개인정보 보호 암호화</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 space-y-3">
+            <div class="flex flex-wrap gap-1">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Medallia</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Hybrid App</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Samsung.com</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Korean Air</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] text-slate-400 text-center font-mono">
+              엔터프라이즈 솔루션스 아키텍트
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4: 대학교 종합정보 & 생체인증/대용량 푸시 -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/70 border border-white/10 hover:border-brand-500/40 transition-all flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/30">
+                Education & Auth
+              </span>
+              <span class="text-xs font-mono text-slate-400">2020 ~ 2022</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white group-hover:text-brand-300 transition-colors">
+              전국 주요 대학교 종합정보 & 생체인증
+            </h3>
+            
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              이화여대 생체인증(FIDO) API 개발, 전남대 FCM 대용량 푸시 시스템, 선문대 OpenEdx 기반 LMS, 폴리텍대 IAM 종합정보 웹/앱 구축 및 안정적 운영.
+            </p>
+
+            <div class="space-y-2 pt-2 border-t border-white/5 text-xs text-slate-400">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-blue-400"></i>
+                <span>전자정부프레임워크(eGovFrame) 및 JEUS 서버 튜닝</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-blue-400"></i>
+                <span>생체정보 보안 표준 및 수만 명 단위 동시 푸시 안정성</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 space-y-3">
+            <div class="flex flex-wrap gap-1">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Spring</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">eGovFrame</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">FIDO Bio</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">OpenEdx</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] text-slate-400 text-center font-mono">
+              이화여대 / 전남대 / 폴리텍대 / 선문대
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5: 실시간 반응형 미디어 스트리밍 & WebSocket 서버 -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/70 border border-white/10 hover:border-brand-500/40 transition-all flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-purple-500/15 text-purple-300 border border-purple-500/30">
+                Real-time & Media
+              </span>
+              <span class="text-xs font-mono text-slate-400">2014 ~ 2016</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white group-hover:text-purple-300 transition-colors">
+              동영상 미디어 스트리밍 & 실시간 소켓
+            </h3>
+            
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              엠북미디어 동영상 서비스의 대용량 JSON 스트리밍 서버 구축, WebSocket 프로토콜 기반 실시간 사용자 반응 인터랙션 및 크로스플랫폼 하이브리드 앱 배포.
+            </p>
+
+            <div class="space-y-2 pt-2 border-t border-white/5 text-xs text-slate-400">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i>
+                <span>WebSocket 양방향 저지연 통신 구조 설계</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-purple-400"></i>
+                <span>Java, JSP, MS-SQL 데이터베이스 트랜잭션 최적화</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 space-y-3">
+            <div class="flex flex-wrap gap-1">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">WebSocket</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Java/JSP</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">MS-SQL</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Hybrid App</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] text-slate-400 text-center font-mono">
+              실시간 반응형 미디어 서비스
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6: 통신사 협력 모바일 메신저 & 하이브리드 웹앱 -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/70 border border-white/10 hover:border-brand-500/40 transition-all flex flex-col justify-between group">
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+                Telecom & Mobile
+              </span>
+              <span class="text-xs font-mono text-slate-400">2010 ~ 2013</span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-white group-hover:text-emerald-300 transition-colors">
+              통신사(SK·KT·LG) XMPP 메신저 & 의료 IoT
+            </h3>
+            
+            <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              LG전자 XMPP 메신저 프로토타입(1:1/그룹/미디어전송), 삼성전자 휴대용 심전도 RF 시리얼 통신, KT 스마트홈패드, UCN 국가과제 헬스케어 앱 등 모바일 초창기부터 탄탄한 하드웨어·소프트웨어 융합 개발.
+            </p>
+
+            <div class="space-y-2 pt-2 border-t border-white/5 text-xs text-slate-400">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>XMPP 프로토콜 채팅 및 블루투스/RF 시리얼 통신</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                <span>모바일 웹게임 '블레이드앤히어로' DB설계 & API 구축</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="pt-6 space-y-3">
+            <div class="flex flex-wrap gap-1">
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Android</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">iOS</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">XMPP</span>
+              <span class="px-2 py-0.5 rounded text-[10px] bg-slate-800 text-slate-300 font-mono">Bluetooth</span>
+            </div>
+            <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] text-slate-400 text-center font-mono">
+              SKT / KT / LG전자 프로젝트 완수
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 4: TECH STACK MATRIX (기술 스택) -->
+    <section id="skills" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-brand-400">Capabilities</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">기술 스택 매트릭스 (Tech Stack)</h2>
+        </div>
+        
+        <!-- Filter Tabs -->
+        <div class="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full text-xs font-mono">
+          <button onclick="filterSkills('all')" class="skill-tab active px-3 py-1.5 rounded-lg bg-brand-500 text-white font-medium transition-all" data-category="all">전체보기</button>
+          <button onclick="filterSkills('ai')" class="skill-tab px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-all" data-category="ai">AI/자동화</button>
+          <button onclick="filterSkills('spatial')" class="skill-tab px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-all" data-category="spatial">3D/Unity</button>
+          <button onclick="filterSkills('backend')" class="skill-tab px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-all" data-category="backend">백엔드/SaaS</button>
+          <button onclick="filterSkills('mobile')" class="skill-tab px-3 py-1.5 rounded-lg bg-white/5 text-slate-400 hover:text-white transition-all" data-category="mobile">모바일/프론트</button>
+        </div>
+      </div>
+
+      <!-- Skills Category Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Category 1: AI & Automation -->
+        <div class="skill-card p-6 rounded-3xl bg-slate-900/60 border border-brand-500/30 space-y-4" data-category="ai">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-white">AI 업무자동화 & 차세대 IDE</h3>
+              <p class="text-xs text-slate-400">Agentic Coding & Productivity</p>
+            </div>
+          </div>
+          <div class="space-y-3 pt-2">
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-brand-300">Google Antigravity & Claude Code</span>
+                <span class="text-[11px] font-mono text-emerald-400">실무 프로덕션 적용</span>
+              </div>
+              <p class="text-[11px] text-slate-400">AI 에이전트 기반 코드 자동 리팩토링, 풀스택 개발 파이프라인 가속화</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-brand-300">Android Studio Gemini 3.0</span>
+                <span class="text-[11px] font-mono text-slate-300">모바일 AI 개발</span>
+              </div>
+              <p class="text-[11px] text-slate-400">Gemini 3.0 기반 코드 어시스트 및 인텔리전트 모바일 개발</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-brand-300">Xcode ChatGPT & Codex</span>
+                <span class="text-[11px] font-mono text-slate-300">웹/iOS 가속화</span>
+              </div>
+              <p class="text-[11px] text-slate-400">코드 생성 및 테스트 자동화, 프롬프트 엔지니어링 실무 내재화</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 2: 3D, Game & Spatial -->
+        <div class="skill-card p-6 rounded-3xl bg-slate-900/60 border border-cyan-500/30 space-y-4" data-category="spatial">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+              <i data-lucide="gamepad-2" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-white">3D, Game & Spatial Computing</h3>
+              <p class="text-xs text-slate-400">Interactive Web & XR Experience</p>
+            </div>
+          </div>
+          <div class="space-y-3 pt-2">
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-cyan-300">Unity 3D Engine & C#</span>
+                <span class="text-[11px] font-mono text-emerald-400">공간체험 게임 출시</span>
+              </div>
+              <p class="text-[11px] text-slate-400">경주월드 인터랙티브 게임 개발, Android/iOS 모바일 게임 개발</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-cyan-300">WebGL & WebAssembly</span>
+                <span class="text-[11px] font-mono text-slate-300">웹포팅 & 최적화</span>
+              </div>
+              <p class="text-[11px] text-slate-400">브라우저 무설치 실행 웹게임 빌드, 리소스 경량화 및 렌더링 최적화</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-cyan-300">AR / VR / QR / NFC 연동</span>
+                <span class="text-[11px] font-mono text-slate-300">현장 인터랙션</span>
+              </div>
+              <p class="text-[11px] text-slate-400">오프라인 공간과 연동되는 웹/앱 인터랙티브 경험 구축</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 3: Backend & Architecture -->
+        <div class="skill-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 space-y-4" data-category="backend">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center">
+              <i data-lucide="server" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-white">백엔드 서버 & 아키텍처</h3>
+              <p class="text-xs text-slate-400">High-Availability & Enterprise API</p>
+            </div>
+          </div>
+          <div class="space-y-3 pt-2">
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">Java / Spring Boot & 전자정부</span>
+                <span class="text-[11px] font-mono text-slate-300">10년+ 주력</span>
+              </div>
+              <p class="text-[11px] text-slate-400">RESTful API 아키텍처, Spring Security, MyBatis/JPA, JEUS 운영</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">PHP / CodeIgniter / Node.js</span>
+                <span class="text-[11px] font-mono text-slate-300">고속 API & 소켓</span>
+              </div>
+              <p class="text-[11px] text-slate-400">서비스 백엔드 유지보수, WebSocket 실시간 통신 서버 구축</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">Python / Django (OpenEdx)</span>
+                <span class="text-[11px] font-mono text-slate-300">LMS & 스크립팅</span>
+              </div>
+              <p class="text-[11px] text-slate-400">대학교 LMS 교육 서비스 구축 및 파이썬 전문가 역량 보유</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 4: Mobile & Hybrid Apps -->
+        <div class="skill-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 space-y-4" data-category="mobile">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+              <i data-lucide="smartphone" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-white">모바일 앱 (Hybrid & Native)</h3>
+              <p class="text-xs text-slate-400">Cross-Platform & Hardware Link</p>
+            </div>
+          </div>
+          <div class="space-y-3 pt-2">
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">하이브리드 앱 (HTML5/WebView)</span>
+                <span class="text-[11px] font-mono text-emerald-400">다수 배포</span>
+              </div>
+              <p class="text-[11px] text-slate-400">웹-네이티브 브릿지 설계, iOS/Android 동시 빌드 및 스토어 심사 배포</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">Android (Java/Kotlin) & iOS (Swift)</span>
+                <span class="text-[11px] font-mono text-slate-300">네이티브 연동</span>
+              </div>
+              <p class="text-[11px] text-slate-400">FCM 푸시, FIDO 생체인증, 블루투스/시리얼 통신 연동</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 5: Frontend & Web UI -->
+        <div class="skill-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 space-y-4" data-category="mobile">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center">
+              <i data-lucide="layout" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-white">프론트엔드 & 웹 퍼블리싱</h3>
+              <p class="text-xs text-slate-400">Modern Responsive Web</p>
+            </div>
+          </div>
+          <div class="space-y-3 pt-2">
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">React, Next.js & JavaScript</span>
+                <span class="text-[11px] font-mono text-slate-300">모던 UI</span>
+              </div>
+              <p class="text-[11px] text-slate-400">컴포넌트 설계, 비동기 상태 관리, REST 연동</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">HTML5, Tailwind CSS, Responsive</span>
+                <span class="text-[11px] font-mono text-slate-300">반응형 웹</span>
+              </div>
+              <p class="text-[11px] text-slate-400">웹 표준 및 시맨틱 마크업, 멀티 디바이스 반응형 레이아웃</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category 6: Database & Cloud/DevOps -->
+        <div class="skill-card p-6 rounded-3xl bg-slate-900/60 border border-white/10 space-y-4" data-category="backend">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center">
+              <i data-lucide="database" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-white">데이터베이스 & 클라우드 인프라</h3>
+              <p class="text-xs text-slate-400">DB Design & Cloud Deployment</p>
+            </div>
+          </div>
+          <div class="space-y-3 pt-2">
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">MySQL, MS-SQL, Oracle</span>
+                <span class="text-[11px] font-mono text-slate-300">DB 모델링</span>
+              </div>
+              <p class="text-[11px] text-slate-400">데이터베이스 설계, 프로시저/뷰, 인덱스 및 쿼리 최적화</p>
+            </div>
+            <div class="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
+              <div class="flex justify-between items-center text-xs">
+                <span class="font-bold text-white">AWS, Azure, Git, CI/CD, Linux</span>
+                <span class="text-[11px] font-mono text-slate-300">운영 및 배포</span>
+              </div>
+              <p class="text-[11px] text-slate-400">AWS(EC2/S3/Route53), 리눅스 서버 구성 및 24시간 장애 모니터링</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 5: EDUCATION & AWARDS & GLOBAL (학력, 수상, 교육) -->
+    <section id="education" class="space-y-8 scroll-mt-24">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-white/10 pb-4">
+        <div>
+          <span class="text-xs font-mono font-semibold uppercase tracking-wider text-brand-400">Academic & Honors</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mt-1">학력 · 수상 · 교육 및 글로벌 경험</h2>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <!-- 학력 -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/60 border border-white/10 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-brand-500/10 text-brand-400 flex items-center justify-center">
+            <i data-lucide="graduation-cap" class="w-5 h-5"></i>
+          </div>
+          <span class="text-xs font-mono text-slate-400">학력</span>
+          <h3 class="text-base font-bold text-white">홍익대학교 (세종)</h3>
+          <p class="text-xs text-brand-300 font-medium">컴퓨터정보통신공학과 학사 졸업</p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-white/5 leading-relaxed">
+            <p>2002.03 ~ 2008.03 (졸업 2009.03)</p>
+            <p class="mt-1 text-slate-300"><strong>졸업논문:</strong> CDN 기술을 이용한 DDoS 공격에 대한 대안 방법</p>
+            <p class="mt-2 text-slate-400">신일고등학교 이과계열 졸업 (2001)</p>
+          </div>
+        </div>
+
+        <!-- 수상 -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/60 border border-white/10 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center">
+            <i data-lucide="award" class="w-5 h-5"></i>
+          </div>
+          <span class="text-xs font-mono text-amber-400">수상 내역</span>
+          <h3 class="text-base font-bold text-white">SK플래닛 T아카데미</h3>
+          <p class="text-xs text-amber-300 font-medium">서버전문가과정 최우수상 (2013)</p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-white/5 leading-relaxed">
+            <p>SK플래닛 T아카데미 면접히어로 서비스</p>
+            <p class="mt-1 text-slate-300 font-semibold">서버 부문 최우수상 수상</p>
+            <p class="mt-2 text-slate-400">대용량 트랜잭션 및 안정적 서버 아키텍처 우수성 입증</p>
+          </div>
+        </div>
+
+        <!-- 교육 이수 -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/60 border border-white/10 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+            <i data-lucide="book-check" class="w-5 h-5"></i>
+          </div>
+          <span class="text-xs font-mono text-emerald-400">전문 교육 이수</span>
+          <h3 class="text-base font-bold text-white">파이썬 전문가 과정</h3>
+          <p class="text-xs text-emerald-300 font-medium">유비온 교육 수료 (2025.03)</p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-white/5 leading-relaxed">
+            <p>파이썬 입문, 기초부터 실전까지</p>
+            <p class="mt-1 text-slate-300">프로젝트를 활용한 파이썬 전문가 양성 과정 완수</p>
+            <p class="mt-2 text-slate-400">데이터 처리 및 업무 자동화 스크립팅 고도화</p>
+          </div>
+        </div>
+
+        <!-- 글로벌 경험 및 자격 -->
+        <div class="card-item p-6 rounded-3xl bg-slate-900/60 border border-white/10 space-y-3">
+          <div class="w-10 h-10 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center">
+            <i data-lucide="globe-2" class="w-5 h-5"></i>
+          </div>
+          <span class="text-xs font-mono text-cyan-400">글로벌 연수 & 자격</span>
+          <h3 class="text-base font-bold text-white">캐나다 어학연수 & 어학</h3>
+          <p class="text-xs text-cyan-300 font-medium">영어 일상회화 및 글로벌 커뮤니케이션</p>
+          <div class="text-[11px] text-slate-400 pt-2 border-t border-white/5 leading-relaxed">
+            <p>2006.06 ~ 2006.08 (캐나다 현지 홈스테이)</p>
+            <p class="mt-1 text-slate-300">외국인 대상 일상회화 및 기술 문서 독해 가능</p>
+            <p class="mt-2 text-slate-400">1종 보통 자동차운전면허 보유 (2004)</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SECTION 6: CONTACT & RESUME DOWNLOAD (연락처 및 마무리) -->
+    <section id="contact" class="space-y-8 scroll-mt-24 pb-12">
+      <div class="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-brand-950/60 via-slate-900/90 to-cyan-950/40 border border-brand-500/30 relative overflow-hidden text-center space-y-8 glow-indigo">
+        
+        <div class="max-w-2xl mx-auto space-y-4">
+          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-brand-500/20 text-brand-300 border border-brand-500/30">
+            Let's Build Together
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            새로운 기술 도전과 비즈니스 성장을<br class="hidden sm:inline">
+            함께 만들어갈 기회를 환영합니다.
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed">
+            12년 6개월간 축적된 안정적인 엔지니어링 역량과 최신 AI / 3D 기술로 귀사의 목표를 가장 확실하고 빠르게 완수해 드리겠습니다.
+          </p>
+        </div>
+
+        <!-- Contact Badges Grid -->
+        <div class="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-4 text-left">
+          
+          <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-brand-400 transition-all cursor-pointer" onclick="copyToClipboard('dryudryu@naver.com', '이메일 주소가 복사되었습니다!')">
+            <div class="flex items-center gap-2 text-brand-400 text-xs font-semibold font-mono">
+              <i data-lucide="mail" class="w-4 h-4"></i> 이메일
+            </div>
+            <div class="text-white font-mono text-sm font-semibold mt-1">dryudryu@naver.com</div>
+            <div class="text-[11px] text-slate-400 mt-0.5 flex items-center gap-1">
+              <span>클릭하여 복사하기</span>
+              <i data-lucide="copy" class="w-3 h-3"></i>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10 hover:border-emerald-400 transition-all cursor-pointer" onclick="copyToClipboard('010-9067-4011', '휴대폰 번호가 복사되었습니다!')">
+            <div class="flex items-center gap-2 text-emerald-400 text-xs font-semibold font-mono">
+              <i data-lucide="phone" class="w-4 h-4"></i> 휴대폰
+            </div>
+            <div class="text-white font-mono text-sm font-semibold mt-1">010-9067-4011</div>
+            <div class="text-[11px] text-slate-400 mt-0.5 flex items-center gap-1">
+              <span>클릭하여 복사하기</span>
+              <i data-lucide="copy" class="w-3 h-3"></i>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-white/[0.04] border border-white/10 text-xs">
+            <div class="flex items-center gap-2 text-cyan-400 text-xs font-semibold font-mono">
+              <i data-lucide="map-pin" class="w-4 h-4"></i> 위치 / 근무 형태
+            </div>
+            <div class="text-white font-medium text-sm mt-1">경기 남양주 / 서울 전역</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">상근 / 리모트 / 하이브리드 유연 협의</div>
+          </div>
+
+        </div>
+
+        <!-- Downloads & Social Links -->
+        <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+          <a href="/Greg_You_Portfolio.pdf" target="_blank" class="px-5 py-3 rounded-xl bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm shadow-lg shadow-brand-500/20 transition-all flex items-center gap-2">
+            <i data-lucide="download" class="w-4 h-4"></i>
+            <span>포트폴리오 PDF 다운로드</span>
+          </a>
+
+          <button onclick="window.print()" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm border border-white/15 transition-all flex items-center gap-2">
+            <i data-lucide="printer" class="w-4 h-4"></i>
+            <span>이력서 인쇄 / PDF 출력</span>
+          </button>
+
+          <a href="/docs" target="_blank" class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/15 text-white font-medium text-sm border border-white/15 transition-all flex items-center gap-2">
+            <i data-lucide="book-open" class="w-4 h-4"></i>
+            <span>기술 블로그 & Docs</span>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modern Clean Footer -->
+  <footer class="border-t border-white/5 py-12 bg-[#060910] text-slate-400 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <span class="font-bold text-white tracking-tight">유대영 (Greg Yoo)</span>
+        <span class="text-slate-600">|</span>
+        <span>Senior Full-Stack & AI Solutions Architect</span>
+      </div>
+      <div class="flex items-center gap-6 text-slate-400">
+        <a href="#about" class="hover:text-white transition-colors">소개</a>
+        <a href="#experience" class="hover:text-white transition-colors">경력</a>
+        <a href="#projects" class="hover:text-white transition-colors">프로젝트</a>
+        <a href="#skills" class="hover:text-white transition-colors">기술스택</a>
+        <a href="/docs" class="text-brand-400 hover:text-brand-300 transition-colors">Docs</a>
+      </div>
+      <div class="font-mono text-slate-500 text-[11px]">
+        © 2026 Yoo Dae Young. All rights reserved.
+      </div>
     </div>
-    
-<script src="/js/burger-menu.js"></script>
-<script src="/js/jquery-3.3.1.min.js"></script>
+  </footer>
 
+  <!-- Scripts: Theme, Icons, Filter, Toast & Smooth Interactions -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
 
-<script src="/js/landing-scripts.js"></script>
-<script src="/js/portfolio/chart.min.js"></script>
-<script src="/js/portfolio/hammer.min.js"></script>
-<script src="/js/portfolio/timeline.js"></script>
-<script src="/js/portfolio/slick.min.js"></script>
+    // Dark / Light Theme Toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const htmlEl = document.documentElement;
 
+    function applyTheme(isDark) {
+      if (isDark) {
+        htmlEl.classList.add('dark');
+        themeIcon.setAttribute('data-lucide', 'sun');
+      } else {
+        htmlEl.classList.remove('dark');
+        themeIcon.setAttribute('data-lucide', 'moon');
+      }
+      lucide.createIcons();
+    }
 
-<script src="/js/common.js"></script>
+    // Default to dark theme for modern developer aesthetics
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      applyTheme(false);
+    } else {
+      applyTheme(true);
+    }
 
+    themeToggleBtn.addEventListener('click', () => {
+      const isDark = htmlEl.classList.contains('dark');
+      if (isDark) {
+        localStorage.setItem('theme', 'light');
+        applyTheme(false);
+      } else {
+        localStorage.setItem('theme', 'dark');
+        applyTheme(true);
+      }
+    });
 
-<script src="/js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+    // Mobile Hamburger Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
 
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
 
-    
-    <script>
-      $(function() {
-
-        
-        $('.profile-img').slick({
-          fade: true,
-          speed: 500,
-          autoplay: true,
-          arrows: false
-        });
-        $('.profile-img').css('display', 'block')
-
-        
-        let skillChart, skillCateChart
-        $('.skill-cate li').on('click', function() {
-          $('.skill-cate li').removeClass('active')
-          $('.skill-desc-section .desc-section').removeClass('active')
-          $(this).addClass('active')
-
-          
-          if ($('.skill-cate li').eq(0).hasClass('active')) {
-            skillData.config.data = skillData.frontendData
-            $('.skill-desc-section .desc-section').eq(0).addClass('active')
-          
-          } else if ($('.skill-cate li').eq(1).hasClass('active')) {
-            skillData.config.data = skillData.backEndData
-            $('.skill-desc-section .desc-section').eq(1).addClass('active')
-          
-          } else if ($('.skill-cate li').eq(2).hasClass('active')) {
-            skillData.config.data = skillData.dbData
-            $('.skill-desc-section .desc-section').eq(2).addClass('active')
-          
-          } else if ($('.skill-cate li').eq(3).hasClass('active')) {
-            skillData.config.data = skillData.serverOsData
-            $('.skill-desc-section .desc-section').eq(3).addClass('active')
-          
-          } else if ($('.skill-cate li').eq(4).hasClass('active')) {
-            skillData.config.data = skillData.devOpsData
-            $('.skill-desc-section .desc-section').eq(4).addClass('active')
-          
-          } else if ($('.skill-cate li').eq(5).hasClass('active')) {
-            skillData.config.data = skillData.appData
-            $('.skill-desc-section .desc-section').eq(5).addClass('active')
-          
-          } else if ($('.skill-cate li').eq(6).hasClass('active')) {
-            skillData.config.data = skillData.etcData
-            $('.skill-desc-section .desc-section').eq(6).addClass('active')
-          }
-
-          skillChart.destroy()
-          skillChart = new Chart(document.getElementById('skillChart'), skillData.config);
-        })
-
-        
-        
-        const skillData = {
-          
-          frontendData : {
-            labels: ['JS', 'React', 'Node.js', 'HTML & CSS', 'AngularJS 1.x', 'Jquery'],
-            datasets: [{
-              label: 'Frontend',
-              data: [80, 80, 65, 90, 80, 90],
-              backgroundColor: 'rgba(0, 151, 255, 0.2)',
-              borderColor: '#0097ff',
-              pointBackgroundColor: '#0097ff',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: '#0097ff'
-            }]
-          },
-          
-          backEndData : {
-            labels: ['JAVA', 'Spring', 'PHP', 'CodeIgniter', 'python', 'C#.NET', 'ASP', 'Mybatis'],
-            datasets: [{
-              label: 'backEnd',
-              data: [75, 75, 85, 85, 60, 65, 75, 75],
-              backgroundColor: 'rgba(255, 78, 115, 0.2)',
-              borderColor: '#ff4e73',
-              pointBackgroundColor: '#ff4e73',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: '#ff4e73'
-            }]
-          },
-          
-          dbData : {
-            labels: ['MYSQL', 'MSSQL', 'ORACLE'],
-            datasets: [{
-              label: 'db',
-              data: [85, 75, 50],
-              backgroundColor: 'rgba(0, 187, 187, 0.2)',
-              borderColor: '#00bbbb',
-              pointBackgroundColor: '#00bbbb',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: '#00bbbb'
-            }]
-          },
-          
-          serverOsData : {
-            labels: ['Apache', 'Tomcat', 'Express', 'Window', 'Linux', 'IIS'],
-            datasets: [{
-              label: 'Server & OS',
-              data: [85, 80, 65, 85, 80, 75],
-              backgroundColor: 'rgba(255, 162, 69, 0.2)',
-              borderColor: '#ffa245',
-              pointBackgroundColor: '#ffa245',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: '#ffa245'
-            }]
-          },
-          
-          devOpsData : {
-            labels: ['AWS', 'JIRA', 'GIT & SVN', 'Jenkins', 'Ansiable'],
-            datasets: [{
-              label: 'devOps',
-              data: [75, 80, 80, 80, 70],
-              backgroundColor: 'rgba(69, 233, 0, 0.2)',
-              borderColor: '#45e900',
-              pointBackgroundColor: '#45e900',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: '#45e900'
-            }]
-          },
-          
-          appData : {
-            labels: ['ReactNative', 'Android', 'IOS'],
-            datasets: [{
-              label: 'AppData',
-              data: [60, 90, 90],
-              backgroundColor: 'rgba(211, 223, 0, 0.2)',
-              borderColor: '#d3df00',
-              pointBackgroundColor: '#d3df00',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: '#d3df00'
-            }]
-          },
-          
-          etcData : {
-            labels: ['개발 설계', 'MSA', '장애대응', 'Network', '개발툴', '브라우저'],
-            datasets: [{
-              label: 'AppData',
-              data: [75, 50, 80, 40, 85, 80],
-              backgroundColor: 'rgba(180, 100, 255, 0.2)',
-              borderColor: '#b464ff',
-              pointBackgroundColor: '#b464ff',
-              pointBorderColor: '#fff',
-              pointHoverBackgroundColor: '#fff',
-              pointHoverBorderColor: '#b464ff'
-            }]
-          },
-          
-          config : {
-            type: 'radar',
-            options: {
-              plugins: {
-                legend: false,
-              },
-              elements: {
-                line: {
-                  borderWidth: 1
-                }
-              },
-              scales: {
-                  r: {
-                      suggestedMin: 0,
-                      suggestedMax: 100
-                  },
-              }
-            },
-          }
-        }
-        skillData.config.data = skillData.frontendData
-        skillChart = new Chart(document.getElementById('skillChart'), skillData.config)
-        
-        
-        const skillCateData = {
-          
-          data : {
-            labels: ['Frontend', 'Backend', 'DB', 'Server & OS', 'DevOps', 'APP', 'ETC'],
-            datasets: [{
-              label: 'skillcate',
-              data: [85, 75, 70, 70, 50, 20, 50],
-              backgroundColor: [
-                'rgba(0, 151, 255, 0.2)',
-                'rgba(255, 78, 115, 0.2)',
-                'rgba(0, 187, 187, 0.2)',
-                'rgba(255, 162, 69, 0.2)',
-                'rgba(69, 233, 0, 0.2)',
-                'rgba(211, 223, 0, 0.2)',
-                'rgba(180, 100, 255, 0.2)',
-              ]
-            }]
-          },
-          
-          config : {
-            type: 'polarArea',
-            options: {
-              responsive: true,
-              elements: {
-                line: {
-                  borderWidth: 1
-                }
-              },
-              scales: {
-                  r: {
-                      suggestedMin: 0,
-                      suggestedMax: 100
-                  },
-              }
-            },
-          }
-        }
-        skillCateData.config.data = skillCateData.data
-        skillCateChart = new Chart(document.getElementById('skillCateChart'), skillCateData.config)
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
       });
-    </script>
-    
-    <div class="btn-top"></div>
-<footer class="footer">
-  
-</footer>
-  </section>
+    });
+
+    // Copy to Clipboard with Toast Notification
+    function copyToClipboard(text, message) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast(message || '복사되었습니다!');
+      }).catch(err => {
+        // Fallback
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast(message || '복사되었습니다!');
+      });
+    }
+
+    function showToast(message) {
+      const toastBox = document.getElementById('toast-box');
+      const toastMsg = document.getElementById('toast-msg');
+      toastMsg.innerText = message;
+      
+      toastBox.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+      toastBox.classList.add('translate-y-0', 'opacity-100');
+      
+      setTimeout(() => {
+        toastBox.classList.remove('translate-y-0', 'opacity-100');
+        toastBox.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+      }, 3000);
+    }
+
+    // Skill Tabs Filter
+    function filterSkills(category) {
+      const tabs = document.querySelectorAll('.skill-tab');
+      tabs.forEach(tab => {
+        if (tab.dataset.category === category) {
+          tab.classList.add('active', 'bg-brand-500', 'text-white');
+          tab.classList.remove('bg-white/5', 'text-slate-400');
+        } else {
+          tab.classList.remove('active', 'bg-brand-500', 'text-white');
+          tab.classList.add('bg-white/5', 'text-slate-400');
+        }
+      });
+
+      const cards = document.querySelectorAll('.skill-card');
+      cards.forEach(card => {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = 'block';
+          card.classList.add('animate-fadeIn');
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Scroll Progress & Scroll to Top
+    window.addEventListener('scroll', () => {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const progressEl = document.getElementById('scroll-progress');
+      if (progressEl) {
+        progressEl.style.width = scrolled + '%';
+      }
+
+      const topBtn = document.getElementById('scroll-top-btn');
+      if (topBtn) {
+        if (winScroll > 320) {
+          topBtn.classList.remove('opacity-0', 'translate-y-10', 'pointer-events-none');
+          topBtn.classList.add('opacity-100', 'translate-y-0');
+        } else {
+          topBtn.classList.add('opacity-0', 'translate-y-10', 'pointer-events-none');
+          topBtn.classList.remove('opacity-100', 'translate-y-0');
+        }
+      }
+    });
+  </script>
 </body>
 </html>
