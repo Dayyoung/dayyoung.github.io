@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="ko" class="scroll-smooth">
+<html lang="ko" data-lang="ko" class="scroll-smooth">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>유대영 — 소프트웨어 엔지니어 (12년+)</title>
+  <title>유대영 (Greg Yoo) — Senior Software Engineer</title>
   
-  <meta name="description" content="12년 6개월 경력의 소프트웨어 엔지니어 유대영입니다. 모바일·웹·백엔드 아키텍처부터 Unity 3D/WebGL 공간체험, Google Antigravity & Claude Code 기반 AI 업무자동화까지 다룹니다.">
+  <meta name="description" content="12년 6개월 경력의 소프트웨어 엔지니어 유대영(Greg Yoo)의 프로필입니다. Unity 3D/WebGL 공간체험, AI 업무자동화, 엔터프라이즈 SaaS 아키텍처.">
   <link rel="canonical" href="https://dayyoung.github.io/">
   
   <link rel="shortcut icon" href="/favicons/favicon.ico">
@@ -57,6 +57,15 @@
       background-color: #fff;
       color: #000;
     }
+
+    /* Multi-language Visibility Control */
+    html[data-lang="ko"] .lang-en {
+      display: none !important;
+    }
+    html[data-lang="en"] .lang-ko {
+      display: none !important;
+    }
+
     @media print {
       body {
         background: #fff !important;
@@ -74,18 +83,45 @@
   <header class="sticky top-0 z-40 w-full bg-white/80 dark:bg-[#0c0c0c]/80 backdrop-blur-md border-b border-neutral-100 dark:border-neutral-900">
     <div class="max-w-2xl mx-auto px-6 h-14 flex items-center justify-between">
       <a href="#" class="text-sm font-semibold tracking-tight hover:opacity-70 transition-opacity">
-        유대영 <span class="text-neutral-400 dark:text-neutral-500 font-mono text-xs font-normal ml-1">Greg Yoo</span>
+        <span class="lang-ko">유대영</span>
+        <span class="lang-en">Greg Yoo</span>
+        <span class="text-neutral-400 dark:text-neutral-500 font-mono text-xs font-normal ml-1">
+          <span class="lang-ko">Greg Yoo</span>
+          <span class="lang-en">유대영</span>
+        </span>
       </a>
       
-      <div class="flex items-center gap-4 text-xs">
-        <a href="#experience" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">경력</a>
-        <a href="#projects" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">프로젝트</a>
-        <a href="#skills" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">스킬</a>
-        <a href="/docs" target="_blank" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors flex items-center gap-1">
-          Docs <span class="text-[10px]">↗</span>
-        </a>
+      <div class="flex items-center gap-3 sm:gap-4 text-xs">
+        <nav class="flex items-center gap-3 sm:gap-4">
+          <a href="#experience" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
+            <span class="lang-ko">경력</span>
+            <span class="lang-en">Experience</span>
+          </a>
+          <a href="#projects" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
+            <span class="lang-ko">프로젝트</span>
+            <span class="lang-en">Projects</span>
+          </a>
+          <a href="#skills" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors">
+            <span class="lang-ko">스킬</span>
+            <span class="lang-en">Skills</span>
+          </a>
+          <a href="/docs" target="_blank" class="text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white transition-colors flex items-center gap-0.5">
+            Docs <span class="text-[10px]">↗</span>
+          </a>
+        </nav>
+
+        <!-- Language Switcher Segmented Control -->
+        <div class="flex items-center rounded-full bg-neutral-100 dark:bg-neutral-900 p-0.5 text-[11px] font-mono border border-neutral-200 dark:border-neutral-800">
+          <button id="btn-ko" onclick="setLang('ko')" class="px-2 py-0.5 rounded-full font-medium transition-all bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-sm">
+            KO
+          </button>
+          <button id="btn-en" onclick="setLang('en')" class="px-2 py-0.5 rounded-full font-medium transition-all text-neutral-400 hover:text-neutral-900 dark:hover:text-white">
+            EN
+          </button>
+        </div>
         
-        <button id="theme-toggle" class="p-1 text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors" title="테마 변경">
+        <!-- Dark/Light Theme Toggle -->
+        <button id="theme-toggle" class="p-1 text-neutral-400 hover:text-neutral-900 dark:hover:text-white transition-colors" title="Toggle Theme">
           <i id="theme-icon" data-lucide="moon" class="w-4 h-4"></i>
         </button>
       </div>
@@ -100,10 +136,12 @@
       <div class="flex items-start justify-between gap-6">
         <div class="space-y-2">
           <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-            유대영
+            <span class="lang-ko">유대영</span>
+            <span class="lang-en">Greg Yoo (Yoo Dae Young)</span>
           </h1>
           <p class="text-sm font-medium text-neutral-500 dark:text-neutral-400">
-            소프트웨어 엔지니어 · 총 12년 6개월 경력
+            <span class="lang-ko">소프트웨어 엔지니어 · 총 12년 6개월 경력</span>
+            <span class="lang-en">Senior Software Engineer & Tech Lead · 12.5+ Yrs Exp</span>
           </p>
         </div>
         
@@ -112,7 +150,8 @@
         </div>
       </div>
 
-      <div class="prose prose-neutral dark:prose-invert text-sm sm:text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300 space-y-3">
+      <!-- Korean Bio -->
+      <div class="lang-ko prose prose-neutral dark:prose-invert text-sm sm:text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300 space-y-3">
         <p>
           모바일 네이티브 앱으로 커리어를 시작해 대규모 백엔드 및 엔터프라이즈 SaaS 솔루션 아키텍처를 이끌어왔습니다. 
           현재 <strong>사이시옷</strong>에서 웹서비스개발 매니저로 재직하며, 
@@ -122,6 +161,17 @@
         <p>
           삼성전자, 대한항공, 신세계 등 엔터프라이즈 프로젝트를 성공적으로 완수하며 
           "고객 요구사항의 명확한 정의와 100% 일정 준수"를 핵심 가치로 일하고 있습니다.
+        </p>
+      </div>
+
+      <!-- English Bio -->
+      <div class="lang-en prose prose-neutral dark:prose-invert text-sm sm:text-[15px] leading-relaxed text-neutral-600 dark:text-neutral-300 space-y-3">
+        <p>
+          Senior Software Engineer with 12.5+ years of extensive hands-on experience spanning mobile native apps, scalable backend systems, and enterprise SaaS solutions. 
+          Currently serving as Web & AI Engineering Manager at <strong>SAISIoT</strong>, leading <strong>Unity 3D / WebGL interactive spatial computing games</strong> and architecting <strong>generative AI-driven engineering automation pipelines</strong> with Google Antigravity & Claude Code IDE.
+        </p>
+        <p>
+          Proven track record delivering mission-critical projects for top enterprises including Samsung Electronics, Korean Air, and Shinsegae with a rigorous commitment to specification clarity, technical precision, and 100% on-time delivery.
         </p>
       </div>
 
@@ -139,12 +189,14 @@
         <span class="text-neutral-300 dark:text-neutral-700">·</span>
         <span class="flex items-center gap-1.5 font-sans">
           <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
-          경기 남양주 / 서울
+          <span class="lang-ko">경기 남양주 / 서울</span>
+          <span class="lang-en">Seoul Metro Area, KR</span>
         </span>
         <span class="text-neutral-300 dark:text-neutral-700">·</span>
         <a href="/Greg_You_Portfolio.pdf" target="_blank" class="hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1.5 underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-4">
           <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-          포트폴리오 PDF
+          <span class="lang-ko">포트폴리오 PDF</span>
+          <span class="lang-en">Resume PDF</span>
         </a>
       </div>
     </section>
@@ -153,98 +205,187 @@
     <section id="experience" class="space-y-6 scroll-mt-20">
       <div class="flex items-baseline justify-between border-b border-neutral-100 dark:border-neutral-900 pb-3">
         <h2 class="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold">
-          Work Experience
+          <span class="lang-ko">Work Experience</span>
+          <span class="lang-en">Work Experience</span>
         </h2>
-        <span class="text-xs font-mono text-neutral-400">총 12년 6개월</span>
+        <span class="text-xs font-mono text-neutral-400">
+          <span class="lang-ko">총 12년 6개월</span>
+          <span class="lang-en">12 Years 6 Months</span>
+        </span>
       </div>
 
       <div class="space-y-8">
         
-        <!-- 사이시옷 -->
+        <!-- 사이시옷 / SAISIoT -->
         <div class="space-y-2">
           <div class="flex items-baseline justify-between">
             <div class="flex items-center gap-2">
-              <h3 class="text-base font-semibold text-neutral-900 dark:text-white">사이시옷</h3>
-              <span class="text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 font-mono">재직 중</span>
+              <h3 class="text-base font-semibold text-neutral-900 dark:text-white">
+                <span class="lang-ko">사이시옷</span>
+                <span class="lang-en">SAISIoT</span>
+              </h3>
+              <span class="text-xs px-2 py-0.5 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 font-mono">
+                <span class="lang-ko">재직 중</span>
+                <span class="lang-en">Current</span>
+              </span>
             </div>
-            <span class="text-xs font-mono text-neutral-400">2024.06 — 현재</span>
+            <span class="text-xs font-mono text-neutral-400">
+              <span class="lang-ko">2024.06 — 현재</span>
+              <span class="lang-en">Jun 2024 — Present</span>
+            </span>
           </div>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 font-mono">웹서비스개발 매니저 · 가상현실 / 증강현실 / 풀스택</p>
-          <ul class="text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+            <span class="lang-ko">웹서비스개발 매니저 · 가상현실 / 증강현실 / 풀스택</span>
+            <span class="lang-en">Web & AI Engineering Manager · AR/VR, 3D Spatial & Full-Stack</span>
+          </p>
+
+          <!-- Korean points -->
+          <ul class="lang-ko text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
             <li><strong>시공간 3D 웹 & Unity 게임:</strong> 3D(AR/VR/QR/NFC) 인터랙티브 웹서비스 개발, Android/iOS Unity 모바일 게임 개발 및 WebGL 포팅 배포 (경주월드 공간체험 게임 출시)</li>
             <li><strong>AI 업무자동화:</strong> Google Antigravity & Claude Code IDE를 활용한 개발 워크플로우 자동화 파이프라인 구축</li>
             <li><strong>모바일/웹 AI 가속 개발:</strong> Android Studio Gemini 3.0, Xcode ChatGPT, Codex를 활용한 고속 풀스택 개발 및 PHP 서버 유지보수</li>
           </ul>
+
+          <!-- English points -->
+          <ul class="lang-en text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
+            <li><strong>Spatial 3D Web & Unity Games:</strong> Engineered 3D (AR/VR/QR/NFC) interactive web services, Unity mobile games (iOS/Android), and WebGL/WebAssembly cross-platform porting; launched Gyeongju World Spatial Experience.</li>
+            <li><strong>AI Engineering Automation:</strong> Built next-generation developer productivity pipelines combining Google Antigravity and Claude Code IDE for automated testing and code generation.</li>
+            <li><strong>Accelerated Mobile & Web Engineering:</strong> Fast-paced full-stack development with Android Studio Gemini 3.0, Xcode ChatGPT, and Codex; maintained PHP backend REST APIs.</li>
+          </ul>
         </div>
 
-        <!-- 코어플렉스 -->
+        <!-- 코어플렉스 / Coreflex -->
         <div class="space-y-2">
           <div class="flex items-baseline justify-between">
-            <h3 class="text-base font-semibold text-neutral-900 dark:text-white">코어플렉스</h3>
-            <span class="text-xs font-mono text-neutral-400">2022.05 — 2024.01</span>
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-white">
+              <span class="lang-ko">코어플렉스</span>
+              <span class="lang-en">Coreflex</span>
+            </h3>
+            <span class="text-xs font-mono text-neutral-400">
+              <span class="lang-ko">2022.05 — 2024.01</span>
+              <span class="lang-en">May 2022 — Jan 2024</span>
+            </span>
           </div>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 font-mono">SaaS솔루션팀 차장 · 솔루션스 아키텍트 (1년 9개월)</p>
-          <ul class="text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+            <span class="lang-ko">SaaS솔루션팀 차장 · 솔루션스 아키텍트 (1년 9개월)</span>
+            <span class="lang-en">SaaS Solutions Team Manager · Solutions Architect (1 yr 9 mos)</span>
+          </p>
+
+          <ul class="lang-ko text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
             <li><strong>삼성전자 Medallia DXA:</strong> 글로벌 Samsung.com 및 Android/iOS 하이브리드 앱 고객 디지털 경험 데이터 수집/분석 SaaS 솔루션 연동 및 운영</li>
             <li><strong>신세계쇼핑몰 Medallia DXA:</strong> 모바일 하이브리드 앱 SaaS 솔루션 연동 및 안정적 유지관리</li>
             <li><strong>대한항공 Medallia MEC:</strong> 항공사 고객 Survey SaaS 솔루션 연동 및 글로벌 운영</li>
           </ul>
+
+          <ul class="lang-en text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
+            <li><strong>Samsung Electronics Medallia DXA:</strong> Architected and operated enterprise SaaS integration for global Samsung.com and iOS/Android hybrid apps, analyzing large-scale digital journey telemetry.</li>
+            <li><strong>Shinsegae Mall Medallia DXA:</strong> Integrated and managed mobile hybrid app SaaS solution with high reliability.</li>
+            <li><strong>Korean Air Medallia MEC:</strong> Implemented global airline passenger experience survey SaaS solution architecture and stable operations.</li>
+          </ul>
         </div>
 
-        <!-- 스퀘어네트 -->
+        <!-- 스퀘어네트 / Squarenet -->
         <div class="space-y-2">
           <div class="flex items-baseline justify-between">
-            <h3 class="text-base font-semibold text-neutral-900 dark:text-white">스퀘어네트</h3>
-            <span class="text-xs font-mono text-neutral-400">2020.01 — 2022.05</span>
+            <h3 class="text-base font-semibold text-neutral-900 dark:text-white">
+              <span class="lang-ko">스퀘어네트</span>
+              <span class="lang-en">Squarenet</span>
+            </h3>
+            <span class="text-xs font-mono text-neutral-400">
+              <span class="lang-ko">2020.01 — 2022.05</span>
+              <span class="lang-en">Jan 2020 — May 2022</span>
+            </span>
           </div>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 font-mono">컨버전스사업본부 차장 (2년 5개월)</p>
-          <ul class="text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
+          <p class="text-xs text-neutral-500 dark:text-neutral-400 font-mono">
+            <span class="lang-ko">컨버전스사업본부 차장 (2년 5개월)</span>
+            <span class="lang-en">Convergence Division Deputy General Manager (2 yrs 5 mos)</span>
+          </p>
+
+          <ul class="lang-ko text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
             <li><strong>전국 대학 종합정보 웹서비스:</strong> 폴리텍대 IAM 및 하이브리드 앱, 선문대 OpenEdx Django 기반 LMS, 전남대 FCM 대용량 푸시 API 서버, 이화여대 FIDO 생체정보 인증 API 개발</li>
             <li><strong>인프라 유지보수:</strong> 전자정부프레임워크(eGovFrame) 및 JEUS WAS 서버 운영, 모니터링 및 성능 튜닝</li>
+          </ul>
+
+          <ul class="lang-en text-sm text-neutral-600 dark:text-neutral-300 space-y-1.5 pt-1 list-disc list-outside ml-4">
+            <li><strong>National University Enterprise Services:</strong> Engineered Korea Polytechnic Univ IAM & hybrid apps, Sun Moon Univ OpenEdx Django LMS, Chonnam National Univ high-concurrency FCM push server, and Ewha Womans Univ FIDO biometric auth API.</li>
+            <li><strong>Infrastructure & Servers:</strong> Maintained, monitored, and tuned eGovFrame & JEUS Web Application Servers.</li>
           </ul>
         </div>
 
         <!-- 이전 초기 경력 요약 -->
         <div class="pt-4 border-t border-neutral-100 dark:border-neutral-900 space-y-4">
-          <div class="text-xs font-mono text-neutral-400 uppercase tracking-wider">이전 경력 (2009 — 2017)</div>
+          <div class="text-xs font-mono text-neutral-400 uppercase tracking-wider">
+            <span class="lang-ko">이전 경력 (2009 — 2017)</span>
+            <span class="lang-en">Early Career (2009 — 2017)</span>
+          </div>
           
           <div class="space-y-3 text-sm">
             <div class="flex items-baseline justify-between">
               <div>
-                <span class="font-medium text-neutral-800 dark:text-neutral-200">저니앤조이트래블</span>
-                <span class="text-xs text-neutral-400 ml-2">모바일개발팀 과장/팀장 · Spring JSON 서버 & 여행 하이브리드 앱</span>
+                <span class="font-medium text-neutral-800 dark:text-neutral-200">
+                  <span class="lang-ko">저니앤조이트래블</span>
+                  <span class="lang-en">Journey & Joy Travel</span>
+                </span>
+                <span class="text-xs text-neutral-400 ml-2">
+                  <span class="lang-ko">모바일개발팀 과장/팀장 · Spring JSON 서버 & 여행 하이브리드 앱</span>
+                  <span class="lang-en">Team Lead / Manager · Spring REST API & Travel Hybrid App</span>
+                </span>
               </div>
               <span class="text-xs font-mono text-neutral-400 flex-shrink-0">2016 — 2017</span>
             </div>
 
             <div class="flex items-baseline justify-between">
               <div>
-                <span class="font-medium text-neutral-800 dark:text-neutral-200">엠북미디어</span>
-                <span class="text-xs text-neutral-400 ml-2">서버개발팀 대리 · 미디어 스트리밍 JSON 서버, WebSocket 실시간 서비스</span>
+                <span class="font-medium text-neutral-800 dark:text-neutral-200">
+                  <span class="lang-ko">엠북미디어</span>
+                  <span class="lang-en">Mbookmedia</span>
+                </span>
+                <span class="text-xs text-neutral-400 ml-2">
+                  <span class="lang-ko">서버개발팀 대리 · 미디어 스트리밍 JSON 서버, WebSocket 실시간 서비스</span>
+                  <span class="lang-en">Deputy Manager · Streaming Media JSON Server & WebSocket Services</span>
+                </span>
               </div>
               <span class="text-xs font-mono text-neutral-400 flex-shrink-0">2014 — 2016</span>
             </div>
 
             <div class="flex items-baseline justify-between">
               <div>
-                <span class="font-medium text-neutral-800 dark:text-neutral-200">비쎌</span>
-                <span class="text-xs text-neutral-400 ml-2">연구원 · 웹게임 '블레이드앤히어로' DB/API, LG전자 XMPP 메신저, 버스 배차 시스템</span>
+                <span class="font-medium text-neutral-800 dark:text-neutral-200">
+                  <span class="lang-ko">비쎌</span>
+                  <span class="lang-en">Vissel</span>
+                </span>
+                <span class="text-xs text-neutral-400 ml-2">
+                  <span class="lang-ko">연구원 · 웹게임 '블레이드앤히어로' DB/API, LG전자 XMPP 메신저, 버스 배차 시스템</span>
+                  <span class="lang-en">Researcher · Web Game DB/API, LG Electronics XMPP Messenger, Bus Dispatch System</span>
+                </span>
               </div>
               <span class="text-xs font-mono text-neutral-400 flex-shrink-0">2012 — 2013</span>
             </div>
 
             <div class="flex items-baseline justify-between">
               <div>
-                <span class="font-medium text-neutral-800 dark:text-neutral-200">네오엠텍</span>
-                <span class="text-xs text-neutral-400 ml-2">연구원 · 삼성전자 심전도 통신 앱, LG전자 R&D 블루투스 LSM, U-라이프케어</span>
+                <span class="font-medium text-neutral-800 dark:text-neutral-200">
+                  <span class="lang-ko">네오엠텍</span>
+                  <span class="lang-en">NEOMTECH</span>
+                </span>
+                <span class="text-xs text-neutral-400 ml-2">
+                  <span class="lang-ko">연구원 · 삼성전자 심전도 통신 앱, LG전자 R&D 블루투스 LSM, U-라이프케어</span>
+                  <span class="lang-en">Researcher · Samsung Portable ECG App, LG Electronics R&D Bluetooth LSM</span>
+                </span>
               </div>
               <span class="text-xs font-mono text-neutral-400 flex-shrink-0">2010 — 2011</span>
             </div>
 
             <div class="flex items-baseline justify-between">
               <div>
-                <span class="font-medium text-neutral-800 dark:text-neutral-200">한국과학기술정보연구원 (KISTI)</span>
-                <span class="text-xs text-neutral-400 ml-2">NTIS사업단 인턴 · 국가 R&D 정보 웹서비스 테스트 및 개발</span>
+                <span class="font-medium text-neutral-800 dark:text-neutral-200">
+                  <span class="lang-ko">한국과학기술정보연구원 (KISTI)</span>
+                  <span class="lang-en">Korea Institute of Science & Technology Information (KISTI)</span>
+                </span>
+                <span class="text-xs text-neutral-400 ml-2">
+                  <span class="lang-ko">NTIS사업단 인턴 · 국가 R&D 정보 웹서비스 테스트 및 개발</span>
+                  <span class="lang-en">NTIS Intern · National R&D Web Portal Testing & Java/JSP Dev</span>
+                </span>
               </div>
               <span class="text-xs font-mono text-neutral-400 flex-shrink-0">2009 — 2010</span>
             </div>
@@ -258,7 +399,8 @@
     <section id="projects" class="space-y-6 scroll-mt-20">
       <div class="flex items-baseline justify-between border-b border-neutral-100 dark:border-neutral-900 pb-3">
         <h2 class="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold">
-          Selected Projects & Demos
+          <span class="lang-ko">Selected Projects & Demos</span>
+          <span class="lang-en">Selected Projects & Demos</span>
         </h2>
       </div>
 
@@ -268,16 +410,22 @@
         <div class="group block p-4 -mx-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors">
           <div class="flex items-baseline justify-between">
             <h3 class="text-sm font-semibold text-neutral-900 dark:text-white group-hover:underline">
-              사이시옷 시공간 Unity 3D 웹게임 & 공간체험
+              <span class="lang-ko">사이시옷 시공간 Unity 3D 웹게임 & 공간체험</span>
+              <span class="lang-en">SAISIoT Spatial Unity 3D Web Game & Experience</span>
             </h3>
             <div class="flex items-center gap-2">
               <a href="/spacetime_web/" target="_blank" class="text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white flex items-center gap-1">
-                라이브 데모 <span class="text-[10px]">↗</span>
+                <span class="lang-ko">라이브 데모</span>
+                <span class="lang-en">Live Demo</span>
+                <span class="text-[10px]">↗</span>
               </a>
             </div>
           </div>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+          <p class="lang-ko text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
             Unity 엔진으로 제작된 공간체험 콘텐츠를 WebGL/WebAssembly로 최적화 빌드하여 웹 브라우저에서 무설치 구동. 경주월드 공간체험 론칭.
+          </p>
+          <p class="lang-en text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+            Built interactive spatial games in Unity and compiled to WebGL/WebAssembly for zero-install browser execution. Launched Gyeongju World spatial attraction.
           </p>
           <div class="flex items-center gap-2 mt-2 text-[11px] font-mono text-neutral-400">
             <span>Unity 3D</span> · <span>WebGL</span> · <span>C#</span> · <span>AR/VR</span>
@@ -288,12 +436,19 @@
         <div class="p-4 -mx-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors">
           <div class="flex items-baseline justify-between">
             <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">
-              AI 에이전트 기반 개발 자동화 파이프라인
+              <span class="lang-ko">AI 에이전트 기반 개발 자동화 파이프라인</span>
+              <span class="lang-en">AI Agent-Driven Engineering Automation Pipeline</span>
             </h3>
-            <span class="text-xs font-mono text-neutral-400">사이시옷</span>
+            <span class="text-xs font-mono text-neutral-400">
+              <span class="lang-ko">사이시옷</span>
+              <span class="lang-en">SAISIoT</span>
+            </span>
           </div>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+          <p class="lang-ko text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
             Google Antigravity와 Claude Code IDE를 설계 및 구현에 적극 도입하여 코드 자동 검증, 유닛 테스트, 리팩토링 주기를 혁신적으로 단축.
+          </p>
+          <p class="lang-en text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+            Integrated Google Antigravity and Claude Code IDE into core software lifecycle, reducing validation, unit testing, and refactoring cycles significantly.
           </p>
           <div class="flex items-center gap-2 mt-2 text-[11px] font-mono text-neutral-400">
             <span>Antigravity</span> · <span>Claude Code</span> · <span>Gemini 3.0</span> · <span>Prompt Engineering</span>
@@ -304,12 +459,19 @@
         <div class="p-4 -mx-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors">
           <div class="flex items-baseline justify-between">
             <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">
-              삼성전자 · 대한항공 Medallia SaaS 아키텍처 연동
+              <span class="lang-ko">삼성전자 · 대한항공 Medallia SaaS 아키텍처 연동</span>
+              <span class="lang-en">Samsung Electronics & Korean Air Medallia SaaS Integration</span>
             </h3>
-            <span class="text-xs font-mono text-neutral-400">코어플렉스</span>
+            <span class="text-xs font-mono text-neutral-400">
+              <span class="lang-ko">코어플렉스</span>
+              <span class="lang-en">Coreflex</span>
+            </span>
           </div>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+          <p class="lang-ko text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
             삼성전자 글로벌 사이트(Samsung.com)와 하이브리드 모바일 앱에 Medallia DXA를 연동하여 대규모 세션 데이터 수집 및 분석 파이프라인 안정 운영.
+          </p>
+          <p class="lang-en text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+            Integrated Medallia DXA SaaS into global Samsung.com and hybrid mobile apps, architecting reliable data ingestion pipelines for large-scale customer journey telemetry.
           </p>
           <div class="flex items-center gap-2 mt-2 text-[11px] font-mono text-neutral-400">
             <span>SaaS Architecture</span> · <span>Medallia DXA</span> · <span>Hybrid WebView</span> · <span>AWS</span>
@@ -320,12 +482,19 @@
         <div class="p-4 -mx-4 rounded-xl hover:bg-neutral-50 dark:hover:bg-neutral-900/50 transition-colors">
           <div class="flex items-baseline justify-between">
             <h3 class="text-sm font-semibold text-neutral-900 dark:text-white">
-              대학교 종합정보 & 생체인증(FIDO) · 대용량 FCM 푸시
+              <span class="lang-ko">대학교 종합정보 & 생체인증(FIDO) · 대용량 FCM 푸시</span>
+              <span class="lang-en">University Info Systems & Biometrics (FIDO) · Scalable Push</span>
             </h3>
-            <span class="text-xs font-mono text-neutral-400">스퀘어네트</span>
+            <span class="text-xs font-mono text-neutral-400">
+              <span class="lang-ko">스퀘어네트</span>
+              <span class="lang-en">Squarenet</span>
+            </span>
           </div>
-          <p class="text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+          <p class="lang-ko text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
             이화여대 생체정보 인증 API, 전남대 FCM 수만 건 푸시 서버, 선문대 OpenEdx Django LMS 및 전자정부프레임워크 기반 엔터프라이즈 서버 운영.
+          </p>
+          <p class="lang-en text-xs text-neutral-500 dark:text-neutral-400 mt-1 leading-relaxed">
+            Developed FIDO biometric auth APIs for Ewha Womans Univ, high-throughput FCM push dispatchers for Chonnam National Univ, and operated OpenEdX Django LMS.
           </p>
           <div class="flex items-center gap-2 mt-2 text-[11px] font-mono text-neutral-400">
             <span>Spring Boot</span> · <span>eGovFrame</span> · <span>FIDO</span> · <span>JEUS</span>
@@ -339,7 +508,8 @@
     <section id="skills" class="space-y-6 scroll-mt-20">
       <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
         <h2 class="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold">
-          Skills & Technologies
+          <span class="lang-ko">Skills & Technologies</span>
+          <span class="lang-en">Skills & Technologies</span>
         </h2>
       </div>
 
@@ -354,14 +524,14 @@
         <div class="space-y-1">
           <span class="font-medium text-neutral-900 dark:text-white">3D & Spatial Computing</span>
           <p class="text-neutral-500 dark:text-neutral-400 font-mono">
-            Unity 3D, WebGL, Three.js, C#, AR/VR, WebXR, NFC/QR 연동 공간체험
+            Unity 3D, WebGL, Three.js, C#, AR/VR, WebXR, NFC/QR Spatial Interaction
           </p>
         </div>
 
         <div class="space-y-1">
           <span class="font-medium text-neutral-900 dark:text-white">Backend & Architecture</span>
           <p class="text-neutral-500 dark:text-neutral-400 font-mono">
-            Java (Spring Boot), 전자정부프레임워크, Python (Django), Node.js, PHP, .NET, JEUS
+            Java (Spring Boot), eGovFrame, Python (Django), Node.js, PHP, .NET, JEUS
           </p>
         </div>
 
@@ -392,37 +562,65 @@
     <section class="space-y-6">
       <div class="border-b border-neutral-100 dark:border-neutral-900 pb-3">
         <h2 class="text-xs font-mono uppercase tracking-wider text-neutral-400 dark:text-neutral-500 font-semibold">
-          Education & Honors
+          <span class="lang-ko">Education & Honors</span>
+          <span class="lang-en">Education & Honors</span>
         </h2>
       </div>
 
       <div class="space-y-4 text-sm">
         <div class="flex items-baseline justify-between">
           <div>
-            <span class="font-medium text-neutral-900 dark:text-white">홍익대학교 (세종)</span>
-            <span class="text-xs text-neutral-500 dark:text-neutral-400 ml-2">컴퓨터정보통신공학과 학사 졸업 (2002 — 2008)</span>
-            <p class="text-xs text-neutral-400 mt-0.5">논문: CDN 기술을 이용한 DDoS 공격에 대한 대안 방법</p>
+            <span class="font-medium text-neutral-900 dark:text-white">
+              <span class="lang-ko">홍익대학교 (세종)</span>
+              <span class="lang-en">Hongik University (Sejong)</span>
+            </span>
+            <span class="text-xs text-neutral-500 dark:text-neutral-400 ml-2">
+              <span class="lang-ko">컴퓨터정보통신공학과 학사 졸업 (2002 — 2008)</span>
+              <span class="lang-en">B.S. in Computer & Information Communications (2002 — 2008)</span>
+            </span>
+            <p class="text-xs text-neutral-400 mt-0.5">
+              <span class="lang-ko">논문: CDN 기술을 이용한 DDoS 공격에 대한 대안 방법</span>
+              <span class="lang-en">Thesis: Mitigation of DDoS Attacks using CDN Technologies</span>
+            </p>
           </div>
         </div>
 
         <div class="flex items-baseline justify-between">
           <div>
-            <span class="font-medium text-neutral-900 dark:text-white">SK플래닛 T아카데미 서버전문가과정</span>
-            <span class="text-xs text-neutral-500 dark:text-neutral-400 ml-2">서버 부문 최우수상 수상 (2013)</span>
+            <span class="font-medium text-neutral-900 dark:text-white">
+              <span class="lang-ko">SK플래닛 T아카데미 서버전문가과정</span>
+              <span class="lang-en">SK Planet T Academy Server Expert Course</span>
+            </span>
+            <span class="text-xs text-neutral-500 dark:text-neutral-400 ml-2">
+              <span class="lang-ko">서버 부문 최우수상 수상 (2013)</span>
+              <span class="lang-en">1st Place Grand Prize in Server Engineering (2013)</span>
+            </span>
           </div>
         </div>
 
         <div class="flex items-baseline justify-between">
           <div>
-            <span class="font-medium text-neutral-900 dark:text-white">캐나다 어학연수 및 현지 홈스테이</span>
-            <span class="text-xs text-neutral-500 dark:text-neutral-400 ml-2">일상 영어 회화 및 글로벌 커뮤니케이션 (2006)</span>
+            <span class="font-medium text-neutral-900 dark:text-white">
+              <span class="lang-ko">캐나다 어학연수 및 현지 홈스테이</span>
+              <span class="lang-en">Language Study & Homestay in Canada</span>
+            </span>
+            <span class="text-xs text-neutral-500 dark:text-neutral-400 ml-2">
+              <span class="lang-ko">일상 영어 회화 및 글로벌 커뮤니케이션 (2006)</span>
+              <span class="lang-en">Everyday English Fluency & Cross-Cultural Collaboration (2006)</span>
+            </span>
           </div>
         </div>
 
         <div class="flex items-baseline justify-between">
           <div>
-            <span class="font-medium text-neutral-900 dark:text-white">유비온 파이썬 전문가 양성 과정</span>
-            <span class="text-xs text-neutral-500 dark:text-neutral-400 ml-2">교육 수료 (2025.03)</span>
+            <span class="font-medium text-neutral-900 dark:text-white">
+              <span class="lang-ko">유비온 파이썬 전문가 양성 과정</span>
+              <span class="lang-en">UBION Professional Python Course</span>
+            </span>
+            <span class="text-xs text-neutral-500 dark:text-neutral-400 ml-2">
+              <span class="lang-ko">교육 수료 (2025.03)</span>
+              <span class="lang-en">Completed (Mar 2025)</span>
+            </span>
           </div>
         </div>
       </div>
@@ -431,9 +629,18 @@
     <!-- FOOTER / CONTACT -->
     <footer class="pt-8 border-t border-neutral-100 dark:border-neutral-900 text-xs text-neutral-400 flex flex-col sm:flex-row items-baseline justify-between gap-4 font-mono">
       <div class="space-x-3">
-        <a href="mailto:dryudryu@naver.com" class="hover:text-neutral-900 dark:hover:text-white transition-colors">이메일</a>
-        <a href="tel:010-9067-4011" class="hover:text-neutral-900 dark:hover:text-white transition-colors">전화번호</a>
-        <a href="/Greg_You_Portfolio.pdf" target="_blank" class="hover:text-neutral-900 dark:hover:text-white transition-colors">이력서(PDF)</a>
+        <a href="mailto:dryudryu@naver.com" class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+          <span class="lang-ko">이메일</span>
+          <span class="lang-en">Email</span>
+        </a>
+        <a href="tel:010-9067-4011" class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+          <span class="lang-ko">전화번호</span>
+          <span class="lang-en">Phone</span>
+        </a>
+        <a href="/Greg_You_Portfolio.pdf" target="_blank" class="hover:text-neutral-900 dark:hover:text-white transition-colors">
+          <span class="lang-ko">이력서(PDF)</span>
+          <span class="lang-en">Resume(PDF)</span>
+        </a>
         <a href="/docs" target="_blank" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Docs</a>
       </div>
       <div>
@@ -446,32 +653,62 @@
   <script>
     lucide.createIcons();
 
-    // Dark / Light Theme
+    // 1. Language Toggle (KO / EN)
+    const htmlEl = document.documentElement;
+    const btnKo = document.getElementById('btn-ko');
+    const btnEn = document.getElementById('btn-en');
+
+    function setLang(lang) {
+      htmlEl.setAttribute('data-lang', lang);
+      htmlEl.setAttribute('lang', lang);
+      localStorage.setItem('lang', lang);
+
+      if (lang === 'ko') {
+        btnKo.className = "px-2 py-0.5 rounded-full font-medium transition-all bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-sm";
+        btnEn.className = "px-2 py-0.5 rounded-full font-medium transition-all text-neutral-400 hover:text-neutral-900 dark:hover:text-white";
+        document.title = "유대영 (Greg Yoo) — 소프트웨어 엔지니어 (12년+)";
+      } else {
+        btnEn.className = "px-2 py-0.5 rounded-full font-medium transition-all bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white shadow-sm";
+        btnKo.className = "px-2 py-0.5 rounded-full font-medium transition-all text-neutral-400 hover:text-neutral-900 dark:hover:text-white";
+        document.title = "Greg Yoo (Yoo Dae Young) — Senior Software Engineer (12+ Yrs)";
+      }
+    }
+
+    // Initialize Language from URL params, localStorage or default to 'ko'
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlLang = urlParams.get('lang');
+    const savedLang = localStorage.getItem('lang');
+    if (urlLang === 'en' || (!urlLang && savedLang === 'en')) {
+      setLang('en');
+    } else {
+      setLang('ko');
+    }
+
+    // 2. Dark / Light Theme
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
-    const html = document.documentElement;
 
     function setTheme(dark) {
       if (dark) {
-        html.classList.add('dark');
+        htmlEl.classList.add('dark');
         themeIcon.setAttribute('data-lucide', 'sun');
       } else {
-        html.classList.remove('dark');
+        htmlEl.classList.remove('dark');
         themeIcon.setAttribute('data-lucide', 'moon');
       }
       lucide.createIcons();
     }
 
-    const saved = localStorage.getItem('theme');
+    const savedTheme = localStorage.getItem('theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (saved === 'dark' || (!saved && prefersDark)) {
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
       setTheme(true);
     } else {
       setTheme(false);
     }
 
     themeToggle.addEventListener('click', () => {
-      const isDark = html.classList.contains('dark');
+      const isDark = htmlEl.classList.contains('dark');
       localStorage.setItem('theme', isDark ? 'light' : 'dark');
       setTheme(!isDark);
     });
