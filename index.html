@@ -66,14 +66,47 @@
       display: none !important;
     }
 
+    /* Print / PDF Export Optimization Styles */
     @media print {
-      body {
-        background: #fff !important;
-        color: #000 !important;
+      @page {
+        margin: 14mm 16mm 14mm 16mm;
+        size: A4 portrait;
       }
-      .no-print {
+      body {
+        background: #ffffff !important;
+        color: #111827 !important;
+        font-size: 10pt !important;
+        line-height: 1.45 !important;
+      }
+      header, footer, nav, #theme-toggle, .no-print {
         display: none !important;
       }
+      main {
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        space-y: 1.25rem !important;
+      }
+      section {
+        break-inside: avoid;
+        margin-bottom: 1.5rem !important;
+      }
+      a {
+        text-decoration: none !important;
+        color: inherit !important;
+      }
+      a[href]:after {
+        content: none !important;
+      }
+      * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+      .dark {
+        color-scheme: light !important;
+      }
+      html[data-lang="ko"] .lang-en { display: none !important; }
+      html[data-lang="en"] .lang-ko { display: none !important; }
     }
   </style>
 </head>
@@ -110,12 +143,12 @@
           </a>
         </nav>
 
-        <!-- PDF Download Button -->
-        <a href="/Greg_You_Portfolio.pdf" download="유대영_이력서_Greg_Yoo.pdf" target="_blank" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-85 transition-opacity whitespace-nowrap shadow-sm" title="이력서 PDF 다운로드">
+        <!-- PDF Export Button (Save current page as PDF) -->
+        <button onclick="printResumePDF()" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-neutral-900 text-white dark:bg-white dark:text-neutral-900 hover:opacity-85 transition-opacity whitespace-nowrap shadow-sm cursor-pointer" title="현재 이력서를 PDF로 저장">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
-          <span class="lang-ko"><span class="hidden sm:inline">이력서 </span>PDF</span>
-          <span class="lang-en">Resume PDF</span>
-        </a>
+          <span class="lang-ko"><span class="hidden sm:inline">이력서 </span>PDF 저장</span>
+          <span class="lang-en">Save as PDF</span>
+        </button>
 
         <!-- Language Switcher Segmented Control -->
         <div class="flex items-center rounded-full bg-neutral-100 dark:bg-neutral-900 p-0.5 text-[11px] font-mono border border-neutral-200 dark:border-neutral-800">
@@ -239,11 +272,11 @@
           <span class="lang-en">Seoul Metro Area, KR</span>
         </span>
         <span class="text-neutral-300 dark:text-neutral-700">·</span>
-        <a href="/Greg_You_Portfolio.pdf" target="_blank" class="hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1.5 underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-4">
+        <button onclick="printResumePDF()" class="hover:text-neutral-900 dark:hover:text-white transition-colors flex items-center gap-1.5 underline decoration-neutral-300 dark:decoration-neutral-700 underline-offset-4 cursor-pointer">
           <i data-lucide="file-text" class="w-3.5 h-3.5"></i>
-          <span class="lang-ko">포트폴리오 PDF</span>
-          <span class="lang-en">Resume PDF</span>
-        </a>
+          <span class="lang-ko">PDF로 저장</span>
+          <span class="lang-en">Save as PDF</span>
+        </button>
       </div>
     </section>
 
@@ -684,10 +717,10 @@
           <span class="lang-ko">전화번호</span>
           <span class="lang-en">Phone</span>
         </a>
-        <a href="/Greg_You_Portfolio.pdf" target="_blank" class="hover:text-neutral-900 dark:hover:text-white transition-colors">
-          <span class="lang-ko">이력서(PDF)</span>
-          <span class="lang-en">Resume(PDF)</span>
-        </a>
+        <button onclick="printResumePDF()" class="hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer">
+          <span class="lang-ko">이력서 PDF 저장</span>
+          <span class="lang-en">Save as PDF</span>
+        </button>
         <a href="/docs" target="_blank" class="hover:text-neutral-900 dark:hover:text-white transition-colors">Docs</a>
       </div>
       <div>
@@ -699,6 +732,17 @@
 
   <script>
     lucide.createIcons();
+
+    // 1. Print / Save Current Resume as PDF
+    function printResumePDF() {
+      const originalTitle = document.title;
+      const isKo = document.documentElement.getAttribute('data-lang') === 'ko';
+      document.title = isKo ? '유대영_이력서' : 'Greg_Yoo_Resume';
+      window.print();
+      setTimeout(() => {
+        document.title = originalTitle;
+      }, 1500);
+    }
 
     // 1. Language Toggle (KO / EN)
     const htmlEl = document.documentElement;
